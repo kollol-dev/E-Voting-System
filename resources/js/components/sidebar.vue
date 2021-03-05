@@ -21,6 +21,12 @@
             <p>Dashboard</p>
           </router-link>
         </li>
+        <li :class="$route.path == '/profile' ? 'nav-item active' : 'nav-item'">
+          <router-link class="nav-link" to="/profile">
+            <i class="material-icons">person</i>
+            <p>Profile</p>
+          </router-link>
+        </li>
       </ul>
     </div>
   </div>
