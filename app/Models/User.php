@@ -17,18 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'uid',
-        'nid',
-        'division',
-        'district',
-        'upazila',
-        'country',
-        'city',
-        'ward',
-        'area',
-        'mobile',
         'password',
-        'sponsor_id',
         'profilePic',
         'role'
     ];
