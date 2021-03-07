@@ -12,6 +12,12 @@ import commons from "./commons";
 import vueDebounce from "vue-debounce";
 Vue.use(vueDebounce);
 
+import { Datetime } from 'vue-datetime'
+// You need a specific loader for CSS files
+import 'vue-datetime/dist/vue-datetime.css'
+
+Vue.component('datetime', Datetime);
+
 Vue.use(ViewUI, { locale });
 Vue.mixin(commons);
 

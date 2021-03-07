@@ -15,7 +15,7 @@
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li :class="$route.path == '/' ? 'nav-item active' : 'nav-item'">
+        <!-- <li :class="$route.path == '/' ? 'nav-item active' : 'nav-item'">
           <router-link class="nav-link" to="/">
             <i class="material-icons">dashboard</i>
             <p>Dashboard</p>
@@ -26,7 +26,31 @@
             <i class="material-icons">person</i>
             <p>Profile</p>
           </router-link>
-        </li>
+        </li> -->
+        <!-- admin options  -->
+        <template v-if="authUser.role == 'admin'">
+          <li :class="$route.path == '/users' ? 'nav-item active' : 'nav-item'">
+            <router-link class="nav-link" to="/users">
+              <i class="material-icons">person</i>
+              <p>Users</p>
+            </router-link>
+          </li>
+          <li
+            :class="
+              $route.path == '/elections' ? 'nav-item active' : 'nav-item'
+            "
+          >
+            <router-link class="nav-link" to="/elections">
+              <i class="material-icons">source</i>
+              <p>Elections</p>
+            </router-link>
+          </li>
+        </template>
+        <!-- admin options end -->
+
+        <!-- alumni options -->
+        <template v-if="authUser.role == 'alumni'"></template>
+        <!-- alumni options end -->
       </ul>
     </div>
   </div>

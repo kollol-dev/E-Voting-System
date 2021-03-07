@@ -3,15 +3,25 @@
     <div class="container-login100">
       <div class="wrap-login100">
         <form
-          v-on:submit.prevent="onSubmitLogin"
+          v-on:submit.prevent="onSubmitRegister"
           class="login100-form validate-form"
         >
-          <span class="login100-form-title"> Login </span>
+          <span class="login100-form-title"> Alumni Register </span>
 
-          <div
-            class="wrap-input100 validate-input"
-            data-validate="Valid email is required: ex@abc.xyz"
-          >
+          <div class="wrap-input100 validate-input">
+            <input
+              class="input100"
+              type="text"
+              placeholder="Name"
+              v-model="formData.name"
+            />
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div class="wrap-input100 validate-input">
             <input
               class="input100"
               type="email"
@@ -63,6 +73,7 @@ export default {
   data() {
     return {
       formData: {
+        name: "",
         email: "",
         password: "",
       },
@@ -70,7 +81,10 @@ export default {
     };
   },
   methods: {
-    async onSubmitLogin() {
+    async onSubmitRegister() {
+      if (this.formData.name.trim() == "") {
+        return this.e("Name can not empty!");
+      }
       if (this.formData.email.trim() == "") {
         return this.e("Email can not empty!");
       }
@@ -78,17 +92,31 @@ export default {
         return this.e("Password can not empty!");
       }
       this.isLoading = true;
-      const res = await this.callApi("post", "/app/user/login", this.formData);
-      if (res.status == 200) {
-        this.s("Login Successfull");
+      const res = await this.callApi(
+        "post",
+        "/app/user/register",
+        this.formData
+      );
+      if (res.status == 201) {
+        this.s("Register Successfull");
         window.location = "/";
-      } else if (res.data.message) {
-        this.e(res.data.message);
+      } else if (res.status == 401 && res.data.name) {
+        for (let i of res.data.name) this.e(i);
+      } else if (res.status == 401 && res.data.email) {
+        for (let i of res.data.email) this.e(i);
+      } else if (res.status == 401 && res.data.password) {
+        for (let i of res.data.password) this.e(i);
       } else {
         this.swr();
       }
       this.isLoading = false;
     },
+  },
+
+  beforeCreate() {
+    if (this.authUser) {
+      console.log(this.authUser);
+    }
   },
 };
 </script>

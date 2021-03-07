@@ -40,19 +40,21 @@ export default {
     },
   },
   beforeCreate() {
-    // if (!window.authUser) {
-    //   try {
-    //     this.$router.push("/login").catch(() => {});
-    //   } catch (error) {
-    //     console.log("0014 route.path::");
-    //   }
-    //   return;
-    // }
-    // this.$store.commit("setAuthUser", window.authUser);
+    if (!window.authUser) {
+      try {
+        this.$router.push("/login").catch(() => {});
+      } catch (error) {
+        console.log("0014 route.path::");
+      }
+      return;
+    }
+
+    this.$store.commit("setAuthUser", window.authUser);
+    if (this.$route.path == "/login" || this.$route.path == "/register") {
+      return this.$router.push("/").catch(() => {});
+    }
   },
 
-  async created() {
-    
-  },
+  async created() {},
 };
 </script>

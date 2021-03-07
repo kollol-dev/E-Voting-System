@@ -18,8 +18,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'password',
-        'profilePic',
-        'role'
+        'email',
+        'role',
+        'status'
     ];
 
     /**
@@ -42,15 +43,15 @@ class User extends Authenticatable
 
 
 
-    public function sponsored_by()
-    {
-        return $this->belongsTo(User::class, 'sponsor_id')
-            ->select(array('id', 'name'));
-    }
+    // public function sponsored_by()
+    // {
+    //     return $this->belongsTo(User::class, 'sponsor_id')
+    //         ->select(array('id', 'name'));
+    // }
 
 
-    public function transaction()
-    {
-        return $this->hasMany(Transaction::class, 'customer_id', 'id');
-    }
+    // public function transaction()
+    // {
+    //     return $this->hasMany(Transaction::class, 'customer_id', 'id');
+    // }
 }

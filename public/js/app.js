@@ -2304,6 +2304,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({// sidebar: "getSidebar",
@@ -2377,15 +2401,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     "$route.name": function $routeName(newVal, oldVal) {//  this.activeRoute = newVal;
     }
   },
-  beforeCreate: function beforeCreate() {// if (!window.authUser) {
-    //   try {
-    //     this.$router.push("/login").catch(() => {});
-    //   } catch (error) {
-    //     console.log("0014 route.path::");
-    //   }
-    //   return;
-    // }
-    // this.$store.commit("setAuthUser", window.authUser);
+  beforeCreate: function beforeCreate() {
+    if (!window.authUser) {
+      try {
+        this.$router.push("/login")["catch"](function () {});
+      } catch (error) {
+        console.log("0014 route.path::");
+      }
+
+      return;
+    }
+
+    this.$store.commit("setAuthUser", window.authUser);
+
+    if (this.$route.path == "/login" || this.$route.path == "/register") {
+      return this.$router.push("/")["catch"](function () {});
+    }
   },
   created: function created() {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2404,10 +2435,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/admins.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/elections.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2417,6 +2448,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -2643,74 +2680,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      allAdmins: [],
+      allElections: [],
       tableLoading: true,
       createModal: false,
       editModal: false,
       modal_loading: false,
-      admin: {
+      election: {
         name: "",
-        uid: "",
-        mobile: "",
-        password: "",
-        role: "Admin"
+        date_and_time: ""
       },
-      // admin: {
-      // 	name: "",
-      // 	uid: "",
-      // 	mobile: "",
-      // 	country: "",
-      // 	division: "",
-      // 	district: "",
-      // 	upazila: "",
-      // 	city: "",
-      // 	ward: "",
-      // 	area: "",
-      // 	password: "",
-      // 	role: "Admin",
-      // },
       error: {
         name: false,
-        uid: false,
-        mobile: false,
-        password: false
+        date_and_time: false
       },
       editIndex: -1,
       deleteIndex: -1,
@@ -2723,12 +2708,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({})),
   methods: {
     clearData: function clearData() {
-      this.admin = {
+      this.election = {
         name: "",
-        uid: "",
-        mobile: "",
-        password: "",
-        role: "Admin"
+        date_and_time: ""
       };
       this.editIndex = -1;
       this.editData = {};
@@ -2737,19 +2719,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clearErrorData: function clearErrorData() {
       this.error = {
         name: false,
-        uid: false,
-        mobile: false,
-        password: false
+        date_and_time: false
       };
-    },
-    openModal: function openModal() {
-      this.createModal = true;
     },
     openEditModal: function openEditModal(index) {
       this.clearErrorData();
       this.editModal = true;
-      this.editData = _.clone(this.allAdmins.data[index]);
+      this.editData = _.clone(this.allElections.data[index]);
       this.editIndex = _.clone(index);
+      this.editData.date_and_time = new Date(this.editData.date_and_time).toISOString();
     },
     closeModal: function closeModal() {
       this.clearErrorData();
@@ -2759,43 +2737,86 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.editData = {};
       this.editModal = false;
     },
-    editAdmin: function editAdmin() {
+    addElection: function addElection() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var res;
+        var res, _iterator, _step, i, _iterator2, _step2, _i;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (_this.validateAdminEditData()) {
-                  _context.next = 2;
+                _this.clearErrorData();
+
+                if (!(_this.election.name.trim() == "")) {
+                  _context.next = 4;
                   break;
                 }
 
-                return _context.abrupt("return");
+                _this.error.name = "Name is required!";
+                return _context.abrupt("return", false);
 
-              case 2:
+              case 4:
+                if (!(_this.election.date_and_time == "")) {
+                  _context.next = 7;
+                  break;
+                }
+
+                _this.error.date_and_time = "Select date and time!";
+                return _context.abrupt("return", false);
+
+              case 7:
                 _this.modal_loading = true;
-                _context.next = 5;
-                return _this.callApi("post", "/app/admin/edit/".concat(_this.editData.id), _this.editData);
+                _context.next = 10;
+                return _this.callApi("post", "/app/admin/election/add/new", _this.election);
 
-              case 5:
+              case 10:
                 res = _context.sent;
 
-                if (res.status == 200) {
-                  _this.allAdmins.data[_this.editIndex] = _.clone(_this.editData);
-                  _this.editData = {};
-                  _this.editIndex = -1;
+                if (res.status == 201) {
+                  _this.allElections.data.push(res.data);
+
+                  _this.allElections.total += 1;
+
+                  _this.clearData();
+                } else if (res.status == 401 && res.data.name) {
+                  _iterator = _createForOfIteratorHelper(res.data.name);
+
+                  try {
+                    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                      i = _step.value;
+
+                      _this.e(i);
+                    }
+                  } catch (err) {
+                    _iterator.e(err);
+                  } finally {
+                    _iterator.f();
+                  }
+                } else if (res.status == 401 && res.data.date_and_time) {
+                  _iterator2 = _createForOfIteratorHelper(res.data.date_and_time);
+
+                  try {
+                    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                      _i = _step2.value;
+
+                      _this.e(_i);
+                    }
+                  } catch (err) {
+                    _iterator2.e(err);
+                  } finally {
+                    _iterator2.f();
+                  }
                 } else {
                   _this.nswr();
                 }
 
-                _this.clearData();
+                _this.modal_loading = false;
 
                 _this.closeModal();
 
-              case 9:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -2803,7 +2824,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee);
       }))();
     },
-    deleteAdmin: function deleteAdmin(index) {
+    editElection: function editElection() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
@@ -2812,24 +2833,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.deleteLoading = true;
-                _this2.deleteIndex = index;
-                _context2.next = 4;
-                return _this2.callApi("post", "/app/admin/delete/".concat(_this2.allAdmins.data[index].id));
+                if (!(!_this2.editData.name || _this2.editData.name.trim() == "")) {
+                  _context2.next = 3;
+                  break;
+                }
 
-              case 4:
+                _this2.error.name = "Name is required!";
+                return _context2.abrupt("return", false);
+
+              case 3:
+                if (!(!_this2.editData.date_and_time || _this2.editData.date_and_time == "")) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _this2.error.date_and_time = "Select date and time!";
+                return _context2.abrupt("return", false);
+
+              case 6:
+                _this2.modal_loading = true;
+                _context2.next = 9;
+                return _this2.callApi("post", "/app/admin/election/update/".concat(_this2.editData.id), _this2.editData);
+
+              case 9:
                 res = _context2.sent;
 
                 if (res.status == 200) {
-                  _this2.allAdmins.data.splice(index, 1);
+                  _this2.allElections.data[_this2.editIndex] = _.clone(_this2.editData);
+
+                  _this2.clearData();
                 } else {
                   _this2.nswr();
                 }
 
-                _this2.deleteIndex = -1;
-                _this2.deleteLoading = false;
+                _this2.clearData();
 
-              case 8:
+                _this2.closeModal();
+
+              case 13:
               case "end":
                 return _context2.stop();
             }
@@ -2837,72 +2878,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2);
       }))();
     },
-    addAdmin: function addAdmin() {
+    deleteElection: function deleteElection(index) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        var res, obj;
+        var res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.clearErrorData();
+                _this3.deleteLoading = true;
+                _this3.deleteIndex = index;
+                _context3.next = 4;
+                return _this3.callApi("post", "/app/admin/election/delete/".concat(_this3.allElections.data[index].id));
 
-                if (_this3.validateAdmin()) {
-                  _context3.next = 3;
-                  break;
-                }
-
-                return _context3.abrupt("return");
-
-              case 3:
-                _this3.modal_loading = true;
-                _context3.next = 6;
-                return _this3.callApi("post", "/app/admin/create/new", _this3.admin);
-
-              case 6:
+              case 4:
                 res = _context3.sent;
 
-                if (!(res.status == 201)) {
-                  _context3.next = 13;
-                  break;
+                if (res.status == 200) {
+                  _this3.allElections.data.splice(index, 1);
+                } else {
+                  _this3.nswr();
                 }
 
-                _this3.allAdmins.data.unshift(res.data);
+                _this3.deleteIndex = -1;
+                _this3.deleteLoading = false;
 
-                _this3.allAdmins.total += 1;
-                obj = _.clone(_this3.allAdmins);
-                _context3.next = 21;
-                break;
-
-              case 13:
-                if (!(res.status == 403)) {
-                  _context3.next = 20;
-                  break;
-                }
-
-                if (!(res.data.type && res.data.type == "uid")) {
-                  _context3.next = 18;
-                  break;
-                }
-
-                _this3.error.uid = res.data.message;
-                _this3.modal_loading = false;
-                return _context3.abrupt("return");
-
-              case 18:
-                _context3.next = 21;
-                break;
-
-              case 20:
-                _this3.nswr();
-
-              case 21:
-                _this3.modal_loading = false;
-
-                _this3.closeModal();
-
-              case 23:
+              case 8:
               case "end":
                 return _context3.stop();
             }
@@ -2919,20 +2921,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                // if (this.page == page) {
-                // 	return;
-                // }
-                // if (page < 1 || page > this.allAdmins.last_page) return;
-                // this.page = page;
                 _this4.tableLoading = true;
                 _context4.next = 3;
-                return _this4.callApi("get", "/app/admin/paginate/all?page=".concat(_this4.page));
+                return _this4.callApi("get", "/app/admin/election/paginate/all?page=".concat(_this4.page));
 
               case 3:
                 res = _context4.sent;
 
                 if (res.status == 200) {
-                  _this4.allAdmins = res.data;
+                  _this4.allElections = res.data;
                 } else {
                   _this4.nswr();
                 }
@@ -2946,64 +2943,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee4);
       }))();
-    },
-    validateAdmin: function validateAdmin() {
-      if (this.admin.name.trim() == "") {
-        this.error.name = "Name is required!";
-        return false;
-      }
-
-      if (this.admin.mobile.trim() == "") {
-        this.error.mobile = "Mobile number is required!";
-        return false;
-      }
-
-      if (this.admin.uid.trim() == "") {
-        this.error.uid = "UID is required!";
-        return false;
-      }
-
-      if (this.admin.password.trim() == "") {
-        this.error.password = "Password is required!";
-        return false;
-      }
-
-      if (this.admin.password.length < 6) {
-        this.error.password = "Password length should be at least 6!";
-        return false;
-      }
-
-      return true;
-    },
-    validateAdminEditData: function validateAdminEditData() {
-      if (!this.editData.name || this.editData.name.trim() == "") {
-        this.error.name = "Full name is required!";
-        return false;
-      }
-
-      if (!this.editData.mobile || this.editData.mobile.trim() == "") {
-        this.error.mobile = "Mobile number is required!";
-        return false;
-      }
-
-      if (!this.editData.uid || this.editData.uid.trim() == "") {
-        this.error.uid = "UID is required!";
-        return false;
-      }
-
-      if (this.isClickedChangePassword) {
-        if (!this.editData.password || this.editData.password.trim() == "") {
-          this.error.password = "Password is required!";
-          return false;
-        }
-
-        if (!this.editData.password || this.editData.password.length < 6) {
-          this.error.password = "Password length should be at least 6!";
-          return false;
-        }
-      }
-
-      return true;
     }
   },
   created: function created() {
@@ -3854,6 +3793,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -3918,10 +3863,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       formData: {
+        name: "",
         email: "",
         password: ""
       },
@@ -3929,7 +3885,367 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    onSubmitLogin: function onSubmitLogin() {
+    onSubmitRegister: function onSubmitRegister() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var res, _iterator, _step, i, _iterator2, _step2, _i, _iterator3, _step3, _i2;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.formData.name.trim() == "")) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return", _this.e("Name can not empty!"));
+
+              case 2:
+                if (!(_this.formData.email.trim() == "")) {
+                  _context.next = 4;
+                  break;
+                }
+
+                return _context.abrupt("return", _this.e("Email can not empty!"));
+
+              case 4:
+                if (!(_this.formData.password.trim() == "")) {
+                  _context.next = 6;
+                  break;
+                }
+
+                return _context.abrupt("return", _this.e("Password can not empty!"));
+
+              case 6:
+                _this.isLoading = true;
+                _context.next = 9;
+                return _this.callApi("post", "/app/user/register", _this.formData);
+
+              case 9:
+                res = _context.sent;
+
+                if (res.status == 201) {
+                  _this.s("Register Successfull");
+
+                  window.location = "/";
+                } else if (res.status == 401 && res.data.name) {
+                  _iterator = _createForOfIteratorHelper(res.data.name);
+
+                  try {
+                    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                      i = _step.value;
+
+                      _this.e(i);
+                    }
+                  } catch (err) {
+                    _iterator.e(err);
+                  } finally {
+                    _iterator.f();
+                  }
+                } else if (res.status == 401 && res.data.email) {
+                  _iterator2 = _createForOfIteratorHelper(res.data.email);
+
+                  try {
+                    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                      _i = _step2.value;
+
+                      _this.e(_i);
+                    }
+                  } catch (err) {
+                    _iterator2.e(err);
+                  } finally {
+                    _iterator2.f();
+                  }
+                } else if (res.status == 401 && res.data.password) {
+                  _iterator3 = _createForOfIteratorHelper(res.data.password);
+
+                  try {
+                    for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                      _i2 = _step3.value;
+
+                      _this.e(_i2);
+                    }
+                  } catch (err) {
+                    _iterator3.e(err);
+                  } finally {
+                    _iterator3.f();
+                  }
+                } else {
+                  _this.swr();
+                }
+
+                _this.isLoading = false;
+
+              case 12:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  beforeCreate: function beforeCreate() {
+    if (this.authUser) {
+      console.log(this.authUser);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/users.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      allUsers: [],
+      tableLoading: true,
+      editModal: false,
+      modal_loading: false,
+      error: {
+        name: false,
+        uid: false,
+        mobile: false,
+        password: false
+      },
+      editIndex: -1,
+      deleteIndex: -1,
+      deleteLoading: false,
+      isClickedChangePassword: false,
+      editData: {},
+      page: 1
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({})),
+  methods: {
+    clearData: function clearData() {
+      this.editIndex = -1;
+      this.editData = {};
+      this.isClickedChangePassword = false;
+    },
+    clearErrorData: function clearErrorData() {
+      this.error = {
+        name: false,
+        email: false,
+        password: false
+      };
+    },
+    openEditModal: function openEditModal(index) {
+      this.clearErrorData();
+      this.editModal = true;
+      this.editData = _.clone(this.allUsers.data[index]);
+      this.editIndex = _.clone(index);
+    },
+    closeModal: function closeModal() {
+      this.clearErrorData();
+      this.createModal = false;
+      this.modal_loading = false;
+      this.editIndex = -1;
+      this.editData = {};
+      this.editModal = false;
+    },
+    editUser: function editUser() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -3938,49 +4254,150 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.formData.email.trim() == "")) {
+                if (_this.validateUserEditData()) {
                   _context.next = 2;
                   break;
                 }
 
-                return _context.abrupt("return", _this.e("Email can not empty!"));
+                return _context.abrupt("return");
 
               case 2:
-                if (!(_this.formData.password.trim() == "")) {
-                  _context.next = 4;
-                  break;
-                }
+                _this.modal_loading = true;
+                _context.next = 5;
+                return _this.callApi("post", "/app/admin/update/user/".concat(_this.editData.id), _this.editData);
 
-                return _context.abrupt("return", _this.e("Password can not empty!"));
-
-              case 4:
-                _this.isLoading = true;
-                _context.next = 7;
-                return _this.callApi("post", "/app/user/login", _this.formData);
-
-              case 7:
+              case 5:
                 res = _context.sent;
 
                 if (res.status == 200) {
-                  _this.s("Login Successfull");
-
-                  window.location = "/";
-                } else if (res.data.message) {
-                  _this.e(res.data.message);
+                  _this.allUsers.data[_this.editIndex] = _.clone(_this.editData);
+                  _this.editData = {};
+                  _this.editIndex = -1;
                 } else {
-                  _this.swr();
+                  _this.nswr();
                 }
 
-                _this.isLoading = false;
+                _this.clearData();
 
-              case 10:
+                _this.closeModal();
+
+              case 9:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    deleteUser: function deleteUser(index) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.deleteLoading = true;
+                _this2.deleteIndex = index;
+                _context2.next = 4;
+                return _this2.callApi("post", "/app/admin/delete/user/".concat(_this2.allUsers.data[index].id));
+
+              case 4:
+                res = _context2.sent;
+
+                if (res.status == 200) {
+                  _this2.allUsers.data.splice(index, 1);
+                } else {
+                  _this2.nswr();
+                }
+
+                _this2.deleteIndex = -1;
+                _this2.deleteLoading = false;
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    paginate: function paginate(page) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.tableLoading = true;
+                _context3.next = 3;
+                return _this3.callApi("get", "/app/admin/paginate/users/all?page=".concat(_this3.page));
+
+              case 3:
+                res = _context3.sent;
+
+                if (res.status == 200) {
+                  _this3.allUsers = res.data;
+                } else {
+                  _this3.nswr();
+                }
+
+                _this3.tableLoading = false;
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    validateUserEditData: function validateUserEditData() {
+      if (!this.editData.name || this.editData.name.trim() == "") {
+        this.error.name = "Name is required!";
+        return false;
+      }
+
+      if (!this.editData.email || this.editData.email.trim() == "") {
+        this.error.email = "Email is requiredEmail";
+        return false;
+      }
+
+      if (this.isClickedChangePassword) {
+        if (!this.editData.password || this.editData.password.trim() == "") {
+          this.error.password = "Password is required!";
+          return false;
+        }
+
+        if (!this.editData.password || this.editData.password.length < 8) {
+          this.error.password = "Password length should be at least 8!";
+          return false;
+        }
+      }
+
+      return true;
     }
+  },
+  created: function created() {
+    var _this4 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _this4.paginate(1);
+
+            case 1:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
   }
 });
 
@@ -4000,6 +4417,25 @@ exports = module.exports = __webpack_require__(/*! ../../../css-loader/lib/css-b
 
 // module
 exports.push([module.i, ".ivu-load-loop{animation:ani-load-loop 1s linear infinite}@keyframes ani-load-loop{from{transform:rotate(0)}50%{transform:rotate(180deg)}to{transform:rotate(360deg)}}.input-group-error-append,.input-group-error-prepend{background-color:#fff;border:1px solid #ed4014}.input-group-error-append .ivu-select-selection,.input-group-error-prepend .ivu-select-selection{background-color:inherit;border:1px solid transparent}.input-group-error-prepend{border-right:0}.input-group-error-append{border-left:0}/*! normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css */html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,footer,header,nav,section{display:block}h1{font-size:2em;margin:.67em 0}figcaption,figure,main{display:block}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio,video{display:inline-block}audio:not([controls]){display:none;height:0}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{display:inline-block;vertical-align:baseline}textarea{overflow:auto;resize:vertical}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details,menu{display:block}summary{display:list-item}canvas{display:inline-block}template{display:none}[hidden]{display:none}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}:after,:before{box-sizing:border-box}body{font-family:\"Helvetica Neue\",Helvetica,\"PingFang SC\",\"Hiragino Sans GB\",\"Microsoft YaHei\",\"\\5FAE\\8F6F\\96C5\\9ED1\",Arial,sans-serif;font-size:14px;line-height:1.5;color:#515a6e;background-color:#fff;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}article,aside,blockquote,body,button,dd,details,div,dl,dt,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,input,legend,li,menu,nav,ol,p,section,td,textarea,th,ul{margin:0;padding:0}button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}input::-ms-clear,input::-ms-reveal{display:none}a{color:#2d8cf0;background:0 0;text-decoration:none;outline:0;cursor:pointer;transition:color .2s ease}a:hover{color:#57a3f3}a:active{color:#2b85e4}a:active,a:hover{outline:0;text-decoration:none}a[disabled]{color:#ccc;cursor:not-allowed;pointer-events:none}code,kbd,pre,samp{font-family:Consolas,Menlo,Courier,monospace}@font-face{font-family:Ionicons;src:url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff2?v=3.0.0 */ "./node_modules/view-design/dist/styles/fonts/ionicons.woff2?v=3.0.0")) + ") format(\"woff2\"),url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff?v=3.0.0 */ "./node_modules/view-design/dist/styles/fonts/ionicons.woff?v=3.0.0")) + ") format(\"woff\"),url(" + escape(__webpack_require__(/*! ./fonts/ionicons.ttf?v=3.0.0 */ "./node_modules/view-design/dist/styles/fonts/ionicons.ttf?v=3.0.0")) + ") format(\"truetype\"),url(" + escape(__webpack_require__(/*! ./fonts/ionicons.svg?v=3.0.0 */ "./node_modules/view-design/dist/styles/fonts/ionicons.svg?v=3.0.0")) + "#Ionicons) format(\"svg\");font-weight:400;font-style:normal}.ivu-icon{display:inline-block;font-family:Ionicons;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;text-rendering:optimizeLegibility;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;vertical-align:-.125em;text-align:center}.ivu-icon-ios-add-circle-outline:before{content:\"\\F100\"}.ivu-icon-ios-add-circle:before{content:\"\\F101\"}.ivu-icon-ios-add:before{content:\"\\F102\"}.ivu-icon-ios-alarm-outline:before{content:\"\\F103\"}.ivu-icon-ios-alarm:before{content:\"\\F104\"}.ivu-icon-ios-albums-outline:before{content:\"\\F105\"}.ivu-icon-ios-albums:before{content:\"\\F106\"}.ivu-icon-ios-alert-outline:before{content:\"\\F107\"}.ivu-icon-ios-alert:before{content:\"\\F108\"}.ivu-icon-ios-american-football-outline:before{content:\"\\F109\"}.ivu-icon-ios-american-football:before{content:\"\\F10A\"}.ivu-icon-ios-analytics-outline:before{content:\"\\F10B\"}.ivu-icon-ios-analytics:before{content:\"\\F10C\"}.ivu-icon-ios-aperture-outline:before{content:\"\\F10D\"}.ivu-icon-ios-aperture:before{content:\"\\F10E\"}.ivu-icon-ios-apps-outline:before{content:\"\\F10F\"}.ivu-icon-ios-apps:before{content:\"\\F110\"}.ivu-icon-ios-appstore-outline:before{content:\"\\F111\"}.ivu-icon-ios-appstore:before{content:\"\\F112\"}.ivu-icon-ios-archive-outline:before{content:\"\\F113\"}.ivu-icon-ios-archive:before{content:\"\\F114\"}.ivu-icon-ios-arrow-back:before{content:\"\\F115\"}.ivu-icon-ios-arrow-down:before{content:\"\\F116\"}.ivu-icon-ios-arrow-dropdown-circle:before{content:\"\\F117\"}.ivu-icon-ios-arrow-dropdown:before{content:\"\\F118\"}.ivu-icon-ios-arrow-dropleft-circle:before{content:\"\\F119\"}.ivu-icon-ios-arrow-dropleft:before{content:\"\\F11A\"}.ivu-icon-ios-arrow-dropright-circle:before{content:\"\\F11B\"}.ivu-icon-ios-arrow-dropright:before{content:\"\\F11C\"}.ivu-icon-ios-arrow-dropup-circle:before{content:\"\\F11D\"}.ivu-icon-ios-arrow-dropup:before{content:\"\\F11E\"}.ivu-icon-ios-arrow-forward:before{content:\"\\F11F\"}.ivu-icon-ios-arrow-round-back:before{content:\"\\F120\"}.ivu-icon-ios-arrow-round-down:before{content:\"\\F121\"}.ivu-icon-ios-arrow-round-forward:before{content:\"\\F122\"}.ivu-icon-ios-arrow-round-up:before{content:\"\\F123\"}.ivu-icon-ios-arrow-up:before{content:\"\\F124\"}.ivu-icon-ios-at-outline:before{content:\"\\F125\"}.ivu-icon-ios-at:before{content:\"\\F126\"}.ivu-icon-ios-attach:before{content:\"\\F127\"}.ivu-icon-ios-backspace-outline:before{content:\"\\F128\"}.ivu-icon-ios-backspace:before{content:\"\\F129\"}.ivu-icon-ios-barcode-outline:before{content:\"\\F12A\"}.ivu-icon-ios-barcode:before{content:\"\\F12B\"}.ivu-icon-ios-baseball-outline:before{content:\"\\F12C\"}.ivu-icon-ios-baseball:before{content:\"\\F12D\"}.ivu-icon-ios-basket-outline:before{content:\"\\F12E\"}.ivu-icon-ios-basket:before{content:\"\\F12F\"}.ivu-icon-ios-basketball-outline:before{content:\"\\F130\"}.ivu-icon-ios-basketball:before{content:\"\\F131\"}.ivu-icon-ios-battery-charging:before{content:\"\\F132\"}.ivu-icon-ios-battery-dead:before{content:\"\\F133\"}.ivu-icon-ios-battery-full:before{content:\"\\F134\"}.ivu-icon-ios-beaker-outline:before{content:\"\\F135\"}.ivu-icon-ios-beaker:before{content:\"\\F136\"}.ivu-icon-ios-beer-outline:before{content:\"\\F137\"}.ivu-icon-ios-beer:before{content:\"\\F138\"}.ivu-icon-ios-bicycle:before{content:\"\\F139\"}.ivu-icon-ios-bluetooth:before{content:\"\\F13A\"}.ivu-icon-ios-boat-outline:before{content:\"\\F13B\"}.ivu-icon-ios-boat:before{content:\"\\F13C\"}.ivu-icon-ios-body-outline:before{content:\"\\F13D\"}.ivu-icon-ios-body:before{content:\"\\F13E\"}.ivu-icon-ios-bonfire-outline:before{content:\"\\F13F\"}.ivu-icon-ios-bonfire:before{content:\"\\F140\"}.ivu-icon-ios-book-outline:before{content:\"\\F141\"}.ivu-icon-ios-book:before{content:\"\\F142\"}.ivu-icon-ios-bookmark-outline:before{content:\"\\F143\"}.ivu-icon-ios-bookmark:before{content:\"\\F144\"}.ivu-icon-ios-bookmarks-outline:before{content:\"\\F145\"}.ivu-icon-ios-bookmarks:before{content:\"\\F146\"}.ivu-icon-ios-bowtie-outline:before{content:\"\\F147\"}.ivu-icon-ios-bowtie:before{content:\"\\F148\"}.ivu-icon-ios-briefcase-outline:before{content:\"\\F149\"}.ivu-icon-ios-briefcase:before{content:\"\\F14A\"}.ivu-icon-ios-browsers-outline:before{content:\"\\F14B\"}.ivu-icon-ios-browsers:before{content:\"\\F14C\"}.ivu-icon-ios-brush-outline:before{content:\"\\F14D\"}.ivu-icon-ios-brush:before{content:\"\\F14E\"}.ivu-icon-ios-bug-outline:before{content:\"\\F14F\"}.ivu-icon-ios-bug:before{content:\"\\F150\"}.ivu-icon-ios-build-outline:before{content:\"\\F151\"}.ivu-icon-ios-build:before{content:\"\\F152\"}.ivu-icon-ios-bulb-outline:before{content:\"\\F153\"}.ivu-icon-ios-bulb:before{content:\"\\F154\"}.ivu-icon-ios-bus-outline:before{content:\"\\F155\"}.ivu-icon-ios-bus:before{content:\"\\F156\"}.ivu-icon-ios-cafe-outline:before{content:\"\\F157\"}.ivu-icon-ios-cafe:before{content:\"\\F158\"}.ivu-icon-ios-calculator-outline:before{content:\"\\F159\"}.ivu-icon-ios-calculator:before{content:\"\\F15A\"}.ivu-icon-ios-calendar-outline:before{content:\"\\F15B\"}.ivu-icon-ios-calendar:before{content:\"\\F15C\"}.ivu-icon-ios-call-outline:before{content:\"\\F15D\"}.ivu-icon-ios-call:before{content:\"\\F15E\"}.ivu-icon-ios-camera-outline:before{content:\"\\F15F\"}.ivu-icon-ios-camera:before{content:\"\\F160\"}.ivu-icon-ios-car-outline:before{content:\"\\F161\"}.ivu-icon-ios-car:before{content:\"\\F162\"}.ivu-icon-ios-card-outline:before{content:\"\\F163\"}.ivu-icon-ios-card:before{content:\"\\F164\"}.ivu-icon-ios-cart-outline:before{content:\"\\F165\"}.ivu-icon-ios-cart:before{content:\"\\F166\"}.ivu-icon-ios-cash-outline:before{content:\"\\F167\"}.ivu-icon-ios-cash:before{content:\"\\F168\"}.ivu-icon-ios-chatboxes-outline:before{content:\"\\F169\"}.ivu-icon-ios-chatboxes:before{content:\"\\F16A\"}.ivu-icon-ios-chatbubbles-outline:before{content:\"\\F16B\"}.ivu-icon-ios-chatbubbles:before{content:\"\\F16C\"}.ivu-icon-ios-checkbox-outline:before{content:\"\\F16D\"}.ivu-icon-ios-checkbox:before{content:\"\\F16E\"}.ivu-icon-ios-checkmark-circle-outline:before{content:\"\\F16F\"}.ivu-icon-ios-checkmark-circle:before{content:\"\\F170\"}.ivu-icon-ios-checkmark:before{content:\"\\F171\"}.ivu-icon-ios-clipboard-outline:before{content:\"\\F172\"}.ivu-icon-ios-clipboard:before{content:\"\\F173\"}.ivu-icon-ios-clock-outline:before{content:\"\\F174\"}.ivu-icon-ios-clock:before{content:\"\\F175\"}.ivu-icon-ios-close-circle-outline:before{content:\"\\F176\"}.ivu-icon-ios-close-circle:before{content:\"\\F177\"}.ivu-icon-ios-close:before{content:\"\\F178\"}.ivu-icon-ios-closed-captioning-outline:before{content:\"\\F179\"}.ivu-icon-ios-closed-captioning:before{content:\"\\F17A\"}.ivu-icon-ios-cloud-circle-outline:before{content:\"\\F17B\"}.ivu-icon-ios-cloud-circle:before{content:\"\\F17C\"}.ivu-icon-ios-cloud-done-outline:before{content:\"\\F17D\"}.ivu-icon-ios-cloud-done:before{content:\"\\F17E\"}.ivu-icon-ios-cloud-download-outline:before{content:\"\\F17F\"}.ivu-icon-ios-cloud-download:before{content:\"\\F180\"}.ivu-icon-ios-cloud-outline:before{content:\"\\F181\"}.ivu-icon-ios-cloud-upload-outline:before{content:\"\\F182\"}.ivu-icon-ios-cloud-upload:before{content:\"\\F183\"}.ivu-icon-ios-cloud:before{content:\"\\F184\"}.ivu-icon-ios-cloudy-night-outline:before{content:\"\\F185\"}.ivu-icon-ios-cloudy-night:before{content:\"\\F186\"}.ivu-icon-ios-cloudy-outline:before{content:\"\\F187\"}.ivu-icon-ios-cloudy:before{content:\"\\F188\"}.ivu-icon-ios-code-download:before{content:\"\\F189\"}.ivu-icon-ios-code-working:before{content:\"\\F18A\"}.ivu-icon-ios-code:before{content:\"\\F18B\"}.ivu-icon-ios-cog-outline:before{content:\"\\F18C\"}.ivu-icon-ios-cog:before{content:\"\\F18D\"}.ivu-icon-ios-color-fill-outline:before{content:\"\\F18E\"}.ivu-icon-ios-color-fill:before{content:\"\\F18F\"}.ivu-icon-ios-color-filter-outline:before{content:\"\\F190\"}.ivu-icon-ios-color-filter:before{content:\"\\F191\"}.ivu-icon-ios-color-palette-outline:before{content:\"\\F192\"}.ivu-icon-ios-color-palette:before{content:\"\\F193\"}.ivu-icon-ios-color-wand-outline:before{content:\"\\F194\"}.ivu-icon-ios-color-wand:before{content:\"\\F195\"}.ivu-icon-ios-compass-outline:before{content:\"\\F196\"}.ivu-icon-ios-compass:before{content:\"\\F197\"}.ivu-icon-ios-construct-outline:before{content:\"\\F198\"}.ivu-icon-ios-construct:before{content:\"\\F199\"}.ivu-icon-ios-contact-outline:before{content:\"\\F19A\"}.ivu-icon-ios-contact:before{content:\"\\F19B\"}.ivu-icon-ios-contacts-outline:before{content:\"\\F19C\"}.ivu-icon-ios-contacts:before{content:\"\\F19D\"}.ivu-icon-ios-contract:before{content:\"\\F19E\"}.ivu-icon-ios-contrast:before{content:\"\\F19F\"}.ivu-icon-ios-copy-outline:before{content:\"\\F1A0\"}.ivu-icon-ios-copy:before{content:\"\\F1A1\"}.ivu-icon-ios-create-outline:before{content:\"\\F1A2\"}.ivu-icon-ios-create:before{content:\"\\F1A3\"}.ivu-icon-ios-crop-outline:before{content:\"\\F1A4\"}.ivu-icon-ios-crop:before{content:\"\\F1A5\"}.ivu-icon-ios-cube-outline:before{content:\"\\F1A6\"}.ivu-icon-ios-cube:before{content:\"\\F1A7\"}.ivu-icon-ios-cut-outline:before{content:\"\\F1A8\"}.ivu-icon-ios-cut:before{content:\"\\F1A9\"}.ivu-icon-ios-desktop-outline:before{content:\"\\F1AA\"}.ivu-icon-ios-desktop:before{content:\"\\F1AB\"}.ivu-icon-ios-disc-outline:before{content:\"\\F1AC\"}.ivu-icon-ios-disc:before{content:\"\\F1AD\"}.ivu-icon-ios-document-outline:before{content:\"\\F1AE\"}.ivu-icon-ios-document:before{content:\"\\F1AF\"}.ivu-icon-ios-done-all:before{content:\"\\F1B0\"}.ivu-icon-ios-download-outline:before{content:\"\\F1B1\"}.ivu-icon-ios-download:before{content:\"\\F1B2\"}.ivu-icon-ios-easel-outline:before{content:\"\\F1B3\"}.ivu-icon-ios-easel:before{content:\"\\F1B4\"}.ivu-icon-ios-egg-outline:before{content:\"\\F1B5\"}.ivu-icon-ios-egg:before{content:\"\\F1B6\"}.ivu-icon-ios-exit-outline:before{content:\"\\F1B7\"}.ivu-icon-ios-exit:before{content:\"\\F1B8\"}.ivu-icon-ios-expand:before{content:\"\\F1B9\"}.ivu-icon-ios-eye-off-outline:before{content:\"\\F1BA\"}.ivu-icon-ios-eye-off:before{content:\"\\F1BB\"}.ivu-icon-ios-eye-outline:before{content:\"\\F1BC\"}.ivu-icon-ios-eye:before{content:\"\\F1BD\"}.ivu-icon-ios-fastforward-outline:before{content:\"\\F1BE\"}.ivu-icon-ios-fastforward:before{content:\"\\F1BF\"}.ivu-icon-ios-female:before{content:\"\\F1C0\"}.ivu-icon-ios-filing-outline:before{content:\"\\F1C1\"}.ivu-icon-ios-filing:before{content:\"\\F1C2\"}.ivu-icon-ios-film-outline:before{content:\"\\F1C3\"}.ivu-icon-ios-film:before{content:\"\\F1C4\"}.ivu-icon-ios-finger-print:before{content:\"\\F1C5\"}.ivu-icon-ios-flag-outline:before{content:\"\\F1C6\"}.ivu-icon-ios-flag:before{content:\"\\F1C7\"}.ivu-icon-ios-flame-outline:before{content:\"\\F1C8\"}.ivu-icon-ios-flame:before{content:\"\\F1C9\"}.ivu-icon-ios-flash-outline:before{content:\"\\F1CA\"}.ivu-icon-ios-flash:before{content:\"\\F1CB\"}.ivu-icon-ios-flask-outline:before{content:\"\\F1CC\"}.ivu-icon-ios-flask:before{content:\"\\F1CD\"}.ivu-icon-ios-flower-outline:before{content:\"\\F1CE\"}.ivu-icon-ios-flower:before{content:\"\\F1CF\"}.ivu-icon-ios-folder-open-outline:before{content:\"\\F1D0\"}.ivu-icon-ios-folder-open:before{content:\"\\F1D1\"}.ivu-icon-ios-folder-outline:before{content:\"\\F1D2\"}.ivu-icon-ios-folder:before{content:\"\\F1D3\"}.ivu-icon-ios-football-outline:before{content:\"\\F1D4\"}.ivu-icon-ios-football:before{content:\"\\F1D5\"}.ivu-icon-ios-funnel-outline:before{content:\"\\F1D6\"}.ivu-icon-ios-funnel:before{content:\"\\F1D7\"}.ivu-icon-ios-game-controller-a-outline:before{content:\"\\F1D8\"}.ivu-icon-ios-game-controller-a:before{content:\"\\F1D9\"}.ivu-icon-ios-game-controller-b-outline:before{content:\"\\F1DA\"}.ivu-icon-ios-game-controller-b:before{content:\"\\F1DB\"}.ivu-icon-ios-git-branch:before{content:\"\\F1DC\"}.ivu-icon-ios-git-commit:before{content:\"\\F1DD\"}.ivu-icon-ios-git-compare:before{content:\"\\F1DE\"}.ivu-icon-ios-git-merge:before{content:\"\\F1DF\"}.ivu-icon-ios-git-network:before{content:\"\\F1E0\"}.ivu-icon-ios-git-pull-request:before{content:\"\\F1E1\"}.ivu-icon-ios-glasses-outline:before{content:\"\\F1E2\"}.ivu-icon-ios-glasses:before{content:\"\\F1E3\"}.ivu-icon-ios-globe-outline:before{content:\"\\F1E4\"}.ivu-icon-ios-globe:before{content:\"\\F1E5\"}.ivu-icon-ios-grid-outline:before{content:\"\\F1E6\"}.ivu-icon-ios-grid:before{content:\"\\F1E7\"}.ivu-icon-ios-hammer-outline:before{content:\"\\F1E8\"}.ivu-icon-ios-hammer:before{content:\"\\F1E9\"}.ivu-icon-ios-hand-outline:before{content:\"\\F1EA\"}.ivu-icon-ios-hand:before{content:\"\\F1EB\"}.ivu-icon-ios-happy-outline:before{content:\"\\F1EC\"}.ivu-icon-ios-happy:before{content:\"\\F1ED\"}.ivu-icon-ios-headset-outline:before{content:\"\\F1EE\"}.ivu-icon-ios-headset:before{content:\"\\F1EF\"}.ivu-icon-ios-heart-outline:before{content:\"\\F1F0\"}.ivu-icon-ios-heart:before{content:\"\\F1F1\"}.ivu-icon-ios-help-buoy-outline:before{content:\"\\F1F2\"}.ivu-icon-ios-help-buoy:before{content:\"\\F1F3\"}.ivu-icon-ios-help-circle-outline:before{content:\"\\F1F4\"}.ivu-icon-ios-help-circle:before{content:\"\\F1F5\"}.ivu-icon-ios-help:before{content:\"\\F1F6\"}.ivu-icon-ios-home-outline:before{content:\"\\F1F7\"}.ivu-icon-ios-home:before{content:\"\\F1F8\"}.ivu-icon-ios-ice-cream-outline:before{content:\"\\F1F9\"}.ivu-icon-ios-ice-cream:before{content:\"\\F1FA\"}.ivu-icon-ios-image-outline:before{content:\"\\F1FB\"}.ivu-icon-ios-image:before{content:\"\\F1FC\"}.ivu-icon-ios-images-outline:before{content:\"\\F1FD\"}.ivu-icon-ios-images:before{content:\"\\F1FE\"}.ivu-icon-ios-infinite-outline:before{content:\"\\F1FF\"}.ivu-icon-ios-infinite:before{content:\"\\F200\"}.ivu-icon-ios-information-circle-outline:before{content:\"\\F201\"}.ivu-icon-ios-information-circle:before{content:\"\\F202\"}.ivu-icon-ios-information:before{content:\"\\F203\"}.ivu-icon-ios-ionic-outline:before{content:\"\\F204\"}.ivu-icon-ios-ionic:before{content:\"\\F205\"}.ivu-icon-ios-ionitron-outline:before{content:\"\\F206\"}.ivu-icon-ios-ionitron:before{content:\"\\F207\"}.ivu-icon-ios-jet-outline:before{content:\"\\F208\"}.ivu-icon-ios-jet:before{content:\"\\F209\"}.ivu-icon-ios-key-outline:before{content:\"\\F20A\"}.ivu-icon-ios-key:before{content:\"\\F20B\"}.ivu-icon-ios-keypad-outline:before{content:\"\\F20C\"}.ivu-icon-ios-keypad:before{content:\"\\F20D\"}.ivu-icon-ios-laptop:before{content:\"\\F20E\"}.ivu-icon-ios-leaf-outline:before{content:\"\\F20F\"}.ivu-icon-ios-leaf:before{content:\"\\F210\"}.ivu-icon-ios-link-outline:before{content:\"\\F211\"}.ivu-icon-ios-link:before{content:\"\\F212\"}.ivu-icon-ios-list-box-outline:before{content:\"\\F213\"}.ivu-icon-ios-list-box:before{content:\"\\F214\"}.ivu-icon-ios-list:before{content:\"\\F215\"}.ivu-icon-ios-locate-outline:before{content:\"\\F216\"}.ivu-icon-ios-locate:before{content:\"\\F217\"}.ivu-icon-ios-lock-outline:before{content:\"\\F218\"}.ivu-icon-ios-lock:before{content:\"\\F219\"}.ivu-icon-ios-log-in:before{content:\"\\F21A\"}.ivu-icon-ios-log-out:before{content:\"\\F21B\"}.ivu-icon-ios-magnet-outline:before{content:\"\\F21C\"}.ivu-icon-ios-magnet:before{content:\"\\F21D\"}.ivu-icon-ios-mail-open-outline:before{content:\"\\F21E\"}.ivu-icon-ios-mail-open:before{content:\"\\F21F\"}.ivu-icon-ios-mail-outline:before{content:\"\\F220\"}.ivu-icon-ios-mail:before{content:\"\\F221\"}.ivu-icon-ios-male:before{content:\"\\F222\"}.ivu-icon-ios-man-outline:before{content:\"\\F223\"}.ivu-icon-ios-man:before{content:\"\\F224\"}.ivu-icon-ios-map-outline:before{content:\"\\F225\"}.ivu-icon-ios-map:before{content:\"\\F226\"}.ivu-icon-ios-medal-outline:before{content:\"\\F227\"}.ivu-icon-ios-medal:before{content:\"\\F228\"}.ivu-icon-ios-medical-outline:before{content:\"\\F229\"}.ivu-icon-ios-medical:before{content:\"\\F22A\"}.ivu-icon-ios-medkit-outline:before{content:\"\\F22B\"}.ivu-icon-ios-medkit:before{content:\"\\F22C\"}.ivu-icon-ios-megaphone-outline:before{content:\"\\F22D\"}.ivu-icon-ios-megaphone:before{content:\"\\F22E\"}.ivu-icon-ios-menu-outline:before{content:\"\\F22F\"}.ivu-icon-ios-menu:before{content:\"\\F230\"}.ivu-icon-ios-mic-off-outline:before{content:\"\\F231\"}.ivu-icon-ios-mic-off:before{content:\"\\F232\"}.ivu-icon-ios-mic-outline:before{content:\"\\F233\"}.ivu-icon-ios-mic:before{content:\"\\F234\"}.ivu-icon-ios-microphone-outline:before{content:\"\\F235\"}.ivu-icon-ios-microphone:before{content:\"\\F236\"}.ivu-icon-ios-moon-outline:before{content:\"\\F237\"}.ivu-icon-ios-moon:before{content:\"\\F238\"}.ivu-icon-ios-more-outline:before{content:\"\\F239\"}.ivu-icon-ios-more:before{content:\"\\F23A\"}.ivu-icon-ios-move:before{content:\"\\F23B\"}.ivu-icon-ios-musical-note-outline:before{content:\"\\F23C\"}.ivu-icon-ios-musical-note:before{content:\"\\F23D\"}.ivu-icon-ios-musical-notes-outline:before{content:\"\\F23E\"}.ivu-icon-ios-musical-notes:before{content:\"\\F23F\"}.ivu-icon-ios-navigate-outline:before{content:\"\\F240\"}.ivu-icon-ios-navigate:before{content:\"\\F241\"}.ivu-icon-ios-no-smoking-outline:before{content:\"\\F242\"}.ivu-icon-ios-no-smoking:before{content:\"\\F243\"}.ivu-icon-ios-notifications-off-outline:before{content:\"\\F244\"}.ivu-icon-ios-notifications-off:before{content:\"\\F245\"}.ivu-icon-ios-notifications-outline:before{content:\"\\F246\"}.ivu-icon-ios-notifications:before{content:\"\\F247\"}.ivu-icon-ios-nuclear-outline:before{content:\"\\F248\"}.ivu-icon-ios-nuclear:before{content:\"\\F249\"}.ivu-icon-ios-nutrition-outline:before{content:\"\\F24A\"}.ivu-icon-ios-nutrition:before{content:\"\\F24B\"}.ivu-icon-ios-open-outline:before{content:\"\\F24C\"}.ivu-icon-ios-open:before{content:\"\\F24D\"}.ivu-icon-ios-options-outline:before{content:\"\\F24E\"}.ivu-icon-ios-options:before{content:\"\\F24F\"}.ivu-icon-ios-outlet-outline:before{content:\"\\F250\"}.ivu-icon-ios-outlet:before{content:\"\\F251\"}.ivu-icon-ios-paper-outline:before{content:\"\\F252\"}.ivu-icon-ios-paper-plane-outline:before{content:\"\\F253\"}.ivu-icon-ios-paper-plane:before{content:\"\\F254\"}.ivu-icon-ios-paper:before{content:\"\\F255\"}.ivu-icon-ios-partly-sunny-outline:before{content:\"\\F256\"}.ivu-icon-ios-partly-sunny:before{content:\"\\F257\"}.ivu-icon-ios-pause-outline:before{content:\"\\F258\"}.ivu-icon-ios-pause:before{content:\"\\F259\"}.ivu-icon-ios-paw-outline:before{content:\"\\F25A\"}.ivu-icon-ios-paw:before{content:\"\\F25B\"}.ivu-icon-ios-people-outline:before{content:\"\\F25C\"}.ivu-icon-ios-people:before{content:\"\\F25D\"}.ivu-icon-ios-person-add-outline:before{content:\"\\F25E\"}.ivu-icon-ios-person-add:before{content:\"\\F25F\"}.ivu-icon-ios-person-outline:before{content:\"\\F260\"}.ivu-icon-ios-person:before{content:\"\\F261\"}.ivu-icon-ios-phone-landscape:before{content:\"\\F262\"}.ivu-icon-ios-phone-portrait:before{content:\"\\F263\"}.ivu-icon-ios-photos-outline:before{content:\"\\F264\"}.ivu-icon-ios-photos:before{content:\"\\F265\"}.ivu-icon-ios-pie-outline:before{content:\"\\F266\"}.ivu-icon-ios-pie:before{content:\"\\F267\"}.ivu-icon-ios-pin-outline:before{content:\"\\F268\"}.ivu-icon-ios-pin:before{content:\"\\F269\"}.ivu-icon-ios-pint-outline:before{content:\"\\F26A\"}.ivu-icon-ios-pint:before{content:\"\\F26B\"}.ivu-icon-ios-pizza-outline:before{content:\"\\F26C\"}.ivu-icon-ios-pizza:before{content:\"\\F26D\"}.ivu-icon-ios-plane-outline:before{content:\"\\F26E\"}.ivu-icon-ios-plane:before{content:\"\\F26F\"}.ivu-icon-ios-planet-outline:before{content:\"\\F270\"}.ivu-icon-ios-planet:before{content:\"\\F271\"}.ivu-icon-ios-play-outline:before{content:\"\\F272\"}.ivu-icon-ios-play:before{content:\"\\F273\"}.ivu-icon-ios-podium-outline:before{content:\"\\F274\"}.ivu-icon-ios-podium:before{content:\"\\F275\"}.ivu-icon-ios-power-outline:before{content:\"\\F276\"}.ivu-icon-ios-power:before{content:\"\\F277\"}.ivu-icon-ios-pricetag-outline:before{content:\"\\F278\"}.ivu-icon-ios-pricetag:before{content:\"\\F279\"}.ivu-icon-ios-pricetags-outline:before{content:\"\\F27A\"}.ivu-icon-ios-pricetags:before{content:\"\\F27B\"}.ivu-icon-ios-print-outline:before{content:\"\\F27C\"}.ivu-icon-ios-print:before{content:\"\\F27D\"}.ivu-icon-ios-pulse-outline:before{content:\"\\F27E\"}.ivu-icon-ios-pulse:before{content:\"\\F27F\"}.ivu-icon-ios-qr-scanner:before{content:\"\\F280\"}.ivu-icon-ios-quote-outline:before{content:\"\\F281\"}.ivu-icon-ios-quote:before{content:\"\\F282\"}.ivu-icon-ios-radio-button-off:before{content:\"\\F283\"}.ivu-icon-ios-radio-button-on:before{content:\"\\F284\"}.ivu-icon-ios-radio-outline:before{content:\"\\F285\"}.ivu-icon-ios-radio:before{content:\"\\F286\"}.ivu-icon-ios-rainy-outline:before{content:\"\\F287\"}.ivu-icon-ios-rainy:before{content:\"\\F288\"}.ivu-icon-ios-recording-outline:before{content:\"\\F289\"}.ivu-icon-ios-recording:before{content:\"\\F28A\"}.ivu-icon-ios-redo-outline:before{content:\"\\F28B\"}.ivu-icon-ios-redo:before{content:\"\\F28C\"}.ivu-icon-ios-refresh-circle-outline:before{content:\"\\F28D\"}.ivu-icon-ios-refresh-circle:before{content:\"\\F28E\"}.ivu-icon-ios-refresh:before{content:\"\\F28F\"}.ivu-icon-ios-remove-circle-outline:before{content:\"\\F290\"}.ivu-icon-ios-remove-circle:before{content:\"\\F291\"}.ivu-icon-ios-remove:before{content:\"\\F292\"}.ivu-icon-ios-reorder:before{content:\"\\F293\"}.ivu-icon-ios-repeat:before{content:\"\\F294\"}.ivu-icon-ios-resize:before{content:\"\\F295\"}.ivu-icon-ios-restaurant-outline:before{content:\"\\F296\"}.ivu-icon-ios-restaurant:before{content:\"\\F297\"}.ivu-icon-ios-return-left:before{content:\"\\F298\"}.ivu-icon-ios-return-right:before{content:\"\\F299\"}.ivu-icon-ios-reverse-camera-outline:before{content:\"\\F29A\"}.ivu-icon-ios-reverse-camera:before{content:\"\\F29B\"}.ivu-icon-ios-rewind-outline:before{content:\"\\F29C\"}.ivu-icon-ios-rewind:before{content:\"\\F29D\"}.ivu-icon-ios-ribbon-outline:before{content:\"\\F29E\"}.ivu-icon-ios-ribbon:before{content:\"\\F29F\"}.ivu-icon-ios-rose-outline:before{content:\"\\F2A0\"}.ivu-icon-ios-rose:before{content:\"\\F2A1\"}.ivu-icon-ios-sad-outline:before{content:\"\\F2A2\"}.ivu-icon-ios-sad:before{content:\"\\F2A3\"}.ivu-icon-ios-school-outline:before{content:\"\\F2A4\"}.ivu-icon-ios-school:before{content:\"\\F2A5\"}.ivu-icon-ios-search-outline:before{content:\"\\F2A6\"}.ivu-icon-ios-search:before{content:\"\\F2A7\"}.ivu-icon-ios-send-outline:before{content:\"\\F2A8\"}.ivu-icon-ios-send:before{content:\"\\F2A9\"}.ivu-icon-ios-settings-outline:before{content:\"\\F2AA\"}.ivu-icon-ios-settings:before{content:\"\\F2AB\"}.ivu-icon-ios-share-alt-outline:before{content:\"\\F2AC\"}.ivu-icon-ios-share-alt:before{content:\"\\F2AD\"}.ivu-icon-ios-share-outline:before{content:\"\\F2AE\"}.ivu-icon-ios-share:before{content:\"\\F2AF\"}.ivu-icon-ios-shirt-outline:before{content:\"\\F2B0\"}.ivu-icon-ios-shirt:before{content:\"\\F2B1\"}.ivu-icon-ios-shuffle:before{content:\"\\F2B2\"}.ivu-icon-ios-skip-backward-outline:before{content:\"\\F2B3\"}.ivu-icon-ios-skip-backward:before{content:\"\\F2B4\"}.ivu-icon-ios-skip-forward-outline:before{content:\"\\F2B5\"}.ivu-icon-ios-skip-forward:before{content:\"\\F2B6\"}.ivu-icon-ios-snow-outline:before{content:\"\\F2B7\"}.ivu-icon-ios-snow:before{content:\"\\F2B8\"}.ivu-icon-ios-speedometer-outline:before{content:\"\\F2B9\"}.ivu-icon-ios-speedometer:before{content:\"\\F2BA\"}.ivu-icon-ios-square-outline:before{content:\"\\F2BB\"}.ivu-icon-ios-square:before{content:\"\\F2BC\"}.ivu-icon-ios-star-half:before{content:\"\\F2BD\"}.ivu-icon-ios-star-outline:before{content:\"\\F2BE\"}.ivu-icon-ios-star:before{content:\"\\F2BF\"}.ivu-icon-ios-stats-outline:before{content:\"\\F2C0\"}.ivu-icon-ios-stats:before{content:\"\\F2C1\"}.ivu-icon-ios-stopwatch-outline:before{content:\"\\F2C2\"}.ivu-icon-ios-stopwatch:before{content:\"\\F2C3\"}.ivu-icon-ios-subway-outline:before{content:\"\\F2C4\"}.ivu-icon-ios-subway:before{content:\"\\F2C5\"}.ivu-icon-ios-sunny-outline:before{content:\"\\F2C6\"}.ivu-icon-ios-sunny:before{content:\"\\F2C7\"}.ivu-icon-ios-swap:before{content:\"\\F2C8\"}.ivu-icon-ios-switch-outline:before{content:\"\\F2C9\"}.ivu-icon-ios-switch:before{content:\"\\F2CA\"}.ivu-icon-ios-sync:before{content:\"\\F2CB\"}.ivu-icon-ios-tablet-landscape:before{content:\"\\F2CC\"}.ivu-icon-ios-tablet-portrait:before{content:\"\\F2CD\"}.ivu-icon-ios-tennisball-outline:before{content:\"\\F2CE\"}.ivu-icon-ios-tennisball:before{content:\"\\F2CF\"}.ivu-icon-ios-text-outline:before{content:\"\\F2D0\"}.ivu-icon-ios-text:before{content:\"\\F2D1\"}.ivu-icon-ios-thermometer-outline:before{content:\"\\F2D2\"}.ivu-icon-ios-thermometer:before{content:\"\\F2D3\"}.ivu-icon-ios-thumbs-down-outline:before{content:\"\\F2D4\"}.ivu-icon-ios-thumbs-down:before{content:\"\\F2D5\"}.ivu-icon-ios-thumbs-up-outline:before{content:\"\\F2D6\"}.ivu-icon-ios-thumbs-up:before{content:\"\\F2D7\"}.ivu-icon-ios-thunderstorm-outline:before{content:\"\\F2D8\"}.ivu-icon-ios-thunderstorm:before{content:\"\\F2D9\"}.ivu-icon-ios-time-outline:before{content:\"\\F2DA\"}.ivu-icon-ios-time:before{content:\"\\F2DB\"}.ivu-icon-ios-timer-outline:before{content:\"\\F2DC\"}.ivu-icon-ios-timer:before{content:\"\\F2DD\"}.ivu-icon-ios-train-outline:before{content:\"\\F2DE\"}.ivu-icon-ios-train:before{content:\"\\F2DF\"}.ivu-icon-ios-transgender:before{content:\"\\F2E0\"}.ivu-icon-ios-trash-outline:before{content:\"\\F2E1\"}.ivu-icon-ios-trash:before{content:\"\\F2E2\"}.ivu-icon-ios-trending-down:before{content:\"\\F2E3\"}.ivu-icon-ios-trending-up:before{content:\"\\F2E4\"}.ivu-icon-ios-trophy-outline:before{content:\"\\F2E5\"}.ivu-icon-ios-trophy:before{content:\"\\F2E6\"}.ivu-icon-ios-umbrella-outline:before{content:\"\\F2E7\"}.ivu-icon-ios-umbrella:before{content:\"\\F2E8\"}.ivu-icon-ios-undo-outline:before{content:\"\\F2E9\"}.ivu-icon-ios-undo:before{content:\"\\F2EA\"}.ivu-icon-ios-unlock-outline:before{content:\"\\F2EB\"}.ivu-icon-ios-unlock:before{content:\"\\F2EC\"}.ivu-icon-ios-videocam-outline:before{content:\"\\F2ED\"}.ivu-icon-ios-videocam:before{content:\"\\F2EE\"}.ivu-icon-ios-volume-down:before{content:\"\\F2EF\"}.ivu-icon-ios-volume-mute:before{content:\"\\F2F0\"}.ivu-icon-ios-volume-off:before{content:\"\\F2F1\"}.ivu-icon-ios-volume-up:before{content:\"\\F2F2\"}.ivu-icon-ios-walk:before{content:\"\\F2F3\"}.ivu-icon-ios-warning-outline:before{content:\"\\F2F4\"}.ivu-icon-ios-warning:before{content:\"\\F2F5\"}.ivu-icon-ios-watch:before{content:\"\\F2F6\"}.ivu-icon-ios-water-outline:before{content:\"\\F2F7\"}.ivu-icon-ios-water:before{content:\"\\F2F8\"}.ivu-icon-ios-wifi-outline:before{content:\"\\F2F9\"}.ivu-icon-ios-wifi:before{content:\"\\F2FA\"}.ivu-icon-ios-wine-outline:before{content:\"\\F2FB\"}.ivu-icon-ios-wine:before{content:\"\\F2FC\"}.ivu-icon-ios-woman-outline:before{content:\"\\F2FD\"}.ivu-icon-ios-woman:before{content:\"\\F2FE\"}.ivu-icon-logo-android:before{content:\"\\F2FF\"}.ivu-icon-logo-angular:before{content:\"\\F300\"}.ivu-icon-logo-apple:before{content:\"\\F301\"}.ivu-icon-logo-bitcoin:before{content:\"\\F302\"}.ivu-icon-logo-buffer:before{content:\"\\F303\"}.ivu-icon-logo-chrome:before{content:\"\\F304\"}.ivu-icon-logo-codepen:before{content:\"\\F305\"}.ivu-icon-logo-css3:before{content:\"\\F306\"}.ivu-icon-logo-designernews:before{content:\"\\F307\"}.ivu-icon-logo-dribbble:before{content:\"\\F308\"}.ivu-icon-logo-dropbox:before{content:\"\\F309\"}.ivu-icon-logo-euro:before{content:\"\\F30A\"}.ivu-icon-logo-facebook:before{content:\"\\F30B\"}.ivu-icon-logo-foursquare:before{content:\"\\F30C\"}.ivu-icon-logo-freebsd-devil:before{content:\"\\F30D\"}.ivu-icon-logo-github:before{content:\"\\F30E\"}.ivu-icon-logo-google:before{content:\"\\F30F\"}.ivu-icon-logo-googleplus:before{content:\"\\F310\"}.ivu-icon-logo-hackernews:before{content:\"\\F311\"}.ivu-icon-logo-html5:before{content:\"\\F312\"}.ivu-icon-logo-instagram:before{content:\"\\F313\"}.ivu-icon-logo-javascript:before{content:\"\\F314\"}.ivu-icon-logo-linkedin:before{content:\"\\F315\"}.ivu-icon-logo-markdown:before{content:\"\\F316\"}.ivu-icon-logo-nodejs:before{content:\"\\F317\"}.ivu-icon-logo-octocat:before{content:\"\\F318\"}.ivu-icon-logo-pinterest:before{content:\"\\F319\"}.ivu-icon-logo-playstation:before{content:\"\\F31A\"}.ivu-icon-logo-python:before{content:\"\\F31B\"}.ivu-icon-logo-reddit:before{content:\"\\F31C\"}.ivu-icon-logo-rss:before{content:\"\\F31D\"}.ivu-icon-logo-sass:before{content:\"\\F31E\"}.ivu-icon-logo-skype:before{content:\"\\F31F\"}.ivu-icon-logo-snapchat:before{content:\"\\F320\"}.ivu-icon-logo-steam:before{content:\"\\F321\"}.ivu-icon-logo-tumblr:before{content:\"\\F322\"}.ivu-icon-logo-tux:before{content:\"\\F323\"}.ivu-icon-logo-twitch:before{content:\"\\F324\"}.ivu-icon-logo-twitter:before{content:\"\\F325\"}.ivu-icon-logo-usd:before{content:\"\\F326\"}.ivu-icon-logo-vimeo:before{content:\"\\F327\"}.ivu-icon-logo-whatsapp:before{content:\"\\F328\"}.ivu-icon-logo-windows:before{content:\"\\F329\"}.ivu-icon-logo-wordpress:before{content:\"\\F32A\"}.ivu-icon-logo-xbox:before{content:\"\\F32B\"}.ivu-icon-logo-yahoo:before{content:\"\\F32C\"}.ivu-icon-logo-yen:before{content:\"\\F32D\"}.ivu-icon-logo-youtube:before{content:\"\\F32E\"}.ivu-icon-md-add-circle:before{content:\"\\F32F\"}.ivu-icon-md-add:before{content:\"\\F330\"}.ivu-icon-md-alarm:before{content:\"\\F331\"}.ivu-icon-md-albums:before{content:\"\\F332\"}.ivu-icon-md-alert:before{content:\"\\F333\"}.ivu-icon-md-american-football:before{content:\"\\F334\"}.ivu-icon-md-analytics:before{content:\"\\F335\"}.ivu-icon-md-aperture:before{content:\"\\F336\"}.ivu-icon-md-apps:before{content:\"\\F337\"}.ivu-icon-md-appstore:before{content:\"\\F338\"}.ivu-icon-md-archive:before{content:\"\\F339\"}.ivu-icon-md-arrow-back:before{content:\"\\F33A\"}.ivu-icon-md-arrow-down:before{content:\"\\F33B\"}.ivu-icon-md-arrow-dropdown-circle:before{content:\"\\F33C\"}.ivu-icon-md-arrow-dropdown:before{content:\"\\F33D\"}.ivu-icon-md-arrow-dropleft-circle:before{content:\"\\F33E\"}.ivu-icon-md-arrow-dropleft:before{content:\"\\F33F\"}.ivu-icon-md-arrow-dropright-circle:before{content:\"\\F340\"}.ivu-icon-md-arrow-dropright:before{content:\"\\F341\"}.ivu-icon-md-arrow-dropup-circle:before{content:\"\\F342\"}.ivu-icon-md-arrow-dropup:before{content:\"\\F343\"}.ivu-icon-md-arrow-forward:before{content:\"\\F344\"}.ivu-icon-md-arrow-round-back:before{content:\"\\F345\"}.ivu-icon-md-arrow-round-down:before{content:\"\\F346\"}.ivu-icon-md-arrow-round-forward:before{content:\"\\F347\"}.ivu-icon-md-arrow-round-up:before{content:\"\\F348\"}.ivu-icon-md-arrow-up:before{content:\"\\F349\"}.ivu-icon-md-at:before{content:\"\\F34A\"}.ivu-icon-md-attach:before{content:\"\\F34B\"}.ivu-icon-md-backspace:before{content:\"\\F34C\"}.ivu-icon-md-barcode:before{content:\"\\F34D\"}.ivu-icon-md-baseball:before{content:\"\\F34E\"}.ivu-icon-md-basket:before{content:\"\\F34F\"}.ivu-icon-md-basketball:before{content:\"\\F350\"}.ivu-icon-md-battery-charging:before{content:\"\\F351\"}.ivu-icon-md-battery-dead:before{content:\"\\F352\"}.ivu-icon-md-battery-full:before{content:\"\\F353\"}.ivu-icon-md-beaker:before{content:\"\\F354\"}.ivu-icon-md-beer:before{content:\"\\F355\"}.ivu-icon-md-bicycle:before{content:\"\\F356\"}.ivu-icon-md-bluetooth:before{content:\"\\F357\"}.ivu-icon-md-boat:before{content:\"\\F358\"}.ivu-icon-md-body:before{content:\"\\F359\"}.ivu-icon-md-bonfire:before{content:\"\\F35A\"}.ivu-icon-md-book:before{content:\"\\F35B\"}.ivu-icon-md-bookmark:before{content:\"\\F35C\"}.ivu-icon-md-bookmarks:before{content:\"\\F35D\"}.ivu-icon-md-bowtie:before{content:\"\\F35E\"}.ivu-icon-md-briefcase:before{content:\"\\F35F\"}.ivu-icon-md-browsers:before{content:\"\\F360\"}.ivu-icon-md-brush:before{content:\"\\F361\"}.ivu-icon-md-bug:before{content:\"\\F362\"}.ivu-icon-md-build:before{content:\"\\F363\"}.ivu-icon-md-bulb:before{content:\"\\F364\"}.ivu-icon-md-bus:before{content:\"\\F365\"}.ivu-icon-md-cafe:before{content:\"\\F366\"}.ivu-icon-md-calculator:before{content:\"\\F367\"}.ivu-icon-md-calendar:before{content:\"\\F368\"}.ivu-icon-md-call:before{content:\"\\F369\"}.ivu-icon-md-camera:before{content:\"\\F36A\"}.ivu-icon-md-car:before{content:\"\\F36B\"}.ivu-icon-md-card:before{content:\"\\F36C\"}.ivu-icon-md-cart:before{content:\"\\F36D\"}.ivu-icon-md-cash:before{content:\"\\F36E\"}.ivu-icon-md-chatboxes:before{content:\"\\F36F\"}.ivu-icon-md-chatbubbles:before{content:\"\\F370\"}.ivu-icon-md-checkbox-outline:before{content:\"\\F371\"}.ivu-icon-md-checkbox:before{content:\"\\F372\"}.ivu-icon-md-checkmark-circle-outline:before{content:\"\\F373\"}.ivu-icon-md-checkmark-circle:before{content:\"\\F374\"}.ivu-icon-md-checkmark:before{content:\"\\F375\"}.ivu-icon-md-clipboard:before{content:\"\\F376\"}.ivu-icon-md-clock:before{content:\"\\F377\"}.ivu-icon-md-close-circle:before{content:\"\\F378\"}.ivu-icon-md-close:before{content:\"\\F379\"}.ivu-icon-md-closed-captioning:before{content:\"\\F37A\"}.ivu-icon-md-cloud-circle:before{content:\"\\F37B\"}.ivu-icon-md-cloud-done:before{content:\"\\F37C\"}.ivu-icon-md-cloud-download:before{content:\"\\F37D\"}.ivu-icon-md-cloud-outline:before{content:\"\\F37E\"}.ivu-icon-md-cloud-upload:before{content:\"\\F37F\"}.ivu-icon-md-cloud:before{content:\"\\F380\"}.ivu-icon-md-cloudy-night:before{content:\"\\F381\"}.ivu-icon-md-cloudy:before{content:\"\\F382\"}.ivu-icon-md-code-download:before{content:\"\\F383\"}.ivu-icon-md-code-working:before{content:\"\\F384\"}.ivu-icon-md-code:before{content:\"\\F385\"}.ivu-icon-md-cog:before{content:\"\\F386\"}.ivu-icon-md-color-fill:before{content:\"\\F387\"}.ivu-icon-md-color-filter:before{content:\"\\F388\"}.ivu-icon-md-color-palette:before{content:\"\\F389\"}.ivu-icon-md-color-wand:before{content:\"\\F38A\"}.ivu-icon-md-compass:before{content:\"\\F38B\"}.ivu-icon-md-construct:before{content:\"\\F38C\"}.ivu-icon-md-contact:before{content:\"\\F38D\"}.ivu-icon-md-contacts:before{content:\"\\F38E\"}.ivu-icon-md-contract:before{content:\"\\F38F\"}.ivu-icon-md-contrast:before{content:\"\\F390\"}.ivu-icon-md-copy:before{content:\"\\F391\"}.ivu-icon-md-create:before{content:\"\\F392\"}.ivu-icon-md-crop:before{content:\"\\F393\"}.ivu-icon-md-cube:before{content:\"\\F394\"}.ivu-icon-md-cut:before{content:\"\\F395\"}.ivu-icon-md-desktop:before{content:\"\\F396\"}.ivu-icon-md-disc:before{content:\"\\F397\"}.ivu-icon-md-document:before{content:\"\\F398\"}.ivu-icon-md-done-all:before{content:\"\\F399\"}.ivu-icon-md-download:before{content:\"\\F39A\"}.ivu-icon-md-easel:before{content:\"\\F39B\"}.ivu-icon-md-egg:before{content:\"\\F39C\"}.ivu-icon-md-exit:before{content:\"\\F39D\"}.ivu-icon-md-expand:before{content:\"\\F39E\"}.ivu-icon-md-eye-off:before{content:\"\\F39F\"}.ivu-icon-md-eye:before{content:\"\\F3A0\"}.ivu-icon-md-fastforward:before{content:\"\\F3A1\"}.ivu-icon-md-female:before{content:\"\\F3A2\"}.ivu-icon-md-filing:before{content:\"\\F3A3\"}.ivu-icon-md-film:before{content:\"\\F3A4\"}.ivu-icon-md-finger-print:before{content:\"\\F3A5\"}.ivu-icon-md-flag:before{content:\"\\F3A6\"}.ivu-icon-md-flame:before{content:\"\\F3A7\"}.ivu-icon-md-flash:before{content:\"\\F3A8\"}.ivu-icon-md-flask:before{content:\"\\F3A9\"}.ivu-icon-md-flower:before{content:\"\\F3AA\"}.ivu-icon-md-folder-open:before{content:\"\\F3AB\"}.ivu-icon-md-folder:before{content:\"\\F3AC\"}.ivu-icon-md-football:before{content:\"\\F3AD\"}.ivu-icon-md-funnel:before{content:\"\\F3AE\"}.ivu-icon-md-game-controller-a:before{content:\"\\F3AF\"}.ivu-icon-md-game-controller-b:before{content:\"\\F3B0\"}.ivu-icon-md-git-branch:before{content:\"\\F3B1\"}.ivu-icon-md-git-commit:before{content:\"\\F3B2\"}.ivu-icon-md-git-compare:before{content:\"\\F3B3\"}.ivu-icon-md-git-merge:before{content:\"\\F3B4\"}.ivu-icon-md-git-network:before{content:\"\\F3B5\"}.ivu-icon-md-git-pull-request:before{content:\"\\F3B6\"}.ivu-icon-md-glasses:before{content:\"\\F3B7\"}.ivu-icon-md-globe:before{content:\"\\F3B8\"}.ivu-icon-md-grid:before{content:\"\\F3B9\"}.ivu-icon-md-hammer:before{content:\"\\F3BA\"}.ivu-icon-md-hand:before{content:\"\\F3BB\"}.ivu-icon-md-happy:before{content:\"\\F3BC\"}.ivu-icon-md-headset:before{content:\"\\F3BD\"}.ivu-icon-md-heart-outline:before{content:\"\\F3BE\"}.ivu-icon-md-heart:before{content:\"\\F3BF\"}.ivu-icon-md-help-buoy:before{content:\"\\F3C0\"}.ivu-icon-md-help-circle:before{content:\"\\F3C1\"}.ivu-icon-md-help:before{content:\"\\F3C2\"}.ivu-icon-md-home:before{content:\"\\F3C3\"}.ivu-icon-md-ice-cream:before{content:\"\\F3C4\"}.ivu-icon-md-image:before{content:\"\\F3C5\"}.ivu-icon-md-images:before{content:\"\\F3C6\"}.ivu-icon-md-infinite:before{content:\"\\F3C7\"}.ivu-icon-md-information-circle:before{content:\"\\F3C8\"}.ivu-icon-md-information:before{content:\"\\F3C9\"}.ivu-icon-md-ionic:before{content:\"\\F3CA\"}.ivu-icon-md-ionitron:before{content:\"\\F3CB\"}.ivu-icon-md-jet:before{content:\"\\F3CC\"}.ivu-icon-md-key:before{content:\"\\F3CD\"}.ivu-icon-md-keypad:before{content:\"\\F3CE\"}.ivu-icon-md-laptop:before{content:\"\\F3CF\"}.ivu-icon-md-leaf:before{content:\"\\F3D0\"}.ivu-icon-md-link:before{content:\"\\F3D1\"}.ivu-icon-md-list-box:before{content:\"\\F3D2\"}.ivu-icon-md-list:before{content:\"\\F3D3\"}.ivu-icon-md-locate:before{content:\"\\F3D4\"}.ivu-icon-md-lock:before{content:\"\\F3D5\"}.ivu-icon-md-log-in:before{content:\"\\F3D6\"}.ivu-icon-md-log-out:before{content:\"\\F3D7\"}.ivu-icon-md-magnet:before{content:\"\\F3D8\"}.ivu-icon-md-mail-open:before{content:\"\\F3D9\"}.ivu-icon-md-mail:before{content:\"\\F3DA\"}.ivu-icon-md-male:before{content:\"\\F3DB\"}.ivu-icon-md-man:before{content:\"\\F3DC\"}.ivu-icon-md-map:before{content:\"\\F3DD\"}.ivu-icon-md-medal:before{content:\"\\F3DE\"}.ivu-icon-md-medical:before{content:\"\\F3DF\"}.ivu-icon-md-medkit:before{content:\"\\F3E0\"}.ivu-icon-md-megaphone:before{content:\"\\F3E1\"}.ivu-icon-md-menu:before{content:\"\\F3E2\"}.ivu-icon-md-mic-off:before{content:\"\\F3E3\"}.ivu-icon-md-mic:before{content:\"\\F3E4\"}.ivu-icon-md-microphone:before{content:\"\\F3E5\"}.ivu-icon-md-moon:before{content:\"\\F3E6\"}.ivu-icon-md-more:before{content:\"\\F3E7\"}.ivu-icon-md-move:before{content:\"\\F3E8\"}.ivu-icon-md-musical-note:before{content:\"\\F3E9\"}.ivu-icon-md-musical-notes:before{content:\"\\F3EA\"}.ivu-icon-md-navigate:before{content:\"\\F3EB\"}.ivu-icon-md-no-smoking:before{content:\"\\F3EC\"}.ivu-icon-md-notifications-off:before{content:\"\\F3ED\"}.ivu-icon-md-notifications-outline:before{content:\"\\F3EE\"}.ivu-icon-md-notifications:before{content:\"\\F3EF\"}.ivu-icon-md-nuclear:before{content:\"\\F3F0\"}.ivu-icon-md-nutrition:before{content:\"\\F3F1\"}.ivu-icon-md-open:before{content:\"\\F3F2\"}.ivu-icon-md-options:before{content:\"\\F3F3\"}.ivu-icon-md-outlet:before{content:\"\\F3F4\"}.ivu-icon-md-paper-plane:before{content:\"\\F3F5\"}.ivu-icon-md-paper:before{content:\"\\F3F6\"}.ivu-icon-md-partly-sunny:before{content:\"\\F3F7\"}.ivu-icon-md-pause:before{content:\"\\F3F8\"}.ivu-icon-md-paw:before{content:\"\\F3F9\"}.ivu-icon-md-people:before{content:\"\\F3FA\"}.ivu-icon-md-person-add:before{content:\"\\F3FB\"}.ivu-icon-md-person:before{content:\"\\F3FC\"}.ivu-icon-md-phone-landscape:before{content:\"\\F3FD\"}.ivu-icon-md-phone-portrait:before{content:\"\\F3FE\"}.ivu-icon-md-photos:before{content:\"\\F3FF\"}.ivu-icon-md-pie:before{content:\"\\F400\"}.ivu-icon-md-pin:before{content:\"\\F401\"}.ivu-icon-md-pint:before{content:\"\\F402\"}.ivu-icon-md-pizza:before{content:\"\\F403\"}.ivu-icon-md-plane:before{content:\"\\F404\"}.ivu-icon-md-planet:before{content:\"\\F405\"}.ivu-icon-md-play:before{content:\"\\F406\"}.ivu-icon-md-podium:before{content:\"\\F407\"}.ivu-icon-md-power:before{content:\"\\F408\"}.ivu-icon-md-pricetag:before{content:\"\\F409\"}.ivu-icon-md-pricetags:before{content:\"\\F40A\"}.ivu-icon-md-print:before{content:\"\\F40B\"}.ivu-icon-md-pulse:before{content:\"\\F40C\"}.ivu-icon-md-qr-scanner:before{content:\"\\F40D\"}.ivu-icon-md-quote:before{content:\"\\F40E\"}.ivu-icon-md-radio-button-off:before{content:\"\\F40F\"}.ivu-icon-md-radio-button-on:before{content:\"\\F410\"}.ivu-icon-md-radio:before{content:\"\\F411\"}.ivu-icon-md-rainy:before{content:\"\\F412\"}.ivu-icon-md-recording:before{content:\"\\F413\"}.ivu-icon-md-redo:before{content:\"\\F414\"}.ivu-icon-md-refresh-circle:before{content:\"\\F415\"}.ivu-icon-md-refresh:before{content:\"\\F416\"}.ivu-icon-md-remove-circle:before{content:\"\\F417\"}.ivu-icon-md-remove:before{content:\"\\F418\"}.ivu-icon-md-reorder:before{content:\"\\F419\"}.ivu-icon-md-repeat:before{content:\"\\F41A\"}.ivu-icon-md-resize:before{content:\"\\F41B\"}.ivu-icon-md-restaurant:before{content:\"\\F41C\"}.ivu-icon-md-return-left:before{content:\"\\F41D\"}.ivu-icon-md-return-right:before{content:\"\\F41E\"}.ivu-icon-md-reverse-camera:before{content:\"\\F41F\"}.ivu-icon-md-rewind:before{content:\"\\F420\"}.ivu-icon-md-ribbon:before{content:\"\\F421\"}.ivu-icon-md-rose:before{content:\"\\F422\"}.ivu-icon-md-sad:before{content:\"\\F423\"}.ivu-icon-md-school:before{content:\"\\F424\"}.ivu-icon-md-search:before{content:\"\\F425\"}.ivu-icon-md-send:before{content:\"\\F426\"}.ivu-icon-md-settings:before{content:\"\\F427\"}.ivu-icon-md-share-alt:before{content:\"\\F428\"}.ivu-icon-md-share:before{content:\"\\F429\"}.ivu-icon-md-shirt:before{content:\"\\F42A\"}.ivu-icon-md-shuffle:before{content:\"\\F42B\"}.ivu-icon-md-skip-backward:before{content:\"\\F42C\"}.ivu-icon-md-skip-forward:before{content:\"\\F42D\"}.ivu-icon-md-snow:before{content:\"\\F42E\"}.ivu-icon-md-speedometer:before{content:\"\\F42F\"}.ivu-icon-md-square-outline:before{content:\"\\F430\"}.ivu-icon-md-square:before{content:\"\\F431\"}.ivu-icon-md-star-half:before{content:\"\\F432\"}.ivu-icon-md-star-outline:before{content:\"\\F433\"}.ivu-icon-md-star:before{content:\"\\F434\"}.ivu-icon-md-stats:before{content:\"\\F435\"}.ivu-icon-md-stopwatch:before{content:\"\\F436\"}.ivu-icon-md-subway:before{content:\"\\F437\"}.ivu-icon-md-sunny:before{content:\"\\F438\"}.ivu-icon-md-swap:before{content:\"\\F439\"}.ivu-icon-md-switch:before{content:\"\\F43A\"}.ivu-icon-md-sync:before{content:\"\\F43B\"}.ivu-icon-md-tablet-landscape:before{content:\"\\F43C\"}.ivu-icon-md-tablet-portrait:before{content:\"\\F43D\"}.ivu-icon-md-tennisball:before{content:\"\\F43E\"}.ivu-icon-md-text:before{content:\"\\F43F\"}.ivu-icon-md-thermometer:before{content:\"\\F440\"}.ivu-icon-md-thumbs-down:before{content:\"\\F441\"}.ivu-icon-md-thumbs-up:before{content:\"\\F442\"}.ivu-icon-md-thunderstorm:before{content:\"\\F443\"}.ivu-icon-md-time:before{content:\"\\F444\"}.ivu-icon-md-timer:before{content:\"\\F445\"}.ivu-icon-md-train:before{content:\"\\F446\"}.ivu-icon-md-transgender:before{content:\"\\F447\"}.ivu-icon-md-trash:before{content:\"\\F448\"}.ivu-icon-md-trending-down:before{content:\"\\F449\"}.ivu-icon-md-trending-up:before{content:\"\\F44A\"}.ivu-icon-md-trophy:before{content:\"\\F44B\"}.ivu-icon-md-umbrella:before{content:\"\\F44C\"}.ivu-icon-md-undo:before{content:\"\\F44D\"}.ivu-icon-md-unlock:before{content:\"\\F44E\"}.ivu-icon-md-videocam:before{content:\"\\F44F\"}.ivu-icon-md-volume-down:before{content:\"\\F450\"}.ivu-icon-md-volume-mute:before{content:\"\\F451\"}.ivu-icon-md-volume-off:before{content:\"\\F452\"}.ivu-icon-md-volume-up:before{content:\"\\F453\"}.ivu-icon-md-walk:before{content:\"\\F454\"}.ivu-icon-md-warning:before{content:\"\\F455\"}.ivu-icon-md-watch:before{content:\"\\F456\"}.ivu-icon-md-water:before{content:\"\\F457\"}.ivu-icon-md-wifi:before{content:\"\\F458\"}.ivu-icon-md-wine:before{content:\"\\F459\"}.ivu-icon-md-woman:before{content:\"\\F45A\"}.ivu-icon-ios-loading:before{content:\"\\F45B\"}.ivu-row{display:flex;flex-flow:row wrap}.ivu-row::after,.ivu-row::before{display:flex}.ivu-row-no-wrap{flex-wrap:nowrap}.ivu-row-start{justify-content:flex-start}.ivu-row-center{justify-content:center}.ivu-row-end{justify-content:flex-end}.ivu-row-space-between{justify-content:space-between}.ivu-row-space-around{justify-content:space-around}.ivu-row-top{align-items:flex-start}.ivu-row-middle{align-items:center}.ivu-row-bottom{align-items:flex-end}.ivu-col{position:relative;max-width:100%;min-height:1px}.ivu-col-span-24{display:block;flex:0 0 100%;max-width:100%}.ivu-col-push-24{left:100%}.ivu-col-pull-24{right:100%}.ivu-col-offset-24{margin-left:100%}.ivu-col-order-24{order:24}.ivu-col-span-23{display:block;flex:0 0 95.83333333%;max-width:95.83333333%}.ivu-col-push-23{left:95.83333333%}.ivu-col-pull-23{right:95.83333333%}.ivu-col-offset-23{margin-left:95.83333333%}.ivu-col-order-23{order:23}.ivu-col-span-22{display:block;flex:0 0 91.66666667%;max-width:91.66666667%}.ivu-col-push-22{left:91.66666667%}.ivu-col-pull-22{right:91.66666667%}.ivu-col-offset-22{margin-left:91.66666667%}.ivu-col-order-22{order:22}.ivu-col-span-21{display:block;flex:0 0 87.5%;max-width:87.5%}.ivu-col-push-21{left:87.5%}.ivu-col-pull-21{right:87.5%}.ivu-col-offset-21{margin-left:87.5%}.ivu-col-order-21{order:21}.ivu-col-span-20{display:block;flex:0 0 83.33333333%;max-width:83.33333333%}.ivu-col-push-20{left:83.33333333%}.ivu-col-pull-20{right:83.33333333%}.ivu-col-offset-20{margin-left:83.33333333%}.ivu-col-order-20{order:20}.ivu-col-span-19{display:block;flex:0 0 79.16666667%;max-width:79.16666667%}.ivu-col-push-19{left:79.16666667%}.ivu-col-pull-19{right:79.16666667%}.ivu-col-offset-19{margin-left:79.16666667%}.ivu-col-order-19{order:19}.ivu-col-span-18{display:block;flex:0 0 75%;max-width:75%}.ivu-col-push-18{left:75%}.ivu-col-pull-18{right:75%}.ivu-col-offset-18{margin-left:75%}.ivu-col-order-18{order:18}.ivu-col-span-17{display:block;flex:0 0 70.83333333%;max-width:70.83333333%}.ivu-col-push-17{left:70.83333333%}.ivu-col-pull-17{right:70.83333333%}.ivu-col-offset-17{margin-left:70.83333333%}.ivu-col-order-17{order:17}.ivu-col-span-16{display:block;flex:0 0 66.66666667%;max-width:66.66666667%}.ivu-col-push-16{left:66.66666667%}.ivu-col-pull-16{right:66.66666667%}.ivu-col-offset-16{margin-left:66.66666667%}.ivu-col-order-16{order:16}.ivu-col-span-15{display:block;flex:0 0 62.5%;max-width:62.5%}.ivu-col-push-15{left:62.5%}.ivu-col-pull-15{right:62.5%}.ivu-col-offset-15{margin-left:62.5%}.ivu-col-order-15{order:15}.ivu-col-span-14{display:block;flex:0 0 58.33333333%;max-width:58.33333333%}.ivu-col-push-14{left:58.33333333%}.ivu-col-pull-14{right:58.33333333%}.ivu-col-offset-14{margin-left:58.33333333%}.ivu-col-order-14{order:14}.ivu-col-span-13{display:block;flex:0 0 54.16666667%;max-width:54.16666667%}.ivu-col-push-13{left:54.16666667%}.ivu-col-pull-13{right:54.16666667%}.ivu-col-offset-13{margin-left:54.16666667%}.ivu-col-order-13{order:13}.ivu-col-span-12{display:block;flex:0 0 50%;max-width:50%}.ivu-col-push-12{left:50%}.ivu-col-pull-12{right:50%}.ivu-col-offset-12{margin-left:50%}.ivu-col-order-12{order:12}.ivu-col-span-11{display:block;flex:0 0 45.83333333%;max-width:45.83333333%}.ivu-col-push-11{left:45.83333333%}.ivu-col-pull-11{right:45.83333333%}.ivu-col-offset-11{margin-left:45.83333333%}.ivu-col-order-11{order:11}.ivu-col-span-10{display:block;flex:0 0 41.66666667%;max-width:41.66666667%}.ivu-col-push-10{left:41.66666667%}.ivu-col-pull-10{right:41.66666667%}.ivu-col-offset-10{margin-left:41.66666667%}.ivu-col-order-10{order:10}.ivu-col-span-9{display:block;flex:0 0 37.5%;max-width:37.5%}.ivu-col-push-9{left:37.5%}.ivu-col-pull-9{right:37.5%}.ivu-col-offset-9{margin-left:37.5%}.ivu-col-order-9{order:9}.ivu-col-span-8{display:block;flex:0 0 33.33333333%;max-width:33.33333333%}.ivu-col-push-8{left:33.33333333%}.ivu-col-pull-8{right:33.33333333%}.ivu-col-offset-8{margin-left:33.33333333%}.ivu-col-order-8{order:8}.ivu-col-span-7{display:block;flex:0 0 29.16666667%;max-width:29.16666667%}.ivu-col-push-7{left:29.16666667%}.ivu-col-pull-7{right:29.16666667%}.ivu-col-offset-7{margin-left:29.16666667%}.ivu-col-order-7{order:7}.ivu-col-span-6{display:block;flex:0 0 25%;max-width:25%}.ivu-col-push-6{left:25%}.ivu-col-pull-6{right:25%}.ivu-col-offset-6{margin-left:25%}.ivu-col-order-6{order:6}.ivu-col-span-5{display:block;flex:0 0 20.83333333%;max-width:20.83333333%}.ivu-col-push-5{left:20.83333333%}.ivu-col-pull-5{right:20.83333333%}.ivu-col-offset-5{margin-left:20.83333333%}.ivu-col-order-5{order:5}.ivu-col-span-4{display:block;flex:0 0 16.66666667%;max-width:16.66666667%}.ivu-col-push-4{left:16.66666667%}.ivu-col-pull-4{right:16.66666667%}.ivu-col-offset-4{margin-left:16.66666667%}.ivu-col-order-4{order:4}.ivu-col-span-3{display:block;flex:0 0 12.5%;max-width:12.5%}.ivu-col-push-3{left:12.5%}.ivu-col-pull-3{right:12.5%}.ivu-col-offset-3{margin-left:12.5%}.ivu-col-order-3{order:3}.ivu-col-span-2{display:block;flex:0 0 8.33333333%;max-width:8.33333333%}.ivu-col-push-2{left:8.33333333%}.ivu-col-pull-2{right:8.33333333%}.ivu-col-offset-2{margin-left:8.33333333%}.ivu-col-order-2{order:2}.ivu-col-span-1{display:block;flex:0 0 4.16666667%;max-width:4.16666667%}.ivu-col-push-1{left:4.16666667%}.ivu-col-pull-1{right:4.16666667%}.ivu-col-offset-1{margin-left:4.16666667%}.ivu-col-order-1{order:1}.ivu-col-span-0{display:none}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-offset-0{margin-left:0}.ivu-col-order-0{order:0}.ivu-col-span-xs-24{display:block;flex:0 0 100%;max-width:100%}.ivu-col-xs-push-24{left:100%}.ivu-col-xs-pull-24{right:100%}.ivu-col-xs-offset-24{margin-left:100%}.ivu-col-xs-order-24{order:24}.ivu-col-span-xs-23{display:block;flex:0 0 95.83333333%;max-width:95.83333333%}.ivu-col-xs-push-23{left:95.83333333%}.ivu-col-xs-pull-23{right:95.83333333%}.ivu-col-xs-offset-23{margin-left:95.83333333%}.ivu-col-xs-order-23{order:23}.ivu-col-span-xs-22{display:block;flex:0 0 91.66666667%;max-width:91.66666667%}.ivu-col-xs-push-22{left:91.66666667%}.ivu-col-xs-pull-22{right:91.66666667%}.ivu-col-xs-offset-22{margin-left:91.66666667%}.ivu-col-xs-order-22{order:22}.ivu-col-span-xs-21{display:block;flex:0 0 87.5%;max-width:87.5%}.ivu-col-xs-push-21{left:87.5%}.ivu-col-xs-pull-21{right:87.5%}.ivu-col-xs-offset-21{margin-left:87.5%}.ivu-col-xs-order-21{order:21}.ivu-col-span-xs-20{display:block;flex:0 0 83.33333333%;max-width:83.33333333%}.ivu-col-xs-push-20{left:83.33333333%}.ivu-col-xs-pull-20{right:83.33333333%}.ivu-col-xs-offset-20{margin-left:83.33333333%}.ivu-col-xs-order-20{order:20}.ivu-col-span-xs-19{display:block;flex:0 0 79.16666667%;max-width:79.16666667%}.ivu-col-xs-push-19{left:79.16666667%}.ivu-col-xs-pull-19{right:79.16666667%}.ivu-col-xs-offset-19{margin-left:79.16666667%}.ivu-col-xs-order-19{order:19}.ivu-col-span-xs-18{display:block;flex:0 0 75%;max-width:75%}.ivu-col-xs-push-18{left:75%}.ivu-col-xs-pull-18{right:75%}.ivu-col-xs-offset-18{margin-left:75%}.ivu-col-xs-order-18{order:18}.ivu-col-span-xs-17{display:block;flex:0 0 70.83333333%;max-width:70.83333333%}.ivu-col-xs-push-17{left:70.83333333%}.ivu-col-xs-pull-17{right:70.83333333%}.ivu-col-xs-offset-17{margin-left:70.83333333%}.ivu-col-xs-order-17{order:17}.ivu-col-span-xs-16{display:block;flex:0 0 66.66666667%;max-width:66.66666667%}.ivu-col-xs-push-16{left:66.66666667%}.ivu-col-xs-pull-16{right:66.66666667%}.ivu-col-xs-offset-16{margin-left:66.66666667%}.ivu-col-xs-order-16{order:16}.ivu-col-span-xs-15{display:block;flex:0 0 62.5%;max-width:62.5%}.ivu-col-xs-push-15{left:62.5%}.ivu-col-xs-pull-15{right:62.5%}.ivu-col-xs-offset-15{margin-left:62.5%}.ivu-col-xs-order-15{order:15}.ivu-col-span-xs-14{display:block;flex:0 0 58.33333333%;max-width:58.33333333%}.ivu-col-xs-push-14{left:58.33333333%}.ivu-col-xs-pull-14{right:58.33333333%}.ivu-col-xs-offset-14{margin-left:58.33333333%}.ivu-col-xs-order-14{order:14}.ivu-col-span-xs-13{display:block;flex:0 0 54.16666667%;max-width:54.16666667%}.ivu-col-xs-push-13{left:54.16666667%}.ivu-col-xs-pull-13{right:54.16666667%}.ivu-col-xs-offset-13{margin-left:54.16666667%}.ivu-col-xs-order-13{order:13}.ivu-col-span-xs-12{display:block;flex:0 0 50%;max-width:50%}.ivu-col-xs-push-12{left:50%}.ivu-col-xs-pull-12{right:50%}.ivu-col-xs-offset-12{margin-left:50%}.ivu-col-xs-order-12{order:12}.ivu-col-span-xs-11{display:block;flex:0 0 45.83333333%;max-width:45.83333333%}.ivu-col-xs-push-11{left:45.83333333%}.ivu-col-xs-pull-11{right:45.83333333%}.ivu-col-xs-offset-11{margin-left:45.83333333%}.ivu-col-xs-order-11{order:11}.ivu-col-span-xs-10{display:block;flex:0 0 41.66666667%;max-width:41.66666667%}.ivu-col-xs-push-10{left:41.66666667%}.ivu-col-xs-pull-10{right:41.66666667%}.ivu-col-xs-offset-10{margin-left:41.66666667%}.ivu-col-xs-order-10{order:10}.ivu-col-span-xs-9{display:block;flex:0 0 37.5%;max-width:37.5%}.ivu-col-xs-push-9{left:37.5%}.ivu-col-xs-pull-9{right:37.5%}.ivu-col-xs-offset-9{margin-left:37.5%}.ivu-col-xs-order-9{order:9}.ivu-col-span-xs-8{display:block;flex:0 0 33.33333333%;max-width:33.33333333%}.ivu-col-xs-push-8{left:33.33333333%}.ivu-col-xs-pull-8{right:33.33333333%}.ivu-col-xs-offset-8{margin-left:33.33333333%}.ivu-col-xs-order-8{order:8}.ivu-col-span-xs-7{display:block;flex:0 0 29.16666667%;max-width:29.16666667%}.ivu-col-xs-push-7{left:29.16666667%}.ivu-col-xs-pull-7{right:29.16666667%}.ivu-col-xs-offset-7{margin-left:29.16666667%}.ivu-col-xs-order-7{order:7}.ivu-col-span-xs-6{display:block;flex:0 0 25%;max-width:25%}.ivu-col-xs-push-6{left:25%}.ivu-col-xs-pull-6{right:25%}.ivu-col-xs-offset-6{margin-left:25%}.ivu-col-xs-order-6{order:6}.ivu-col-span-xs-5{display:block;flex:0 0 20.83333333%;max-width:20.83333333%}.ivu-col-xs-push-5{left:20.83333333%}.ivu-col-xs-pull-5{right:20.83333333%}.ivu-col-xs-offset-5{margin-left:20.83333333%}.ivu-col-xs-order-5{order:5}.ivu-col-span-xs-4{display:block;flex:0 0 16.66666667%;max-width:16.66666667%}.ivu-col-xs-push-4{left:16.66666667%}.ivu-col-xs-pull-4{right:16.66666667%}.ivu-col-xs-offset-4{margin-left:16.66666667%}.ivu-col-xs-order-4{order:4}.ivu-col-span-xs-3{display:block;flex:0 0 12.5%;max-width:12.5%}.ivu-col-xs-push-3{left:12.5%}.ivu-col-xs-pull-3{right:12.5%}.ivu-col-xs-offset-3{margin-left:12.5%}.ivu-col-xs-order-3{order:3}.ivu-col-span-xs-2{display:block;flex:0 0 8.33333333%;max-width:8.33333333%}.ivu-col-xs-push-2{left:8.33333333%}.ivu-col-xs-pull-2{right:8.33333333%}.ivu-col-xs-offset-2{margin-left:8.33333333%}.ivu-col-xs-order-2{order:2}.ivu-col-span-xs-1{display:block;flex:0 0 4.16666667%;max-width:4.16666667%}.ivu-col-xs-push-1{left:4.16666667%}.ivu-col-xs-pull-1{right:4.16666667%}.ivu-col-xs-offset-1{margin-left:4.16666667%}.ivu-col-xs-order-1{order:1}.ivu-col-span-xs-0{display:none}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-xs-push-0{left:auto}.ivu-col-xs-pull-0{right:auto}.ivu-col-xs-offset-0{margin-left:0}.ivu-col-xs-order-0{order:0}@media (min-width:576px){.ivu-col-span-sm-24{display:block;flex:0 0 100%;max-width:100%}.ivu-col-sm-push-24{left:100%}.ivu-col-sm-pull-24{right:100%}.ivu-col-sm-offset-24{margin-left:100%}.ivu-col-sm-order-24{order:24}.ivu-col-span-sm-23{display:block;flex:0 0 95.83333333%;max-width:95.83333333%}.ivu-col-sm-push-23{left:95.83333333%}.ivu-col-sm-pull-23{right:95.83333333%}.ivu-col-sm-offset-23{margin-left:95.83333333%}.ivu-col-sm-order-23{order:23}.ivu-col-span-sm-22{display:block;flex:0 0 91.66666667%;max-width:91.66666667%}.ivu-col-sm-push-22{left:91.66666667%}.ivu-col-sm-pull-22{right:91.66666667%}.ivu-col-sm-offset-22{margin-left:91.66666667%}.ivu-col-sm-order-22{order:22}.ivu-col-span-sm-21{display:block;flex:0 0 87.5%;max-width:87.5%}.ivu-col-sm-push-21{left:87.5%}.ivu-col-sm-pull-21{right:87.5%}.ivu-col-sm-offset-21{margin-left:87.5%}.ivu-col-sm-order-21{order:21}.ivu-col-span-sm-20{display:block;flex:0 0 83.33333333%;max-width:83.33333333%}.ivu-col-sm-push-20{left:83.33333333%}.ivu-col-sm-pull-20{right:83.33333333%}.ivu-col-sm-offset-20{margin-left:83.33333333%}.ivu-col-sm-order-20{order:20}.ivu-col-span-sm-19{display:block;flex:0 0 79.16666667%;max-width:79.16666667%}.ivu-col-sm-push-19{left:79.16666667%}.ivu-col-sm-pull-19{right:79.16666667%}.ivu-col-sm-offset-19{margin-left:79.16666667%}.ivu-col-sm-order-19{order:19}.ivu-col-span-sm-18{display:block;flex:0 0 75%;max-width:75%}.ivu-col-sm-push-18{left:75%}.ivu-col-sm-pull-18{right:75%}.ivu-col-sm-offset-18{margin-left:75%}.ivu-col-sm-order-18{order:18}.ivu-col-span-sm-17{display:block;flex:0 0 70.83333333%;max-width:70.83333333%}.ivu-col-sm-push-17{left:70.83333333%}.ivu-col-sm-pull-17{right:70.83333333%}.ivu-col-sm-offset-17{margin-left:70.83333333%}.ivu-col-sm-order-17{order:17}.ivu-col-span-sm-16{display:block;flex:0 0 66.66666667%;max-width:66.66666667%}.ivu-col-sm-push-16{left:66.66666667%}.ivu-col-sm-pull-16{right:66.66666667%}.ivu-col-sm-offset-16{margin-left:66.66666667%}.ivu-col-sm-order-16{order:16}.ivu-col-span-sm-15{display:block;flex:0 0 62.5%;max-width:62.5%}.ivu-col-sm-push-15{left:62.5%}.ivu-col-sm-pull-15{right:62.5%}.ivu-col-sm-offset-15{margin-left:62.5%}.ivu-col-sm-order-15{order:15}.ivu-col-span-sm-14{display:block;flex:0 0 58.33333333%;max-width:58.33333333%}.ivu-col-sm-push-14{left:58.33333333%}.ivu-col-sm-pull-14{right:58.33333333%}.ivu-col-sm-offset-14{margin-left:58.33333333%}.ivu-col-sm-order-14{order:14}.ivu-col-span-sm-13{display:block;flex:0 0 54.16666667%;max-width:54.16666667%}.ivu-col-sm-push-13{left:54.16666667%}.ivu-col-sm-pull-13{right:54.16666667%}.ivu-col-sm-offset-13{margin-left:54.16666667%}.ivu-col-sm-order-13{order:13}.ivu-col-span-sm-12{display:block;flex:0 0 50%;max-width:50%}.ivu-col-sm-push-12{left:50%}.ivu-col-sm-pull-12{right:50%}.ivu-col-sm-offset-12{margin-left:50%}.ivu-col-sm-order-12{order:12}.ivu-col-span-sm-11{display:block;flex:0 0 45.83333333%;max-width:45.83333333%}.ivu-col-sm-push-11{left:45.83333333%}.ivu-col-sm-pull-11{right:45.83333333%}.ivu-col-sm-offset-11{margin-left:45.83333333%}.ivu-col-sm-order-11{order:11}.ivu-col-span-sm-10{display:block;flex:0 0 41.66666667%;max-width:41.66666667%}.ivu-col-sm-push-10{left:41.66666667%}.ivu-col-sm-pull-10{right:41.66666667%}.ivu-col-sm-offset-10{margin-left:41.66666667%}.ivu-col-sm-order-10{order:10}.ivu-col-span-sm-9{display:block;flex:0 0 37.5%;max-width:37.5%}.ivu-col-sm-push-9{left:37.5%}.ivu-col-sm-pull-9{right:37.5%}.ivu-col-sm-offset-9{margin-left:37.5%}.ivu-col-sm-order-9{order:9}.ivu-col-span-sm-8{display:block;flex:0 0 33.33333333%;max-width:33.33333333%}.ivu-col-sm-push-8{left:33.33333333%}.ivu-col-sm-pull-8{right:33.33333333%}.ivu-col-sm-offset-8{margin-left:33.33333333%}.ivu-col-sm-order-8{order:8}.ivu-col-span-sm-7{display:block;flex:0 0 29.16666667%;max-width:29.16666667%}.ivu-col-sm-push-7{left:29.16666667%}.ivu-col-sm-pull-7{right:29.16666667%}.ivu-col-sm-offset-7{margin-left:29.16666667%}.ivu-col-sm-order-7{order:7}.ivu-col-span-sm-6{display:block;flex:0 0 25%;max-width:25%}.ivu-col-sm-push-6{left:25%}.ivu-col-sm-pull-6{right:25%}.ivu-col-sm-offset-6{margin-left:25%}.ivu-col-sm-order-6{order:6}.ivu-col-span-sm-5{display:block;flex:0 0 20.83333333%;max-width:20.83333333%}.ivu-col-sm-push-5{left:20.83333333%}.ivu-col-sm-pull-5{right:20.83333333%}.ivu-col-sm-offset-5{margin-left:20.83333333%}.ivu-col-sm-order-5{order:5}.ivu-col-span-sm-4{display:block;flex:0 0 16.66666667%;max-width:16.66666667%}.ivu-col-sm-push-4{left:16.66666667%}.ivu-col-sm-pull-4{right:16.66666667%}.ivu-col-sm-offset-4{margin-left:16.66666667%}.ivu-col-sm-order-4{order:4}.ivu-col-span-sm-3{display:block;flex:0 0 12.5%;max-width:12.5%}.ivu-col-sm-push-3{left:12.5%}.ivu-col-sm-pull-3{right:12.5%}.ivu-col-sm-offset-3{margin-left:12.5%}.ivu-col-sm-order-3{order:3}.ivu-col-span-sm-2{display:block;flex:0 0 8.33333333%;max-width:8.33333333%}.ivu-col-sm-push-2{left:8.33333333%}.ivu-col-sm-pull-2{right:8.33333333%}.ivu-col-sm-offset-2{margin-left:8.33333333%}.ivu-col-sm-order-2{order:2}.ivu-col-span-sm-1{display:block;flex:0 0 4.16666667%;max-width:4.16666667%}.ivu-col-sm-push-1{left:4.16666667%}.ivu-col-sm-pull-1{right:4.16666667%}.ivu-col-sm-offset-1{margin-left:4.16666667%}.ivu-col-sm-order-1{order:1}.ivu-col-span-sm-0{display:none}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-sm-push-0{left:auto}.ivu-col-sm-pull-0{right:auto}.ivu-col-sm-offset-0{margin-left:0}.ivu-col-sm-order-0{order:0}}@media (min-width:768px){.ivu-col-span-md-24{display:block;flex:0 0 100%;max-width:100%}.ivu-col-md-push-24{left:100%}.ivu-col-md-pull-24{right:100%}.ivu-col-md-offset-24{margin-left:100%}.ivu-col-md-order-24{order:24}.ivu-col-span-md-23{display:block;flex:0 0 95.83333333%;max-width:95.83333333%}.ivu-col-md-push-23{left:95.83333333%}.ivu-col-md-pull-23{right:95.83333333%}.ivu-col-md-offset-23{margin-left:95.83333333%}.ivu-col-md-order-23{order:23}.ivu-col-span-md-22{display:block;flex:0 0 91.66666667%;max-width:91.66666667%}.ivu-col-md-push-22{left:91.66666667%}.ivu-col-md-pull-22{right:91.66666667%}.ivu-col-md-offset-22{margin-left:91.66666667%}.ivu-col-md-order-22{order:22}.ivu-col-span-md-21{display:block;flex:0 0 87.5%;max-width:87.5%}.ivu-col-md-push-21{left:87.5%}.ivu-col-md-pull-21{right:87.5%}.ivu-col-md-offset-21{margin-left:87.5%}.ivu-col-md-order-21{order:21}.ivu-col-span-md-20{display:block;flex:0 0 83.33333333%;max-width:83.33333333%}.ivu-col-md-push-20{left:83.33333333%}.ivu-col-md-pull-20{right:83.33333333%}.ivu-col-md-offset-20{margin-left:83.33333333%}.ivu-col-md-order-20{order:20}.ivu-col-span-md-19{display:block;flex:0 0 79.16666667%;max-width:79.16666667%}.ivu-col-md-push-19{left:79.16666667%}.ivu-col-md-pull-19{right:79.16666667%}.ivu-col-md-offset-19{margin-left:79.16666667%}.ivu-col-md-order-19{order:19}.ivu-col-span-md-18{display:block;flex:0 0 75%;max-width:75%}.ivu-col-md-push-18{left:75%}.ivu-col-md-pull-18{right:75%}.ivu-col-md-offset-18{margin-left:75%}.ivu-col-md-order-18{order:18}.ivu-col-span-md-17{display:block;flex:0 0 70.83333333%;max-width:70.83333333%}.ivu-col-md-push-17{left:70.83333333%}.ivu-col-md-pull-17{right:70.83333333%}.ivu-col-md-offset-17{margin-left:70.83333333%}.ivu-col-md-order-17{order:17}.ivu-col-span-md-16{display:block;flex:0 0 66.66666667%;max-width:66.66666667%}.ivu-col-md-push-16{left:66.66666667%}.ivu-col-md-pull-16{right:66.66666667%}.ivu-col-md-offset-16{margin-left:66.66666667%}.ivu-col-md-order-16{order:16}.ivu-col-span-md-15{display:block;flex:0 0 62.5%;max-width:62.5%}.ivu-col-md-push-15{left:62.5%}.ivu-col-md-pull-15{right:62.5%}.ivu-col-md-offset-15{margin-left:62.5%}.ivu-col-md-order-15{order:15}.ivu-col-span-md-14{display:block;flex:0 0 58.33333333%;max-width:58.33333333%}.ivu-col-md-push-14{left:58.33333333%}.ivu-col-md-pull-14{right:58.33333333%}.ivu-col-md-offset-14{margin-left:58.33333333%}.ivu-col-md-order-14{order:14}.ivu-col-span-md-13{display:block;flex:0 0 54.16666667%;max-width:54.16666667%}.ivu-col-md-push-13{left:54.16666667%}.ivu-col-md-pull-13{right:54.16666667%}.ivu-col-md-offset-13{margin-left:54.16666667%}.ivu-col-md-order-13{order:13}.ivu-col-span-md-12{display:block;flex:0 0 50%;max-width:50%}.ivu-col-md-push-12{left:50%}.ivu-col-md-pull-12{right:50%}.ivu-col-md-offset-12{margin-left:50%}.ivu-col-md-order-12{order:12}.ivu-col-span-md-11{display:block;flex:0 0 45.83333333%;max-width:45.83333333%}.ivu-col-md-push-11{left:45.83333333%}.ivu-col-md-pull-11{right:45.83333333%}.ivu-col-md-offset-11{margin-left:45.83333333%}.ivu-col-md-order-11{order:11}.ivu-col-span-md-10{display:block;flex:0 0 41.66666667%;max-width:41.66666667%}.ivu-col-md-push-10{left:41.66666667%}.ivu-col-md-pull-10{right:41.66666667%}.ivu-col-md-offset-10{margin-left:41.66666667%}.ivu-col-md-order-10{order:10}.ivu-col-span-md-9{display:block;flex:0 0 37.5%;max-width:37.5%}.ivu-col-md-push-9{left:37.5%}.ivu-col-md-pull-9{right:37.5%}.ivu-col-md-offset-9{margin-left:37.5%}.ivu-col-md-order-9{order:9}.ivu-col-span-md-8{display:block;flex:0 0 33.33333333%;max-width:33.33333333%}.ivu-col-md-push-8{left:33.33333333%}.ivu-col-md-pull-8{right:33.33333333%}.ivu-col-md-offset-8{margin-left:33.33333333%}.ivu-col-md-order-8{order:8}.ivu-col-span-md-7{display:block;flex:0 0 29.16666667%;max-width:29.16666667%}.ivu-col-md-push-7{left:29.16666667%}.ivu-col-md-pull-7{right:29.16666667%}.ivu-col-md-offset-7{margin-left:29.16666667%}.ivu-col-md-order-7{order:7}.ivu-col-span-md-6{display:block;flex:0 0 25%;max-width:25%}.ivu-col-md-push-6{left:25%}.ivu-col-md-pull-6{right:25%}.ivu-col-md-offset-6{margin-left:25%}.ivu-col-md-order-6{order:6}.ivu-col-span-md-5{display:block;flex:0 0 20.83333333%;max-width:20.83333333%}.ivu-col-md-push-5{left:20.83333333%}.ivu-col-md-pull-5{right:20.83333333%}.ivu-col-md-offset-5{margin-left:20.83333333%}.ivu-col-md-order-5{order:5}.ivu-col-span-md-4{display:block;flex:0 0 16.66666667%;max-width:16.66666667%}.ivu-col-md-push-4{left:16.66666667%}.ivu-col-md-pull-4{right:16.66666667%}.ivu-col-md-offset-4{margin-left:16.66666667%}.ivu-col-md-order-4{order:4}.ivu-col-span-md-3{display:block;flex:0 0 12.5%;max-width:12.5%}.ivu-col-md-push-3{left:12.5%}.ivu-col-md-pull-3{right:12.5%}.ivu-col-md-offset-3{margin-left:12.5%}.ivu-col-md-order-3{order:3}.ivu-col-span-md-2{display:block;flex:0 0 8.33333333%;max-width:8.33333333%}.ivu-col-md-push-2{left:8.33333333%}.ivu-col-md-pull-2{right:8.33333333%}.ivu-col-md-offset-2{margin-left:8.33333333%}.ivu-col-md-order-2{order:2}.ivu-col-span-md-1{display:block;flex:0 0 4.16666667%;max-width:4.16666667%}.ivu-col-md-push-1{left:4.16666667%}.ivu-col-md-pull-1{right:4.16666667%}.ivu-col-md-offset-1{margin-left:4.16666667%}.ivu-col-md-order-1{order:1}.ivu-col-span-md-0{display:none}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-md-push-0{left:auto}.ivu-col-md-pull-0{right:auto}.ivu-col-md-offset-0{margin-left:0}.ivu-col-md-order-0{order:0}}@media (min-width:992px){.ivu-col-span-lg-24{display:block;flex:0 0 100%;max-width:100%}.ivu-col-lg-push-24{left:100%}.ivu-col-lg-pull-24{right:100%}.ivu-col-lg-offset-24{margin-left:100%}.ivu-col-lg-order-24{order:24}.ivu-col-span-lg-23{display:block;flex:0 0 95.83333333%;max-width:95.83333333%}.ivu-col-lg-push-23{left:95.83333333%}.ivu-col-lg-pull-23{right:95.83333333%}.ivu-col-lg-offset-23{margin-left:95.83333333%}.ivu-col-lg-order-23{order:23}.ivu-col-span-lg-22{display:block;flex:0 0 91.66666667%;max-width:91.66666667%}.ivu-col-lg-push-22{left:91.66666667%}.ivu-col-lg-pull-22{right:91.66666667%}.ivu-col-lg-offset-22{margin-left:91.66666667%}.ivu-col-lg-order-22{order:22}.ivu-col-span-lg-21{display:block;flex:0 0 87.5%;max-width:87.5%}.ivu-col-lg-push-21{left:87.5%}.ivu-col-lg-pull-21{right:87.5%}.ivu-col-lg-offset-21{margin-left:87.5%}.ivu-col-lg-order-21{order:21}.ivu-col-span-lg-20{display:block;flex:0 0 83.33333333%;max-width:83.33333333%}.ivu-col-lg-push-20{left:83.33333333%}.ivu-col-lg-pull-20{right:83.33333333%}.ivu-col-lg-offset-20{margin-left:83.33333333%}.ivu-col-lg-order-20{order:20}.ivu-col-span-lg-19{display:block;flex:0 0 79.16666667%;max-width:79.16666667%}.ivu-col-lg-push-19{left:79.16666667%}.ivu-col-lg-pull-19{right:79.16666667%}.ivu-col-lg-offset-19{margin-left:79.16666667%}.ivu-col-lg-order-19{order:19}.ivu-col-span-lg-18{display:block;flex:0 0 75%;max-width:75%}.ivu-col-lg-push-18{left:75%}.ivu-col-lg-pull-18{right:75%}.ivu-col-lg-offset-18{margin-left:75%}.ivu-col-lg-order-18{order:18}.ivu-col-span-lg-17{display:block;flex:0 0 70.83333333%;max-width:70.83333333%}.ivu-col-lg-push-17{left:70.83333333%}.ivu-col-lg-pull-17{right:70.83333333%}.ivu-col-lg-offset-17{margin-left:70.83333333%}.ivu-col-lg-order-17{order:17}.ivu-col-span-lg-16{display:block;flex:0 0 66.66666667%;max-width:66.66666667%}.ivu-col-lg-push-16{left:66.66666667%}.ivu-col-lg-pull-16{right:66.66666667%}.ivu-col-lg-offset-16{margin-left:66.66666667%}.ivu-col-lg-order-16{order:16}.ivu-col-span-lg-15{display:block;flex:0 0 62.5%;max-width:62.5%}.ivu-col-lg-push-15{left:62.5%}.ivu-col-lg-pull-15{right:62.5%}.ivu-col-lg-offset-15{margin-left:62.5%}.ivu-col-lg-order-15{order:15}.ivu-col-span-lg-14{display:block;flex:0 0 58.33333333%;max-width:58.33333333%}.ivu-col-lg-push-14{left:58.33333333%}.ivu-col-lg-pull-14{right:58.33333333%}.ivu-col-lg-offset-14{margin-left:58.33333333%}.ivu-col-lg-order-14{order:14}.ivu-col-span-lg-13{display:block;flex:0 0 54.16666667%;max-width:54.16666667%}.ivu-col-lg-push-13{left:54.16666667%}.ivu-col-lg-pull-13{right:54.16666667%}.ivu-col-lg-offset-13{margin-left:54.16666667%}.ivu-col-lg-order-13{order:13}.ivu-col-span-lg-12{display:block;flex:0 0 50%;max-width:50%}.ivu-col-lg-push-12{left:50%}.ivu-col-lg-pull-12{right:50%}.ivu-col-lg-offset-12{margin-left:50%}.ivu-col-lg-order-12{order:12}.ivu-col-span-lg-11{display:block;flex:0 0 45.83333333%;max-width:45.83333333%}.ivu-col-lg-push-11{left:45.83333333%}.ivu-col-lg-pull-11{right:45.83333333%}.ivu-col-lg-offset-11{margin-left:45.83333333%}.ivu-col-lg-order-11{order:11}.ivu-col-span-lg-10{display:block;flex:0 0 41.66666667%;max-width:41.66666667%}.ivu-col-lg-push-10{left:41.66666667%}.ivu-col-lg-pull-10{right:41.66666667%}.ivu-col-lg-offset-10{margin-left:41.66666667%}.ivu-col-lg-order-10{order:10}.ivu-col-span-lg-9{display:block;flex:0 0 37.5%;max-width:37.5%}.ivu-col-lg-push-9{left:37.5%}.ivu-col-lg-pull-9{right:37.5%}.ivu-col-lg-offset-9{margin-left:37.5%}.ivu-col-lg-order-9{order:9}.ivu-col-span-lg-8{display:block;flex:0 0 33.33333333%;max-width:33.33333333%}.ivu-col-lg-push-8{left:33.33333333%}.ivu-col-lg-pull-8{right:33.33333333%}.ivu-col-lg-offset-8{margin-left:33.33333333%}.ivu-col-lg-order-8{order:8}.ivu-col-span-lg-7{display:block;flex:0 0 29.16666667%;max-width:29.16666667%}.ivu-col-lg-push-7{left:29.16666667%}.ivu-col-lg-pull-7{right:29.16666667%}.ivu-col-lg-offset-7{margin-left:29.16666667%}.ivu-col-lg-order-7{order:7}.ivu-col-span-lg-6{display:block;flex:0 0 25%;max-width:25%}.ivu-col-lg-push-6{left:25%}.ivu-col-lg-pull-6{right:25%}.ivu-col-lg-offset-6{margin-left:25%}.ivu-col-lg-order-6{order:6}.ivu-col-span-lg-5{display:block;flex:0 0 20.83333333%;max-width:20.83333333%}.ivu-col-lg-push-5{left:20.83333333%}.ivu-col-lg-pull-5{right:20.83333333%}.ivu-col-lg-offset-5{margin-left:20.83333333%}.ivu-col-lg-order-5{order:5}.ivu-col-span-lg-4{display:block;flex:0 0 16.66666667%;max-width:16.66666667%}.ivu-col-lg-push-4{left:16.66666667%}.ivu-col-lg-pull-4{right:16.66666667%}.ivu-col-lg-offset-4{margin-left:16.66666667%}.ivu-col-lg-order-4{order:4}.ivu-col-span-lg-3{display:block;flex:0 0 12.5%;max-width:12.5%}.ivu-col-lg-push-3{left:12.5%}.ivu-col-lg-pull-3{right:12.5%}.ivu-col-lg-offset-3{margin-left:12.5%}.ivu-col-lg-order-3{order:3}.ivu-col-span-lg-2{display:block;flex:0 0 8.33333333%;max-width:8.33333333%}.ivu-col-lg-push-2{left:8.33333333%}.ivu-col-lg-pull-2{right:8.33333333%}.ivu-col-lg-offset-2{margin-left:8.33333333%}.ivu-col-lg-order-2{order:2}.ivu-col-span-lg-1{display:block;flex:0 0 4.16666667%;max-width:4.16666667%}.ivu-col-lg-push-1{left:4.16666667%}.ivu-col-lg-pull-1{right:4.16666667%}.ivu-col-lg-offset-1{margin-left:4.16666667%}.ivu-col-lg-order-1{order:1}.ivu-col-span-lg-0{display:none}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-lg-push-0{left:auto}.ivu-col-lg-pull-0{right:auto}.ivu-col-lg-offset-0{margin-left:0}.ivu-col-lg-order-0{order:0}}@media (min-width:1200px){.ivu-col-span-xl-24{display:block;flex:0 0 100%;max-width:100%}.ivu-col-xl-push-24{left:100%}.ivu-col-xl-pull-24{right:100%}.ivu-col-xl-offset-24{margin-left:100%}.ivu-col-xl-order-24{order:24}.ivu-col-span-xl-23{display:block;flex:0 0 95.83333333%;max-width:95.83333333%}.ivu-col-xl-push-23{left:95.83333333%}.ivu-col-xl-pull-23{right:95.83333333%}.ivu-col-xl-offset-23{margin-left:95.83333333%}.ivu-col-xl-order-23{order:23}.ivu-col-span-xl-22{display:block;flex:0 0 91.66666667%;max-width:91.66666667%}.ivu-col-xl-push-22{left:91.66666667%}.ivu-col-xl-pull-22{right:91.66666667%}.ivu-col-xl-offset-22{margin-left:91.66666667%}.ivu-col-xl-order-22{order:22}.ivu-col-span-xl-21{display:block;flex:0 0 87.5%;max-width:87.5%}.ivu-col-xl-push-21{left:87.5%}.ivu-col-xl-pull-21{right:87.5%}.ivu-col-xl-offset-21{margin-left:87.5%}.ivu-col-xl-order-21{order:21}.ivu-col-span-xl-20{display:block;flex:0 0 83.33333333%;max-width:83.33333333%}.ivu-col-xl-push-20{left:83.33333333%}.ivu-col-xl-pull-20{right:83.33333333%}.ivu-col-xl-offset-20{margin-left:83.33333333%}.ivu-col-xl-order-20{order:20}.ivu-col-span-xl-19{display:block;flex:0 0 79.16666667%;max-width:79.16666667%}.ivu-col-xl-push-19{left:79.16666667%}.ivu-col-xl-pull-19{right:79.16666667%}.ivu-col-xl-offset-19{margin-left:79.16666667%}.ivu-col-xl-order-19{order:19}.ivu-col-span-xl-18{display:block;flex:0 0 75%;max-width:75%}.ivu-col-xl-push-18{left:75%}.ivu-col-xl-pull-18{right:75%}.ivu-col-xl-offset-18{margin-left:75%}.ivu-col-xl-order-18{order:18}.ivu-col-span-xl-17{display:block;flex:0 0 70.83333333%;max-width:70.83333333%}.ivu-col-xl-push-17{left:70.83333333%}.ivu-col-xl-pull-17{right:70.83333333%}.ivu-col-xl-offset-17{margin-left:70.83333333%}.ivu-col-xl-order-17{order:17}.ivu-col-span-xl-16{display:block;flex:0 0 66.66666667%;max-width:66.66666667%}.ivu-col-xl-push-16{left:66.66666667%}.ivu-col-xl-pull-16{right:66.66666667%}.ivu-col-xl-offset-16{margin-left:66.66666667%}.ivu-col-xl-order-16{order:16}.ivu-col-span-xl-15{display:block;flex:0 0 62.5%;max-width:62.5%}.ivu-col-xl-push-15{left:62.5%}.ivu-col-xl-pull-15{right:62.5%}.ivu-col-xl-offset-15{margin-left:62.5%}.ivu-col-xl-order-15{order:15}.ivu-col-span-xl-14{display:block;flex:0 0 58.33333333%;max-width:58.33333333%}.ivu-col-xl-push-14{left:58.33333333%}.ivu-col-xl-pull-14{right:58.33333333%}.ivu-col-xl-offset-14{margin-left:58.33333333%}.ivu-col-xl-order-14{order:14}.ivu-col-span-xl-13{display:block;flex:0 0 54.16666667%;max-width:54.16666667%}.ivu-col-xl-push-13{left:54.16666667%}.ivu-col-xl-pull-13{right:54.16666667%}.ivu-col-xl-offset-13{margin-left:54.16666667%}.ivu-col-xl-order-13{order:13}.ivu-col-span-xl-12{display:block;flex:0 0 50%;max-width:50%}.ivu-col-xl-push-12{left:50%}.ivu-col-xl-pull-12{right:50%}.ivu-col-xl-offset-12{margin-left:50%}.ivu-col-xl-order-12{order:12}.ivu-col-span-xl-11{display:block;flex:0 0 45.83333333%;max-width:45.83333333%}.ivu-col-xl-push-11{left:45.83333333%}.ivu-col-xl-pull-11{right:45.83333333%}.ivu-col-xl-offset-11{margin-left:45.83333333%}.ivu-col-xl-order-11{order:11}.ivu-col-span-xl-10{display:block;flex:0 0 41.66666667%;max-width:41.66666667%}.ivu-col-xl-push-10{left:41.66666667%}.ivu-col-xl-pull-10{right:41.66666667%}.ivu-col-xl-offset-10{margin-left:41.66666667%}.ivu-col-xl-order-10{order:10}.ivu-col-span-xl-9{display:block;flex:0 0 37.5%;max-width:37.5%}.ivu-col-xl-push-9{left:37.5%}.ivu-col-xl-pull-9{right:37.5%}.ivu-col-xl-offset-9{margin-left:37.5%}.ivu-col-xl-order-9{order:9}.ivu-col-span-xl-8{display:block;flex:0 0 33.33333333%;max-width:33.33333333%}.ivu-col-xl-push-8{left:33.33333333%}.ivu-col-xl-pull-8{right:33.33333333%}.ivu-col-xl-offset-8{margin-left:33.33333333%}.ivu-col-xl-order-8{order:8}.ivu-col-span-xl-7{display:block;flex:0 0 29.16666667%;max-width:29.16666667%}.ivu-col-xl-push-7{left:29.16666667%}.ivu-col-xl-pull-7{right:29.16666667%}.ivu-col-xl-offset-7{margin-left:29.16666667%}.ivu-col-xl-order-7{order:7}.ivu-col-span-xl-6{display:block;flex:0 0 25%;max-width:25%}.ivu-col-xl-push-6{left:25%}.ivu-col-xl-pull-6{right:25%}.ivu-col-xl-offset-6{margin-left:25%}.ivu-col-xl-order-6{order:6}.ivu-col-span-xl-5{display:block;flex:0 0 20.83333333%;max-width:20.83333333%}.ivu-col-xl-push-5{left:20.83333333%}.ivu-col-xl-pull-5{right:20.83333333%}.ivu-col-xl-offset-5{margin-left:20.83333333%}.ivu-col-xl-order-5{order:5}.ivu-col-span-xl-4{display:block;flex:0 0 16.66666667%;max-width:16.66666667%}.ivu-col-xl-push-4{left:16.66666667%}.ivu-col-xl-pull-4{right:16.66666667%}.ivu-col-xl-offset-4{margin-left:16.66666667%}.ivu-col-xl-order-4{order:4}.ivu-col-span-xl-3{display:block;flex:0 0 12.5%;max-width:12.5%}.ivu-col-xl-push-3{left:12.5%}.ivu-col-xl-pull-3{right:12.5%}.ivu-col-xl-offset-3{margin-left:12.5%}.ivu-col-xl-order-3{order:3}.ivu-col-span-xl-2{display:block;flex:0 0 8.33333333%;max-width:8.33333333%}.ivu-col-xl-push-2{left:8.33333333%}.ivu-col-xl-pull-2{right:8.33333333%}.ivu-col-xl-offset-2{margin-left:8.33333333%}.ivu-col-xl-order-2{order:2}.ivu-col-span-xl-1{display:block;flex:0 0 4.16666667%;max-width:4.16666667%}.ivu-col-xl-push-1{left:4.16666667%}.ivu-col-xl-pull-1{right:4.16666667%}.ivu-col-xl-offset-1{margin-left:4.16666667%}.ivu-col-xl-order-1{order:1}.ivu-col-span-xl-0{display:none}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-xl-push-0{left:auto}.ivu-col-xl-pull-0{right:auto}.ivu-col-xl-offset-0{margin-left:0}.ivu-col-xl-order-0{order:0}}@media (min-width:1600px){.ivu-col-span-xxl-24{display:block;flex:0 0 100%;max-width:100%}.ivu-col-xxl-push-24{left:100%}.ivu-col-xxl-pull-24{right:100%}.ivu-col-xxl-offset-24{margin-left:100%}.ivu-col-xxl-order-24{order:24}.ivu-col-span-xxl-23{display:block;flex:0 0 95.83333333%;max-width:95.83333333%}.ivu-col-xxl-push-23{left:95.83333333%}.ivu-col-xxl-pull-23{right:95.83333333%}.ivu-col-xxl-offset-23{margin-left:95.83333333%}.ivu-col-xxl-order-23{order:23}.ivu-col-span-xxl-22{display:block;flex:0 0 91.66666667%;max-width:91.66666667%}.ivu-col-xxl-push-22{left:91.66666667%}.ivu-col-xxl-pull-22{right:91.66666667%}.ivu-col-xxl-offset-22{margin-left:91.66666667%}.ivu-col-xxl-order-22{order:22}.ivu-col-span-xxl-21{display:block;flex:0 0 87.5%;max-width:87.5%}.ivu-col-xxl-push-21{left:87.5%}.ivu-col-xxl-pull-21{right:87.5%}.ivu-col-xxl-offset-21{margin-left:87.5%}.ivu-col-xxl-order-21{order:21}.ivu-col-span-xxl-20{display:block;flex:0 0 83.33333333%;max-width:83.33333333%}.ivu-col-xxl-push-20{left:83.33333333%}.ivu-col-xxl-pull-20{right:83.33333333%}.ivu-col-xxl-offset-20{margin-left:83.33333333%}.ivu-col-xxl-order-20{order:20}.ivu-col-span-xxl-19{display:block;flex:0 0 79.16666667%;max-width:79.16666667%}.ivu-col-xxl-push-19{left:79.16666667%}.ivu-col-xxl-pull-19{right:79.16666667%}.ivu-col-xxl-offset-19{margin-left:79.16666667%}.ivu-col-xxl-order-19{order:19}.ivu-col-span-xxl-18{display:block;flex:0 0 75%;max-width:75%}.ivu-col-xxl-push-18{left:75%}.ivu-col-xxl-pull-18{right:75%}.ivu-col-xxl-offset-18{margin-left:75%}.ivu-col-xxl-order-18{order:18}.ivu-col-span-xxl-17{display:block;flex:0 0 70.83333333%;max-width:70.83333333%}.ivu-col-xxl-push-17{left:70.83333333%}.ivu-col-xxl-pull-17{right:70.83333333%}.ivu-col-xxl-offset-17{margin-left:70.83333333%}.ivu-col-xxl-order-17{order:17}.ivu-col-span-xxl-16{display:block;flex:0 0 66.66666667%;max-width:66.66666667%}.ivu-col-xxl-push-16{left:66.66666667%}.ivu-col-xxl-pull-16{right:66.66666667%}.ivu-col-xxl-offset-16{margin-left:66.66666667%}.ivu-col-xxl-order-16{order:16}.ivu-col-span-xxl-15{display:block;flex:0 0 62.5%;max-width:62.5%}.ivu-col-xxl-push-15{left:62.5%}.ivu-col-xxl-pull-15{right:62.5%}.ivu-col-xxl-offset-15{margin-left:62.5%}.ivu-col-xxl-order-15{order:15}.ivu-col-span-xxl-14{display:block;flex:0 0 58.33333333%;max-width:58.33333333%}.ivu-col-xxl-push-14{left:58.33333333%}.ivu-col-xxl-pull-14{right:58.33333333%}.ivu-col-xxl-offset-14{margin-left:58.33333333%}.ivu-col-xxl-order-14{order:14}.ivu-col-span-xxl-13{display:block;flex:0 0 54.16666667%;max-width:54.16666667%}.ivu-col-xxl-push-13{left:54.16666667%}.ivu-col-xxl-pull-13{right:54.16666667%}.ivu-col-xxl-offset-13{margin-left:54.16666667%}.ivu-col-xxl-order-13{order:13}.ivu-col-span-xxl-12{display:block;flex:0 0 50%;max-width:50%}.ivu-col-xxl-push-12{left:50%}.ivu-col-xxl-pull-12{right:50%}.ivu-col-xxl-offset-12{margin-left:50%}.ivu-col-xxl-order-12{order:12}.ivu-col-span-xxl-11{display:block;flex:0 0 45.83333333%;max-width:45.83333333%}.ivu-col-xxl-push-11{left:45.83333333%}.ivu-col-xxl-pull-11{right:45.83333333%}.ivu-col-xxl-offset-11{margin-left:45.83333333%}.ivu-col-xxl-order-11{order:11}.ivu-col-span-xxl-10{display:block;flex:0 0 41.66666667%;max-width:41.66666667%}.ivu-col-xxl-push-10{left:41.66666667%}.ivu-col-xxl-pull-10{right:41.66666667%}.ivu-col-xxl-offset-10{margin-left:41.66666667%}.ivu-col-xxl-order-10{order:10}.ivu-col-span-xxl-9{display:block;flex:0 0 37.5%;max-width:37.5%}.ivu-col-xxl-push-9{left:37.5%}.ivu-col-xxl-pull-9{right:37.5%}.ivu-col-xxl-offset-9{margin-left:37.5%}.ivu-col-xxl-order-9{order:9}.ivu-col-span-xxl-8{display:block;flex:0 0 33.33333333%;max-width:33.33333333%}.ivu-col-xxl-push-8{left:33.33333333%}.ivu-col-xxl-pull-8{right:33.33333333%}.ivu-col-xxl-offset-8{margin-left:33.33333333%}.ivu-col-xxl-order-8{order:8}.ivu-col-span-xxl-7{display:block;flex:0 0 29.16666667%;max-width:29.16666667%}.ivu-col-xxl-push-7{left:29.16666667%}.ivu-col-xxl-pull-7{right:29.16666667%}.ivu-col-xxl-offset-7{margin-left:29.16666667%}.ivu-col-xxl-order-7{order:7}.ivu-col-span-xxl-6{display:block;flex:0 0 25%;max-width:25%}.ivu-col-xxl-push-6{left:25%}.ivu-col-xxl-pull-6{right:25%}.ivu-col-xxl-offset-6{margin-left:25%}.ivu-col-xxl-order-6{order:6}.ivu-col-span-xxl-5{display:block;flex:0 0 20.83333333%;max-width:20.83333333%}.ivu-col-xxl-push-5{left:20.83333333%}.ivu-col-xxl-pull-5{right:20.83333333%}.ivu-col-xxl-offset-5{margin-left:20.83333333%}.ivu-col-xxl-order-5{order:5}.ivu-col-span-xxl-4{display:block;flex:0 0 16.66666667%;max-width:16.66666667%}.ivu-col-xxl-push-4{left:16.66666667%}.ivu-col-xxl-pull-4{right:16.66666667%}.ivu-col-xxl-offset-4{margin-left:16.66666667%}.ivu-col-xxl-order-4{order:4}.ivu-col-span-xxl-3{display:block;flex:0 0 12.5%;max-width:12.5%}.ivu-col-xxl-push-3{left:12.5%}.ivu-col-xxl-pull-3{right:12.5%}.ivu-col-xxl-offset-3{margin-left:12.5%}.ivu-col-xxl-order-3{order:3}.ivu-col-span-xxl-2{display:block;flex:0 0 8.33333333%;max-width:8.33333333%}.ivu-col-xxl-push-2{left:8.33333333%}.ivu-col-xxl-pull-2{right:8.33333333%}.ivu-col-xxl-offset-2{margin-left:8.33333333%}.ivu-col-xxl-order-2{order:2}.ivu-col-span-xxl-1{display:block;flex:0 0 4.16666667%;max-width:4.16666667%}.ivu-col-xxl-push-1{left:4.16666667%}.ivu-col-xxl-pull-1{right:4.16666667%}.ivu-col-xxl-offset-1{margin-left:4.16666667%}.ivu-col-xxl-order-1{order:1}.ivu-col-span-xxl-0{display:none}.ivu-col-push-0{left:auto}.ivu-col-pull-0{right:auto}.ivu-col-xxl-push-0{left:auto}.ivu-col-xxl-pull-0{right:auto}.ivu-col-xxl-offset-0{margin-left:0}.ivu-col-xxl-order-0{order:0}}.ivu-article h1{font-size:26px;font-weight:400}.ivu-article h2{font-size:20px;font-weight:400}.ivu-article h3{font-size:16px;font-weight:400}.ivu-article h4{font-size:14px;font-weight:400}.ivu-article h5{font-size:12px;font-weight:400}.ivu-article h6{font-size:12px;font-weight:400}.ivu-article blockquote{padding:5px 5px 3px 10px;line-height:1.5;border-left:4px solid #ddd;margin-bottom:20px;color:#666;font-size:14px}.ivu-article ul:not([class^=ivu-]){padding-left:40px;list-style-type:disc}.ivu-article li:not([class^=ivu-]){margin-bottom:5px;font-size:14px}.ivu-article ol ul:not([class^=ivu-]),.ivu-article ul ul:not([class^=ivu-]){list-style-type:circle}.ivu-article p{margin:5px;font-size:14px}.ivu-article a:not([class^=ivu-])[target=\"_blank\"]:after{content:\"\\F3F2\";font-family:Ionicons;color:#aaa;margin-left:3px}.fade-appear,.fade-enter-active{animation-duration:.15s;animation-fill-mode:both;animation-play-state:paused}.fade-leave-active{animation-duration:.15s;animation-fill-mode:both;animation-play-state:paused}.fade-appear,.fade-enter-active{animation-name:ivuFadeIn;animation-play-state:running}.fade-leave-active{animation-name:ivuFadeOut;animation-play-state:running}.fade-appear,.fade-enter-active{opacity:0;animation-timing-function:linear}.fade-leave-active{animation-timing-function:linear}@keyframes ivuFadeIn{0%{opacity:0}100%{opacity:1}}@keyframes ivuFadeOut{0%{opacity:1}100%{opacity:0}}.move-up-appear,.move-up-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-up-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-up-appear,.move-up-enter-active{animation-name:ivuMoveUpIn;animation-play-state:running}.move-up-leave-active{animation-name:ivuMoveUpOut;animation-play-state:running}.move-up-appear,.move-up-enter-active{opacity:0;animation-timing-function:ease-in-out}.move-up-leave-active{animation-timing-function:ease-in-out}.move-down-appear,.move-down-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-down-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-down-appear,.move-down-enter-active{animation-name:ivuMoveDownIn;animation-play-state:running}.move-down-leave-active{animation-name:ivuMoveDownOut;animation-play-state:running}.move-down-appear,.move-down-enter-active{opacity:0;animation-timing-function:ease-in-out}.move-down-leave-active{animation-timing-function:ease-in-out}.move-left-appear,.move-left-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-left-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-left-appear,.move-left-enter-active{animation-name:ivuMoveLeftIn;animation-play-state:running}.move-left-leave-active{animation-name:ivuMoveLeftOut;animation-play-state:running}.move-left-appear,.move-left-enter-active{opacity:0;animation-timing-function:ease-in-out}.move-left-leave-active{animation-timing-function:ease-in-out}.move-right-appear,.move-right-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-right-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-right-appear,.move-right-enter-active{animation-name:ivuMoveRightIn;animation-play-state:running}.move-right-leave-active{animation-name:ivuMoveRightOut;animation-play-state:running}.move-right-appear,.move-right-enter-active{opacity:0;animation-timing-function:ease-in-out}.move-right-leave-active{animation-timing-function:ease-in-out}@keyframes ivuMoveDownIn{0%{transform-origin:0 0;transform:translateY(100%);opacity:0}100%{transform-origin:0 0;transform:translateY(0);opacity:1}}@keyframes ivuMoveDownOut{0%{transform-origin:0 0;transform:translateY(0);opacity:1}100%{transform-origin:0 0;transform:translateY(100%);opacity:0}}@keyframes ivuMoveLeftIn{0%{transform-origin:0 0;transform:translateX(-100%);opacity:0}100%{transform-origin:0 0;transform:translateX(0);opacity:1}}@keyframes ivuMoveLeftOut{0%{transform-origin:0 0;transform:translateX(0);opacity:1}100%{transform-origin:0 0;transform:translateX(-100%);opacity:0}}@keyframes ivuMoveRightIn{0%{opacity:0;transform-origin:0 0;transform:translateX(100%)}100%{opacity:1;transform-origin:0 0;transform:translateX(0)}}@keyframes ivuMoveRightOut{0%{transform-origin:0 0;transform:translateX(0);opacity:1}100%{transform-origin:0 0;transform:translateX(100%);opacity:0}}@keyframes ivuMoveUpIn{0%{transform-origin:0 0;transform:translateY(-100%);opacity:0}100%{transform-origin:0 0;transform:translateY(0);opacity:1}}@keyframes ivuMoveUpOut{0%{transform-origin:0 0;transform:translateY(0);opacity:1}100%{transform-origin:0 0;transform:translateY(-100%);opacity:0}}.move-notice-appear,.move-notice-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-notice-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.move-notice-appear,.move-notice-enter-active{animation-name:ivuMoveNoticeIn;animation-play-state:running}.move-notice-leave-active{animation-name:ivuMoveNoticeOut;animation-play-state:running}.move-notice-appear,.move-notice-enter-active{opacity:0;animation-timing-function:ease-in-out}.move-notice-leave-active{animation-timing-function:ease-in-out}@keyframes ivuMoveNoticeIn{0%{opacity:0;transform-origin:0 0;transform:translateX(100%)}100%{opacity:1;transform-origin:0 0;transform:translateX(0)}}@keyframes ivuMoveNoticeOut{0%{transform-origin:0 0;transform:translateX(0);opacity:1}70%{transform-origin:0 0;transform:translateX(100%);height:auto;padding:16px;margin-bottom:10px;opacity:0}100%{transform-origin:0 0;transform:translateX(100%);height:0;padding:0;margin-bottom:0;opacity:0}}.ease-appear,.ease-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.ease-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.ease-appear,.ease-enter-active{animation-name:ivuEaseIn;animation-play-state:running}.ease-leave-active{animation-name:ivuEaseOut;animation-play-state:running}.ease-appear,.ease-enter-active{opacity:0;animation-timing-function:linear;animation-duration:.2s}.ease-leave-active{animation-timing-function:linear;animation-duration:.2s}@keyframes ivuEaseIn{0%{opacity:0;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}@keyframes ivuEaseOut{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.9)}}.transition-drop-appear,.transition-drop-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.transition-drop-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.transition-drop-appear,.transition-drop-enter-active{animation-name:ivuTransitionDropIn;animation-play-state:running}.transition-drop-leave-active{animation-name:ivuTransitionDropOut;animation-play-state:running}.transition-drop-appear,.transition-drop-enter-active{opacity:0;animation-timing-function:ease-in-out}.transition-drop-leave-active{animation-timing-function:ease-in-out}.slide-up-appear,.slide-up-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-up-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-up-appear,.slide-up-enter-active{animation-name:ivuSlideUpIn;animation-play-state:running}.slide-up-leave-active{animation-name:ivuSlideUpOut;animation-play-state:running}.slide-up-appear,.slide-up-enter-active{opacity:0;animation-timing-function:ease-in-out}.slide-up-leave-active{animation-timing-function:ease-in-out}.slide-down-appear,.slide-down-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-down-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-down-appear,.slide-down-enter-active{animation-name:ivuSlideDownIn;animation-play-state:running}.slide-down-leave-active{animation-name:ivuSlideDownOut;animation-play-state:running}.slide-down-appear,.slide-down-enter-active{opacity:0;animation-timing-function:ease-in-out}.slide-down-leave-active{animation-timing-function:ease-in-out}.slide-left-appear,.slide-left-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-left-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-left-appear,.slide-left-enter-active{animation-name:ivuSlideLeftIn;animation-play-state:running}.slide-left-leave-active{animation-name:ivuSlideLeftOut;animation-play-state:running}.slide-left-appear,.slide-left-enter-active{opacity:0;animation-timing-function:ease-in-out}.slide-left-leave-active{animation-timing-function:ease-in-out}.slide-right-appear,.slide-right-enter-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-right-leave-active{animation-duration:.3s;animation-fill-mode:both;animation-play-state:paused}.slide-right-appear,.slide-right-enter-active{animation-name:ivuSlideRightIn;animation-play-state:running}.slide-right-leave-active{animation-name:ivuSlideRightOut;animation-play-state:running}.slide-right-appear,.slide-right-enter-active{opacity:0;animation-timing-function:ease-in-out}.slide-right-leave-active{animation-timing-function:ease-in-out}@keyframes ivuTransitionDropIn{0%{opacity:0;transform:scaleY(.8)}100%{opacity:1;transform:scaleY(1)}}@keyframes ivuTransitionDropOut{0%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(.8)}}@keyframes ivuSlideUpIn{0%{opacity:0;transform-origin:0 0;transform:scaleY(.8)}100%{opacity:1;transform-origin:0 0;transform:scaleY(1)}}@keyframes ivuSlideUpOut{0%{opacity:1;transform-origin:0 0;transform:scaleY(1)}100%{opacity:0;transform-origin:0 0;transform:scaleY(.8)}}@keyframes ivuSlideDownIn{0%{opacity:0;transform-origin:100% 100%;transform:scaleY(.8)}100%{opacity:1;transform-origin:100% 100%;transform:scaleY(1)}}@keyframes ivuSlideDownOut{0%{opacity:1;transform-origin:100% 100%;transform:scaleY(1)}100%{opacity:0;transform-origin:100% 100%;transform:scaleY(.8)}}@keyframes ivuSlideLeftIn{0%{opacity:0;transform-origin:0 0;transform:scaleX(.8)}100%{opacity:1;transform-origin:0 0;transform:scaleX(1)}}@keyframes ivuSlideLeftOut{0%{opacity:1;transform-origin:0 0;transform:scaleX(1)}100%{opacity:0;transform-origin:0 0;transform:scaleX(.8)}}@keyframes ivuSlideRightIn{0%{opacity:0;transform-origin:100% 0;transform:scaleX(.8)}100%{opacity:1;transform-origin:100% 0;transform:scaleX(1)}}@keyframes ivuSlideRightOut{0%{opacity:1;transform-origin:100% 0;transform:scaleX(1)}100%{opacity:0;transform-origin:100% 0;transform:scaleX(.8)}}.collapse-transition{transition:.2s height ease-in-out,.2s padding-top ease-in-out,.2s padding-bottom ease-in-out}.ivu-btn{display:inline-block;margin-bottom:0;font-weight:400;text-align:center;vertical-align:middle;touch-action:manipulation;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;line-height:1.5;-webkit-user-select:none;-ms-user-select:none;user-select:none;height:32px;padding:0 15px;font-size:14px;border-radius:4px;transition:color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;color:#515a6e;background-color:#fff;border-color:#dcdee2}.ivu-btn>.ivu-icon{line-height:1.5}.ivu-btn-icon-only.ivu-btn-circle>.ivu-icon{vertical-align:baseline}.ivu-btn>i,.ivu-btn>span{display:inline-block}.ivu-btn,.ivu-btn:active,.ivu-btn:focus{outline:0}.ivu-btn:not([disabled]):hover{text-decoration:none}.ivu-btn:not([disabled]):active{outline:0}.ivu-btn.disabled,.ivu-btn[disabled]{cursor:not-allowed}.ivu-btn.disabled>*,.ivu-btn[disabled]>*{pointer-events:none}.ivu-btn-large{height:40px;padding:0 15px;font-size:16px;border-radius:4px}.ivu-btn-small{height:24px;padding:0 7px;font-size:14px;border-radius:3px}.ivu-btn-icon-only{width:32px;height:32px;padding:0;font-size:16px;border-radius:4px}.ivu-btn-icon-only.ivu-btn-large{width:40px;height:40px;padding:0;font-size:18px;border-radius:4px}.ivu-btn-icon-only.ivu-btn-small{width:24px;height:24px;padding:0;font-size:14px;border-radius:4px}.ivu-btn>a:only-child{color:currentColor}.ivu-btn>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn:hover{color:#747b8b;background-color:#fff;border-color:#e3e5e8}.ivu-btn:hover>a:only-child{color:currentColor}.ivu-btn:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn.active,.ivu-btn:active{color:#4d5669;background-color:#f2f2f2;border-color:#f2f2f2}.ivu-btn.active>a:only-child,.ivu-btn:active>a:only-child{color:currentColor}.ivu-btn.active>a:only-child:after,.ivu-btn:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn.disabled,.ivu-btn.disabled.active,.ivu-btn.disabled:active,.ivu-btn.disabled:focus,.ivu-btn.disabled:hover,.ivu-btn[disabled],.ivu-btn[disabled].active,.ivu-btn[disabled]:active,.ivu-btn[disabled]:focus,.ivu-btn[disabled]:hover,fieldset[disabled] .ivu-btn,fieldset[disabled] .ivu-btn.active,fieldset[disabled] .ivu-btn:active,fieldset[disabled] .ivu-btn:focus,fieldset[disabled] .ivu-btn:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn.disabled.active>a:only-child,.ivu-btn.disabled:active>a:only-child,.ivu-btn.disabled:focus>a:only-child,.ivu-btn.disabled:hover>a:only-child,.ivu-btn.disabled>a:only-child,.ivu-btn[disabled].active>a:only-child,.ivu-btn[disabled]:active>a:only-child,.ivu-btn[disabled]:focus>a:only-child,.ivu-btn[disabled]:hover>a:only-child,.ivu-btn[disabled]>a:only-child,fieldset[disabled] .ivu-btn.active>a:only-child,fieldset[disabled] .ivu-btn:active>a:only-child,fieldset[disabled] .ivu-btn:focus>a:only-child,fieldset[disabled] .ivu-btn:hover>a:only-child,fieldset[disabled] .ivu-btn>a:only-child{color:currentColor}.ivu-btn.disabled.active>a:only-child:after,.ivu-btn.disabled:active>a:only-child:after,.ivu-btn.disabled:focus>a:only-child:after,.ivu-btn.disabled:hover>a:only-child:after,.ivu-btn.disabled>a:only-child:after,.ivu-btn[disabled].active>a:only-child:after,.ivu-btn[disabled]:active>a:only-child:after,.ivu-btn[disabled]:focus>a:only-child:after,.ivu-btn[disabled]:hover>a:only-child:after,.ivu-btn[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn.active>a:only-child:after,fieldset[disabled] .ivu-btn:active>a:only-child:after,fieldset[disabled] .ivu-btn:focus>a:only-child:after,fieldset[disabled] .ivu-btn:hover>a:only-child:after,fieldset[disabled] .ivu-btn>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn:hover{color:#57a3f3;background-color:#fff;border-color:#57a3f3}.ivu-btn:hover>a:only-child{color:currentColor}.ivu-btn:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn.active,.ivu-btn:active{color:#2b85e4;background-color:#fff;border-color:#2b85e4}.ivu-btn.active>a:only-child,.ivu-btn:active>a:only-child{color:currentColor}.ivu-btn.active>a:only-child:after,.ivu-btn:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn:focus{box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-btn-long{width:100%}.ivu-btn>.ivu-icon+span,.ivu-btn>span+.ivu-icon{margin-left:4px}.ivu-btn-primary{color:#fff;background-color:#2d8cf0;border-color:#2d8cf0}.ivu-btn-primary>a:only-child{color:currentColor}.ivu-btn-primary>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-primary:hover{color:#fff;background-color:#57a3f3;border-color:#57a3f3}.ivu-btn-primary:hover>a:only-child{color:currentColor}.ivu-btn-primary:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-primary.active,.ivu-btn-primary:active{color:#f2f2f2;background-color:#2b85e4;border-color:#2b85e4}.ivu-btn-primary.active>a:only-child,.ivu-btn-primary:active>a:only-child{color:currentColor}.ivu-btn-primary.active>a:only-child:after,.ivu-btn-primary:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-primary.disabled,.ivu-btn-primary.disabled.active,.ivu-btn-primary.disabled:active,.ivu-btn-primary.disabled:focus,.ivu-btn-primary.disabled:hover,.ivu-btn-primary[disabled],.ivu-btn-primary[disabled].active,.ivu-btn-primary[disabled]:active,.ivu-btn-primary[disabled]:focus,.ivu-btn-primary[disabled]:hover,fieldset[disabled] .ivu-btn-primary,fieldset[disabled] .ivu-btn-primary.active,fieldset[disabled] .ivu-btn-primary:active,fieldset[disabled] .ivu-btn-primary:focus,fieldset[disabled] .ivu-btn-primary:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn-primary.disabled.active>a:only-child,.ivu-btn-primary.disabled:active>a:only-child,.ivu-btn-primary.disabled:focus>a:only-child,.ivu-btn-primary.disabled:hover>a:only-child,.ivu-btn-primary.disabled>a:only-child,.ivu-btn-primary[disabled].active>a:only-child,.ivu-btn-primary[disabled]:active>a:only-child,.ivu-btn-primary[disabled]:focus>a:only-child,.ivu-btn-primary[disabled]:hover>a:only-child,.ivu-btn-primary[disabled]>a:only-child,fieldset[disabled] .ivu-btn-primary.active>a:only-child,fieldset[disabled] .ivu-btn-primary:active>a:only-child,fieldset[disabled] .ivu-btn-primary:focus>a:only-child,fieldset[disabled] .ivu-btn-primary:hover>a:only-child,fieldset[disabled] .ivu-btn-primary>a:only-child{color:currentColor}.ivu-btn-primary.disabled.active>a:only-child:after,.ivu-btn-primary.disabled:active>a:only-child:after,.ivu-btn-primary.disabled:focus>a:only-child:after,.ivu-btn-primary.disabled:hover>a:only-child:after,.ivu-btn-primary.disabled>a:only-child:after,.ivu-btn-primary[disabled].active>a:only-child:after,.ivu-btn-primary[disabled]:active>a:only-child:after,.ivu-btn-primary[disabled]:focus>a:only-child:after,.ivu-btn-primary[disabled]:hover>a:only-child:after,.ivu-btn-primary[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-primary.active>a:only-child:after,fieldset[disabled] .ivu-btn-primary:active>a:only-child:after,fieldset[disabled] .ivu-btn-primary:focus>a:only-child:after,fieldset[disabled] .ivu-btn-primary:hover>a:only-child:after,fieldset[disabled] .ivu-btn-primary>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-primary.active,.ivu-btn-primary:active,.ivu-btn-primary:hover{color:#fff}.ivu-btn-primary:focus{box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:not(:first-child):not(:last-child){border-right-color:#2b85e4;border-left-color:#2b85e4}.ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:first-child:not(:last-child){border-right-color:#2b85e4}.ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:first-child:not(:last-child)[disabled]{border-right-color:#dcdee2}.ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary+.ivu-btn,.ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:last-child:not(:first-child){border-left-color:#2b85e4}.ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary+.ivu-btn[disabled],.ivu-btn-group:not(.ivu-btn-group-vertical) .ivu-btn-primary:last-child:not(:first-child)[disabled]{border-left-color:#dcdee2}.ivu-btn-group-vertical .ivu-btn-primary:not(:first-child):not(:last-child){border-top-color:#2b85e4;border-bottom-color:#2b85e4}.ivu-btn-group-vertical .ivu-btn-primary:first-child:not(:last-child){border-bottom-color:#2b85e4}.ivu-btn-group-vertical .ivu-btn-primary:first-child:not(:last-child)[disabled]{border-top-color:#dcdee2}.ivu-btn-group-vertical .ivu-btn-primary+.ivu-btn,.ivu-btn-group-vertical .ivu-btn-primary:last-child:not(:first-child){border-top-color:#2b85e4}.ivu-btn-group-vertical .ivu-btn-primary+.ivu-btn[disabled],.ivu-btn-group-vertical .ivu-btn-primary:last-child:not(:first-child)[disabled]{border-bottom-color:#dcdee2}.ivu-btn-dashed{color:#515a6e;background-color:#fff;border-color:#dcdee2;border-style:dashed}.ivu-btn-dashed>a:only-child{color:currentColor}.ivu-btn-dashed>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-dashed:hover{color:#747b8b;background-color:#fff;border-color:#e3e5e8}.ivu-btn-dashed:hover>a:only-child{color:currentColor}.ivu-btn-dashed:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-dashed.active,.ivu-btn-dashed:active{color:#4d5669;background-color:#f2f2f2;border-color:#f2f2f2}.ivu-btn-dashed.active>a:only-child,.ivu-btn-dashed:active>a:only-child{color:currentColor}.ivu-btn-dashed.active>a:only-child:after,.ivu-btn-dashed:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-dashed.disabled,.ivu-btn-dashed.disabled.active,.ivu-btn-dashed.disabled:active,.ivu-btn-dashed.disabled:focus,.ivu-btn-dashed.disabled:hover,.ivu-btn-dashed[disabled],.ivu-btn-dashed[disabled].active,.ivu-btn-dashed[disabled]:active,.ivu-btn-dashed[disabled]:focus,.ivu-btn-dashed[disabled]:hover,fieldset[disabled] .ivu-btn-dashed,fieldset[disabled] .ivu-btn-dashed.active,fieldset[disabled] .ivu-btn-dashed:active,fieldset[disabled] .ivu-btn-dashed:focus,fieldset[disabled] .ivu-btn-dashed:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn-dashed.disabled.active>a:only-child,.ivu-btn-dashed.disabled:active>a:only-child,.ivu-btn-dashed.disabled:focus>a:only-child,.ivu-btn-dashed.disabled:hover>a:only-child,.ivu-btn-dashed.disabled>a:only-child,.ivu-btn-dashed[disabled].active>a:only-child,.ivu-btn-dashed[disabled]:active>a:only-child,.ivu-btn-dashed[disabled]:focus>a:only-child,.ivu-btn-dashed[disabled]:hover>a:only-child,.ivu-btn-dashed[disabled]>a:only-child,fieldset[disabled] .ivu-btn-dashed.active>a:only-child,fieldset[disabled] .ivu-btn-dashed:active>a:only-child,fieldset[disabled] .ivu-btn-dashed:focus>a:only-child,fieldset[disabled] .ivu-btn-dashed:hover>a:only-child,fieldset[disabled] .ivu-btn-dashed>a:only-child{color:currentColor}.ivu-btn-dashed.disabled.active>a:only-child:after,.ivu-btn-dashed.disabled:active>a:only-child:after,.ivu-btn-dashed.disabled:focus>a:only-child:after,.ivu-btn-dashed.disabled:hover>a:only-child:after,.ivu-btn-dashed.disabled>a:only-child:after,.ivu-btn-dashed[disabled].active>a:only-child:after,.ivu-btn-dashed[disabled]:active>a:only-child:after,.ivu-btn-dashed[disabled]:focus>a:only-child:after,.ivu-btn-dashed[disabled]:hover>a:only-child:after,.ivu-btn-dashed[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-dashed.active>a:only-child:after,fieldset[disabled] .ivu-btn-dashed:active>a:only-child:after,fieldset[disabled] .ivu-btn-dashed:focus>a:only-child:after,fieldset[disabled] .ivu-btn-dashed:hover>a:only-child:after,fieldset[disabled] .ivu-btn-dashed>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-dashed:hover{color:#57a3f3;background-color:#fff;border-color:#57a3f3}.ivu-btn-dashed:hover>a:only-child{color:currentColor}.ivu-btn-dashed:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-dashed.active,.ivu-btn-dashed:active{color:#2b85e4;background-color:#fff;border-color:#2b85e4}.ivu-btn-dashed.active>a:only-child,.ivu-btn-dashed:active>a:only-child{color:currentColor}.ivu-btn-dashed.active>a:only-child:after,.ivu-btn-dashed:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-dashed:focus{box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-btn-text{color:#515a6e;background-color:transparent;border-color:transparent}.ivu-btn-text>a:only-child{color:currentColor}.ivu-btn-text>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-text:hover{color:#747b8b;background-color:rgba(255,255,255,.2);border-color:rgba(255,255,255,.2)}.ivu-btn-text:hover>a:only-child{color:currentColor}.ivu-btn-text:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-text.active,.ivu-btn-text:active{color:#4d5669;background-color:rgba(0,0,0,.05);border-color:rgba(0,0,0,.05)}.ivu-btn-text.active>a:only-child,.ivu-btn-text:active>a:only-child{color:currentColor}.ivu-btn-text.active>a:only-child:after,.ivu-btn-text:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-text.disabled,.ivu-btn-text.disabled.active,.ivu-btn-text.disabled:active,.ivu-btn-text.disabled:focus,.ivu-btn-text.disabled:hover,.ivu-btn-text[disabled],.ivu-btn-text[disabled].active,.ivu-btn-text[disabled]:active,.ivu-btn-text[disabled]:focus,.ivu-btn-text[disabled]:hover,fieldset[disabled] .ivu-btn-text,fieldset[disabled] .ivu-btn-text.active,fieldset[disabled] .ivu-btn-text:active,fieldset[disabled] .ivu-btn-text:focus,fieldset[disabled] .ivu-btn-text:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn-text.disabled.active>a:only-child,.ivu-btn-text.disabled:active>a:only-child,.ivu-btn-text.disabled:focus>a:only-child,.ivu-btn-text.disabled:hover>a:only-child,.ivu-btn-text.disabled>a:only-child,.ivu-btn-text[disabled].active>a:only-child,.ivu-btn-text[disabled]:active>a:only-child,.ivu-btn-text[disabled]:focus>a:only-child,.ivu-btn-text[disabled]:hover>a:only-child,.ivu-btn-text[disabled]>a:only-child,fieldset[disabled] .ivu-btn-text.active>a:only-child,fieldset[disabled] .ivu-btn-text:active>a:only-child,fieldset[disabled] .ivu-btn-text:focus>a:only-child,fieldset[disabled] .ivu-btn-text:hover>a:only-child,fieldset[disabled] .ivu-btn-text>a:only-child{color:currentColor}.ivu-btn-text.disabled.active>a:only-child:after,.ivu-btn-text.disabled:active>a:only-child:after,.ivu-btn-text.disabled:focus>a:only-child:after,.ivu-btn-text.disabled:hover>a:only-child:after,.ivu-btn-text.disabled>a:only-child:after,.ivu-btn-text[disabled].active>a:only-child:after,.ivu-btn-text[disabled]:active>a:only-child:after,.ivu-btn-text[disabled]:focus>a:only-child:after,.ivu-btn-text[disabled]:hover>a:only-child:after,.ivu-btn-text[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-text.active>a:only-child:after,fieldset[disabled] .ivu-btn-text:active>a:only-child:after,fieldset[disabled] .ivu-btn-text:focus>a:only-child:after,fieldset[disabled] .ivu-btn-text:hover>a:only-child:after,fieldset[disabled] .ivu-btn-text>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-text.disabled,.ivu-btn-text.disabled.active,.ivu-btn-text.disabled:active,.ivu-btn-text.disabled:focus,.ivu-btn-text.disabled:hover,.ivu-btn-text[disabled],.ivu-btn-text[disabled].active,.ivu-btn-text[disabled]:active,.ivu-btn-text[disabled]:focus,.ivu-btn-text[disabled]:hover,fieldset[disabled] .ivu-btn-text,fieldset[disabled] .ivu-btn-text.active,fieldset[disabled] .ivu-btn-text:active,fieldset[disabled] .ivu-btn-text:focus,fieldset[disabled] .ivu-btn-text:hover{color:#c5c8ce;background-color:#fff;border-color:transparent}.ivu-btn-text.disabled.active>a:only-child,.ivu-btn-text.disabled:active>a:only-child,.ivu-btn-text.disabled:focus>a:only-child,.ivu-btn-text.disabled:hover>a:only-child,.ivu-btn-text.disabled>a:only-child,.ivu-btn-text[disabled].active>a:only-child,.ivu-btn-text[disabled]:active>a:only-child,.ivu-btn-text[disabled]:focus>a:only-child,.ivu-btn-text[disabled]:hover>a:only-child,.ivu-btn-text[disabled]>a:only-child,fieldset[disabled] .ivu-btn-text.active>a:only-child,fieldset[disabled] .ivu-btn-text:active>a:only-child,fieldset[disabled] .ivu-btn-text:focus>a:only-child,fieldset[disabled] .ivu-btn-text:hover>a:only-child,fieldset[disabled] .ivu-btn-text>a:only-child{color:currentColor}.ivu-btn-text.disabled.active>a:only-child:after,.ivu-btn-text.disabled:active>a:only-child:after,.ivu-btn-text.disabled:focus>a:only-child:after,.ivu-btn-text.disabled:hover>a:only-child:after,.ivu-btn-text.disabled>a:only-child:after,.ivu-btn-text[disabled].active>a:only-child:after,.ivu-btn-text[disabled]:active>a:only-child:after,.ivu-btn-text[disabled]:focus>a:only-child:after,.ivu-btn-text[disabled]:hover>a:only-child:after,.ivu-btn-text[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-text.active>a:only-child:after,fieldset[disabled] .ivu-btn-text:active>a:only-child:after,fieldset[disabled] .ivu-btn-text:focus>a:only-child:after,fieldset[disabled] .ivu-btn-text:hover>a:only-child:after,fieldset[disabled] .ivu-btn-text>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-text:hover{color:#57a3f3;background-color:#fff;border-color:transparent}.ivu-btn-text:hover>a:only-child{color:currentColor}.ivu-btn-text:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-text.active,.ivu-btn-text:active{color:#2b85e4;background-color:#fff;border-color:transparent}.ivu-btn-text.active>a:only-child,.ivu-btn-text:active>a:only-child{color:currentColor}.ivu-btn-text.active>a:only-child:after,.ivu-btn-text:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-text:focus{box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-btn-success{color:#fff;background-color:#19be6b;border-color:#19be6b}.ivu-btn-success>a:only-child{color:currentColor}.ivu-btn-success>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-success:hover{color:#fff;background-color:#47cb89;border-color:#47cb89}.ivu-btn-success:hover>a:only-child{color:currentColor}.ivu-btn-success:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-success.active,.ivu-btn-success:active{color:#f2f2f2;background-color:#18b566;border-color:#18b566}.ivu-btn-success.active>a:only-child,.ivu-btn-success:active>a:only-child{color:currentColor}.ivu-btn-success.active>a:only-child:after,.ivu-btn-success:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-success.disabled,.ivu-btn-success.disabled.active,.ivu-btn-success.disabled:active,.ivu-btn-success.disabled:focus,.ivu-btn-success.disabled:hover,.ivu-btn-success[disabled],.ivu-btn-success[disabled].active,.ivu-btn-success[disabled]:active,.ivu-btn-success[disabled]:focus,.ivu-btn-success[disabled]:hover,fieldset[disabled] .ivu-btn-success,fieldset[disabled] .ivu-btn-success.active,fieldset[disabled] .ivu-btn-success:active,fieldset[disabled] .ivu-btn-success:focus,fieldset[disabled] .ivu-btn-success:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn-success.disabled.active>a:only-child,.ivu-btn-success.disabled:active>a:only-child,.ivu-btn-success.disabled:focus>a:only-child,.ivu-btn-success.disabled:hover>a:only-child,.ivu-btn-success.disabled>a:only-child,.ivu-btn-success[disabled].active>a:only-child,.ivu-btn-success[disabled]:active>a:only-child,.ivu-btn-success[disabled]:focus>a:only-child,.ivu-btn-success[disabled]:hover>a:only-child,.ivu-btn-success[disabled]>a:only-child,fieldset[disabled] .ivu-btn-success.active>a:only-child,fieldset[disabled] .ivu-btn-success:active>a:only-child,fieldset[disabled] .ivu-btn-success:focus>a:only-child,fieldset[disabled] .ivu-btn-success:hover>a:only-child,fieldset[disabled] .ivu-btn-success>a:only-child{color:currentColor}.ivu-btn-success.disabled.active>a:only-child:after,.ivu-btn-success.disabled:active>a:only-child:after,.ivu-btn-success.disabled:focus>a:only-child:after,.ivu-btn-success.disabled:hover>a:only-child:after,.ivu-btn-success.disabled>a:only-child:after,.ivu-btn-success[disabled].active>a:only-child:after,.ivu-btn-success[disabled]:active>a:only-child:after,.ivu-btn-success[disabled]:focus>a:only-child:after,.ivu-btn-success[disabled]:hover>a:only-child:after,.ivu-btn-success[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-success.active>a:only-child:after,fieldset[disabled] .ivu-btn-success:active>a:only-child:after,fieldset[disabled] .ivu-btn-success:focus>a:only-child:after,fieldset[disabled] .ivu-btn-success:hover>a:only-child:after,fieldset[disabled] .ivu-btn-success>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-success.active,.ivu-btn-success:active,.ivu-btn-success:hover{color:#fff}.ivu-btn-success:focus{box-shadow:0 0 0 2px rgba(25,190,107,.2)}.ivu-btn-warning{color:#fff;background-color:#f90;border-color:#f90}.ivu-btn-warning>a:only-child{color:currentColor}.ivu-btn-warning>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-warning:hover{color:#fff;background-color:#ffad33;border-color:#ffad33}.ivu-btn-warning:hover>a:only-child{color:currentColor}.ivu-btn-warning:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-warning.active,.ivu-btn-warning:active{color:#f2f2f2;background-color:#f29100;border-color:#f29100}.ivu-btn-warning.active>a:only-child,.ivu-btn-warning:active>a:only-child{color:currentColor}.ivu-btn-warning.active>a:only-child:after,.ivu-btn-warning:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-warning.disabled,.ivu-btn-warning.disabled.active,.ivu-btn-warning.disabled:active,.ivu-btn-warning.disabled:focus,.ivu-btn-warning.disabled:hover,.ivu-btn-warning[disabled],.ivu-btn-warning[disabled].active,.ivu-btn-warning[disabled]:active,.ivu-btn-warning[disabled]:focus,.ivu-btn-warning[disabled]:hover,fieldset[disabled] .ivu-btn-warning,fieldset[disabled] .ivu-btn-warning.active,fieldset[disabled] .ivu-btn-warning:active,fieldset[disabled] .ivu-btn-warning:focus,fieldset[disabled] .ivu-btn-warning:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn-warning.disabled.active>a:only-child,.ivu-btn-warning.disabled:active>a:only-child,.ivu-btn-warning.disabled:focus>a:only-child,.ivu-btn-warning.disabled:hover>a:only-child,.ivu-btn-warning.disabled>a:only-child,.ivu-btn-warning[disabled].active>a:only-child,.ivu-btn-warning[disabled]:active>a:only-child,.ivu-btn-warning[disabled]:focus>a:only-child,.ivu-btn-warning[disabled]:hover>a:only-child,.ivu-btn-warning[disabled]>a:only-child,fieldset[disabled] .ivu-btn-warning.active>a:only-child,fieldset[disabled] .ivu-btn-warning:active>a:only-child,fieldset[disabled] .ivu-btn-warning:focus>a:only-child,fieldset[disabled] .ivu-btn-warning:hover>a:only-child,fieldset[disabled] .ivu-btn-warning>a:only-child{color:currentColor}.ivu-btn-warning.disabled.active>a:only-child:after,.ivu-btn-warning.disabled:active>a:only-child:after,.ivu-btn-warning.disabled:focus>a:only-child:after,.ivu-btn-warning.disabled:hover>a:only-child:after,.ivu-btn-warning.disabled>a:only-child:after,.ivu-btn-warning[disabled].active>a:only-child:after,.ivu-btn-warning[disabled]:active>a:only-child:after,.ivu-btn-warning[disabled]:focus>a:only-child:after,.ivu-btn-warning[disabled]:hover>a:only-child:after,.ivu-btn-warning[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-warning.active>a:only-child:after,fieldset[disabled] .ivu-btn-warning:active>a:only-child:after,fieldset[disabled] .ivu-btn-warning:focus>a:only-child:after,fieldset[disabled] .ivu-btn-warning:hover>a:only-child:after,fieldset[disabled] .ivu-btn-warning>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-warning.active,.ivu-btn-warning:active,.ivu-btn-warning:hover{color:#fff}.ivu-btn-warning:focus{box-shadow:0 0 0 2px rgba(255,153,0,.2)}.ivu-btn-error{color:#fff;background-color:#ed4014;border-color:#ed4014}.ivu-btn-error>a:only-child{color:currentColor}.ivu-btn-error>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-error:hover{color:#fff;background-color:#f16643;border-color:#f16643}.ivu-btn-error:hover>a:only-child{color:currentColor}.ivu-btn-error:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-error.active,.ivu-btn-error:active{color:#f2f2f2;background-color:#e13d13;border-color:#e13d13}.ivu-btn-error.active>a:only-child,.ivu-btn-error:active>a:only-child{color:currentColor}.ivu-btn-error.active>a:only-child:after,.ivu-btn-error:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-error.disabled,.ivu-btn-error.disabled.active,.ivu-btn-error.disabled:active,.ivu-btn-error.disabled:focus,.ivu-btn-error.disabled:hover,.ivu-btn-error[disabled],.ivu-btn-error[disabled].active,.ivu-btn-error[disabled]:active,.ivu-btn-error[disabled]:focus,.ivu-btn-error[disabled]:hover,fieldset[disabled] .ivu-btn-error,fieldset[disabled] .ivu-btn-error.active,fieldset[disabled] .ivu-btn-error:active,fieldset[disabled] .ivu-btn-error:focus,fieldset[disabled] .ivu-btn-error:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn-error.disabled.active>a:only-child,.ivu-btn-error.disabled:active>a:only-child,.ivu-btn-error.disabled:focus>a:only-child,.ivu-btn-error.disabled:hover>a:only-child,.ivu-btn-error.disabled>a:only-child,.ivu-btn-error[disabled].active>a:only-child,.ivu-btn-error[disabled]:active>a:only-child,.ivu-btn-error[disabled]:focus>a:only-child,.ivu-btn-error[disabled]:hover>a:only-child,.ivu-btn-error[disabled]>a:only-child,fieldset[disabled] .ivu-btn-error.active>a:only-child,fieldset[disabled] .ivu-btn-error:active>a:only-child,fieldset[disabled] .ivu-btn-error:focus>a:only-child,fieldset[disabled] .ivu-btn-error:hover>a:only-child,fieldset[disabled] .ivu-btn-error>a:only-child{color:currentColor}.ivu-btn-error.disabled.active>a:only-child:after,.ivu-btn-error.disabled:active>a:only-child:after,.ivu-btn-error.disabled:focus>a:only-child:after,.ivu-btn-error.disabled:hover>a:only-child:after,.ivu-btn-error.disabled>a:only-child:after,.ivu-btn-error[disabled].active>a:only-child:after,.ivu-btn-error[disabled]:active>a:only-child:after,.ivu-btn-error[disabled]:focus>a:only-child:after,.ivu-btn-error[disabled]:hover>a:only-child:after,.ivu-btn-error[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-error.active>a:only-child:after,fieldset[disabled] .ivu-btn-error:active>a:only-child:after,fieldset[disabled] .ivu-btn-error:focus>a:only-child:after,fieldset[disabled] .ivu-btn-error:hover>a:only-child:after,fieldset[disabled] .ivu-btn-error>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-error.active,.ivu-btn-error:active,.ivu-btn-error:hover{color:#fff}.ivu-btn-error:focus{box-shadow:0 0 0 2px rgba(237,64,20,.2)}.ivu-btn-info{color:#fff;background-color:#2db7f5;border-color:#2db7f5}.ivu-btn-info>a:only-child{color:currentColor}.ivu-btn-info>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-info:hover{color:#fff;background-color:#57c5f7;border-color:#57c5f7}.ivu-btn-info:hover>a:only-child{color:currentColor}.ivu-btn-info:hover>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-info.active,.ivu-btn-info:active{color:#f2f2f2;background-color:#2baee9;border-color:#2baee9}.ivu-btn-info.active>a:only-child,.ivu-btn-info:active>a:only-child{color:currentColor}.ivu-btn-info.active>a:only-child:after,.ivu-btn-info:active>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-info.disabled,.ivu-btn-info.disabled.active,.ivu-btn-info.disabled:active,.ivu-btn-info.disabled:focus,.ivu-btn-info.disabled:hover,.ivu-btn-info[disabled],.ivu-btn-info[disabled].active,.ivu-btn-info[disabled]:active,.ivu-btn-info[disabled]:focus,.ivu-btn-info[disabled]:hover,fieldset[disabled] .ivu-btn-info,fieldset[disabled] .ivu-btn-info.active,fieldset[disabled] .ivu-btn-info:active,fieldset[disabled] .ivu-btn-info:focus,fieldset[disabled] .ivu-btn-info:hover{color:#c5c8ce;background-color:#f7f7f7;border-color:#dcdee2}.ivu-btn-info.disabled.active>a:only-child,.ivu-btn-info.disabled:active>a:only-child,.ivu-btn-info.disabled:focus>a:only-child,.ivu-btn-info.disabled:hover>a:only-child,.ivu-btn-info.disabled>a:only-child,.ivu-btn-info[disabled].active>a:only-child,.ivu-btn-info[disabled]:active>a:only-child,.ivu-btn-info[disabled]:focus>a:only-child,.ivu-btn-info[disabled]:hover>a:only-child,.ivu-btn-info[disabled]>a:only-child,fieldset[disabled] .ivu-btn-info.active>a:only-child,fieldset[disabled] .ivu-btn-info:active>a:only-child,fieldset[disabled] .ivu-btn-info:focus>a:only-child,fieldset[disabled] .ivu-btn-info:hover>a:only-child,fieldset[disabled] .ivu-btn-info>a:only-child{color:currentColor}.ivu-btn-info.disabled.active>a:only-child:after,.ivu-btn-info.disabled:active>a:only-child:after,.ivu-btn-info.disabled:focus>a:only-child:after,.ivu-btn-info.disabled:hover>a:only-child:after,.ivu-btn-info.disabled>a:only-child:after,.ivu-btn-info[disabled].active>a:only-child:after,.ivu-btn-info[disabled]:active>a:only-child:after,.ivu-btn-info[disabled]:focus>a:only-child:after,.ivu-btn-info[disabled]:hover>a:only-child:after,.ivu-btn-info[disabled]>a:only-child:after,fieldset[disabled] .ivu-btn-info.active>a:only-child:after,fieldset[disabled] .ivu-btn-info:active>a:only-child:after,fieldset[disabled] .ivu-btn-info:focus>a:only-child:after,fieldset[disabled] .ivu-btn-info:hover>a:only-child:after,fieldset[disabled] .ivu-btn-info>a:only-child:after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;background:0 0}.ivu-btn-info.active,.ivu-btn-info:active,.ivu-btn-info:hover{color:#fff}.ivu-btn-info:focus{box-shadow:0 0 0 2px rgba(45,183,245,.2)}.ivu-btn-circle,.ivu-btn-circle-outline{border-radius:32px}.ivu-btn-circle-outline.ivu-btn-large,.ivu-btn-circle.ivu-btn-large{border-radius:40px}.ivu-btn-circle-outline.ivu-btn-size,.ivu-btn-circle.ivu-btn-size{border-radius:24px}.ivu-btn-circle-outline.ivu-btn-icon-only,.ivu-btn-circle.ivu-btn-icon-only{width:32px;height:32px;padding:0;font-size:16px;border-radius:50%}.ivu-btn-circle-outline.ivu-btn-icon-only.ivu-btn-large,.ivu-btn-circle.ivu-btn-icon-only.ivu-btn-large{width:40px;height:40px;padding:0;font-size:18px;border-radius:50%}.ivu-btn-circle-outline.ivu-btn-icon-only.ivu-btn-small,.ivu-btn-circle.ivu-btn-icon-only.ivu-btn-small{width:24px;height:24px;padding:0;font-size:14px;border-radius:50%}.ivu-btn:before{position:absolute;top:-1px;left:-1px;bottom:-1px;right:-1px;background:#fff;opacity:.35;content:'';border-radius:inherit;z-index:1;transition:opacity .2s;pointer-events:none;display:none}.ivu-btn.ivu-btn-loading{pointer-events:none;position:relative}.ivu-btn.ivu-btn-loading:before{display:block}.ivu-btn-group{position:relative;display:inline-block;vertical-align:middle}.ivu-btn-group>.ivu-btn{position:relative;float:left}.ivu-btn-group>.ivu-btn.active,.ivu-btn-group>.ivu-btn:active,.ivu-btn-group>.ivu-btn:hover{z-index:2}.ivu-btn-group-circle .ivu-btn{border-radius:32px}.ivu-btn-group-large.ivu-btn-group-circle .ivu-btn{border-radius:40px}.ivu-btn-group-large>.ivu-btn{height:40px;padding:0 15px;font-size:16px;border-radius:4px}.ivu-btn-group-small.ivu-btn-group-circle .ivu-btn{border-radius:24px}.ivu-btn-group-small>.ivu-btn{height:24px;padding:0 7px;font-size:14px;border-radius:3px}.ivu-btn-group-small>.ivu-btn>.ivu-icon{font-size:14px}.ivu-btn-group-small .ivu-btn-icon-only{width:24px;height:24px;padding:0}.ivu-btn-group-large .ivu-btn-icon-only{width:40px;height:40px;padding:0}.ivu-btn+.ivu-btn-group,.ivu-btn-group .ivu-btn+.ivu-btn,.ivu-btn-group+.ivu-btn,.ivu-btn-group+.ivu-btn-group{margin-left:-1px}.ivu-btn-group .ivu-btn:not(:first-child):not(:last-child){border-radius:0}.ivu-btn-group:not(.ivu-btn-group-vertical)>.ivu-btn:first-child{margin-left:0}.ivu-btn-group:not(.ivu-btn-group-vertical)>.ivu-btn:first-child:not(:last-child){border-bottom-right-radius:0;border-top-right-radius:0}.ivu-btn-group:not(.ivu-btn-group-vertical)>.ivu-btn:last-child:not(:first-child){border-bottom-left-radius:0;border-top-left-radius:0}.ivu-btn-group>.ivu-btn-group{float:left}.ivu-btn-group>.ivu-btn-group:not(:first-child):not(:last-child)>.ivu-btn{border-radius:0}.ivu-btn-group:not(.ivu-btn-group-vertical)>.ivu-btn-group:first-child:not(:last-child)>.ivu-btn:last-child{border-bottom-right-radius:0;border-top-right-radius:0;padding-right:8px}.ivu-btn-group:not(.ivu-btn-group-vertical)>.ivu-btn-group:last-child:not(:first-child)>.ivu-btn:first-child{border-bottom-left-radius:0;border-top-left-radius:0;padding-left:8px}.ivu-btn-group-vertical{display:inline-block;vertical-align:middle}.ivu-btn-group-vertical>.ivu-btn{display:block;width:100%;max-width:100%;float:none;min-width:32px}.ivu-btn-group-vertical.ivu-btn-group-small>.ivu-btn{min-width:24px}.ivu-btn-group-vertical.ivu-btn-group-large>.ivu-btn{min-width:40px}.ivu-btn+.ivu-btn-group-vertical,.ivu-btn-group-vertical .ivu-btn+.ivu-btn,.ivu-btn-group-vertical+.ivu-btn,.ivu-btn-group-vertical+.ivu-btn-group-vertical{margin-top:-1px;margin-left:0}.ivu-btn-group-vertical>.ivu-btn:first-child{margin-top:0}.ivu-btn-group-vertical>.ivu-btn:first-child:not(:last-child){border-bottom-left-radius:0;border-bottom-right-radius:0}.ivu-btn-group-vertical>.ivu-btn:last-child:not(:first-child){border-top-left-radius:0;border-top-right-radius:0}.ivu-btn-group-vertical>.ivu-btn-group-vertical:first-child:not(:last-child)>.ivu-btn:last-child{border-bottom-left-radius:0;border-bottom-right-radius:0;padding-bottom:8px}.ivu-btn-group-vertical>.ivu-btn-group-vertical:last-child:not(:first-child)>.ivu-btn:first-child{border-bottom-right-radius:0;border-bottom-left-radius:0;padding-top:8px}.ivu-btn-ghost{color:#fff;background:0 0}.ivu-btn-ghost:hover{background:0 0}.ivu-btn-ghost.ivu-btn-dashed,.ivu-btn-ghost.ivu-btn-default{color:#fff;border-color:#fff}.ivu-btn-ghost.ivu-btn-dashed:hover,.ivu-btn-ghost.ivu-btn-default:hover{color:#57a3f3;border-color:#57a3f3}.ivu-btn-ghost.ivu-btn-primary{color:#2d8cf0}.ivu-btn-ghost.ivu-btn-primary:hover{color:#57a3f3;background:rgba(245,249,254,.5)}.ivu-btn-ghost.ivu-btn-info{color:#2db7f5}.ivu-btn-ghost.ivu-btn-info:hover{color:#57c5f7;background:rgba(245,251,254,.5)}.ivu-btn-ghost.ivu-btn-success{color:#19be6b}.ivu-btn-ghost.ivu-btn-success:hover{color:#47cb89;background:rgba(244,252,248,.5)}.ivu-btn-ghost.ivu-btn-warning{color:#f90}.ivu-btn-ghost.ivu-btn-warning:hover{color:#ffad33;background:rgba(255,250,242,.5)}.ivu-btn-ghost.ivu-btn-error{color:#ed4014}.ivu-btn-ghost.ivu-btn-error:hover{color:#f16643;background:rgba(254,245,243,.5)}.ivu-btn-ghost.ivu-btn-dashed[disabled],.ivu-btn-ghost.ivu-btn-default[disabled],.ivu-btn-ghost.ivu-btn-error[disabled],.ivu-btn-ghost.ivu-btn-info[disabled],.ivu-btn-ghost.ivu-btn-primary[disabled],.ivu-btn-ghost.ivu-btn-success[disabled],.ivu-btn-ghost.ivu-btn-warning[disabled]{background:0 0;color:rgba(0,0,0,.25);border-color:#dcdee2}.ivu-btn-ghost.ivu-btn-text[disabled]{background:0 0;color:rgba(0,0,0,.25)}a.ivu-btn{padding-top:.1px;line-height:30px}a.ivu-btn-large{line-height:38px}a.ivu-btn-small{line-height:22px}.ivu-affix{position:fixed;z-index:10}.ivu-back-top{z-index:10;position:fixed;cursor:pointer;display:none}.ivu-back-top.ivu-back-top-show{display:block}.ivu-back-top-inner{background-color:rgba(0,0,0,.6);border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:all .2s ease-in-out}.ivu-back-top-inner:hover{background-color:rgba(0,0,0,.7)}.ivu-back-top i{color:#fff;font-size:24px;padding:8px 12px}.ivu-badge{position:relative;display:inline-block}.ivu-badge-count{font-family:\"Monospaced Number\";line-height:1;vertical-align:middle;position:absolute;transform:translateX(50%);top:-10px;right:0;height:20px;border-radius:10px;min-width:20px;background:#ed4014;border:1px solid transparent;color:#fff;line-height:18px;text-align:center;padding:0 6px;font-size:12px;white-space:nowrap;transform-origin:-10% center;z-index:10;box-shadow:0 0 0 1px #fff}.ivu-badge-count-custom{background:0 0;color:inherit;border-color:transparent;box-shadow:none}.ivu-badge-count a,.ivu-badge-count a:hover{color:#fff}.ivu-badge-count-alone{top:auto;display:block;position:relative;transform:translateX(0)}.ivu-badge-count-primary{background:#2d8cf0}.ivu-badge-count-success{background:#19be6b}.ivu-badge-count-error{background:#ed4014}.ivu-badge-count-warning{background:#f90}.ivu-badge-count-info{background:#2db7f5}.ivu-badge-count-normal{background:#e6ebf1;color:#808695}.ivu-badge-dot{position:absolute;transform:translateX(-50%);transform-origin:0 center;top:-4px;right:-8px;height:8px;width:8px;border-radius:100%;background:#ed4014;z-index:10;box-shadow:0 0 0 1px #fff}.ivu-badge-status{line-height:inherit;vertical-align:baseline}.ivu-badge-status-dot{width:6px;height:6px;display:inline-block;border-radius:50%;vertical-align:middle;position:relative;top:-1px}.ivu-badge-status-success{background-color:#19be6b}.ivu-badge-status-processing{background-color:#2d8cf0;position:relative}.ivu-badge-status-processing:after{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;border:1px solid #2d8cf0;content:'';animation:aniStatusProcessing 1.2s infinite ease-in-out}.ivu-badge-status-default{background-color:#e6ebf1}.ivu-badge-status-error{background-color:#ed4014}.ivu-badge-status-warning{background-color:#f90}.ivu-badge-status-text{display:inline-block;color:#515a6e;font-size:14px;margin-left:6px}.ivu-badge-status-pink{background-color:#eb2f96}.ivu-badge-status-magenta{background-color:#eb2f96}.ivu-badge-status-red{background-color:#f5222d}.ivu-badge-status-volcano{background-color:#fa541c}.ivu-badge-status-orange{background-color:#fa8c16}.ivu-badge-status-yellow{background-color:#fadb14}.ivu-badge-status-gold{background-color:#faad14}.ivu-badge-status-cyan{background-color:#13c2c2}.ivu-badge-status-lime{background-color:#a0d911}.ivu-badge-status-green{background-color:#52c41a}.ivu-badge-status-blue{background-color:#1890ff}.ivu-badge-status-geekblue{background-color:#2f54eb}.ivu-badge-status-purple{background-color:#722ed1}@keyframes aniStatusProcessing{0%{transform:scale(.8);opacity:.5}100%{transform:scale(2.4);opacity:0}}.ivu-chart-circle{display:inline-block;position:relative}.ivu-chart-circle-inner{width:100%;text-align:center;position:absolute;left:0;top:50%;transform:translateY(-50%);line-height:1}.ivu-spin{color:#2d8cf0;vertical-align:middle;text-align:center}.ivu-spin-dot{position:relative;display:block;border-radius:50%;background-color:#2d8cf0;width:20px;height:20px;animation:ani-spin-bounce 1s 0s ease-in-out infinite}.ivu-spin-large .ivu-spin-dot{width:32px;height:32px}.ivu-spin-small .ivu-spin-dot{width:12px;height:12px}.ivu-spin-fix{position:absolute;top:0;left:0;z-index:8;width:100%;height:100%;background-color:rgba(255,255,255,.9)}.ivu-spin-fullscreen{z-index:2010}.ivu-spin-fullscreen-wrapper{position:fixed;top:0;right:0;bottom:0;left:0}.ivu-spin-fix .ivu-spin-main{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.ivu-spin-fix .ivu-spin-dot{display:inline-block}.ivu-spin-show-text .ivu-spin-dot,.ivu-spin-text{display:none}.ivu-spin-show-text .ivu-spin-text{display:block}.ivu-table-wrapper>.ivu-spin-fix{border:none}.ivu-table-wrapper-with-border>.ivu-spin-fix{border:1px solid #dcdee2;border-top:0;border-left:0}@keyframes ani-spin-bounce{0%{transform:scale(0)}100%{transform:scale(1);opacity:0}}.ivu-alert{position:relative;padding:8px 48px 8px 16px;border-radius:4px;color:#515a6e;font-size:14px;line-height:16px;margin-bottom:10px}.ivu-alert.ivu-alert-with-icon{padding:8px 48px 8px 38px}.ivu-alert-icon{font-size:16px;top:6px;left:12px;position:absolute}.ivu-alert-desc{font-size:14px;color:#515a6e;line-height:21px;display:none;text-align:justify}.ivu-alert-success{border:1px solid #8ce6b0;background-color:#edfff3}.ivu-alert-success .ivu-alert-icon{color:#19be6b}.ivu-alert-info{border:1px solid #abdcff;background-color:#f0faff}.ivu-alert-info .ivu-alert-icon{color:#2d8cf0}.ivu-alert-warning{border:1px solid #ffd77a;background-color:#fff9e6}.ivu-alert-warning .ivu-alert-icon{color:#f90}.ivu-alert-error{border:1px solid #ffb08f;background-color:#ffefe6}.ivu-alert-error .ivu-alert-icon{color:#ed4014}.ivu-alert-close{font-size:12px;position:absolute;right:8px;top:8px;overflow:hidden;cursor:pointer}.ivu-alert-close .ivu-icon-ios-close{font-size:22px;color:#999;transition:color .2s ease;position:relative;top:-3px}.ivu-alert-close .ivu-icon-ios-close:hover{color:#444}.ivu-alert-with-desc{padding:16px;position:relative;border-radius:4px;margin-bottom:10px;color:#515a6e;line-height:1.5}.ivu-alert-with-desc.ivu-alert-with-icon{padding:16px 16px 16px 69px}.ivu-alert-with-desc .ivu-alert-desc{display:block}.ivu-alert-with-desc .ivu-alert-message{font-size:16px;color:#17233d;display:block;margin-bottom:4px}.ivu-alert-with-desc .ivu-alert-icon{top:50%;left:24px;margin-top:-24px;font-size:28px}.ivu-alert-with-banner{border-radius:0}.ivu-collapse{background-color:#f7f7f7;border-radius:3px;border:1px solid #dcdee2}.ivu-collapse-simple{border-left:none;border-right:none;background-color:#fff;border-radius:0}.ivu-collapse>.ivu-collapse-item{border-top:1px solid #dcdee2}.ivu-collapse>.ivu-collapse-item:first-child{border-top:0}.ivu-collapse>.ivu-collapse-item>.ivu-collapse-header{height:38px;line-height:38px;padding-left:16px;color:#666;cursor:pointer;position:relative;border-bottom:1px solid transparent;transition:all .2s ease-in-out}.ivu-collapse>.ivu-collapse-item>.ivu-collapse-header>i{transition:transform .2s ease-in-out;margin-right:14px}.ivu-collapse>.ivu-collapse-item.ivu-collapse-item-active>.ivu-collapse-header{border-bottom:1px solid #dcdee2}.ivu-collapse-simple>.ivu-collapse-item.ivu-collapse-item-active>.ivu-collapse-header{border-bottom:1px solid transparent}.ivu-collapse>.ivu-collapse-item.ivu-collapse-item-active>.ivu-collapse-header>i{transform:rotate(90deg)}.ivu-collapse-content{color:#515a6e;padding:0 16px;background-color:#fff}.ivu-collapse-content>.ivu-collapse-content-box{padding-top:16px;padding-bottom:16px}.ivu-collapse-simple>.ivu-collapse-item>.ivu-collapse-content>.ivu-collapse-content-box{padding-top:0}.ivu-collapse-item:last-child>.ivu-collapse-content{border-radius:0 0 3px 3px}.ivu-card{display:block;background:#fff;border-radius:4px;font-size:14px;position:relative;transition:all .2s ease-in-out}.ivu-card-bordered{border:1px solid #dcdee2;border-color:#e8eaec}.ivu-card-shadow{box-shadow:0 1px 1px 0 rgba(0,0,0,.1)}.ivu-card:hover{box-shadow:0 1px 6px rgba(0,0,0,.2);border-color:#eee}.ivu-card.ivu-card-dis-hover:hover{box-shadow:none;border-color:transparent}.ivu-card.ivu-card-dis-hover.ivu-card-bordered:hover{border-color:#e8eaec}.ivu-card.ivu-card-shadow:hover{box-shadow:0 1px 1px 0 rgba(0,0,0,.1)}.ivu-card-head{border-bottom:1px solid #e8eaec;padding:14px 16px;line-height:1}.ivu-card-head p,.ivu-card-head-inner{display:inline-block;width:100%;height:20px;line-height:20px;font-size:16px;color:#17233d;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ivu-card-extra{position:absolute;right:16px;top:14px}.ivu-card-body{padding:16px}.ivu-message{font-size:14px;position:fixed;z-index:1010;width:100%;top:16px;left:0;pointer-events:none}.ivu-message-notice{padding:8px;text-align:center;transition:height .3s ease-in-out,padding .3s ease-in-out}.ivu-message-notice:first-child{margin-top:-8px}.ivu-message-notice-close{position:absolute;right:4px;top:10px;color:#999;outline:0}.ivu-message-notice-close i.ivu-icon{font-size:22px;color:#999;transition:color .2s ease;position:relative;top:-3px}.ivu-message-notice-close i.ivu-icon:hover{color:#444}.ivu-message-notice-content{display:inline-block;pointer-events:all;padding:8px 16px;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,.2);background:#fff;position:relative}.ivu-message-notice-content-text{display:inline-block}.ivu-message-notice-closable .ivu-message-notice-content-text{padding-right:32px}.ivu-message-success .ivu-icon{color:#19be6b}.ivu-message-error .ivu-icon{color:#ed4014}.ivu-message-warning .ivu-icon{color:#f90}.ivu-message-info .ivu-icon,.ivu-message-loading .ivu-icon{color:#2d8cf0}.ivu-message .ivu-icon{margin-right:4px;font-size:16px;vertical-align:middle}.ivu-message-custom-content span{vertical-align:middle}.ivu-message-notice-with-background .ivu-message-notice-content-background{box-shadow:none}.ivu-message-notice-with-background .ivu-message-notice-content-info{background:#f0faff;color:#2e8bf0;border:1px solid #d4eeff}.ivu-message-notice-with-background .ivu-message-notice-content-success{background:#edfff3;color:#19bf6c;border:1px solid #bbf2cf}.ivu-message-notice-with-background .ivu-message-notice-content-warning{background:#fff9e6;color:#f90;border:1px solid #ffe7a3}.ivu-message-notice-with-background .ivu-message-notice-content-error{background:#ffefe6;color:#ed3f13;border:1px solid #ffcfb8}.ivu-notice{width:335px;margin-right:24px;position:fixed;z-index:1010}.ivu-notice-content-with-icon{margin-left:51px}.ivu-notice-with-desc.ivu-notice-with-icon .ivu-notice-title{margin-left:51px}.ivu-notice-notice{margin-bottom:10px;padding:16px;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,.2);background:#fff;line-height:1;position:relative;overflow:hidden}.ivu-notice-notice-close{position:absolute;right:8px;top:15px;color:#999;outline:0}.ivu-notice-notice-close i{font-size:22px;color:#999;transition:color .2s ease;position:relative;top:-3px}.ivu-notice-notice-close i:hover{color:#444}.ivu-notice-notice-content-with-render .ivu-notice-desc{display:none}.ivu-notice-notice-with-desc .ivu-notice-notice-close{top:11px}.ivu-notice-content-with-render-notitle{margin-left:26px}.ivu-notice-title{font-size:16px;line-height:19px;color:#17233d;padding-right:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ivu-notice-with-desc .ivu-notice-title{margin-bottom:8px}.ivu-notice-desc{font-size:14px;color:#515a6e;text-align:justify;line-height:1.5}.ivu-notice-with-desc.ivu-notice-with-icon .ivu-notice-desc{margin-left:51px}.ivu-notice-with-icon .ivu-notice-title{margin-left:26px}.ivu-notice-icon{position:absolute;top:-2px;font-size:20px}.ivu-notice-icon-success{color:#19be6b}.ivu-notice-icon-info{color:#2d8cf0}.ivu-notice-icon-warning{color:#f90}.ivu-notice-icon-error{color:#ed4014}.ivu-notice-with-desc .ivu-notice-icon{font-size:36px;top:-6px}.ivu-notice-custom-content{position:relative}.ivu-radio-focus{box-shadow:0 0 0 2px rgba(45,140,240,.2);z-index:1}.ivu-radio-group{display:inline-block;font-size:14px;vertical-align:middle}.ivu-radio-group-vertical .ivu-radio-wrapper{display:block;height:30px;line-height:30px}.ivu-radio-wrapper{font-size:14px;vertical-align:middle;display:inline-block;position:relative;white-space:nowrap;margin-right:8px;cursor:pointer}.ivu-radio-wrapper-disabled{cursor:not-allowed}.ivu-radio{display:inline-block;margin-right:4px;white-space:nowrap;position:relative;line-height:1;vertical-align:middle;cursor:pointer}.ivu-radio:hover .ivu-radio-inner{border-color:#bcbcbc}.ivu-radio-inner{display:inline-block;width:16px;height:16px;position:relative;top:0;left:0;background-color:#fff;border:1px solid #dcdee2;border-radius:50%;transition:all .2s ease-in-out}.ivu-radio-inner:after{position:absolute;width:10px;height:10px;left:2px;top:2px;border-radius:6px;display:table;border-top:0;border-left:0;content:' ';background-color:#2d8cf0;opacity:0;transition:all .2s ease-in-out;transform:scale(0)}.ivu-radio-large{font-size:16px}.ivu-radio-large .ivu-radio-inner{width:18px;height:18px}.ivu-radio-large .ivu-radio-inner:after{width:12px;height:12px}.ivu-radio-large .ivu-radio-wrapper,.ivu-radio-large.ivu-radio-wrapper{font-size:16px}.ivu-radio-small .ivu-radio-inner{width:14px;height:14px}.ivu-radio-small .ivu-radio-inner:after{width:8px;height:8px}.ivu-radio-input{position:absolute;top:0;bottom:0;left:0;right:0;z-index:1;opacity:0;cursor:pointer}.ivu-radio-border{border:1px solid #dcdee2;border-radius:4px;height:32px;line-height:30px;padding:0 15px;transition:border .2s ease-in-out}.ivu-radio-group-small .ivu-radio-border,.ivu-radio-small.ivu-radio-border{height:24px;line-height:22px;padding:0 7px}.ivu-radio-group-large .ivu-radio-border,.ivu-radio-large.ivu-radio-border{height:40px;line-height:36px;padding:0 15px}.ivu-radio-wrapper-checked.ivu-radio-border{border-color:#2d8cf0}.ivu-radio-wrapper-disabled.ivu-radio-border{border-color:#dcdee2}.ivu-radio-checked .ivu-radio-inner{border-color:#2d8cf0}.ivu-radio-checked .ivu-radio-inner:after{opacity:1;transform:scale(1);transition:all .2s ease-in-out}.ivu-radio-checked:hover .ivu-radio-inner{border-color:#2d8cf0}.ivu-radio-disabled{cursor:not-allowed}.ivu-radio-disabled .ivu-radio-input{cursor:not-allowed}.ivu-radio-disabled:hover .ivu-radio-inner{border-color:#dcdee2}.ivu-radio-disabled .ivu-radio-inner{border-color:#dcdee2;background-color:#f3f3f3}.ivu-radio-disabled .ivu-radio-inner:after{background-color:#ccc}.ivu-radio-disabled .ivu-radio-disabled+span{color:#ccc}span.ivu-radio+*{margin-left:2px;margin-right:2px}.ivu-radio-group-button{font-size:0;-webkit-text-size-adjust:none}.ivu-radio-group-button .ivu-radio{width:0;margin-right:0}.ivu-radio-group-button .ivu-radio-wrapper{display:inline-block;height:32px;line-height:30px;margin:0;padding:0 15px;font-size:14px;color:#515a6e;transition:all .2s ease-in-out;cursor:pointer;border:1px solid #dcdee2;border-left:0;background:#fff;position:relative}.ivu-radio-group-button .ivu-radio-wrapper>span{margin-left:0}.ivu-radio-group-button .ivu-radio-wrapper:after,.ivu-radio-group-button .ivu-radio-wrapper:before{content:'';display:block;position:absolute;width:1px;height:100%;left:-1px;top:0;background:#dcdee2;transition:all .2s ease-in-out}.ivu-radio-group-button .ivu-radio-wrapper:after{height:36px;left:-1px;top:-3px;background:rgba(45,140,240,.2);opacity:0}.ivu-radio-group-button .ivu-radio-wrapper:first-child{border-radius:4px 0 0 4px;border-left:1px solid #dcdee2}.ivu-radio-group-button .ivu-radio-wrapper:first-child:after,.ivu-radio-group-button .ivu-radio-wrapper:first-child:before{display:none}.ivu-radio-group-button .ivu-radio-wrapper:last-child{border-radius:0 4px 4px 0}.ivu-radio-group-button .ivu-radio-wrapper:first-child:last-child{border-radius:4px}.ivu-radio-group-button .ivu-radio-wrapper:hover{position:relative;color:#2d8cf0}.ivu-radio-group-button .ivu-radio-wrapper:hover .ivu-radio{background-color:#000}.ivu-radio-group-button .ivu-radio-wrapper .ivu-radio-inner,.ivu-radio-group-button .ivu-radio-wrapper input{opacity:0;width:0;height:0}.ivu-radio-group-button .ivu-radio-wrapper-checked{background:#fff;border-color:#2d8cf0;color:#2d8cf0;box-shadow:-1px 0 0 0 #2d8cf0;z-index:1}.ivu-radio-group-button .ivu-radio-wrapper-checked:before{background:#2d8cf0;opacity:.1}.ivu-radio-group-button .ivu-radio-wrapper-checked.ivu-radio-focus{box-shadow:-1px 0 0 0 #2d8cf0,0 0 0 2px rgba(45,140,240,.2);transition:all .2s ease-in-out}.ivu-radio-group-button .ivu-radio-wrapper-checked.ivu-radio-focus:after{left:-3px;top:-3px;opacity:1;background:rgba(45,140,240,.2)}.ivu-radio-group-button .ivu-radio-wrapper-checked.ivu-radio-focus:first-child{box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-radio-group-button .ivu-radio-wrapper-checked:first-child{border-color:#2d8cf0;box-shadow:none}.ivu-radio-group-button .ivu-radio-wrapper-checked:hover{border-color:#57a3f3;color:#57a3f3}.ivu-radio-group-button .ivu-radio-wrapper-checked:active{border-color:#2b85e4;color:#2b85e4}.ivu-radio-group-button .ivu-radio-wrapper-disabled{border-color:#dcdee2;background-color:#f7f7f7;cursor:not-allowed;color:#ccc}.ivu-radio-group-button .ivu-radio-wrapper-disabled:first-child,.ivu-radio-group-button .ivu-radio-wrapper-disabled:hover{border-color:#dcdee2;background-color:#f7f7f7;color:#ccc}.ivu-radio-group-button .ivu-radio-wrapper-disabled:first-child{border-left-color:#dcdee2}.ivu-radio-group-button .ivu-radio-wrapper-disabled.ivu-radio-wrapper-checked{color:#fff;background-color:#e6e6e6;border-color:#dcdee2;box-shadow:none!important}.ivu-radio-group-button-solid .ivu-radio-wrapper-checked:not(.ivu-radio-wrapper-disabled){background:#2d8cf0;color:#fff}.ivu-radio-group-button-solid .ivu-radio-wrapper-checked:not(.ivu-radio-wrapper-disabled):hover{background:#57a3f3;color:#fff}.ivu-radio-group-button.ivu-radio-group-large .ivu-radio-wrapper{height:40px;line-height:38px;font-size:16px}.ivu-radio-group-button.ivu-radio-group-large .ivu-radio-wrapper:after{height:44px}.ivu-radio-group-button.ivu-radio-group-small .ivu-radio-wrapper{height:24px;line-height:22px;padding:0 12px;font-size:14px}.ivu-radio-group-button.ivu-radio-group-small .ivu-radio-wrapper:after{height:28px}.ivu-radio-group-button.ivu-radio-group-small .ivu-radio-wrapper:first-child{border-radius:3px 0 0 3px}.ivu-radio-group-button.ivu-radio-group-small .ivu-radio-wrapper:last-child{border-radius:0 3px 3px 0}.ivu-checkbox-focus{box-shadow:0 0 0 2px rgba(45,140,240,.2);z-index:1}.ivu-checkbox{display:inline-block;vertical-align:middle;white-space:nowrap;cursor:pointer;line-height:1;position:relative}.ivu-checkbox-disabled{cursor:not-allowed}.ivu-checkbox:hover .ivu-checkbox-inner{border-color:#bcbcbc}.ivu-checkbox-inner{display:inline-block;width:16px;height:16px;position:relative;top:0;left:0;border:1px solid #dcdee2;border-radius:2px;background-color:#fff;transition:border-color .2s ease-in-out,background-color .2s ease-in-out,box-shadow .2s ease-in-out}.ivu-checkbox-inner:after{content:'';display:table;width:4px;height:8px;position:absolute;top:1px;left:4px;border:2px solid #fff;border-top:0;border-left:0;transform:rotate(45deg) scale(0);transition:all .2s ease-in-out}.ivu-checkbox-large .ivu-checkbox-inner{width:18px;height:18px}.ivu-checkbox-large .ivu-checkbox-inner:after{width:5px;height:9px}.ivu-checkbox-small{font-size:14px}.ivu-checkbox-small .ivu-checkbox-inner{width:14px;height:14px}.ivu-checkbox-small .ivu-checkbox-inner:after{top:0;left:3px}.ivu-checkbox-input{width:100%;height:100%;position:absolute;top:0;bottom:0;left:0;right:0;z-index:1;cursor:pointer;opacity:0}.ivu-checkbox-input[disabled]{cursor:not-allowed}.ivu-checkbox-border{border:1px solid #dcdee2;border-radius:4px;height:32px;line-height:30px;padding:0 15px;transition:border .2s ease-in-out}.ivu-checkbox-group.ivu-checkbox-small .ivu-checkbox-border,.ivu-checkbox-small.ivu-checkbox-border{height:24px;line-height:22px;padding:0 7px}.ivu-checkbox-group.ivu-checkbox-large .ivu-checkbox-border,.ivu-checkbox-large.ivu-checkbox-border{height:40px;line-height:36px;padding:0 15px}.ivu-checkbox-wrapper-checked.ivu-checkbox-border{border-color:#2d8cf0}.ivu-checkbox-wrapper-disabled.ivu-checkbox-border{border-color:#dcdee2}.ivu-checkbox-checked:hover .ivu-checkbox-inner{border-color:#2d8cf0}.ivu-checkbox-checked .ivu-checkbox-inner{border-color:#2d8cf0;background-color:#2d8cf0}.ivu-checkbox-checked .ivu-checkbox-inner:after{content:'';display:table;width:4px;height:8px;position:absolute;top:2px;left:5px;border:2px solid #fff;border-top:0;border-left:0;transform:rotate(45deg) scale(1);transition:all .2s ease-in-out}.ivu-checkbox-large .ivu-checkbox-checked .ivu-checkbox-inner:after{width:6px;height:10px}.ivu-checkbox-small .ivu-checkbox-checked .ivu-checkbox-inner:after{top:1px;left:4px}.ivu-checkbox-disabled.ivu-checkbox-checked:hover .ivu-checkbox-inner{border-color:#dcdee2}.ivu-checkbox-disabled.ivu-checkbox-checked .ivu-checkbox-inner{background-color:#f3f3f3;border-color:#dcdee2}.ivu-checkbox-disabled.ivu-checkbox-checked .ivu-checkbox-inner:after{animation-name:none;border-color:#ccc}.ivu-checkbox-disabled:hover .ivu-checkbox-inner{border-color:#dcdee2}.ivu-checkbox-disabled .ivu-checkbox-inner{border-color:#dcdee2;background-color:#f3f3f3}.ivu-checkbox-disabled .ivu-checkbox-inner:after{animation-name:none;border-color:#f3f3f3}.ivu-checkbox-disabled .ivu-checkbox-inner-input{cursor:default}.ivu-checkbox-disabled+span{color:#ccc;cursor:not-allowed}.ivu-checkbox-indeterminate .ivu-checkbox-inner:after{content:'';width:10px;height:1px;transform:scale(1);position:absolute;left:2px;top:6px}.ivu-checkbox-indeterminate:hover .ivu-checkbox-inner{border-color:#2d8cf0}.ivu-checkbox-indeterminate .ivu-checkbox-inner{background-color:#2d8cf0;border-color:#2d8cf0}.ivu-checkbox-indeterminate.ivu-checkbox-disabled .ivu-checkbox-inner{background-color:#f3f3f3;border-color:#dcdee2}.ivu-checkbox-indeterminate.ivu-checkbox-disabled .ivu-checkbox-inner:after{border-color:#c5c8ce}.ivu-checkbox-large .ivu-checkbox-indeterminate .ivu-checkbox-inner:after{width:12px;top:7px}.ivu-checkbox-small .ivu-checkbox-indeterminate .ivu-checkbox-inner:after{width:8px;top:5px}.ivu-checkbox-wrapper{cursor:pointer;font-size:14px;display:inline-block;margin-right:8px}.ivu-checkbox-wrapper-disabled{cursor:not-allowed}.ivu-checkbox-wrapper.ivu-checkbox-large{font-size:16px}.ivu-checkbox+span,.ivu-checkbox-wrapper+span{margin-right:4px}.ivu-checkbox-group{font-size:14px}.ivu-checkbox-group-item{display:inline-block}.ivu-switch{display:inline-block;width:44px;height:22px;line-height:20px;border-radius:22px;vertical-align:middle;border:1px solid #ccc;background-color:#ccc;position:relative;cursor:pointer;-webkit-user-select:none;-ms-user-select:none;user-select:none;transition:all .2s ease-in-out}.ivu-switch-loading{opacity:.4}.ivu-switch-inner{color:#fff;font-size:12px;position:absolute;left:23px}.ivu-switch-inner i{width:12px;height:12px;text-align:center;position:relative;top:-1px}.ivu-switch:after{content:'';width:18px;height:18px;border-radius:18px;background-color:#fff;position:absolute;left:1px;top:1px;cursor:pointer;transition:left .2s ease-in-out,width .2s ease-in-out}.ivu-switch:active:after{width:26px}.ivu-switch:before{content:'';display:none;width:14px;height:14px;border-radius:50%;background-color:transparent;position:absolute;left:3px;top:3px;z-index:1;border:1px solid #2d8cf0;border-color:transparent transparent transparent #2d8cf0;animation:switch-loading 1s linear;animation-iteration-count:infinite}.ivu-switch-loading:before{display:block}.ivu-switch:focus{box-shadow:0 0 0 2px rgba(45,140,240,.2);outline:0}.ivu-switch:focus:hover{box-shadow:none}.ivu-switch-small{width:28px;height:16px;line-height:14px}.ivu-switch-small:after{width:12px;height:12px}.ivu-switch-small:active:after{width:14px}.ivu-switch-small:before{width:10px;height:10px;left:2px;top:2px}.ivu-switch-small.ivu-switch-checked:after{left:13px}.ivu-switch-small.ivu-switch-checked:before{left:14px}.ivu-switch-small:active.ivu-switch-checked:after{left:11px}.ivu-switch-large{width:56px}.ivu-switch-large:active:after{width:26px}.ivu-switch-large:active:after{width:30px}.ivu-switch-large.ivu-switch-checked:after{left:35px}.ivu-switch-large.ivu-switch-checked:before{left:37px}.ivu-switch-large:active.ivu-switch-checked:after{left:23px}.ivu-switch-checked{border-color:#2d8cf0;background-color:#2d8cf0}.ivu-switch-checked .ivu-switch-inner{left:7px}.ivu-switch-checked:after{left:23px}.ivu-switch-checked:before{left:25px}.ivu-switch-checked:active:after{left:15px}.ivu-switch-disabled{cursor:not-allowed;opacity:.4}.ivu-switch-disabled:after{background:#fff;cursor:not-allowed}.ivu-switch-disabled .ivu-switch-inner{color:#fff}.ivu-switch-disabled.ivu-switch-checked{border-color:#2d8cf0;background-color:#2d8cf0;opacity:.4}.ivu-switch-disabled.ivu-switch-checked:after{background:#fff}.ivu-switch-disabled.ivu-switch-checked .ivu-switch-inner{color:#fff}@keyframes switch-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.ivu-input-number{display:inline-block;width:100%;line-height:1.5;padding:4px 7px;font-size:14px;color:#515a6e;background-color:#fff;background-image:none;position:relative;cursor:text;transition:border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;margin:0;padding:0;width:80px;height:32px;line-height:32px;vertical-align:middle;border:1px solid #dcdee2;border-radius:4px;overflow:hidden;cursor:default}.ivu-input-number::-moz-placeholder{color:#c5c8ce;opacity:1}.ivu-input-number:-ms-input-placeholder{color:#c5c8ce}.ivu-input-number::-webkit-input-placeholder{color:#c5c8ce}.ivu-input-number:hover{border-color:#57a3f3}.ivu-input-number:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-input-number[disabled],fieldset[disabled] .ivu-input-number{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-input-number[disabled]:hover,fieldset[disabled] .ivu-input-number:hover{border-color:#e3e5e8}textarea.ivu-input-number{max-width:100%;height:auto;min-height:32px;vertical-align:bottom;font-size:14px}.ivu-input-number-large{font-size:16px;padding:6px 7px;height:40px}.ivu-input-number-small{padding:1px 7px;height:24px;border-radius:3px}.ivu-input-number-no-border{border-radius:0;border-color:transparent}.ivu-input-number-no-border:hover{border-color:transparent}.ivu-input-number-no-border:focus{border-color:transparent;box-shadow:none}.ivu-input-number-no-border[disabled]{background-color:transparent}.ivu-input-number-no-border[disabled]:hover{border-color:transparent}.ivu-input-number-handler-wrap{width:22px;height:100%;border-left:1px solid #dcdee2;border-radius:0 4px 4px 0;background:#fff;position:absolute;top:0;right:0;opacity:0;transition:opacity .2s ease-in-out}.ivu-input-number:hover .ivu-input-number-handler-wrap{opacity:1}.ivu-input-number-handler-up{cursor:pointer}.ivu-input-number-handler-up-inner{top:1px}.ivu-input-number-handler-down{border-top:1px solid #dcdee2;top:-1px;cursor:pointer}.ivu-input-number-handler{display:block;width:100%;height:16px;line-height:0;text-align:center;overflow:hidden;color:#999;position:relative}.ivu-input-number-handler:hover .ivu-input-number-handler-down-inner,.ivu-input-number-handler:hover .ivu-input-number-handler-up-inner{color:#57a3f3}.ivu-input-number-handler-down-inner,.ivu-input-number-handler-up-inner{width:12px;height:12px;line-height:12px;font-size:14px;color:#999;-webkit-user-select:none;-ms-user-select:none;user-select:none;position:absolute;right:5px;transition:all .2s linear}.ivu-input-number:hover{border-color:#57a3f3}.ivu-input-number-focused{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-input-number-disabled{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-input-number-disabled:hover{border-color:#e3e5e8}.ivu-input-number-input-wrap{overflow:hidden;height:32px}.ivu-input-number-input{width:100%;height:32px;line-height:32px;padding:0 7px;text-align:left;outline:0;-moz-appearance:textfield;color:#666;border:0;border-radius:4px;transition:all .2s linear}.ivu-input-number-input[disabled]{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-input-number-input[disabled]:hover{border-color:#e3e5e8}.ivu-input-number-input::-webkit-input-placeholder{color:#c5c8ce}.ivu-input-number-input::-ms-input-placeholder{color:#c5c8ce}.ivu-input-number-input:-ms-input-placeholder{color:#c5c8ce}.ivu-input-number-input::placeholder{color:#c5c8ce}.ivu-input-number-large{padding:0}.ivu-input-number-large .ivu-input-number-input-wrap{height:40px}.ivu-input-number-large .ivu-input-number-handler{height:20px}.ivu-input-number-large input{height:40px;line-height:40px}.ivu-input-number-large .ivu-input-number-handler-up-inner{top:2px}.ivu-input-number-large .ivu-input-number-handler-down-inner{bottom:2px}.ivu-input-number-small{padding:0}.ivu-input-number-small .ivu-input-number-input-wrap{height:24px}.ivu-input-number-small .ivu-input-number-handler{height:12px}.ivu-input-number-small input{height:24px;line-height:24px;margin-top:-1px;vertical-align:top}.ivu-input-number-small .ivu-input-number-handler-up-inner{top:-1px}.ivu-input-number-small .ivu-input-number-handler-down-inner{bottom:-1px}.ivu-input-number-disabled .ivu-input-number-handler-down-inner,.ivu-input-number-disabled .ivu-input-number-handler-up-inner,.ivu-input-number-handler-down-disabled .ivu-input-number-handler-down-inner,.ivu-input-number-handler-down-disabled .ivu-input-number-handler-up-inner,.ivu-input-number-handler-up-disabled .ivu-input-number-handler-down-inner,.ivu-input-number-handler-up-disabled .ivu-input-number-handler-up-inner{opacity:.72;color:#ccc!important;cursor:not-allowed}.ivu-input-number-disabled .ivu-input-number-input{opacity:.72;cursor:not-allowed;background-color:#f3f3f3}.ivu-input-number-disabled .ivu-input-number-handler-wrap{display:none}.ivu-input-number-disabled .ivu-input-number-handler{opacity:.72;color:#ccc!important;cursor:not-allowed}.ivu-input-number-controls-outside{width:144px;padding:0 32px}.ivu-input-number-controls-outside .ivu-input-number-input{border-radius:0}.ivu-input-number-controls-outside-btn{display:inline-block;width:32px;height:32px;line-height:30px;position:absolute;top:0;text-align:center;background-color:#f8f8f9;color:#515a6e;cursor:pointer}.ivu-input-number-controls-outside-btn i{font-size:16px}.ivu-input-number-controls-outside-btn:hover i{color:#2d8cf0}.ivu-input-number-controls-outside-btn-disabled,.ivu-input-number-controls-outside-btn-disabled:hover{cursor:not-allowed}.ivu-input-number-controls-outside-btn-disabled i,.ivu-input-number-controls-outside-btn-disabled:hover i{color:#ccc}.ivu-input-number-controls-outside-up{right:0;border-left:1px solid #dcdee2}.ivu-input-number-controls-outside-down{left:0;border-right:1px solid #dcdee2}.ivu-input-number-disabled.ivu-input-number-controls-outside .ivu-input-number-controls-outside-btn{cursor:not-allowed}.ivu-input-number-disabled.ivu-input-number-controls-outside .ivu-input-number-controls-outside-btn i{color:#ccc}.ivu-input-number-large.ivu-input-number-controls-outside{width:160px;padding:0 40px}.ivu-input-number-large.ivu-input-number-controls-outside .ivu-input-number-controls-outside-btn{width:40px;height:40px;line-height:38px}.ivu-input-number-large.ivu-input-number-controls-outside .ivu-input-number-controls-outside-btn i{font-size:20px}.ivu-input-number-small.ivu-input-number-controls-outside{width:128px;padding:0 24px}.ivu-input-number-small.ivu-input-number-controls-outside .ivu-input-number-controls-outside-btn{width:24px;height:24px;line-height:22px}.ivu-input-number-small.ivu-input-number-controls-outside .ivu-input-number-controls-outside-btn i{font-size:14px}.ivu-form-item-error .ivu-input-number{border:1px solid #ed4014}.ivu-form-item-error .ivu-input-number:hover{border-color:#ed4014}.ivu-form-item-error .ivu-input-number:focus{border-color:#ed4014;outline:0;box-shadow:0 0 0 2px rgba(237,64,20,.2)}.ivu-form-item-error .ivu-input-number-focused{border-color:#ed4014;outline:0;box-shadow:0 0 0 2px rgba(237,64,20,.2)}.ivu-scroll-wrapper{width:auto;margin:0 auto;position:relative;outline:0}.ivu-scroll-container{overflow-y:scroll}@keyframes ani-stop-slide{from{overflow-y:hidden;tansform:translateZ(0)}to{overflow-y:scroll;tansform:translateZ(0)}}.ivu-scroll-container-loading{animation:ani-stop-slide 1.5s}.ivu-scroll-content{opacity:1;transition:opacity .5s}.ivu-scroll-content-loading{opacity:.5}.ivu-scroll-loader{text-align:center;padding:0;transition:padding .5s}.ivu-scroll-loader-wrapper{padding:5px 0;height:0;background-color:inherit;transform:scale(0);transition:opacity .3s,transform .5s,height .5s}.ivu-scroll-loader-wrapper-active{height:40px;transform:scale(1)}@keyframes ani-demo-spin{from{transform:rotate(0)}50%{transform:rotate(180deg)}to{transform:rotate(360deg)}}.ivu-scroll-loader-wrapper .ivu-scroll-spinner{position:relative}.ivu-scroll-loader-wrapper .ivu-scroll-spinner-icon{animation:ani-demo-spin 1s linear infinite}.ivu-tag{display:inline-block;height:22px;line-height:22px;margin:2px 4px 2px 0;padding:0 8px;border:1px solid #e8eaec;border-radius:3px;background:#f7f7f7;font-size:12px;vertical-align:middle;opacity:1;overflow:hidden}.ivu-tag-size-large{height:32px;line-height:32px;padding:0 12px}.ivu-tag-size-medium{height:28px;line-height:28px;padding:0 10px}.ivu-tag:not(.ivu-tag-border):not(.ivu-tag-dot):not(.ivu-tag-checked){background:0 0;border:0;color:#515a6e}.ivu-tag:not(.ivu-tag-border):not(.ivu-tag-dot):not(.ivu-tag-checked) .ivu-icon-ios-close{color:#515a6e!important}.ivu-tag-color-error{color:#ed4014!important;border-color:#ed4014}.ivu-tag-color-success{color:#19be6b!important;border-color:#19be6b}.ivu-tag-color-primary{color:#2d8cf0!important;border-color:#2d8cf0}.ivu-tag-color-warning{color:#f90!important;border-color:#f90}.ivu-tag-color-white{color:#fff!important}.ivu-tag-dot{height:32px;line-height:32px;border:1px solid #e8eaec!important;color:#515a6e!important;background:#fff!important;padding:0 12px}.ivu-tag-dot-inner{display:inline-block;width:12px;height:12px;margin-right:8px;border-radius:50%;background:#e8eaec;position:relative;top:1px}.ivu-tag-dot .ivu-icon-ios-close{color:#666!important;margin-left:12px!important}.ivu-tag-border{height:24px;line-height:24px;border:1px solid #e8eaec;color:#e8eaec;background:#fff!important;position:relative}.ivu-tag-border .ivu-icon-ios-close{color:#666;margin-left:12px!important}.ivu-tag-border:after{content:\"\";display:none;width:1px;background:currentColor;position:absolute;top:0;bottom:0;right:22px}.ivu-tag-border.ivu-tag-closable:after{display:block}.ivu-tag-border.ivu-tag-closable .ivu-icon-ios-close{margin-left:18px!important;left:4px;top:-1px}.ivu-tag-border.ivu-tag-primary{color:#2d8cf0!important;border:1px solid #2d8cf0!important}.ivu-tag-border.ivu-tag-primary:after{background:#2d8cf0}.ivu-tag-border.ivu-tag-primary .ivu-icon-ios-close{color:#2d8cf0!important}.ivu-tag-border.ivu-tag-success{color:#19be6b!important;border:1px solid #19be6b!important}.ivu-tag-border.ivu-tag-success:after{background:#19be6b}.ivu-tag-border.ivu-tag-success .ivu-icon-ios-close{color:#19be6b!important}.ivu-tag-border.ivu-tag-warning{color:#f90!important;border:1px solid #f90!important}.ivu-tag-border.ivu-tag-warning:after{background:#f90}.ivu-tag-border.ivu-tag-warning .ivu-icon-ios-close{color:#f90!important}.ivu-tag-border.ivu-tag-error{color:#ed4014!important;border:1px solid #ed4014!important}.ivu-tag-border.ivu-tag-error:after{background:#ed4014}.ivu-tag-border.ivu-tag-error .ivu-icon-ios-close{color:#ed4014!important}.ivu-tag:hover{opacity:.85}.ivu-tag-text{color:#515a6e}.ivu-tag-text a:first-child:last-child{display:inline-block;margin:0 -8px;padding:0 8px}.ivu-tag .ivu-icon-ios-close{display:inline-block;font-size:14px;transform:scale(1.42857143) rotate(0);cursor:pointer;margin-left:2px;color:#666;opacity:.66;position:relative;top:-1px}:root .ivu-tag .ivu-icon-ios-close{font-size:14px}.ivu-tag .ivu-icon-ios-close:hover{opacity:1}.ivu-tag-error,.ivu-tag-primary,.ivu-tag-success,.ivu-tag-warning{border:0}.ivu-tag-error,.ivu-tag-error .ivu-icon-ios-close,.ivu-tag-error .ivu-icon-ios-close:hover,.ivu-tag-error a,.ivu-tag-error a:hover,.ivu-tag-primary,.ivu-tag-primary .ivu-icon-ios-close,.ivu-tag-primary .ivu-icon-ios-close:hover,.ivu-tag-primary a,.ivu-tag-primary a:hover,.ivu-tag-success,.ivu-tag-success .ivu-icon-ios-close,.ivu-tag-success .ivu-icon-ios-close:hover,.ivu-tag-success a,.ivu-tag-success a:hover,.ivu-tag-warning,.ivu-tag-warning .ivu-icon-ios-close,.ivu-tag-warning .ivu-icon-ios-close:hover,.ivu-tag-warning a,.ivu-tag-warning a:hover{color:#fff}.ivu-tag-primary,.ivu-tag-primary.ivu-tag-dot .ivu-tag-dot-inner{background:#2d8cf0}.ivu-tag-success,.ivu-tag-success.ivu-tag-dot .ivu-tag-dot-inner{background:#19be6b}.ivu-tag-warning,.ivu-tag-warning.ivu-tag-dot .ivu-tag-dot-inner{background:#f90}.ivu-tag-error,.ivu-tag-error.ivu-tag-dot .ivu-tag-dot-inner{background:#ed4014}.ivu-tag-pink{line-height:20px;background:#fff0f6;border-color:#ffadd2}.ivu-tag-pink .ivu-tag-text{color:#eb2f96!important}.ivu-tag-pink.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-pink{line-height:30px}.ivu-tag-size-medium.ivu-tag-pink{line-height:26px}.ivu-tag-magenta{line-height:20px;background:#fff0f6;border-color:#ffadd2}.ivu-tag-magenta .ivu-tag-text{color:#eb2f96!important}.ivu-tag-magenta.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-magenta{line-height:30px}.ivu-tag-size-medium.ivu-tag-magenta{line-height:26px}.ivu-tag-red{line-height:20px;background:#fff1f0;border-color:#ffa39e}.ivu-tag-red .ivu-tag-text{color:#f5222d!important}.ivu-tag-red.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-red{line-height:30px}.ivu-tag-size-medium.ivu-tag-red{line-height:26px}.ivu-tag-volcano{line-height:20px;background:#fff2e8;border-color:#ffbb96}.ivu-tag-volcano .ivu-tag-text{color:#fa541c!important}.ivu-tag-volcano.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-volcano{line-height:30px}.ivu-tag-size-medium.ivu-tag-volcano{line-height:26px}.ivu-tag-orange{line-height:20px;background:#fff7e6;border-color:#ffd591}.ivu-tag-orange .ivu-tag-text{color:#fa8c16!important}.ivu-tag-orange.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-orange{line-height:30px}.ivu-tag-size-medium.ivu-tag-orange{line-height:26px}.ivu-tag-yellow{line-height:20px;background:#feffe6;border-color:#fffb8f}.ivu-tag-yellow .ivu-tag-text{color:#fadb14!important}.ivu-tag-yellow.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-yellow{line-height:30px}.ivu-tag-size-medium.ivu-tag-yellow{line-height:26px}.ivu-tag-gold{line-height:20px;background:#fffbe6;border-color:#ffe58f}.ivu-tag-gold .ivu-tag-text{color:#faad14!important}.ivu-tag-gold.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-gold{line-height:30px}.ivu-tag-size-medium.ivu-tag-gold{line-height:26px}.ivu-tag-cyan{line-height:20px;background:#e6fffb;border-color:#87e8de}.ivu-tag-cyan .ivu-tag-text{color:#13c2c2!important}.ivu-tag-cyan.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-cyan{line-height:30px}.ivu-tag-size-medium.ivu-tag-cyan{line-height:26px}.ivu-tag-lime{line-height:20px;background:#fcffe6;border-color:#eaff8f}.ivu-tag-lime .ivu-tag-text{color:#a0d911!important}.ivu-tag-lime.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-lime{line-height:30px}.ivu-tag-size-medium.ivu-tag-lime{line-height:26px}.ivu-tag-green{line-height:20px;background:#f6ffed;border-color:#b7eb8f}.ivu-tag-green .ivu-tag-text{color:#52c41a!important}.ivu-tag-green.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-green{line-height:30px}.ivu-tag-size-medium.ivu-tag-green{line-height:26px}.ivu-tag-blue{line-height:20px;background:#e6f7ff;border-color:#91d5ff}.ivu-tag-blue .ivu-tag-text{color:#1890ff!important}.ivu-tag-blue.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-blue{line-height:30px}.ivu-tag-size-medium.ivu-tag-blue{line-height:26px}.ivu-tag-geekblue{line-height:20px;background:#f0f5ff;border-color:#adc6ff}.ivu-tag-geekblue .ivu-tag-text{color:#2f54eb!important}.ivu-tag-geekblue.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-geekblue{line-height:30px}.ivu-tag-size-medium.ivu-tag-geekblue{line-height:26px}.ivu-tag-purple{line-height:20px;background:#f9f0ff;border-color:#d3adf7}.ivu-tag-purple .ivu-tag-text{color:#722ed1!important}.ivu-tag-purple.ivu-tag-dot{line-height:32px}.ivu-tag-size-large.ivu-tag-purple{line-height:30px}.ivu-tag-size-medium.ivu-tag-purple{line-height:26px}.ivu-layout{display:flex;flex-direction:column;flex:auto;background:#f5f7f9}.ivu-layout.ivu-layout-has-sider{flex-direction:row}.ivu-layout.ivu-layout-has-sider>.ivu-layout,.ivu-layout.ivu-layout-has-sider>.ivu-layout-content{overflow-x:hidden}.ivu-layout-footer,.ivu-layout-header{flex:0 0 auto}.ivu-layout-header{background:#515a6e;padding:0 50px;height:64px;line-height:64px}.ivu-layout-sider{transition:all .2s ease-in-out;position:relative;background:#515a6e;min-width:0}.ivu-layout-sider-children{height:100%;padding-top:.1px;margin-top:-.1px}.ivu-layout-sider-has-trigger{padding-bottom:48px}.ivu-layout-sider-trigger{position:fixed;bottom:0;text-align:center;cursor:pointer;height:48px;line-height:48px;color:#fff;background:#515a6e;z-index:1000;transition:all .2s ease-in-out}.ivu-layout-sider-trigger .ivu-icon{font-size:16px}.ivu-layout-sider-trigger>*{transition:all .2s}.ivu-layout-sider-trigger-collapsed .ivu-layout-sider-trigger-icon{transform:rotateZ(180deg)}.ivu-layout-sider-zero-width>*{overflow:hidden}.ivu-layout-sider-zero-width-trigger{position:absolute;top:64px;right:-36px;text-align:center;width:36px;height:42px;line-height:42px;background:#515a6e;color:#fff;font-size:18px;border-radius:0 6px 6px 0;cursor:pointer;transition:background .3s ease}.ivu-layout-sider-zero-width-trigger:hover{background:#626b7d}.ivu-layout-sider-zero-width-trigger.ivu-layout-sider-zero-width-trigger-left{right:0;left:-36px;border-radius:6px 0 0 6px}.ivu-layout-footer{background:#f5f7f9;padding:24px 50px;color:#515a6e;font-size:14px}.ivu-layout-content{flex:auto}.ivu-loading-bar{width:100%;position:fixed;top:0;left:0;right:0;z-index:2000}.ivu-loading-bar-inner{transition:width .2s linear}.ivu-loading-bar-inner-color-primary{background-color:#2d8cf0}.ivu-loading-bar-inner-failed-color-error{background-color:#ed4014}.ivu-progress{display:inline-block;width:100%;font-size:12px;position:relative}.ivu-progress-vertical{height:100%;width:auto}.ivu-progress-outer{display:inline-block;width:100%;margin-right:0;padding-right:0}.ivu-progress-show-info .ivu-progress-outer{padding-right:55px;margin-right:-55px}.ivu-progress-vertical .ivu-progress-outer{height:100%;width:auto}.ivu-progress-inner{display:inline-block;width:100%;background-color:#f3f3f3;border-radius:100px;vertical-align:middle;position:relative}.ivu-progress-inner-text{display:inline-block;vertical-align:middle;color:#fff;font-size:12px;margin:0 6px}.ivu-progress-vertical .ivu-progress-inner{height:100%;width:auto}.ivu-progress-vertical .ivu-progress-inner:after,.ivu-progress-vertical .ivu-progress-inner>*{display:inline-block;vertical-align:bottom}.ivu-progress-vertical .ivu-progress-inner:after{content:'';height:100%}.ivu-progress-bg{text-align:right;border-radius:100px;background-color:#2d8cf0;transition:all .2s linear;position:relative}.ivu-progress-bg:after{content:'';display:inline-block;height:100%;vertical-align:middle}.ivu-progress-success-bg{border-radius:100px;background-color:#19be6b;transition:all .2s linear;position:absolute;top:0;left:0}.ivu-progress-text{display:inline-block;margin-left:5px;text-align:left;font-size:1em;vertical-align:middle;color:#808695}.ivu-progress-active .ivu-progress-bg:before{content:'';opacity:0;position:absolute;top:0;left:0;right:0;bottom:0;background:#fff;border-radius:10px;animation:ivu-progress-active 2s ease-in-out infinite}.ivu-progress-vertical.ivu-progress-active .ivu-progress-bg:before{top:auto;animation:ivu-progress-active-vertical 2s ease-in-out infinite}.ivu-progress-wrong .ivu-progress-bg{background-color:#ed4014}.ivu-progress-wrong .ivu-progress-text{color:#ed4014}.ivu-progress-success .ivu-progress-bg{background-color:#19be6b}.ivu-progress-success .ivu-progress-text{color:#19be6b}@keyframes ivu-progress-active{0%{opacity:.3;width:0}100%{opacity:0;width:100%}}@keyframes ivu-progress-active-vertical{0%{opacity:.3;height:0}100%{opacity:0;height:100%}}.ivu-timeline{list-style:none;margin:0;padding:0}.ivu-timeline-item{margin:0!important;padding:0 0 12px 0;list-style:none;position:relative}.ivu-timeline-item-tail{height:100%;border-left:1px solid #e8eaec;position:absolute;left:6px;top:0}.ivu-timeline-item-pending .ivu-timeline-item-tail{display:none}.ivu-timeline-item-head{width:13px;height:13px;background-color:#fff;border-radius:50%;border:1px solid transparent;position:absolute}.ivu-timeline-item-head-blue{border-color:#2d8cf0;color:#2d8cf0}.ivu-timeline-item-head-red{border-color:#ed4014;color:#ed4014}.ivu-timeline-item-head-green{border-color:#19be6b;color:#19be6b}.ivu-timeline-item-head-custom{width:40px;height:auto;margin-top:6px;padding:3px 0;text-align:center;line-height:1;border:0;border-radius:0;font-size:14px;position:absolute;left:-13px;transform:translateY(-50%)}.ivu-timeline-item-content{padding:1px 1px 10px 24px;font-size:14px;position:relative;top:-3px}.ivu-timeline-item:last-child .ivu-timeline-item-tail{display:none}.ivu-timeline.ivu-timeline-pending .ivu-timeline-item:nth-last-of-type(2) .ivu-timeline-item-tail{border-left:1px dotted #e8eaec}.ivu-timeline.ivu-timeline-pending .ivu-timeline-item:nth-last-of-type(2) .ivu-timeline-item-content{min-height:48px}.ivu-page:after{content:'';display:block;height:0;clear:both;overflow:hidden;visibility:hidden}.ivu-page-item{display:inline-block;vertical-align:middle;min-width:32px;height:32px;line-height:30px;margin-right:4px;text-align:center;list-style:none;background-color:#fff;-webkit-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;font-family:Arial;font-weight:500;border:1px solid #dcdee2;border-radius:4px;transition:border .2s ease-in-out,color .2s ease-in-out}.ivu-page-item a{margin:0 6px;text-decoration:none;color:#515a6e}.ivu-page-item:hover{border-color:#2d8cf0}.ivu-page-item:hover a{color:#2d8cf0}.ivu-page-item-active{border-color:#2d8cf0}.ivu-page-item-active a,.ivu-page-item-active:hover a{color:#2d8cf0}.ivu-page-with-disabled .ivu-page-disabled,.ivu-page-with-disabled .ivu-page-item{cursor:not-allowed;background-color:#f3f3f3}.ivu-page-with-disabled .ivu-page-disabled a,.ivu-page-with-disabled .ivu-page-item a{color:#ccc}.ivu-page-with-disabled .ivu-page-disabled:hover,.ivu-page-with-disabled .ivu-page-item:hover{border-color:#dcdee2}.ivu-page-with-disabled .ivu-page-disabled:hover a,.ivu-page-with-disabled .ivu-page-item:hover a{color:#ccc;cursor:not-allowed}.ivu-page-with-disabled .ivu-page-disabled-active,.ivu-page-with-disabled .ivu-page-item-active{background-color:#dcdee2;border-color:#dcdee2}.ivu-page-with-disabled .ivu-page-disabled-active a,.ivu-page-with-disabled .ivu-page-disabled-active:hover a,.ivu-page-with-disabled .ivu-page-item-active a,.ivu-page-with-disabled .ivu-page-item-active:hover a{color:#fff}.ivu-page-item-jump-next i,.ivu-page-item-jump-prev i{color:#ccc}.ivu-page-item-jump-next i:first-child,.ivu-page-item-jump-prev i:first-child{display:none}.ivu-page-item-jump-next:hover i:first-child,.ivu-page-item-jump-prev:hover i:first-child{display:inline;color:#2d8cf0}.ivu-page-item-jump-next:hover i:last-child,.ivu-page-item-jump-prev:hover i:last-child{display:none}.ivu-page-with-disabled .ivu-page-item-jump-next,.ivu-page-with-disabled .ivu-page-item-jump-prev{cursor:not-allowed}.ivu-page-with-disabled .ivu-page-item-jump-next i,.ivu-page-with-disabled .ivu-page-item-jump-prev i{color:#ccc}.ivu-page-with-disabled .ivu-page-item-jump-next:hover i:first-child,.ivu-page-with-disabled .ivu-page-item-jump-prev:hover i:first-child{display:none}.ivu-page-with-disabled .ivu-page-item-jump-next:hover i:last-child,.ivu-page-with-disabled .ivu-page-item-jump-prev:hover i:last-child{display:inline}.ivu-page-item-jump-prev:hover i:first-child:after{content:\"\\F115\";margin-left:-8px}.ivu-page-item-jump-next:hover i:first-child:after{content:\"\\F11F\";margin-left:-8px}.ivu-page-prev{margin-right:4px}.ivu-page-item-jump-next,.ivu-page-item-jump-prev{margin-right:4px}.ivu-page-item-jump-next,.ivu-page-item-jump-prev,.ivu-page-next,.ivu-page-prev{display:inline-block;vertical-align:middle;-webkit-user-select:none;-ms-user-select:none;user-select:none;min-width:32px;height:32px;line-height:30px;list-style:none;text-align:center;cursor:pointer;color:#666;font-family:Arial;border:1px solid #dcdee2;border-radius:4px;transition:all .2s ease-in-out}.ivu-page-item-jump-next,.ivu-page-item-jump-prev{border-color:transparent}.ivu-page-next,.ivu-page-prev{background-color:#fff}.ivu-page-next a,.ivu-page-prev a{color:#666;font-size:14px}.ivu-page-next:hover,.ivu-page-prev:hover{border-color:#2d8cf0}.ivu-page-next:hover a,.ivu-page-prev:hover a{color:#2d8cf0}.ivu-page-disabled{cursor:not-allowed}.ivu-page-disabled a{color:#ccc}.ivu-page-disabled:hover{border-color:#dcdee2}.ivu-page-disabled:hover a{color:#ccc;cursor:not-allowed}.ivu-page-options{display:inline-block;vertical-align:middle;margin-left:15px}.ivu-page-options-sizer{display:inline-block;margin-right:10px}.ivu-page-options-elevator{display:inline-block;vertical-align:middle;height:32px;line-height:32px}.ivu-page-options-elevator input{display:inline-block;width:100%;height:32px;line-height:1.5;padding:4px 7px;font-size:14px;border:1px solid #dcdee2;color:#515a6e;background-color:#fff;background-image:none;position:relative;cursor:text;transition:border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;border-radius:4px;margin:0 8px;width:50px}.ivu-page-options-elevator input::-moz-placeholder{color:#c5c8ce;opacity:1}.ivu-page-options-elevator input:-ms-input-placeholder{color:#c5c8ce}.ivu-page-options-elevator input::-webkit-input-placeholder{color:#c5c8ce}.ivu-page-options-elevator input:hover{border-color:#57a3f3}.ivu-page-options-elevator input:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-page-options-elevator input[disabled],fieldset[disabled] .ivu-page-options-elevator input{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-page-options-elevator input[disabled]:hover,fieldset[disabled] .ivu-page-options-elevator input:hover{border-color:#e3e5e8}textarea.ivu-page-options-elevator input{max-width:100%;height:auto;min-height:32px;vertical-align:bottom;font-size:14px}.ivu-page-options-elevator input-large{font-size:16px;padding:6px 7px;height:40px}.ivu-page-options-elevator input-small{padding:1px 7px;height:24px;border-radius:3px}.ivu-page-options-elevator input-no-border{border-radius:0;border-color:transparent}.ivu-page-options-elevator input-no-border:hover{border-color:transparent}.ivu-page-options-elevator input-no-border:focus{border-color:transparent;box-shadow:none}.ivu-page-options-elevator input-no-border[disabled]{background-color:transparent}.ivu-page-options-elevator input-no-border[disabled]:hover{border-color:transparent}.ivu-page-total{display:inline-block;height:32px;line-height:32px;margin-right:10px}.ivu-page-simple .ivu-page-next,.ivu-page-simple .ivu-page-prev{margin:0;border:0;height:24px;line-height:normal;font-size:18px}.ivu-page-simple .ivu-page-simple-pager{display:inline-block;margin-right:8px;vertical-align:middle}.ivu-page-simple .ivu-page-simple-pager input{display:inline-block;width:100%;height:32px;line-height:1.5;padding:4px 7px;font-size:14px;color:#515a6e;background-image:none;position:relative;cursor:text;transition:border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out;width:30px;height:24px;margin:0 8px;padding:5px 8px;text-align:center;box-sizing:border-box;background-color:#fff;outline:0;border:1px solid #dcdee2;border-radius:4px;transition:border-color .2s ease-in-out}.ivu-page-simple .ivu-page-simple-pager input::-moz-placeholder{color:#c5c8ce;opacity:1}.ivu-page-simple .ivu-page-simple-pager input:-ms-input-placeholder{color:#c5c8ce}.ivu-page-simple .ivu-page-simple-pager input::-webkit-input-placeholder{color:#c5c8ce}.ivu-page-simple .ivu-page-simple-pager input:hover{border-color:#57a3f3}.ivu-page-simple .ivu-page-simple-pager input:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-page-simple .ivu-page-simple-pager input[disabled],fieldset[disabled] .ivu-page-simple .ivu-page-simple-pager input{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-page-simple .ivu-page-simple-pager input[disabled]:hover,fieldset[disabled] .ivu-page-simple .ivu-page-simple-pager input:hover{border-color:#e3e5e8}textarea.ivu-page-simple .ivu-page-simple-pager input{max-width:100%;height:auto;min-height:32px;vertical-align:bottom;font-size:14px}.ivu-page-simple .ivu-page-simple-pager input-large{font-size:16px;padding:6px 7px;height:40px}.ivu-page-simple .ivu-page-simple-pager input-small{padding:1px 7px;height:24px;border-radius:3px}.ivu-page-simple .ivu-page-simple-pager input-no-border{border-radius:0;border-color:transparent}.ivu-page-simple .ivu-page-simple-pager input-no-border:hover{border-color:transparent}.ivu-page-simple .ivu-page-simple-pager input-no-border:focus{border-color:transparent;box-shadow:none}.ivu-page-simple .ivu-page-simple-pager input-no-border[disabled]{background-color:transparent}.ivu-page-simple .ivu-page-simple-pager input-no-border[disabled]:hover{border-color:transparent}.ivu-page-simple .ivu-page-simple-pager input:hover{border-color:#2d8cf0}.ivu-page-simple .ivu-page-simple-pager span{padding:0 8px 0 2px}.ivu-page-custom-text,.ivu-page-custom-text:hover{border-color:transparent}.ivu-page.mini .ivu-page-total{height:24px;line-height:24px}.ivu-page.mini .ivu-page-item{border:0;margin:0;min-width:24px;height:24px;line-height:24px;border-radius:3px}.ivu-page.mini .ivu-page-next,.ivu-page.mini .ivu-page-prev{margin:0;min-width:24px;height:24px;line-height:22px;border:0}.ivu-page.mini .ivu-page-next a i:after,.ivu-page.mini .ivu-page-prev a i:after{height:24px;line-height:24px}.ivu-page.mini .ivu-page-item-jump-next,.ivu-page.mini .ivu-page-item-jump-prev{height:24px;line-height:24px;border:none;margin-right:0}.ivu-page.mini .ivu-page-options{margin-left:8px}.ivu-page.mini .ivu-page-options-elevator{height:24px;line-height:24px}.ivu-page.mini .ivu-page-options-elevator input{padding:1px 7px;height:24px;border-radius:3px;width:44px}.ivu-steps{display:flex;width:100%;font-size:0;line-height:1.5}.ivu-steps-item{display:inline-block;position:relative;vertical-align:top;flex:1;overflow:hidden}.ivu-steps-item:last-child{flex:none}.ivu-steps-item.ivu-steps-status-wait .ivu-steps-head-inner{background-color:#fff}.ivu-steps-item.ivu-steps-status-wait .ivu-steps-head-inner span,.ivu-steps-item.ivu-steps-status-wait .ivu-steps-head-inner>.ivu-steps-icon{color:#ccc}.ivu-steps-item.ivu-steps-status-wait .ivu-steps-title{color:#999}.ivu-steps-item.ivu-steps-status-wait .ivu-steps-content{color:#999}.ivu-steps-item.ivu-steps-status-wait .ivu-steps-tail>i{background-color:#e8eaec}.ivu-steps-item.ivu-steps-status-process .ivu-steps-head-inner{border-color:#2d8cf0;background-color:#2d8cf0}.ivu-steps-item.ivu-steps-status-process .ivu-steps-head-inner span,.ivu-steps-item.ivu-steps-status-process .ivu-steps-head-inner>.ivu-steps-icon{color:#fff}.ivu-steps-item.ivu-steps-status-process .ivu-steps-title{color:#666}.ivu-steps-item.ivu-steps-status-process .ivu-steps-content{color:#666}.ivu-steps-item.ivu-steps-status-process .ivu-steps-tail>i{background-color:#e8eaec}.ivu-steps-item.ivu-steps-status-finish .ivu-steps-head-inner{background-color:#fff;border-color:#2d8cf0}.ivu-steps-item.ivu-steps-status-finish .ivu-steps-head-inner span,.ivu-steps-item.ivu-steps-status-finish .ivu-steps-head-inner>.ivu-steps-icon{color:#2d8cf0}.ivu-steps-item.ivu-steps-status-finish .ivu-steps-tail>i:after{width:100%;background:#2d8cf0;transition:all .2s ease-in-out;opacity:1}.ivu-steps-item.ivu-steps-status-finish .ivu-steps-title{color:#999}.ivu-steps-item.ivu-steps-status-finish .ivu-steps-content{color:#999}.ivu-steps-item.ivu-steps-status-error .ivu-steps-head-inner{background-color:#fff;border-color:#ed4014}.ivu-steps-item.ivu-steps-status-error .ivu-steps-head-inner>.ivu-steps-icon{color:#ed4014}.ivu-steps-item.ivu-steps-status-error .ivu-steps-title{color:#ed4014}.ivu-steps-item.ivu-steps-status-error .ivu-steps-content{color:#ed4014}.ivu-steps-item.ivu-steps-status-error .ivu-steps-tail>i{background-color:#e8eaec}.ivu-steps-item.ivu-steps-next-error .ivu-steps-tail>i,.ivu-steps-item.ivu-steps-next-error .ivu-steps-tail>i:after{background-color:#ed4014}.ivu-steps-item.ivu-steps-custom .ivu-steps-head-inner{background:0 0;border:0;width:auto;height:auto}.ivu-steps-item.ivu-steps-custom .ivu-steps-head-inner>.ivu-steps-icon{font-size:20px;top:2px;width:20px;height:20px}.ivu-steps-item.ivu-steps-custom.ivu-steps-status-process .ivu-steps-head-inner>.ivu-steps-icon{color:#2d8cf0}.ivu-steps-item:last-child .ivu-steps-tail{display:none}.ivu-steps .ivu-steps-head,.ivu-steps .ivu-steps-main{position:relative;display:inline-block;vertical-align:top}.ivu-steps .ivu-steps-head{background:#fff}.ivu-steps .ivu-steps-head-inner{display:block;width:26px;height:26px;line-height:24px;margin-right:8px;text-align:center;border:1px solid #ccc;border-radius:50%;font-size:14px;transition:background-color .2s ease-in-out}.ivu-steps .ivu-steps-head-inner>.ivu-steps-icon{line-height:1;position:relative}.ivu-steps .ivu-steps-head-inner>.ivu-steps-icon.ivu-icon{font-size:24px}.ivu-steps .ivu-steps-head-inner>.ivu-steps-icon.ivu-icon-ios-checkmark-empty,.ivu-steps .ivu-steps-head-inner>.ivu-steps-icon.ivu-icon-ios-close-empty{font-weight:700}.ivu-steps .ivu-steps-main{margin-top:2.5px;display:inline}.ivu-steps .ivu-steps-custom .ivu-steps-title{margin-top:2.5px}.ivu-steps .ivu-steps-title{display:inline-block;margin-bottom:4px;padding-right:10px;font-size:14px;font-weight:700;color:#666;background:#fff}.ivu-steps .ivu-steps-title>a:first-child:last-child{color:#666}.ivu-steps .ivu-steps-item-last .ivu-steps-title{padding-right:0;width:100%}.ivu-steps .ivu-steps-content{font-size:12px;color:#999}.ivu-steps .ivu-steps-tail{width:100%;padding:0 10px;position:absolute;left:0;top:13px}.ivu-steps .ivu-steps-tail>i{display:inline-block;width:100%;height:1px;vertical-align:top;background:#e8eaec;border-radius:1px;position:relative}.ivu-steps .ivu-steps-tail>i:after{content:'';width:0;height:100%;background:#e8eaec;opacity:0;position:absolute;top:0}.ivu-steps.ivu-steps-small .ivu-steps-head-inner{width:18px;height:18px;line-height:16px;margin-right:10px;text-align:center;border-radius:50%;font-size:12px}.ivu-steps.ivu-steps-small .ivu-steps-head-inner>.ivu-steps-icon.ivu-icon{font-size:16px;top:0}.ivu-steps.ivu-steps-small .ivu-steps-main{margin-top:0}.ivu-steps.ivu-steps-small .ivu-steps-title{margin-bottom:4px;margin-top:0;color:#666;font-size:12px;font-weight:700}.ivu-steps.ivu-steps-small .ivu-steps-content{font-size:12px;color:#999;padding-left:30px}.ivu-steps.ivu-steps-small .ivu-steps-tail{top:8px;padding:0 8px}.ivu-steps.ivu-steps-small .ivu-steps-tail>i{height:1px;width:100%;border-radius:1px}.ivu-steps .ivu-steps-item.ivu-steps-custom .ivu-steps-head-inner,.ivu-steps.ivu-steps-small .ivu-steps-item.ivu-steps-custom .ivu-steps-head-inner{width:inherit;height:inherit;line-height:inherit;border-radius:0;border:0;background:0 0}.ivu-steps-vertical{display:block}.ivu-steps-vertical .ivu-steps-item{display:block;overflow:visible}.ivu-steps-vertical .ivu-steps-tail{position:absolute;left:13px;top:0;height:100%;width:1px;padding:30px 0 4px 0}.ivu-steps-vertical .ivu-steps-tail>i{height:100%;width:1px}.ivu-steps-vertical .ivu-steps-tail>i:after{height:0;width:100%}.ivu-steps-vertical .ivu-steps-status-finish .ivu-steps-tail>i:after{height:100%}.ivu-steps-vertical .ivu-steps-head{float:left}.ivu-steps-vertical .ivu-steps-head-inner{margin-right:16px}.ivu-steps-vertical .ivu-steps-main{min-height:47px;overflow:hidden;display:block}.ivu-steps-vertical .ivu-steps-main .ivu-steps-title{line-height:26px}.ivu-steps-vertical .ivu-steps-main .ivu-steps-content{padding-bottom:12px;padding-left:0}.ivu-steps-vertical .ivu-steps-custom .ivu-steps-icon{left:4px}.ivu-steps-vertical.ivu-steps-small .ivu-steps-custom .ivu-steps-icon{left:0}.ivu-steps-vertical.ivu-steps-small .ivu-steps-tail{position:absolute;left:9px;top:0;padding:22px 0 4px 0}.ivu-steps-vertical.ivu-steps-small .ivu-steps-tail>i{height:100%}.ivu-steps-vertical.ivu-steps-small .ivu-steps-title{line-height:18px}.ivu-steps-horizontal.ivu-steps-hidden{visibility:hidden}.ivu-steps-horizontal .ivu-steps-content{padding-left:35px}.ivu-steps-horizontal .ivu-steps-item:not(:first-child) .ivu-steps-head{padding-left:10px;margin-left:-10px}.ivu-modal{width:auto;margin:0 auto;position:relative;outline:0;top:100px}.ivu-modal-hidden{display:none!important}.ivu-modal-wrap{position:fixed;overflow:auto;top:0;right:0;bottom:0;left:0;z-index:1000;-webkit-overflow-scrolling:touch;outline:0}.ivu-modal-wrap *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}.ivu-modal-mask{position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(55,55,55,.6);height:100%;z-index:1000}.ivu-modal-mask-hidden{display:none}.ivu-modal-content{position:relative;background-color:#fff;border:0;border-radius:6px;background-clip:padding-box;box-shadow:0 4px 12px rgba(0,0,0,.15)}.ivu-modal-content-no-mask{pointer-events:auto}.ivu-modal-content-drag{position:absolute}.ivu-modal-content-drag .ivu-modal-header{cursor:move}.ivu-modal-content-dragging{-webkit-user-select:none;-ms-user-select:none;user-select:none}.ivu-modal-header{border-bottom:1px solid #e8eaec;padding:14px 16px;line-height:1}.ivu-modal-header p,.ivu-modal-header-inner{display:inline-block;width:100%;height:20px;line-height:20px;font-size:16px;color:#17233d;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ivu-modal-close{z-index:1;font-size:12px;position:absolute;right:8px;top:8px;overflow:hidden;cursor:pointer}.ivu-modal-close .ivu-icon-ios-close{font-size:31px;color:#999;transition:color .2s ease;position:relative;top:1px}.ivu-modal-close .ivu-icon-ios-close:hover{color:#444}.ivu-modal-body{padding:16px;font-size:14px;line-height:1.5}.ivu-modal-footer{border-top:1px solid #e8eaec;padding:12px 18px 12px 18px;text-align:right}.ivu-modal-footer button+button{margin-left:8px;margin-bottom:0}.ivu-modal-fullscreen{width:100%!important;top:0;bottom:0;position:absolute}.ivu-modal-fullscreen .ivu-modal-content{width:100%;border-radius:0;position:absolute;top:0;bottom:0}.ivu-modal-fullscreen .ivu-modal-body{width:100%;overflow:auto;position:absolute;top:51px;bottom:61px}.ivu-modal-fullscreen-no-header .ivu-modal-body{top:0}.ivu-modal-fullscreen-no-footer .ivu-modal-body{bottom:0}.ivu-modal-fullscreen .ivu-modal-footer{position:absolute;width:100%;bottom:0}.ivu-modal-no-mask{pointer-events:none}@media (max-width:576px){.ivu-modal{width:auto!important;margin:10px}.ivu-modal-fullscreen{width:100%!important;margin:0}.vertical-center-modal .ivu-modal{flex:1}}.ivu-modal-confirm{padding:6px 16px 8px}.ivu-modal-confirm-head{padding:0 12px 0 0}.ivu-modal-confirm-head-icon{display:inline-block;font-size:28px;vertical-align:middle;position:relative;top:-2px}.ivu-modal-confirm-head-icon-info{color:#2d8cf0}.ivu-modal-confirm-head-icon-success{color:#19be6b}.ivu-modal-confirm-head-icon-warning{color:#f90}.ivu-modal-confirm-head-icon-error{color:#ed4014}.ivu-modal-confirm-head-icon-confirm{color:#f90}.ivu-modal-confirm-head-title{display:inline-block;vertical-align:middle;margin-left:12px;font-size:16px;color:#17233d;font-weight:500}.ivu-modal-confirm-body{padding-left:40px;font-size:14px;color:#515a6e;position:relative}.ivu-modal-confirm-body-render{margin:0;padding:0}.ivu-modal-confirm-footer{margin-top:20px;text-align:right}.ivu-modal-confirm-footer button+button{margin-left:8px;margin-bottom:0}.ivu-select{display:inline-block;width:100%;box-sizing:border-box;vertical-align:middle;color:#515a6e;font-size:14px;line-height:normal}.ivu-select-selection{display:block;box-sizing:border-box;outline:0;-webkit-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;position:relative;background-color:#fff;border-radius:4px;border:1px solid #dcdee2;transition:all .2s ease-in-out}.ivu-select-selection-focused,.ivu-select-selection:hover{border-color:#57a3f3}.ivu-select-selection-focused .ivu-select-arrow,.ivu-select-selection:hover .ivu-select-arrow{display:inline-block}.ivu-select-arrow{position:absolute;top:50%;right:8px;line-height:1;transform:translateY(-50%);font-size:14px;color:#808695;transition:all .2s ease-in-out}.ivu-select-visible .ivu-select-selection{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-select-visible .ivu-select-arrow{transform:translateY(-50%) rotate(180deg);display:inline-block}.ivu-select-disabled .ivu-select-selection{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-select-disabled .ivu-select-selection:hover{border-color:#e3e5e8}.ivu-select-disabled .ivu-select-selection .ivu-select-arrow{color:#ccc}.ivu-select-disabled .ivu-select-selection:hover{border-color:#dcdee2;box-shadow:none}.ivu-select-disabled .ivu-select-selection:hover .ivu-select-arrow{display:inline-block}.ivu-select-single .ivu-select-selection{height:32px;position:relative}.ivu-select-single .ivu-select-selection .ivu-select-placeholder{color:#c5c8ce}.ivu-select-single .ivu-select-selection .ivu-select-placeholder,.ivu-select-single .ivu-select-selection .ivu-select-selected-value{display:block;height:30px;line-height:30px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left:8px;padding-right:24px}.ivu-select-multiple .ivu-select-selection{padding:0 24px 0 4px}.ivu-select-multiple .ivu-select-selection .ivu-select-placeholder{display:block;height:30px;line-height:30px;color:#c5c8ce;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-left:4px;padding-right:22px}.ivu-select-default.ivu-select-multiple .ivu-select-selection{min-height:32px}.ivu-select-large.ivu-select-single .ivu-select-selection{height:40px}.ivu-select-large.ivu-select-single .ivu-select-selection .ivu-select-placeholder,.ivu-select-large.ivu-select-single .ivu-select-selection .ivu-select-selected-value{height:38px;line-height:38px;font-size:16px}.ivu-select-large.ivu-select-multiple .ivu-select-selection{min-height:40px}.ivu-select-large.ivu-select-multiple .ivu-select-selection .ivu-select-placeholder,.ivu-select-large.ivu-select-multiple .ivu-select-selection .ivu-select-selected-value{min-height:38px;line-height:38px;font-size:16px}.ivu-select-small.ivu-select-single .ivu-select-selection{height:24px;border-radius:3px}.ivu-select-small.ivu-select-single .ivu-select-selection .ivu-select-placeholder,.ivu-select-small.ivu-select-single .ivu-select-selection .ivu-select-selected-value{height:22px;line-height:22px}.ivu-select-small.ivu-select-multiple .ivu-select-selection{min-height:24px;border-radius:3px}.ivu-select-small.ivu-select-multiple .ivu-select-selection .ivu-select-placeholder,.ivu-select-small.ivu-select-multiple .ivu-select-selection .ivu-select-selected-value{height:auto;min-height:22px;line-height:22px}.ivu-select-input{display:inline-block;height:32px;line-height:32px;padding:0 24px 0 8px;font-size:14px;outline:0;border:none;box-sizing:border-box;color:#515a6e;background-color:transparent;position:relative;cursor:pointer}.ivu-select-input::-moz-placeholder{color:#c5c8ce;opacity:1}.ivu-select-input:-ms-input-placeholder{color:#c5c8ce}.ivu-select-input::-webkit-input-placeholder{color:#c5c8ce}.ivu-select-input[disabled]{cursor:not-allowed;color:#ccc;-webkit-text-fill-color:#ccc}.ivu-select-single .ivu-select-input{width:100%}.ivu-select-large .ivu-select-input,.ivu-select-large.ivu-select-multiple .ivu-select-input{font-size:16px;height:32px;line-height:32px;top:3px}.ivu-select-small .ivu-select-input,.ivu-select-small.ivu-select-multiple .ivu-select-input{height:18px;line-height:18px;top:2px}.ivu-select-multiple .ivu-select-input{height:26px;line-height:26px;padding:0 0 0 4px;top:2px}.ivu-select-not-found{text-align:center;color:#c5c8ce}.ivu-select-not-found li:not([class^=ivu-]){margin-bottom:0}.ivu-select-loading{text-align:center;color:#c5c8ce}.ivu-select-multiple .ivu-tag{height:24px;line-height:22px;margin:3px 4px 3px 0;max-width:99%;position:relative}.ivu-select-multiple .ivu-tag span:not(.ivu-select-max-tag){display:block;margin-right:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ivu-select-multiple .ivu-tag i{display:block;position:absolute;right:4px;top:4px}.ivu-select-multiple-tag-hidden{margin-right:0!important}.ivu-select-large.ivu-select-multiple .ivu-tag{height:32px;line-height:30px;font-size:16px}.ivu-select-large.ivu-select-multiple .ivu-tag i{top:9px}.ivu-select-small.ivu-select-multiple .ivu-tag{height:17px;line-height:15px;font-size:12px;padding:0 6px;margin:3px 4px 2px 0}.ivu-select-small.ivu-select-multiple .ivu-tag span{margin-right:14px}.ivu-select-small.ivu-select-multiple .ivu-tag i{top:1px;right:2px}.ivu-select-dropdown-list{min-width:100%;list-style:none}.ivu-select .ivu-select-dropdown{width:auto}.ivu-select-prefix{display:inline-block;vertical-align:middle}.ivu-select-prefix i{vertical-align:top}.ivu-select-head-with-prefix{display:inline-block!important;vertical-align:middle}.ivu-select-single .ivu-select-prefix{padding-left:4px}.ivu-select-multiple .ivu-select-head-with-prefix,.ivu-select-single .ivu-select-head-with-prefix{padding-left:0!important}.ivu-select-head-flex{display:flex;align-items:center}.ivu-select-multiple .ivu-select-head-flex .ivu-select-prefix{margin-right:4px}.ivu-select-item{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-select-item:hover{background:#f3f3f3}.ivu-select-item-focus{background:#f3f3f3}.ivu-select-item-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-select-item-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-select-item-selected,.ivu-select-item-selected:hover{color:#2d8cf0}.ivu-select-item-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-select-item-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-select-item-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-select-large .ivu-select-item{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-select-item{white-space:normal}}.ivu-select-multiple .ivu-select-item{position:relative}.ivu-select-multiple .ivu-select-item-selected{color:rgba(45,140,240,.9);background:#fff}.ivu-select-multiple .ivu-select-item-focus,.ivu-select-multiple .ivu-select-item-selected:hover{background:#f3f3f3}.ivu-select-multiple .ivu-select-item-selected.ivu-select-multiple .ivu-select-item-focus{color:rgba(40,123,211,.91);background:#fff}.ivu-select-multiple .ivu-select-item-selected:after{display:inline-block;font-family:Ionicons;speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;text-rendering:optimizeLegibility;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;vertical-align:-.125em;text-align:center;font-size:24px;content:'\\F171';color:rgba(45,140,240,.9);position:absolute;top:2px;right:8px}.ivu-select-multiple .ivu-select-item-selected.ivu-select-item-disabled{color:#c5c8ce}.ivu-select-multiple .ivu-select-item-selected.ivu-select-item-disabled:after{color:#c5c8ce}.ivu-select-multiple .ivu-select-item-selected.ivu-select-item-disabled:hover{background-color:#fff}.ivu-select-group{list-style:none;margin:0;padding:0}.ivu-select-group-title{padding-left:8px;font-size:14px;color:#999;height:30px;line-height:30px}.ivu-form-item-error .ivu-select-selection{border:1px solid #ed4014}.ivu-form-item-error .ivu-select-arrow{color:#ed4014}.ivu-form-item-error .ivu-select-visible .ivu-select-selection{border-color:#ed4014;outline:0;box-shadow:0 0 0 2px rgba(237,64,20,.2)}.ivu-select-dropdown{width:inherit;max-height:200px;overflow:auto;margin:5px 0;padding:5px 0;background-color:#fff;box-sizing:border-box;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,.2);position:absolute;z-index:900}.ivu-select-dropdown-transfer{z-index:1060;width:auto}.ivu-select-dropdown.ivu-transfer-no-max-height{max-height:none}.ivu-modal .ivu-select-dropdown{position:absolute!important}.ivu-split-wrapper{position:relative;width:100%;height:100%}.ivu-split-pane{position:absolute}.ivu-split-pane.left-pane,.ivu-split-pane.right-pane{top:0;bottom:0}.ivu-split-pane.left-pane{left:0}.ivu-split-pane.right-pane{right:0}.ivu-split-pane.bottom-pane,.ivu-split-pane.top-pane{left:0;right:0}.ivu-split-pane.top-pane{top:0}.ivu-split-pane.bottom-pane{bottom:0}.ivu-split-pane-moving{-webkit-user-select:none;-ms-user-select:none;user-select:none}.ivu-split-trigger{border:1px solid #dcdee2}.ivu-split-trigger-con{position:absolute;transform:translate(-50%,-50%);z-index:10}.ivu-split-trigger-bar-con{position:absolute;overflow:hidden}.ivu-split-trigger-bar-con.vertical{left:1px;top:50%;height:32px;transform:translate(0,-50%)}.ivu-split-trigger-bar-con.horizontal{left:50%;top:1px;width:32px;transform:translate(-50%,0)}.ivu-split-trigger-vertical{width:6px;height:100%;background:#f8f8f9;border-top:none;border-bottom:none;cursor:col-resize}.ivu-split-trigger-vertical .ivu-split-trigger-bar{width:4px;height:1px;background:rgba(23,35,61,.25);float:left;margin-top:3px}.ivu-split-trigger-horizontal{height:6px;width:100%;background:#f8f8f9;border-left:none;border-right:none;cursor:row-resize}.ivu-split-trigger-horizontal .ivu-split-trigger-bar{height:4px;width:1px;background:rgba(23,35,61,.25);float:left;margin-right:3px}.ivu-split-horizontal>.ivu-split-trigger-con{top:50%;height:100%;width:0}.ivu-split-vertical>.ivu-split-trigger-con{left:50%;height:0;width:100%}.ivu-split .no-select{-webkit-touch-callout:none;-webkit-user-select:none;-ms-user-select:none;user-select:none}.ivu-tooltip{display:inline-block}.ivu-tooltip-rel{display:inline-block;position:relative;width:inherit}.ivu-tooltip-popper{display:block;visibility:visible;font-size:14px;line-height:1.5;position:absolute;z-index:1060}.ivu-tooltip-popper[x-placement^=top]{padding:5px 0 8px 0}.ivu-tooltip-popper[x-placement^=right]{padding:0 5px 0 8px}.ivu-tooltip-popper[x-placement^=bottom]{padding:8px 0 5px 0}.ivu-tooltip-popper[x-placement^=left]{padding:0 8px 0 5px}.ivu-tooltip-popper[x-placement^=top] .ivu-tooltip-arrow{bottom:3px;border-width:5px 5px 0;border-top-color:rgba(70,76,91,.9)}.ivu-tooltip-popper[x-placement=top] .ivu-tooltip-arrow{left:50%;margin-left:-5px}.ivu-tooltip-popper[x-placement=top-start] .ivu-tooltip-arrow{left:16px}.ivu-tooltip-popper[x-placement=top-end] .ivu-tooltip-arrow{right:16px}.ivu-tooltip-popper[x-placement^=right] .ivu-tooltip-arrow{left:3px;border-width:5px 5px 5px 0;border-right-color:rgba(70,76,91,.9)}.ivu-tooltip-popper[x-placement=right] .ivu-tooltip-arrow{top:50%;margin-top:-5px}.ivu-tooltip-popper[x-placement=right-start] .ivu-tooltip-arrow{top:8px}.ivu-tooltip-popper[x-placement=right-end] .ivu-tooltip-arrow{bottom:8px}.ivu-tooltip-popper[x-placement^=left] .ivu-tooltip-arrow{right:3px;border-width:5px 0 5px 5px;border-left-color:rgba(70,76,91,.9)}.ivu-tooltip-popper[x-placement=left] .ivu-tooltip-arrow{top:50%;margin-top:-5px}.ivu-tooltip-popper[x-placement=left-start] .ivu-tooltip-arrow{top:8px}.ivu-tooltip-popper[x-placement=left-end] .ivu-tooltip-arrow{bottom:8px}.ivu-tooltip-popper[x-placement^=bottom] .ivu-tooltip-arrow{top:3px;border-width:0 5px 5px;border-bottom-color:rgba(70,76,91,.9)}.ivu-tooltip-popper[x-placement=bottom] .ivu-tooltip-arrow{left:50%;margin-left:-5px}.ivu-tooltip-popper[x-placement=bottom-start] .ivu-tooltip-arrow{left:16px}.ivu-tooltip-popper[x-placement=bottom-end] .ivu-tooltip-arrow{right:16px}.ivu-tooltip-light.ivu-tooltip-popper{display:block;visibility:visible;font-size:14px;line-height:1.5;position:absolute;z-index:1060}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=top]{padding:7px 0 10px 0}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=right]{padding:0 7px 0 10px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=bottom]{padding:10px 0 7px 0}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=left]{padding:0 10px 0 7px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=top] .ivu-tooltip-arrow{bottom:3px;border-width:7px 7px 0;border-top-color:rgba(217,217,217,.5)}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=top] .ivu-tooltip-arrow{left:50%;margin-left:-7px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=top-start] .ivu-tooltip-arrow{left:16px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=top-end] .ivu-tooltip-arrow{right:16px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=right] .ivu-tooltip-arrow{left:3px;border-width:7px 7px 7px 0;border-right-color:rgba(217,217,217,.5)}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=right] .ivu-tooltip-arrow{top:50%;margin-top:-7px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=right-start] .ivu-tooltip-arrow{top:8px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=right-end] .ivu-tooltip-arrow{bottom:8px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=left] .ivu-tooltip-arrow{right:3px;border-width:7px 0 7px 7px;border-left-color:rgba(217,217,217,.5)}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=left] .ivu-tooltip-arrow{top:50%;margin-top:-7px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=left-start] .ivu-tooltip-arrow{top:8px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=left-end] .ivu-tooltip-arrow{bottom:8px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=bottom] .ivu-tooltip-arrow{top:3px;border-width:0 7px 7px;border-bottom-color:rgba(217,217,217,.5)}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=bottom] .ivu-tooltip-arrow{left:50%;margin-left:-7px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=bottom-start] .ivu-tooltip-arrow{left:16px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement=bottom-end] .ivu-tooltip-arrow{right:16px}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=top] .ivu-tooltip-arrow:after{content:\" \";bottom:1px;margin-left:-7px;border-bottom-width:0;border-top-width:7px;border-top-color:#fff}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=right] .ivu-tooltip-arrow:after{content:\" \";left:1px;bottom:-7px;border-left-width:0;border-right-width:7px;border-right-color:#fff}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=bottom] .ivu-tooltip-arrow:after{content:\" \";top:1px;margin-left:-7px;border-top-width:0;border-bottom-width:7px;border-bottom-color:#fff}.ivu-tooltip-light.ivu-tooltip-popper[x-placement^=left] .ivu-tooltip-arrow:after{content:\" \";right:1px;border-right-width:0;border-left-width:7px;border-left-color:#fff;bottom:-7px}.ivu-tooltip-inner{max-width:250px;min-height:34px;padding:8px 12px;color:#fff;text-align:left;text-decoration:none;background-color:rgba(70,76,91,.9);border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,.2);white-space:nowrap}.ivu-tooltip-inner-with-width{white-space:pre-wrap;text-align:justify;word-wrap:break-word;word-break:break-all}.ivu-tooltip-light .ivu-tooltip-inner{background-color:#fff;color:#515a6e}.ivu-tooltip-arrow{position:absolute;width:0;height:0;border-color:transparent;border-style:solid}.ivu-tooltip-light .ivu-tooltip-arrow{border-width:8px}.ivu-tooltip-light .ivu-tooltip-arrow:after{display:block;width:0;height:0;position:absolute;border-color:transparent;border-style:solid;content:\"\";border-width:7px}.ivu-poptip{display:inline-block}.ivu-poptip-rel{display:inline-block;position:relative}.ivu-poptip-title{margin:0;padding:8px 16px;position:relative}.ivu-poptip-title:after{content:'';display:block;height:1px;position:absolute;left:8px;right:8px;bottom:0;background-color:#e8eaec}.ivu-poptip-title-inner{color:#17233d;font-size:14px;font-weight:500}.ivu-poptip-body{padding:8px 16px}.ivu-poptip-body-content{overflow:auto}.ivu-poptip-body-content-word-wrap{white-space:pre-wrap;text-align:justify}.ivu-poptip-body-content-inner{color:#515a6e}.ivu-poptip-inner{width:100%;background-color:#fff;background-clip:padding-box;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,.2);white-space:nowrap}.ivu-poptip-popper{min-width:150px;display:block;visibility:visible;font-size:14px;line-height:1.5;position:absolute;z-index:1060}.ivu-poptip-popper[x-placement^=top]{padding:7px 0 10px 0}.ivu-poptip-popper[x-placement^=right]{padding:0 7px 0 10px}.ivu-poptip-popper[x-placement^=bottom]{padding:10px 0 7px 0}.ivu-poptip-popper[x-placement^=left]{padding:0 10px 0 7px}.ivu-poptip-popper[x-placement^=top] .ivu-poptip-arrow{bottom:3px;border-width:7px 7px 0;border-top-color:rgba(217,217,217,.5)}.ivu-poptip-popper[x-placement=top] .ivu-poptip-arrow{left:50%;margin-left:-7px}.ivu-poptip-popper[x-placement=top-start] .ivu-poptip-arrow{left:16px}.ivu-poptip-popper[x-placement=top-end] .ivu-poptip-arrow{right:16px}.ivu-poptip-popper[x-placement^=right] .ivu-poptip-arrow{left:3px;border-width:7px 7px 7px 0;border-right-color:rgba(217,217,217,.5)}.ivu-poptip-popper[x-placement=right] .ivu-poptip-arrow{top:50%;margin-top:-7px}.ivu-poptip-popper[x-placement=right-start] .ivu-poptip-arrow{top:8px}.ivu-poptip-popper[x-placement=right-end] .ivu-poptip-arrow{bottom:8px}.ivu-poptip-popper[x-placement^=left] .ivu-poptip-arrow{right:3px;border-width:7px 0 7px 7px;border-left-color:rgba(217,217,217,.5)}.ivu-poptip-popper[x-placement=left] .ivu-poptip-arrow{top:50%;margin-top:-7px}.ivu-poptip-popper[x-placement=left-start] .ivu-poptip-arrow{top:8px}.ivu-poptip-popper[x-placement=left-end] .ivu-poptip-arrow{bottom:8px}.ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow{top:3px;border-width:0 7px 7px;border-bottom-color:rgba(217,217,217,.5)}.ivu-poptip-popper[x-placement=bottom] .ivu-poptip-arrow{left:50%;margin-left:-7px}.ivu-poptip-popper[x-placement=bottom-start] .ivu-poptip-arrow{left:16px}.ivu-poptip-popper[x-placement=bottom-end] .ivu-poptip-arrow{right:16px}.ivu-poptip-popper[x-placement^=top] .ivu-poptip-arrow:after{content:\" \";bottom:1px;margin-left:-7px;border-bottom-width:0;border-top-width:7px;border-top-color:#fff}.ivu-poptip-popper[x-placement^=right] .ivu-poptip-arrow:after{content:\" \";left:1px;bottom:-7px;border-left-width:0;border-right-width:7px;border-right-color:#fff}.ivu-poptip-popper[x-placement^=bottom] .ivu-poptip-arrow:after{content:\" \";top:1px;margin-left:-7px;border-top-width:0;border-bottom-width:7px;border-bottom-color:#fff}.ivu-poptip-popper[x-placement^=left] .ivu-poptip-arrow:after{content:\" \";right:1px;border-right-width:0;border-left-width:7px;border-left-color:#fff;bottom:-7px}.ivu-poptip-arrow,.ivu-poptip-arrow:after{display:block;width:0;height:0;position:absolute;border-color:transparent;border-style:solid}.ivu-poptip-arrow{border-width:8px}.ivu-poptip-arrow:after{content:\"\";border-width:7px}.ivu-poptip-confirm .ivu-poptip-popper{max-width:300px}.ivu-poptip-confirm .ivu-poptip-inner{white-space:normal}.ivu-poptip-confirm .ivu-poptip-body{padding:16px 16px 8px}.ivu-poptip-confirm .ivu-poptip-body .ivu-icon{font-size:16px;color:#f90;line-height:18px;position:absolute}.ivu-poptip-confirm .ivu-poptip-body-message{padding-left:20px}.ivu-poptip-confirm .ivu-poptip-footer{text-align:right;padding:8px 16px 16px}.ivu-poptip-confirm .ivu-poptip-footer button{margin-left:4px}.ivu-input{display:inline-block;width:100%;height:32px;line-height:1.5;padding:4px 7px;font-size:14px;border:1px solid #dcdee2;border-radius:4px;color:#515a6e;background-color:#fff;background-image:none;position:relative;cursor:text;transition:border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out}.ivu-input::-moz-placeholder{color:#c5c8ce;opacity:1}.ivu-input:-ms-input-placeholder{color:#c5c8ce}.ivu-input::-webkit-input-placeholder{color:#c5c8ce}.ivu-input:hover{border-color:#57a3f3}.ivu-input:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-input[disabled],fieldset[disabled] .ivu-input{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-input[disabled]:hover,fieldset[disabled] .ivu-input:hover{border-color:#e3e5e8}textarea.ivu-input{max-width:100%;height:auto;min-height:32px;vertical-align:bottom;font-size:14px}.ivu-input-large{font-size:16px;padding:6px 7px;height:40px}.ivu-input-small{padding:1px 7px;height:24px;border-radius:3px}.ivu-input-no-border{border-radius:0;border-color:transparent}.ivu-input-no-border:hover{border-color:transparent}.ivu-input-no-border:focus{border-color:transparent;box-shadow:none}.ivu-input-no-border[disabled]{background-color:transparent}.ivu-input-no-border[disabled]:hover{border-color:transparent}.ivu-input-wrapper{display:inline-block;width:100%;position:relative;vertical-align:middle;line-height:normal}.ivu-input-icon{width:32px;height:32px;line-height:32px;font-size:16px;text-align:center;color:#808695;position:absolute;right:0;z-index:3}.ivu-input-hide-icon .ivu-input-icon{display:none}.ivu-input-icon-validate{display:none}.ivu-input-icon-clear{display:none}.ivu-input-wrapper:hover .ivu-input-icon-clear{display:inline-block}.ivu-input-icon-normal+.ivu-input{padding-right:32px}.ivu-input-hide-icon .ivu-input-icon-normal+.ivu-input{padding-right:7px}.ivu-input-wrapper-large .ivu-input-icon{font-size:18px;height:40px;line-height:40px}.ivu-input-wrapper-small .ivu-input-icon{width:24px;font-size:14px;height:24px;line-height:24px}.ivu-input-prefix,.ivu-input-suffix{width:32px;height:100%;text-align:center;position:absolute;left:0;top:0;z-index:1}.ivu-input-prefix i,.ivu-input-suffix i{font-size:16px;line-height:32px;color:#808695}.ivu-input-suffix{left:auto;right:0}.ivu-input-wrapper-small .ivu-input-prefix i,.ivu-input-wrapper-small .ivu-input-suffix i{font-size:14px;line-height:24px}.ivu-input-wrapper-large .ivu-input-prefix i,.ivu-input-wrapper-large .ivu-input-suffix i{font-size:18px;line-height:40px}.ivu-input-with-prefix{padding-left:32px}.ivu-input-with-suffix{padding-right:32px}.ivu-input-search{cursor:pointer;padding:0 16px!important;background:#2d8cf0!important;color:#fff!important;border-color:#2d8cf0!important;transition:all .2s ease-in-out;position:relative;z-index:2}.ivu-input-search i{font-size:16px}.ivu-input-search:hover{background:#57a3f3!important;border-color:#57a3f3!important}.ivu-input-search:active{background:#2b85e4!important;border-color:#2b85e4!important}.ivu-input-search-icon{cursor:pointer;transition:color .2s ease-in-out}.ivu-input-search-icon:hover{color:inherit}.ivu-input-search:before{content:'';display:block;width:1px;position:absolute;top:-1px;bottom:-1px;left:-1px;background:inherit}.ivu-input-wrapper-small .ivu-input-search{padding:0 12px!important}.ivu-input-wrapper-small .ivu-input-search i{font-size:14px}.ivu-input-wrapper-large .ivu-input-search{padding:0 20px!important}.ivu-input-wrapper-large .ivu-input-search i{font-size:18px}.ivu-input-with-search:hover .ivu-input{border-color:#57a3f3}.ivu-input-word-count{text-align:center;position:absolute;right:7px;top:2px;bottom:2px;padding-left:7px;background:#fff;z-index:1;display:inline-flex;align-items:center;color:#808695;font-size:12px}.ivu-input-wrapper-disabled .ivu-input-word-count{background:#f3f3f3}.ivu-input-type-textarea .ivu-input-word-count{align-items:flex-end;top:auto}.ivu-input-group{display:table;width:100%;border-collapse:separate;position:relative;font-size:14px}.ivu-form-inline .ivu-input-group{top:1px}.ivu-input-group-large{font-size:16px}.ivu-input-group[class*=col-]{float:none;padding-left:0;padding-right:0}.ivu-input-group>[class*=col-]{padding-right:8px}.ivu-input-group-append,.ivu-input-group-prepend,.ivu-input-group>.ivu-input{display:table-cell}.ivu-input-group-with-prepend .ivu-input,.ivu-input-group-with-prepend.ivu-input-group-small .ivu-input{border-top-left-radius:0;border-bottom-left-radius:0}.ivu-input-group-with-append .ivu-input,.ivu-input-group-with-append.ivu-input-group-small .ivu-input{border-top-right-radius:0;border-bottom-right-radius:0}.ivu-input-group-append .ivu-btn,.ivu-input-group-prepend .ivu-btn{border-color:transparent;background-color:transparent;color:inherit;margin:-6px -7px}.ivu-input-group-append,.ivu-input-group-prepend{width:1px;white-space:nowrap;vertical-align:middle}.ivu-input-group .ivu-input{width:100%;float:left;margin-bottom:0;position:relative;z-index:2}.ivu-input-group-append,.ivu-input-group-prepend{padding:4px 7px;font-size:inherit;font-weight:400;line-height:1;color:#515a6e;text-align:center;background-color:#f8f8f9;border:1px solid #dcdee2;border-radius:4px}.ivu-input-group-append .ivu-select,.ivu-input-group-prepend .ivu-select{margin:-5px -7px}.ivu-input-group-append .ivu-select-selection,.ivu-input-group-prepend .ivu-select-selection{background-color:inherit;margin:-1px;border:1px solid transparent}.ivu-input-group-append .ivu-select-visible .ivu-select-selection,.ivu-input-group-prepend .ivu-select-visible .ivu-select-selection{box-shadow:none}.ivu-input-group-prepend,.ivu-input-group>.ivu-input:first-child,.ivu-input-group>span>.ivu-input:first-child{border-bottom-right-radius:0!important;border-top-right-radius:0!important}.ivu-input-group-prepend .ivu--select .ivu--select-selection,.ivu-input-group>.ivu-input:first-child .ivu--select .ivu--select-selection,.ivu-input-group>span>.ivu-input:first-child .ivu--select .ivu--select-selection{border-bottom-right-radius:0;border-top-right-radius:0}.ivu-input-group-prepend{border-right:0}.ivu-input-group-append{border-left:0}.ivu-input-group-append,.ivu-input-group>.ivu-input:last-child{border-bottom-left-radius:0!important;border-top-left-radius:0!important}.ivu-input-group-append .ivu--select .ivu--select-selection,.ivu-input-group>.ivu-input:last-child .ivu--select .ivu--select-selection{border-bottom-left-radius:0;border-top-left-radius:0}.ivu-input-group-large .ivu-input,.ivu-input-group-large>.ivu-input-group-append,.ivu-input-group-large>.ivu-input-group-prepend{font-size:16px;padding:6px 7px;height:40px}.ivu-input-group-small .ivu-input,.ivu-input-group-small>.ivu-input-group-append,.ivu-input-group-small>.ivu-input-group-prepend{padding:1px 7px;height:24px;border-radius:3px}.ivu-form-item-error .ivu-input{border:1px solid #ed4014}.ivu-form-item-error .ivu-input:hover{border-color:#ed4014}.ivu-form-item-error .ivu-input:focus{border-color:#ed4014;outline:0;box-shadow:0 0 0 2px rgba(237,64,20,.2)}.ivu-form-item-error .ivu-input-icon{color:#ed4014}.ivu-form-item-error .ivu-input-group-append,.ivu-form-item-error .ivu-input-group-prepend{background-color:#fff;border:1px solid #ed4014}.ivu-form-item-error .ivu-input-group-append .ivu-select-selection,.ivu-form-item-error .ivu-input-group-prepend .ivu-select-selection{background-color:inherit;border:1px solid transparent}.ivu-form-item-error .ivu-input-group-prepend{border-right:0}.ivu-form-item-error .ivu-input-group-append{border-left:0}.ivu-form-item-error .ivu-transfer .ivu-input{display:inline-block;width:100%;height:32px;line-height:1.5;padding:4px 7px;font-size:14px;border:1px solid #dcdee2;border-radius:4px;color:#515a6e;background-color:#fff;background-image:none;position:relative;cursor:text;transition:border .2s ease-in-out,background .2s ease-in-out,box-shadow .2s ease-in-out}.ivu-form-item-error .ivu-transfer .ivu-input::-moz-placeholder{color:#c5c8ce;opacity:1}.ivu-form-item-error .ivu-transfer .ivu-input:-ms-input-placeholder{color:#c5c8ce}.ivu-form-item-error .ivu-transfer .ivu-input::-webkit-input-placeholder{color:#c5c8ce}.ivu-form-item-error .ivu-transfer .ivu-input:hover{border-color:#57a3f3}.ivu-form-item-error .ivu-transfer .ivu-input:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-form-item-error .ivu-transfer .ivu-input[disabled],fieldset[disabled] .ivu-form-item-error .ivu-transfer .ivu-input{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-form-item-error .ivu-transfer .ivu-input[disabled]:hover,fieldset[disabled] .ivu-form-item-error .ivu-transfer .ivu-input:hover{border-color:#e3e5e8}textarea.ivu-form-item-error .ivu-transfer .ivu-input{max-width:100%;height:auto;min-height:32px;vertical-align:bottom;font-size:14px}.ivu-form-item-error .ivu-transfer .ivu-input-large{font-size:16px;padding:6px 7px;height:40px}.ivu-form-item-error .ivu-transfer .ivu-input-small{padding:1px 7px;height:24px;border-radius:3px}.ivu-form-item-error .ivu-transfer .ivu-input-no-border{border-radius:0;border-color:transparent}.ivu-form-item-error .ivu-transfer .ivu-input-no-border:hover{border-color:transparent}.ivu-form-item-error .ivu-transfer .ivu-input-no-border:focus{border-color:transparent;box-shadow:none}.ivu-form-item-error .ivu-transfer .ivu-input-no-border[disabled]{background-color:transparent}.ivu-form-item-error .ivu-transfer .ivu-input-no-border[disabled]:hover{border-color:transparent}.ivu-form-item-error .ivu-transfer .ivu-input-icon{color:#808695}.ivu-form-item-validating .ivu-input-icon-validate{display:inline-block}.ivu-form-item-validating .ivu-input-icon+.ivu-input{padding-right:32px}.ivu-slider{line-height:normal}.ivu-slider-wrap{width:100%;height:4px;margin:16px 0;background-color:#e8eaec;border-radius:3px;vertical-align:middle;position:relative;cursor:pointer}.ivu-slider-button-wrap{width:18px;height:18px;text-align:center;background-color:transparent;position:absolute;top:-5px;transform:translateX(-50%)}.ivu-slider-button-wrap .ivu-tooltip{display:block;-webkit-user-select:none;-ms-user-select:none;user-select:none}.ivu-slider-button{width:12px;height:12px;border:2px solid #57a3f3;border-radius:50%;background-color:#fff;transition:all .2s linear;outline:0}.ivu-slider-button-dragging,.ivu-slider-button:focus,.ivu-slider-button:hover{border-color:#2d8cf0;transform:scale(1.5)}.ivu-slider-button:hover{cursor:-webkit-grab;cursor:grab}.ivu-slider-button-dragging,.ivu-slider-button-dragging:hover{cursor:-webkit-grabbing;cursor:grabbing}.ivu-slider-bar{height:4px;background:#57a3f3;border-radius:3px;position:absolute}.ivu-slider-stop{position:absolute;width:4px;height:4px;border-radius:50%;background-color:#fff;transform:translateX(-50%)}.ivu-slider-marks{top:0;left:12px;width:18px;height:100%}.ivu-slider-marks-item{position:absolute;transform:translateX(-50%);font-size:14px;color:#808695;margin-top:15px}.ivu-slider-disabled{cursor:not-allowed}.ivu-slider-disabled .ivu-slider-wrap{background-color:#ccc;cursor:not-allowed}.ivu-slider-disabled .ivu-slider-bar{background-color:#ccc}.ivu-slider-disabled .ivu-slider-button{border-color:#ccc}.ivu-slider-disabled .ivu-slider-button-dragging,.ivu-slider-disabled .ivu-slider-button:hover{border-color:#ccc}.ivu-slider-disabled .ivu-slider-button:hover{cursor:not-allowed}.ivu-slider-disabled .ivu-slider-button-dragging,.ivu-slider-disabled .ivu-slider-button-dragging:hover{cursor:not-allowed}.ivu-slider-input .ivu-slider-wrap{width:auto;margin-right:100px}.ivu-slider-input .ivu-input-number{float:right;margin-top:-14px}.selectDropDown{width:auto;padding:0;white-space:nowrap;overflow:visible}.ivu-cascader{line-height:normal}.ivu-cascader-rel{display:inline-block;width:100%;position:relative}.ivu-cascader .ivu-input{padding-right:24px;display:block;cursor:pointer}.ivu-cascader-disabled .ivu-input{cursor:not-allowed}.ivu-cascader-label{width:100%;height:100%;line-height:32px;padding:0 7px;box-sizing:border-box;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;cursor:pointer;font-size:14px;position:absolute;left:0;top:0}.ivu-cascader-size-large .ivu-cascader-label{line-height:36px;font-size:14px}.ivu-cascader-size-small .ivu-cascader-label{line-height:26px}.ivu-cascader .ivu-cascader-arrow:nth-of-type(1){display:none;cursor:pointer}.ivu-cascader:hover .ivu-cascader-arrow:nth-of-type(1){display:inline-block}.ivu-cascader-show-clear:hover .ivu-cascader-arrow:nth-of-type(2){display:none}.ivu-cascader-arrow{position:absolute;top:50%;right:8px;line-height:1;transform:translateY(-50%);font-size:14px;color:#808695;transition:all .2s ease-in-out}.ivu-cascader-visible .ivu-cascader-arrow:nth-of-type(2){transform:translateY(-50%) rotate(180deg)}.ivu-cascader .ivu-select-dropdown{width:auto;padding:0;white-space:nowrap;overflow:visible}.ivu-cascader .ivu-cascader-menu-item{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-cascader .ivu-cascader-menu-item:hover{background:#f3f3f3}.ivu-cascader .ivu-cascader-menu-item-focus{background:#f3f3f3}.ivu-cascader .ivu-cascader-menu-item-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-cascader .ivu-cascader-menu-item-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-cascader .ivu-cascader-menu-item-selected,.ivu-cascader .ivu-cascader-menu-item-selected:hover{color:#2d8cf0}.ivu-cascader .ivu-cascader-menu-item-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-cascader .ivu-cascader-menu-item-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-cascader .ivu-cascader-menu-item-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-cascader .ivu-cascader-large .ivu-cascader-menu-item{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-cascader .ivu-cascader-menu-item{white-space:normal}}.ivu-cascader .ivu-select-item span{color:#ed4014}.ivu-cascader-dropdown{padding:5px 0}.ivu-cascader-dropdown .ivu-select-dropdown-list{max-height:190px;box-sizing:border-box;overflow:auto}.ivu-cascader-not-found-tip{padding:5px 0;text-align:center;color:#c5c8ce}.ivu-cascader-not-found-tip li:not([class^=ivu-]){list-style:none;margin-bottom:0}.ivu-cascader-not-found .ivu-select-dropdown{width:inherit}.ivu-cascader-menu{display:inline-block;min-width:100px;height:180px;margin:0;padding:5px 0!important;vertical-align:top;list-style:none;border-right:1px solid #e8eaec;overflow:auto}.ivu-cascader-menu:last-child{border-right-color:transparent;margin-right:-1px}.ivu-cascader-menu .ivu-cascader-menu-item{position:relative;padding-right:36px;transition:all .2s ease-in-out}.ivu-cascader-menu .ivu-cascader-menu-item i{font-size:12px;position:absolute;right:15px;top:50%;transform:translateY(-50%)}.ivu-cascader-menu .ivu-cascader-menu-item-loading{margin-top:-6px}.ivu-cascader-menu .ivu-cascader-menu-item-active{background-color:#f3f3f3;color:#2d8cf0}.ivu-cascader-transfer{z-index:1060;width:auto;padding:0;white-space:nowrap;overflow:visible}.ivu-cascader-transfer .ivu-cascader-menu-item{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-cascader-transfer .ivu-cascader-menu-item:hover{background:#f3f3f3}.ivu-cascader-transfer .ivu-cascader-menu-item-focus{background:#f3f3f3}.ivu-cascader-transfer .ivu-cascader-menu-item-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-cascader-transfer .ivu-cascader-menu-item-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-cascader-transfer .ivu-cascader-menu-item-selected,.ivu-cascader-transfer .ivu-cascader-menu-item-selected:hover{color:#2d8cf0}.ivu-cascader-transfer .ivu-cascader-menu-item-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-cascader-transfer .ivu-cascader-menu-item-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-cascader-transfer .ivu-cascader-menu-item-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-cascader-transfer .ivu-cascader-large .ivu-cascader-menu-item{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-cascader-transfer .ivu-cascader-menu-item{white-space:normal}}.ivu-cascader-transfer .ivu-select-item span{color:#ed4014}.ivu-cascader-transfer .ivu-cascader-menu-item{padding-right:24px;transition:all .2s ease-in-out}.ivu-cascader-transfer .ivu-cascader-menu-item-active{background-color:#f3f3f3;color:#2d8cf0}.ivu-form-item-error .ivu-cascader-arrow{color:#ed4014}.ivu-transfer{position:relative;line-height:1.5}.ivu-transfer-list{display:inline-block;width:180px;height:210px;font-size:14px;vertical-align:middle;position:relative;padding-top:35px}.ivu-transfer-list-with-footer{padding-bottom:35px}.ivu-transfer-list-header{padding:8px 16px;background:#f9fafc;color:#515a6e;border:1px solid #dcdee2;border-bottom:1px solid #e8eaec;border-radius:6px 6px 0 0;overflow:hidden;position:absolute;top:0;left:0;width:100%}.ivu-transfer-list-header-title{cursor:pointer}.ivu-transfer-list-header>span{padding-left:4px}.ivu-transfer-list-header-count{margin:0!important;float:right}.ivu-transfer-list-body{height:100%;border:1px solid #dcdee2;border-top:none;border-radius:0 0 6px 6px;position:relative;overflow:hidden}.ivu-transfer-list-body-with-search{padding-top:34px}.ivu-transfer-list-body-with-footer{border-radius:0}.ivu-transfer-list-content{height:100%;padding:4px 0;overflow:auto}.ivu-transfer-list-content-item{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.ivu-transfer-list-content-item>span{padding-left:4px}.ivu-transfer-list-content-not-found{display:none;text-align:center;color:#c5c8ce}li.ivu-transfer-list-content-not-found:only-child{display:block}.ivu-transfer-list-body-with-search .ivu-transfer-list-content{padding:6px 0 0}.ivu-transfer-list-body-search-wrapper{padding:8px 8px 0;position:absolute;top:0;left:0;right:0}.ivu-transfer-list-search{position:relative}.ivu-transfer-list-footer{border:1px solid #dcdee2;border-top:none;border-radius:0 0 6px 6px;position:absolute;bottom:0;left:0;right:0;zoom:1}.ivu-transfer-list-footer:after,.ivu-transfer-list-footer:before{content:\"\";display:table}.ivu-transfer-list-footer:after{clear:both;visibility:hidden;font-size:0;height:0}.ivu-transfer-operation{display:inline-block;margin:0 16px;vertical-align:middle}.ivu-transfer-operation .ivu-btn{display:block;min-width:24px}.ivu-transfer-operation .ivu-btn:first-child{margin-bottom:12px}.ivu-transfer-operation .ivu-btn span i,.ivu-transfer-operation .ivu-btn span span{vertical-align:middle}.ivu-transfer-list-content-item{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-transfer-list-content-item:hover{background:#f3f3f3}.ivu-transfer-list-content-item-focus{background:#f3f3f3}.ivu-transfer-list-content-item-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-transfer-list-content-item-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-transfer-list-content-item-selected,.ivu-transfer-list-content-item-selected:hover{color:#2d8cf0}.ivu-transfer-list-content-item-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-transfer-list-content-item-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-transfer-list-content-item-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-transfer-large .ivu-transfer-list-content-item{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-transfer-list-content-item{white-space:normal}}.ivu-table{width:inherit;height:100%;max-width:100%;overflow:hidden;color:#515a6e;font-size:14px;background-color:#fff;box-sizing:border-box}.ivu-table-wrapper{position:relative;overflow:hidden}.ivu-table-wrapper-with-border{border:1px solid #dcdee2;border-bottom:0;border-right:0}.ivu-table-summary{border-top:1px solid #e8eaec}.ivu-table-summary tr td{background-color:#f8f8f9}.ivu-table-with-summary .ivu-table-tbody tr:last-child td{border-bottom:none}.ivu-table-resize-line{position:absolute;top:0;left:0;bottom:0;width:1px;border-right:1px dashed #e8eaec}.ivu-table-hide{opacity:0}.ivu-table:before{content:'';width:100%;height:1px;position:absolute;left:0;bottom:0;background-color:#dcdee2;z-index:4}.ivu-table-border:after{content:'';width:1px;height:100%;position:absolute;top:0;right:0;background-color:#dcdee2;z-index:3}.ivu-table-footer,.ivu-table-title{height:48px;line-height:48px;border-bottom:1px solid #e8eaec}.ivu-table-footer{border-bottom:none}.ivu-table-header{overflow:hidden}.ivu-table-header thead tr th{position:relative;height:100%;padding:8px 0}.ivu-table-header-resizable{position:absolute;width:10px;height:100%;bottom:0;right:-5px;cursor:col-resize;z-index:1}.ivu-table-overflowX{overflow-x:scroll}.ivu-table-overflowY{overflow-y:scroll}.ivu-table-tip{overflow-x:auto;overflow-y:hidden}.ivu-table-with-fixed-top.ivu-table-with-footer .ivu-table-footer{border-top:1px solid #dcdee2}.ivu-table-with-fixed-top.ivu-table-with-footer tbody tr:last-child td{border-bottom:none}.ivu-table td,.ivu-table th{min-width:0;height:48px;box-sizing:border-box;text-align:left;text-overflow:ellipsis;vertical-align:middle;border-bottom:1px solid #e8eaec}.ivu-table th{height:40px;white-space:nowrap;overflow:hidden;background-color:#f8f8f9}.ivu-table td{background-color:#fff;transition:background-color .2s ease-in-out}td.ivu-table-column-left,th.ivu-table-column-left{text-align:left}td.ivu-table-column-center,th.ivu-table-column-center{text-align:center}td.ivu-table-column-right,th.ivu-table-column-right{text-align:right}.ivu-table table{table-layout:fixed}.ivu-table-border td,.ivu-table-border th{border-right:1px solid #e8eaec}.ivu-table-cell{padding-left:18px;padding-right:18px;overflow:hidden;text-overflow:ellipsis;white-space:normal;word-break:break-all;box-sizing:border-box}.ivu-table-cell-ellipsis{word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ivu-table-cell-tooltip{width:100%;display:flex;align-items:center}.ivu-table-cell-tooltip-content{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ivu-table-cell-with-expand{height:47px;line-height:47px;padding:0;text-align:center}.ivu-table-cell-expand{cursor:pointer;transition:transform .2s ease-in-out}.ivu-table-cell-expand i{font-size:14px}.ivu-table-cell-expand-expanded{transform:rotate(90deg)}.ivu-table-cell-sort{cursor:pointer;-webkit-user-select:none;-ms-user-select:none;user-select:none}.ivu-table-cell-with-selection .ivu-checkbox-wrapper{margin-right:0}.ivu-table-cell-tree{display:inline-block;width:16px;height:16px;border:1px solid #dcdee2;border-radius:2px;background-color:#fff;line-height:12px;cursor:pointer;vertical-align:middle;transition:color .2s ease-in-out,border-color .2s ease-in-out}.ivu-table-cell-tree-empty{cursor:default;color:transparent;background-color:transparent;border-color:transparent}.ivu-table-cell-tree:hover{color:#2d8cf0;border-color:#2d8cf0}.ivu-table-cell-tree-empty:hover{color:transparent;border-color:transparent}.ivu-table-cell-tree-loading{cursor:default;background-color:transparent;border-color:transparent}.ivu-table-cell-tree-loading:hover{border-color:transparent}.ivu-table-cell-tree-level{display:inline-block;height:16px}.ivu-table-cell-slot-inline{display:inline}.ivu-table-cell-slot-inline-block{display:inline-block}.ivu-table-hidden{visibility:hidden}th .ivu-table-cell{display:inline-block;word-wrap:normal;vertical-align:middle}td.ivu-table-expanded-cell{padding:20px 50px;background:#f8f8f9}.ivu-table-stripe .ivu-table-body tr:nth-child(2n) td,.ivu-table-stripe .ivu-table-fixed-body tr:nth-child(2n) td{background-color:#f8f8f9}.ivu-table-stripe .ivu-table-body tr.ivu-table-row-hover td,.ivu-table-stripe .ivu-table-fixed-body tr.ivu-table-row-hover td{background-color:#ebf7ff}tr.ivu-table-row-hover td{background-color:#ebf7ff}.ivu-table-large{font-size:16px}.ivu-table-large th{height:48px}.ivu-table-large td{height:60px}.ivu-table-large-footer,.ivu-table-large-title{height:60px;line-height:60px}.ivu-table-large .ivu-table-cell-with-expand{height:59px;line-height:59px}.ivu-table-large .ivu-table-cell-with-expand i{font-size:16px}.ivu-table-small{font-size:12px}.ivu-table-small th{height:32px}.ivu-table-small td{height:40px}.ivu-table-small-footer,.ivu-table-small-title{height:40px;line-height:40px}.ivu-table-small .ivu-table-cell-with-expand{height:39px;line-height:39px}.ivu-table-row-highlight td,.ivu-table-stripe .ivu-table-body tr.ivu-table-row-highlight:nth-child(2n) td,.ivu-table-stripe .ivu-table-fixed-body tr.ivu-table-row-highlight:nth-child(2n) td,tr.ivu-table-row-highlight.ivu-table-row-hover td{background-color:#ebf7ff}.ivu-table-fixed,.ivu-table-fixed-right{position:absolute;top:0;left:0;box-shadow:2px 0 6px -2px rgba(0,0,0,.2)}.ivu-table-fixed-right::before,.ivu-table-fixed::before{content:'';width:100%;height:1px;background-color:#dcdee2;position:absolute;left:0;bottom:0;z-index:4}.ivu-table-fixed-right{top:0;left:auto;right:0;box-shadow:-2px 0 6px -2px rgba(0,0,0,.2)}.ivu-table-fixed-right-header{position:absolute;top:-1px;right:0;background-color:#f8f8f9;border-top:1px solid #dcdee2;border-bottom:1px solid #e8eaec}.ivu-table-fixed-header{overflow:hidden}.ivu-table-fixed-header thead tr th{position:relative;height:100%;padding:8px 0}.ivu-table-fixed-body{overflow:hidden;position:relative;z-index:3}.ivu-table-fixed-shadow{width:1px;height:100%;position:absolute;top:0;right:0;box-shadow:1px 0 6px rgba(0,0,0,.2);overflow:hidden;z-index:1}.ivu-table-sort{display:inline-block;width:14px;height:12px;margin-top:-1px;vertical-align:middle;overflow:hidden;cursor:pointer;position:relative}.ivu-table-sort i{display:block;height:6px;line-height:6px;overflow:hidden;position:absolute;color:#c5c8ce;transition:color .2s ease-in-out;font-size:16px}.ivu-table-sort i:hover{color:inherit}.ivu-table-sort i.on{color:#2d8cf0}.ivu-table-sort i:first-child{top:0}.ivu-table-sort i:last-child{bottom:0}.ivu-table-filter{display:inline-block;cursor:pointer;position:relative}.ivu-table-filter i{color:#c5c8ce;transition:color .2s ease-in-out}.ivu-table-filter i:hover{color:inherit}.ivu-table-filter i.on{color:#2d8cf0}.ivu-table-filter-list{padding:8px 0 0}.ivu-table-filter-list-item{padding:0 12px 8px}.ivu-table-filter-list-item .ivu-checkbox-wrapper+.ivu-checkbox-wrapper{margin:0}.ivu-table-filter-list-item label{display:block}.ivu-table-filter-list-item label>span{margin-right:4px}.ivu-table-filter-list ul{padding-bottom:8px}.ivu-table-filter-list .ivu-table-filter-select-item{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-table-filter-list .ivu-table-filter-select-item:hover{background:#f3f3f3}.ivu-table-filter-list .ivu-table-filter-select-item-focus{background:#f3f3f3}.ivu-table-filter-list .ivu-table-filter-select-item-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-table-filter-list .ivu-table-filter-select-item-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-table-filter-list .ivu-table-filter-select-item-selected,.ivu-table-filter-list .ivu-table-filter-select-item-selected:hover{color:#2d8cf0}.ivu-table-filter-list .ivu-table-filter-select-item-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-table-filter-list .ivu-table-filter-select-item-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-table-filter-list .ivu-table-filter-select-item-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-table-filter-list .ivu-table-large .ivu-table-filter-select-item{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-table-filter-list .ivu-table-filter-select-item{white-space:normal}}.ivu-table-filter-footer{padding:4px;border-top:1px solid #e8eaec;overflow:hidden}.ivu-table-filter-footer button:first-child{float:left}.ivu-table-filter-footer button:last-child{float:right}.ivu-table-tip table{width:100%}.ivu-table-tip table td{text-align:center}.ivu-table-expanded-hidden{visibility:hidden}.ivu-table-context-menu{position:absolute}.ivu-table-popper{min-width:0;text-align:left}.ivu-table-popper .ivu-poptip-body{padding:0}.ivu-dropdown{display:inline-block}.ivu-dropdown .ivu-select-dropdown{overflow:visible;max-height:none}.ivu-dropdown .ivu-dropdown{width:100%}.ivu-dropdown-rel{position:relative}.ivu-dropdown-rel-user-select-none{-webkit-user-select:none;-ms-user-select:none;user-select:none}.ivu-dropdown-menu{min-width:100px}.ivu-dropdown-transfer{width:auto}.ivu-dropdown-item-selected,.ivu-dropdown-item.ivu-dropdown-item-selected:hover{background:#f0faff}.ivu-dropdown-item{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-dropdown-item:hover{background:#f3f3f3}.ivu-dropdown-item-focus{background:#f3f3f3}.ivu-dropdown-item-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-dropdown-item-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-dropdown-item-selected,.ivu-dropdown-item-selected:hover{color:#2d8cf0}.ivu-dropdown-item-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-dropdown-item-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-dropdown-item-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-dropdown-large .ivu-dropdown-item{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-dropdown-item{white-space:normal}}.ivu-tabs{box-sizing:border-box;position:relative;overflow:hidden;color:#515a6e;zoom:1}.ivu-tabs:after,.ivu-tabs:before{content:\"\";display:table}.ivu-tabs:after{clear:both;visibility:hidden;font-size:0;height:0}.ivu-tabs-bar{outline:0}.ivu-tabs-ink-bar{height:2px;box-sizing:border-box;background-color:#2d8cf0;position:absolute;left:0;bottom:1px;z-index:1;transition:transform .3s ease-in-out;transform-origin:0 0}.ivu-tabs-bar{border-bottom:1px solid #dcdee2;margin-bottom:16px}.ivu-tabs-nav-container{margin-bottom:-1px;line-height:1.5;font-size:14px;box-sizing:border-box;white-space:nowrap;overflow:hidden;position:relative;zoom:1}.ivu-tabs-nav-container:after,.ivu-tabs-nav-container:before{content:\"\";display:table}.ivu-tabs-nav-container:after{clear:both;visibility:hidden;font-size:0;height:0}.ivu-tabs-nav-container:focus{outline:0}.ivu-tabs-nav-container:focus .ivu-tabs-tab-focused{border-color:#57a3f3!important}.ivu-tabs-nav-container-scrolling{padding-left:32px;padding-right:32px}.ivu-tabs-nav-wrap{overflow:hidden;margin-bottom:-1px}.ivu-tabs-nav-scroll{overflow:hidden;white-space:nowrap}.ivu-tabs-nav-right{float:right;margin-left:5px}.ivu-tabs-nav-next,.ivu-tabs-nav-prev{width:32px;text-align:center;position:absolute;line-height:32px;cursor:pointer}.ivu-tabs-nav-next i,.ivu-tabs-nav-prev i{font-size:16px}.ivu-tabs-nav-prev{left:0}.ivu-tabs-nav-next{right:0}.ivu-tabs-nav-scrollable{padding:0 32px}.ivu-tabs-nav-scroll-disabled{display:none}.ivu-tabs-nav{padding-left:0;margin:0;float:left;list-style:none;box-sizing:border-box;position:relative;transition:transform .5s ease-in-out}.ivu-tabs-nav:after,.ivu-tabs-nav:before{display:table;content:\" \"}.ivu-tabs-nav:after{clear:both}.ivu-tabs-nav .ivu-tabs-tab-disabled{pointer-events:none;cursor:default;color:#ccc}.ivu-tabs-nav .ivu-tabs-tab{display:inline-block;height:100%;padding:8px 16px;margin-right:16px;box-sizing:border-box;cursor:pointer;text-decoration:none;position:relative;transition:color .3s ease-in-out}.ivu-tabs-nav .ivu-tabs-tab:hover{color:#57a3f3}.ivu-tabs-nav .ivu-tabs-tab:active{color:#2b85e4}.ivu-tabs-nav .ivu-tabs-tab .ivu-icon{width:14px;height:14px;margin-right:8px}.ivu-tabs-nav .ivu-tabs-tab-active{color:#2d8cf0}.ivu-tabs-mini .ivu-tabs-nav-container{font-size:14px}.ivu-tabs-mini .ivu-tabs-tab{margin-right:0;padding:8px 16px;font-size:12px}.ivu-tabs .ivu-tabs-content-animated{display:flex;flex-direction:row;will-change:transform;transition:transform .3s ease-in-out}.ivu-tabs .ivu-tabs-tabpane{flex-shrink:0;width:100%;transition:opacity .3s;opacity:1;outline:0}.ivu-tabs .ivu-tabs-tabpane-inactive{opacity:0;height:0}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-nav-container{height:32px}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-ink-bar{visibility:hidden}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab{margin:0;margin-right:4px;height:31px;padding:5px 16px 4px;border:1px solid #dcdee2;border-bottom:0;border-radius:4px 4px 0 0;transition:all .3s ease-in-out;background:#f8f8f9}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab-active{height:32px;padding-bottom:5px;background:#fff;transform:translateZ(0);border-color:#dcdee2;color:#2d8cf0}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-nav-wrap{margin-bottom:0}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab .ivu-tabs-close{width:0;height:22px;font-size:22px;margin-right:0;color:#999;text-align:right;vertical-align:middle;overflow:hidden;position:relative;top:-1px;transform-origin:100% 50%;transition:all .3s ease-in-out}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab .ivu-tabs-close:hover{color:#444}.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab-active .ivu-tabs-close,.ivu-tabs.ivu-tabs-card>.ivu-tabs-bar .ivu-tabs-tab:hover .ivu-tabs-close{width:22px;transform:translateZ(0);margin-right:-6px}.ivu-tabs-context-menu{position:absolute}.ivu-tabs-no-animation>.ivu-tabs-content{transform:none!important}.ivu-tabs-no-animation>.ivu-tabs-content>.ivu-tabs-tabpane-inactive{display:none}.ivu-menu{display:block;margin:0;padding:0;outline:0;list-style:none;color:#515a6e;font-size:14px;position:relative;z-index:900}.ivu-menu-horizontal{height:60px;line-height:60px}.ivu-menu-horizontal.ivu-menu-light:after{content:'';display:block;width:100%;height:1px;background:#dcdee2;position:absolute;bottom:0;left:0}.ivu-menu-vertical.ivu-menu-light:after{content:'';display:block;width:1px;height:100%;background:#dcdee2;position:absolute;top:0;bottom:0;right:0;z-index:1}.ivu-menu-light{background:#fff}.ivu-menu-dark{background:#515a6e}.ivu-menu-primary{background:#2d8cf0}.ivu-menu-item{display:block;outline:0;list-style:none;font-size:14px;position:relative;z-index:1;cursor:pointer;transition:all .2s ease-in-out}a.ivu-menu-item{color:inherit}a.ivu-menu-item:active,a.ivu-menu-item:hover{color:inherit}.ivu-menu-item>i{margin-right:6px}.ivu-menu-submenu-title span>i,.ivu-menu-submenu-title>i{margin-right:8px}.ivu-menu-horizontal .ivu-menu-item,.ivu-menu-horizontal .ivu-menu-submenu{float:left;padding:0 20px;position:relative;cursor:pointer;z-index:3;transition:all .2s ease-in-out}.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item,.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu{height:inherit;line-height:inherit;border-bottom:2px solid transparent;color:#515a6e}.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item-active,.ivu-menu-light.ivu-menu-horizontal .ivu-menu-item:hover,.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu-active,.ivu-menu-light.ivu-menu-horizontal .ivu-menu-submenu:hover{color:#2d8cf0;border-bottom:2px solid #2d8cf0}.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item,.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu{color:rgba(255,255,255,.7)}.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item-active,.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-item:hover,.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu-active,.ivu-menu-dark.ivu-menu-horizontal .ivu-menu-submenu:hover{color:#fff}.ivu-menu-primary.ivu-menu-horizontal .ivu-menu-item,.ivu-menu-primary.ivu-menu-horizontal .ivu-menu-submenu{color:#fff}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown{min-width:100%;width:auto;max-height:none}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item{height:auto;line-height:normal;border-bottom:0;float:none}.ivu-menu-item-group{line-height:normal}.ivu-menu-item-group-title{height:30px;line-height:30px;padding-left:8px;font-size:12px;color:#999}.ivu-menu-item-group>ul{padding:0!important;list-style:none!important}.ivu-menu-vertical .ivu-menu-item,.ivu-menu-vertical .ivu-menu-submenu-title{padding:14px 24px;position:relative;cursor:pointer;z-index:1;transition:all .2s ease-in-out}.ivu-menu-vertical .ivu-menu-item:hover,.ivu-menu-vertical .ivu-menu-submenu-title:hover{color:#2d8cf0}.ivu-menu-vertical .ivu-menu-submenu-title-icon{position:absolute;top:50%;right:24px;transform:translateY(-50%)}.ivu-menu-submenu-title-icon{transition:transform .2s ease-in-out}.ivu-menu-horizontal .ivu-menu-opened>*>.ivu-menu-submenu-title-icon{transform:rotate(180deg)}.ivu-menu-vertical .ivu-menu-opened>*>.ivu-menu-submenu-title-icon{transform:translateY(-50%) rotate(180deg)}.ivu-menu-vertical .ivu-menu-submenu-nested{padding-left:20px}.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item{padding-left:43px}.ivu-menu-vertical .ivu-menu-item-group-title{height:48px;line-height:48px;font-size:14px;padding-left:28px}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-group-title{color:rgba(255,255,255,.36)}.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu){color:#2d8cf0;background:#f0faff;z-index:2}.ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):after{content:'';display:block;width:2px;position:absolute;top:0;bottom:0;right:0;background:#2d8cf0}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title{color:rgba(255,255,255,.7)}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu):hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu),.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu):hover{background:#363e4f}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item:hover,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title:hover{color:#fff;background:#515a6e}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu),.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu-title-active:not(.ivu-menu-submenu){color:#2d8cf0}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item:hover{color:#fff;background:0 0!important}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active,.ivu-menu-dark.ivu-menu-vertical .ivu-menu-submenu .ivu-menu-item-active:hover{border-right:none;color:#fff;background:#2d8cf0!important}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-child-item-active>.ivu-menu-submenu-title{color:#fff}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened{background:#363e4f}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-title{background:#515a6e}.ivu-menu-dark.ivu-menu-vertical .ivu-menu-opened .ivu-menu-submenu-has-parent-submenu .ivu-menu-submenu-title{background:0 0}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item:hover{background:#f3f3f3}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-focus{background:#f3f3f3}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-selected,.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-selected:hover{color:#2d8cf0}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-menu-large .ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item{white-space:normal}}.ivu-menu-horizontal .ivu-menu-submenu .ivu-select-dropdown .ivu-menu-item{padding:7px 16px 8px;font-size:14px!important}.ivu-date-picker{display:inline-block;line-height:normal}.ivu-date-picker-rel{position:relative}.ivu-date-picker .ivu-select-dropdown{width:auto;padding:0;overflow:visible;max-height:none}.ivu-date-picker-cells{width:196px;margin:10px;white-space:normal}.ivu-date-picker-cells span{display:inline-block;width:24px;height:24px}.ivu-date-picker-cells span em{display:inline-block;width:24px;height:24px;line-height:24px;margin:2px;font-style:normal;border-radius:3px;text-align:center;transition:all .2s ease-in-out}.ivu-date-picker-cells-header span{line-height:24px;text-align:center;margin:2px;color:#c5c8ce}.ivu-date-picker-cells-cell:hover em{background:#e1f0fe}.ivu-date-picker-cells-focused em{box-shadow:0 0 0 1px #2d8cf0 inset}span.ivu-date-picker-cells-cell{width:28px;height:28px;cursor:pointer}.ivu-date-picker-cells-cell-next-month em,.ivu-date-picker-cells-cell-prev-month em{color:#c5c8ce}.ivu-date-picker-cells-cell-next-month:hover em,.ivu-date-picker-cells-cell-prev-month:hover em{background:0 0}span.ivu-date-picker-cells-cell-disabled,span.ivu-date-picker-cells-cell-disabled:hover,span.ivu-date-picker-cells-cell-week-label,span.ivu-date-picker-cells-cell-week-label:hover{cursor:not-allowed;color:#c5c8ce}span.ivu-date-picker-cells-cell-disabled em,span.ivu-date-picker-cells-cell-disabled:hover em,span.ivu-date-picker-cells-cell-week-label em,span.ivu-date-picker-cells-cell-week-label:hover em{color:inherit;background:inherit}span.ivu-date-picker-cells-cell-disabled,span.ivu-date-picker-cells-cell-disabled:hover{background:#f7f7f7}.ivu-date-picker-cells-cell-today em{position:relative}.ivu-date-picker-cells-cell-today em:after{content:'';display:block;width:6px;height:6px;border-radius:50%;background:#2d8cf0;position:absolute;top:1px;right:1px}.ivu-date-picker-cells-cell-range{position:relative}.ivu-date-picker-cells-cell-range em{position:relative;z-index:1}.ivu-date-picker-cells-cell-range:before{content:'';display:block;background:#e1f0fe;border-radius:0;border:0;position:absolute;top:2px;bottom:2px;left:0;right:0}.ivu-date-picker-cells-cell-selected em,.ivu-date-picker-cells-cell-selected:hover em{background:#2d8cf0;color:#fff}span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em{background:#c5c8ce;color:#f7f7f7}.ivu-date-picker-cells-cell-today.ivu-date-picker-cells-cell-selected em:after{background:#fff}.ivu-date-picker-cells-show-week-numbers{width:226px}.ivu-date-picker-cells-month,.ivu-date-picker-cells-year{margin-top:14px}.ivu-date-picker-cells-month span,.ivu-date-picker-cells-year span{width:40px;height:28px;line-height:28px;margin:10px 12px;border-radius:3px}.ivu-date-picker-cells-month span em,.ivu-date-picker-cells-year span em{width:40px;height:28px;line-height:28px;margin:0}.ivu-date-picker-cells-month .ivu-date-picker-cells-cell-focused,.ivu-date-picker-cells-year .ivu-date-picker-cells-cell-focused{background-color:#d5e8fc}.ivu-date-picker-header{height:32px;line-height:32px;text-align:center;border-bottom:1px solid #e8eaec}.ivu-date-picker-header-label{cursor:pointer;transition:color .2s ease-in-out}.ivu-date-picker-header-label:hover{color:#2d8cf0}.ivu-date-picker-btn-pulse{background-color:#d5e8fc!important;border-radius:4px;transition:background-color .2s ease-in-out}.ivu-date-picker-prev-btn{float:left}.ivu-date-picker-prev-btn-arrow-double{margin-left:10px}.ivu-date-picker-prev-btn-arrow-double i:after{content:\"\\F115\";margin-left:-8px}.ivu-date-picker-next-btn{float:right}.ivu-date-picker-next-btn-arrow-double{margin-right:10px}.ivu-date-picker-next-btn-arrow-double i:after{content:\"\\F11F\";margin-left:-8px}.ivu-date-picker-with-range .ivu-picker-panel-body{min-width:432px}.ivu-date-picker-with-range .ivu-picker-panel-content{float:left}.ivu-date-picker-with-range .ivu-picker-cells-show-week-numbers{min-width:492px}.ivu-date-picker-with-week-numbers .ivu-picker-panel-body-date{min-width:492px}.ivu-date-picker-transfer{z-index:1060;max-height:none;width:auto}.ivu-date-picker-focused input{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-picker-panel-icon-btn{display:inline-block;width:20px;height:24px;line-height:26px;margin-top:2px;text-align:center;cursor:pointer;color:#c5c8ce;transition:color .2s ease-in-out}.ivu-picker-panel-icon-btn:hover{color:#2d8cf0}.ivu-picker-panel-icon-btn i{font-size:14px}.ivu-picker-panel-body-wrapper.ivu-picker-panel-with-sidebar{padding-left:92px}.ivu-picker-panel-sidebar{width:92px;float:left;margin-left:-92px;position:absolute;top:0;bottom:0;background:#f8f8f9;border-right:1px solid #e8eaec;border-radius:4px 0 0 4px;overflow:auto}.ivu-picker-panel-shortcut{padding:6px 16px;transition:all .2s ease-in-out;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ivu-picker-panel-shortcut:hover{background:#e8eaec}.ivu-picker-panel-body{float:left}.ivu-picker-confirm{border-top:1px solid #e8eaec;text-align:right;padding:8px;clear:both}.ivu-picker-confirm>span{color:#2d8cf0;cursor:pointer;-webkit-user-select:none;-ms-user-select:none;user-select:none;float:left;padding:2px 0;transition:all .2s ease-in-out}.ivu-picker-confirm>span:hover{color:#57a3f3}.ivu-picker-confirm>span:active{color:#2b85e4}.ivu-picker-confirm-time{float:left}.ivu-time-picker-cells{min-width:112px}.ivu-time-picker-cells-with-seconds{min-width:168px}.ivu-time-picker-cells-list{width:56px;max-height:144px;float:left;overflow:hidden;border-left:1px solid #e8eaec;position:relative}.ivu-time-picker-cells-list:hover{overflow-y:auto}.ivu-time-picker-cells-list:first-child{border-left:none;border-radius:4px 0 0 4px}.ivu-time-picker-cells-list:last-child{border-radius:0 4px 4px 0}.ivu-time-picker-cells-list ul{width:100%;margin:0;padding:0 0 120px 0;list-style:none}.ivu-time-picker-cells-list ul li{width:100%;height:24px;line-height:24px;margin:0;padding:0 0 0 16px;box-sizing:content-box;text-align:left;-webkit-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;list-style:none;transition:background .2s ease-in-out}.ivu-time-picker-cells-cell:hover{background:#f3f3f3}.ivu-time-picker-cells-cell-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-time-picker-cells-cell-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-time-picker-cells-cell-selected,.ivu-time-picker-cells-cell-selected:hover{color:#2d8cf0;background:#f3f3f3}.ivu-time-picker-cells-cell-focused{background-color:#d5e8fc}.ivu-time-picker-header{height:32px;line-height:32px;text-align:center;border-bottom:1px solid #e8eaec}.ivu-time-picker-with-range .ivu-picker-panel-body{min-width:228px}.ivu-time-picker-with-range .ivu-picker-panel-content{float:left;position:relative}.ivu-time-picker-with-range .ivu-picker-panel-content:after{content:'';display:block;width:2px;position:absolute;top:31px;bottom:0;right:-2px;background:#e8eaec;z-index:1}.ivu-time-picker-with-range .ivu-picker-panel-content-right{float:right}.ivu-time-picker-with-range .ivu-picker-panel-content-right:after{right:auto;left:-2px}.ivu-time-picker-with-range .ivu-time-picker-cells-list:first-child{border-radius:0}.ivu-time-picker-with-range .ivu-time-picker-cells-list:last-child{border-radius:0}.ivu-time-picker-with-range.ivu-time-picker-with-seconds .ivu-picker-panel-body{min-width:340px}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells{min-width:216px}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-with-seconds{min-width:216px}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-with-seconds .ivu-time-picker-cells-list{width:72px}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-with-seconds .ivu-time-picker-cells-list ul li{padding:0 0 0 28px}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-list{width:108px;max-height:216px}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-list:first-child{border-radius:0}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-list:last-child{border-radius:0}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-list ul{padding:0 0 192px 0}.ivu-picker-panel-content .ivu-picker-panel-content .ivu-time-picker-cells-list ul li{padding:0 0 0 46px}.ivu-form .ivu-form-item-label{text-align:right;vertical-align:middle;float:left;font-size:14px;color:#515a6e;line-height:1;padding:10px 12px 10px 0;box-sizing:border-box}.ivu-form-label-left .ivu-form-item-label{text-align:left}.ivu-form-label-top .ivu-form-item-label{float:none;display:inline-block;padding:0 0 10px 0}.ivu-form-inline .ivu-form-item{display:inline-block;margin-right:10px;vertical-align:top}.ivu-form-item{margin-bottom:24px;vertical-align:top;zoom:1}.ivu-form-item:after,.ivu-form-item:before{content:\"\";display:table}.ivu-form-item:after{clear:both;visibility:hidden;font-size:0;height:0}.ivu-form-item-content{position:relative;line-height:32px;font-size:14px}.ivu-form-item .ivu-form-item{margin-bottom:0}.ivu-form-item .ivu-form-item .ivu-form-item-content{margin-left:0!important}.ivu-form-item-error-tip{position:absolute;top:100%;left:0;line-height:1;padding-top:6px;color:#ed4014}.ivu-form-item-required .ivu-form-item-label:before{content:'*';display:inline-block;margin-right:4px;line-height:1;font-family:SimSun;font-size:14px;color:#ed4014}.ivu-form-hide-required-mark .ivu-form-item-required .ivu-form-item-label:before{display:none}.ivu-carousel{position:relative;display:block;box-sizing:border-box;-webkit-user-select:none;-ms-user-select:none;user-select:none;touch-action:pan-y;-webkit-tap-highlight-color:transparent}.ivu-carousel-list,.ivu-carousel-track{transform:translate3d(0,0,0)}.ivu-carousel-list{position:relative;display:block;overflow:hidden;margin:0;padding:0}.ivu-carousel-track{position:relative;top:100%;left:0;display:block;overflow:hidden;z-index:1}.ivu-carousel-track.higher{z-index:2;top:0}.ivu-carousel-item{float:left;height:100%;min-height:1px;display:block}.ivu-carousel-arrow{border:none;outline:0;padding:0;margin:0;width:36px;height:36px;border-radius:50%;cursor:pointer;display:none;position:absolute;top:50%;z-index:10;transform:translateY(-50%);transition:.2s;background-color:rgba(31,45,61,.11);color:#fff;text-align:center;font-size:1em;font-family:inherit;line-height:inherit}.ivu-carousel-arrow:hover{background-color:rgba(31,45,61,.5)}.ivu-carousel-arrow>*{vertical-align:baseline}.ivu-carousel-arrow.left{left:16px}.ivu-carousel-arrow.right{right:16px}.ivu-carousel-arrow-always{display:inherit}.ivu-carousel-arrow-hover{display:inherit;opacity:0}.ivu-carousel:hover .ivu-carousel-arrow-hover{opacity:1}.ivu-carousel-dots{z-index:10;display:none;position:relative;list-style:none;text-align:center;padding:0;width:100%;height:17px}.ivu-carousel-dots-inside{display:block;position:absolute;bottom:3px}.ivu-carousel-dots-outside{display:block;margin-top:3px}.ivu-carousel-dots li{position:relative;display:inline-block;vertical-align:top;text-align:center;margin:0 2px;padding:7px 0;cursor:pointer}.ivu-carousel-dots li button{border:0;cursor:pointer;background:#8391a5;opacity:.3;display:block;width:16px;height:3px;border-radius:1px;outline:0;font-size:0;color:transparent;transition:all .5s}.ivu-carousel-dots li button.radius{width:6px;height:6px;border-radius:50%}.ivu-carousel-dots li:hover>button{opacity:.7}.ivu-carousel-dots li.ivu-carousel-active>button{opacity:1;width:24px}.ivu-carousel-dots li.ivu-carousel-active>button.radius{width:6px}.ivu-rate{display:inline-block;margin:0;padding:0;font-size:20px;vertical-align:middle;font-weight:400;font-style:normal}.ivu-rate-disabled .ivu-rate-star-content:before,.ivu-rate-disabled .ivu-rate-star:before{cursor:default}.ivu-rate-disabled .ivu-rate-star:hover{transform:scale(1)}.ivu-rate-star-full,.ivu-rate-star-zero{position:relative}.ivu-rate-star-first{position:absolute;left:0;top:0;width:50%;height:100%;overflow:hidden;opacity:0}.ivu-rate-star-first,.ivu-rate-star-second{-webkit-user-select:none;-ms-user-select:none;user-select:none;transition:all .3s ease;color:#e9e9e9;cursor:pointer}.ivu-rate-star-chart{display:inline-block;margin:0;padding:0;margin-right:8px;position:relative;font-family:Ionicons;transition:all .3s ease}.ivu-rate-star-chart:hover{transform:scale(1.1)}.ivu-rate-star-chart.ivu-rate-star-full .ivu-rate-star-first,.ivu-rate-star-chart.ivu-rate-star-full .ivu-rate-star-second{color:#f5a623}.ivu-rate-star-chart.ivu-rate-star-half .ivu-rate-star-first{opacity:1;color:#f5a623}.ivu-rate-star{display:inline-block;margin:0;padding:0;margin-right:8px;position:relative;font-family:Ionicons;transition:all .3s ease}.ivu-rate-star:hover{transform:scale(1.1)}.ivu-rate-star-content:before,.ivu-rate-star:before{color:#e9e9e9;cursor:pointer;content:\"\\F2BF\";transition:all .2s ease-in-out;display:block}.ivu-rate-star-content{position:absolute;left:0;top:0;width:50%;height:100%;overflow:hidden}.ivu-rate-star-content:before{color:transparent}.ivu-rate-star-full:before,.ivu-rate-star-half .ivu-rate-star-content:before{color:#f5a623}.ivu-rate-star-full:hover:before,.ivu-rate-star-half:hover .ivu-rate-star-content:before{color:#f7b84f}.ivu-rate-text{margin-left:8px;vertical-align:middle;display:inline-block;font-size:14px}.ivu-upload input[type=file]{display:none}.ivu-upload-list{margin-top:8px}.ivu-upload-list-file{padding:4px;color:#515a6e;border-radius:4px;transition:background-color .2s ease-in-out;overflow:hidden;position:relative}.ivu-upload-list-file>span{cursor:pointer;transition:color .2s ease-in-out}.ivu-upload-list-file>span i{display:inline-block;width:12px;height:12px;color:#515a6e;text-align:center}.ivu-upload-list-file:hover{background:#f3f3f3}.ivu-upload-list-file:hover>span{color:#2d8cf0}.ivu-upload-list-file:hover>span i{color:#515a6e}.ivu-upload-list-file:hover .ivu-upload-list-remove{opacity:1}.ivu-upload-list-remove{opacity:0;font-size:18px;cursor:pointer;float:right;margin-right:4px;color:#999;transition:all .2s ease}.ivu-upload-list-remove:hover{color:#444}.ivu-upload-select{display:inline-block}.ivu-upload-drag{background:#fff;border:1px dashed #dcdee2;border-radius:4px;text-align:center;cursor:pointer;position:relative;overflow:hidden;transition:border-color .2s ease}.ivu-upload-drag:hover{border:1px dashed #2d8cf0}.ivu-upload-dragOver{border:2px dashed #2d8cf0}.ivu-tree{position:relative}.ivu-tree ul{list-style:none;margin:0;padding:0;font-size:14px}.ivu-tree ul.ivu-dropdown-menu{padding:0}.ivu-tree ul li{list-style:none;margin:8px 0;padding:0;white-space:nowrap;outline:0}.ivu-tree ul li.ivu-dropdown-item{margin:0;padding:7px 16px;white-space:nowrap}.ivu-tree li ul{margin:0;padding:0 0 0 18px}.ivu-tree-title{display:inline-block;margin:0;padding:0 4px;border-radius:3px;cursor:pointer;vertical-align:top;color:#515a6e;transition:all .2s ease-in-out}.ivu-tree-title:hover{background-color:#eaf4fe}.ivu-tree-title-selected,.ivu-tree-title-selected:hover{background-color:#d5e8fc}.ivu-tree-arrow{cursor:pointer;width:12px;text-align:center;display:inline-block}.ivu-tree-arrow i{transition:all .2s ease-in-out;font-size:14px;vertical-align:middle}.ivu-tree-arrow-open i{transform:rotate(90deg)}.ivu-tree .ivu-checkbox-wrapper{margin-right:4px;margin-left:4px}.ivu-tree-context-menu{position:absolute}.ivu-avatar{display:inline-block;text-align:center;background:#ccc;color:#fff;white-space:nowrap;position:relative;overflow:hidden;vertical-align:middle;width:32px;height:32px;line-height:32px;border-radius:50%}.ivu-avatar-image{background:0 0}.ivu-avatar .ivu-icon{position:relative;top:-1px}.ivu-avatar.ivu-avatar-icon{font-size:18px}.ivu-avatar-large{width:40px;height:40px;line-height:40px;border-radius:50%}.ivu-avatar-large.ivu-avatar-icon{font-size:24px}.ivu-avatar-large .ivu-icon{position:relative;top:-2px}.ivu-avatar-small{width:24px;height:24px;line-height:24px;border-radius:50%}.ivu-avatar-small.ivu-avatar-icon{font-size:14px}.ivu-avatar-square{border-radius:4px}.ivu-avatar>img{width:100%;height:100%}.ivu-color-picker{display:inline-block}.ivu-color-picker-hide{display:none}.ivu-color-picker-hide-drop{visibility:hidden}.ivu-color-picker-disabled{background-color:#f3f3f3;opacity:1;cursor:not-allowed;color:#ccc}.ivu-color-picker-disabled:hover{border-color:#e3e5e8}.ivu-color-picker>div:first-child:hover .ivu-input{border-color:#57a3f3}.ivu-color-picker>div:first-child.ivu-color-picker-disabled:hover .ivu-input{border-color:#e3e5e8}.ivu-color-picker .ivu-select-dropdown{padding:0}.ivu-color-picker-input.ivu-input:focus{box-shadow:none}.ivu-color-picker-focused{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-color-picker-rel{line-height:0}.ivu-color-picker-color{width:18px;height:18px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);border-radius:2px;position:relative;top:2px}.ivu-color-picker-color div{width:100%;height:100%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15);border-radius:2px}.ivu-color-picker-color-empty{background:#fff;overflow:hidden;text-align:center}.ivu-color-picker-color-empty i{font-size:18px;vertical-align:baseline}.ivu-color-picker-color-focused{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-color-picker-large .ivu-color-picker-color{width:20px;height:20px;top:1px}.ivu-color-picker-large .ivu-color-picker-color-empty i{font-size:20px}.ivu-color-picker-small .ivu-color-picker-color{width:14px;height:14px;top:3px}.ivu-color-picker-small .ivu-color-picker-color-empty i{font-size:14px}.ivu-color-picker-picker-wrapper{padding:8px 8px 0}.ivu-color-picker-picker-panel{width:240px;margin:0 auto;box-sizing:initial;position:relative}.ivu-color-picker-picker-alpha-slider,.ivu-color-picker-picker-hue-slider{height:10px;margin-top:8px;position:relative}.ivu-color-picker-picker-colors{margin-top:8px;overflow:hidden;border-radius:2px;transition:border .2s ease-in-out,box-shadow .2s ease-in-out}.ivu-color-picker-picker-colors:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-color-picker-picker-colors-wrapper{display:inline;width:20px;height:20px;float:left;position:relative}.ivu-color-picker-picker-colors-wrapper-color{outline:0;display:block;position:absolute;width:16px;height:16px;margin:2px;cursor:pointer;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}.ivu-color-picker-picker-colors-wrapper-circle{width:4px;height:4px;box-shadow:0 0 0 1.5px #fff,inset 0 0 1px 1px rgba(0,0,0,.3),0 0 1px 2px rgba(0,0,0,.4);border-radius:50%;transform:translate(-2px,-2px);position:absolute;top:10px;left:10px;cursor:pointer}.ivu-color-picker-picker .ivu-picker-confirm{margin-top:8px}.ivu-color-picker-saturation-wrapper{width:100%;padding-bottom:75%;position:relative;transition:border .2s ease-in-out,box-shadow .2s ease-in-out}.ivu-color-picker-saturation-wrapper:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-color-picker-saturation,.ivu-color-picker-saturation--black,.ivu-color-picker-saturation--white{cursor:pointer;position:absolute;top:0;left:0;right:0;bottom:0}.ivu-color-picker-saturation--white{background:linear-gradient(to right,#fff,rgba(255,255,255,0))}.ivu-color-picker-saturation--black{background:linear-gradient(to top,#000,rgba(0,0,0,0))}.ivu-color-picker-saturation-pointer{cursor:pointer;position:absolute}.ivu-color-picker-saturation-circle{width:4px;height:4px;box-shadow:0 0 0 1.5px #fff,inset 0 0 1px 1px rgba(0,0,0,.3),0 0 1px 2px rgba(0,0,0,.4);border-radius:50%;transform:translate(-2px,-2px)}.ivu-color-picker-hue{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:2px;background:linear-gradient(to right,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red 100%);transition:border .2s ease-in-out,box-shadow .2s ease-in-out}.ivu-color-picker-hue:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-color-picker-hue-container{cursor:pointer;margin:0 2px;position:relative;height:100%}.ivu-color-picker-hue-pointer{z-index:2;position:absolute}.ivu-color-picker-hue-picker{cursor:pointer;margin-top:1px;width:4px;border-radius:1px;height:8px;box-shadow:0 0 2px rgba(0,0,0,.6);background:#fff;transform:translateX(-2px)}.ivu-color-picker-alpha{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:2px;transition:border .2s ease-in-out,box-shadow .2s ease-in-out}.ivu-color-picker-alpha:focus{border-color:#57a3f3;outline:0;box-shadow:0 0 0 2px rgba(45,140,240,.2)}.ivu-color-picker-alpha-checkboard-wrap{position:absolute;top:0;right:0;bottom:0;left:0;overflow:hidden;border-radius:2px}.ivu-color-picker-alpha-checkerboard{position:absolute;top:0;right:0;bottom:0;left:0;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==)}.ivu-color-picker-alpha-gradient{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:2px}.ivu-color-picker-alpha-container{cursor:pointer;position:relative;z-index:2;height:100%;margin:0 3px}.ivu-color-picker-alpha-pointer{z-index:2;position:absolute}.ivu-color-picker-alpha-picker{cursor:pointer;width:4px;border-radius:1px;height:8px;box-shadow:0 0 2px rgba(0,0,0,.6);background:#fff;margin-top:1px;transform:translateX(-2px)}.ivu-color-picker-confirm{margin-top:8px;position:relative;border-top:1px solid #e8eaec;text-align:right;padding:8px;clear:both}.ivu-color-picker-confirm-color{position:absolute;top:11px;left:8px}.ivu-color-picker-confirm-color-editable{top:8px;right:110px}.ivu-auto-complete .ivu-select-not-found{display:none}.ivu-auto-complete .ivu-icon-ios-close{display:none}.ivu-auto-complete:hover .ivu-icon-ios-close{display:inline-block}.ivu-auto-complete.ivu-select-dropdown{max-height:none}.ivu-auto-complete div,.ivu-auto-complete:focus{outline:0}.ivu-divider{font-family:\"Helvetica Neue\",Helvetica,\"PingFang SC\",\"Hiragino Sans GB\",\"Microsoft YaHei\",\"\\5FAE\\8F6F\\96C5\\9ED1\",Arial,sans-serif;font-size:14px;line-height:1.5;color:#515a6e;box-sizing:border-box;margin:0;padding:0;list-style:none;background:#e8eaec}.ivu-divider,.ivu-divider-vertical{margin:0 8px;display:inline-block;height:.9em;width:1px;vertical-align:middle;position:relative;top:-.06em}.ivu-divider-horizontal{display:block;height:1px;width:100%;min-width:100%;margin:24px 0;clear:both}.ivu-divider-horizontal.ivu-divider-with-text-center,.ivu-divider-horizontal.ivu-divider-with-text-left,.ivu-divider-horizontal.ivu-divider-with-text-right{display:table;white-space:nowrap;text-align:center;background:0 0;font-weight:500;color:#17233d;font-size:16px;margin:16px 0}.ivu-divider-horizontal.ivu-divider-with-text-center:after,.ivu-divider-horizontal.ivu-divider-with-text-center:before,.ivu-divider-horizontal.ivu-divider-with-text-left:after,.ivu-divider-horizontal.ivu-divider-with-text-left:before,.ivu-divider-horizontal.ivu-divider-with-text-right:after,.ivu-divider-horizontal.ivu-divider-with-text-right:before{content:'';display:table-cell;position:relative;top:50%;width:50%;border-top:1px solid #e8eaec;transform:translateY(50%)}.ivu-divider-horizontal.ivu-divider-small.ivu-divider-with-text-center,.ivu-divider-horizontal.ivu-divider-small.ivu-divider-with-text-left,.ivu-divider-horizontal.ivu-divider-small.ivu-divider-with-text-right{font-size:14px;margin:8px 0}.ivu-divider-horizontal.ivu-divider-with-text-left .ivu-divider-inner-text,.ivu-divider-horizontal.ivu-divider-with-text-right .ivu-divider-inner-text{display:inline-block;padding:0 10px}.ivu-divider-horizontal.ivu-divider-with-text-left:before{top:50%;width:5%}.ivu-divider-horizontal.ivu-divider-with-text-left:after{top:50%;width:95%}.ivu-divider-horizontal.ivu-divider-with-text-right:before{top:50%;width:95%}.ivu-divider-horizontal.ivu-divider-with-text-right:after{top:50%;width:5%}.ivu-divider-inner-text{display:inline-block;padding:0 24px}.ivu-divider-dashed{background:0 0;border-top:1px dashed #e8eaec}.ivu-divider-horizontal.ivu-divider-with-text-left.ivu-divider-dashed,.ivu-divider-horizontal.ivu-divider-with-text-right.ivu-divider-dashed,.ivu-divider-horizontal.ivu-divider-with-text.ivu-divider-dashed{border-top:0}.ivu-divider-horizontal.ivu-divider-with-text-left.ivu-divider-dashed:after,.ivu-divider-horizontal.ivu-divider-with-text-left.ivu-divider-dashed:before,.ivu-divider-horizontal.ivu-divider-with-text-right.ivu-divider-dashed:after,.ivu-divider-horizontal.ivu-divider-with-text-right.ivu-divider-dashed:before,.ivu-divider-horizontal.ivu-divider-with-text.ivu-divider-dashed:after,.ivu-divider-horizontal.ivu-divider-with-text.ivu-divider-dashed:before{border-style:dashed none none}.ivu-divider-plain.ivu-divider-with-text,.ivu-divider-plain.ivu-divider-with-text-left,.ivu-divider-plain.ivu-divider-with-text-right{color:#515a6e;font-weight:400;font-size:14px}.ivu-anchor{position:relative;padding-left:2px}.ivu-anchor-wrapper{overflow:auto;padding-left:4px;margin-left:-4px}.ivu-anchor-ink{position:absolute;height:100%;left:0;top:0}.ivu-anchor-ink:before{content:' ';position:relative;width:2px;height:100%;display:block;background-color:#e8eaec;margin:0 auto}.ivu-anchor-ink-ball{display:inline-block;position:absolute;width:8px;height:8px;border-radius:50%;border:2px solid #2d8cf0;background-color:#fff;left:50%;transition:top .2s ease-in-out;transform:translate(-50%,2px)}.ivu-anchor.fixed .ivu-anchor-ink .ivu-anchor-ink-ball{display:none}.ivu-anchor-link{padding:8px 0 8px 16px;line-height:1}.ivu-anchor-link-title{display:block;position:relative;transition:all .3s;color:#515a6e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:8px}.ivu-anchor-link-title:only-child{margin-bottom:0}.ivu-anchor-link-active>.ivu-anchor-link-title{color:#2d8cf0}.ivu-anchor-link .ivu-anchor-link{padding-top:6px;padding-bottom:6px}.ivu-time-with-hash{cursor:pointer}.ivu-time-with-hash:hover{text-decoration:underline}.ivu-cell{position:relative;overflow:hidden}.ivu-cell-link,.ivu-cell-link:active,.ivu-cell-link:hover{color:inherit}.ivu-cell-icon{display:inline-block;margin-right:4px;font-size:14px;vertical-align:middle}.ivu-cell-icon:empty{display:none}.ivu-cell-main{display:inline-block;vertical-align:middle}.ivu-cell-title{line-height:24px;font-size:14px}.ivu-cell-label{line-height:1.2;font-size:12px;color:#808695}.ivu-cell-selected .ivu-cell-label{color:inherit}.ivu-cell-selected,.ivu-cell.ivu-cell-selected:hover{background:#f0faff}.ivu-cell-footer{display:inline-block;position:absolute;transform:translateY(-50%);top:50%;right:16px;color:#515a6e}.ivu-cell-with-link .ivu-cell-footer{right:32px}.ivu-cell-selected .ivu-cell-footer{color:inherit}.ivu-cell-arrow{display:inline-block;position:absolute;transform:translateY(-50%);top:50%;right:16px;font-size:14px}.ivu-cell:focus{background:#f3f3f3;outline:0}.ivu-cell-selected:focus{background:rgba(40,123,211,.91)}.ivu-cell{margin:0;line-height:normal;padding:7px 16px;clear:both;color:#515a6e;font-size:14px!important;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out}.ivu-cell:hover{background:#f3f3f3}.ivu-cell-focus{background:#f3f3f3}.ivu-cell-disabled{color:#c5c8ce;cursor:not-allowed}.ivu-cell-disabled:hover{color:#c5c8ce;background-color:#fff;cursor:not-allowed}.ivu-cell-selected,.ivu-cell-selected:hover{color:#2d8cf0}.ivu-cell-divided{margin-top:5px;border-top:1px solid #e8eaec}.ivu-cell-divided:before{content:'';height:5px;display:block;margin:0 -16px;background-color:#fff;position:relative;top:-7px}.ivu-cell-enter{color:#2d8cf0;font-weight:700;float:right}.ivu-cell-large .ivu-cell{padding:7px 16px 8px;font-size:14px!important}@-moz-document url-prefix(){.ivu-cell{white-space:normal}}.ivu-drawer{width:auto;height:100%;position:fixed;top:0}.ivu-drawer-inner{position:absolute}.ivu-drawer-left{left:0}.ivu-drawer-right{right:0}.ivu-drawer-hidden{display:none!important}.ivu-drawer-wrap{position:fixed;overflow:auto;top:0;right:0;bottom:0;left:0;z-index:1000;-webkit-overflow-scrolling:touch;outline:0}.ivu-drawer-wrap-inner{position:absolute;overflow:hidden}.ivu-drawer-wrap-dragging{-webkit-user-select:none;-ms-user-select:none;user-select:none}.ivu-drawer-wrap *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}.ivu-drawer-mask{position:fixed;top:0;bottom:0;left:0;right:0;background-color:rgba(55,55,55,.6);height:100%;z-index:1000}.ivu-drawer-mask-hidden{display:none}.ivu-drawer-mask-inner{position:absolute}.ivu-drawer-content{width:100%;height:100%;position:absolute;top:0;bottom:0;background-color:#fff;border:0;background-clip:padding-box;box-shadow:0 4px 12px rgba(0,0,0,.15)}.ivu-drawer-content-no-mask{pointer-events:auto}.ivu-drawer-header{border-bottom:1px solid #e8eaec;padding:14px 16px;line-height:1}.ivu-drawer-header p,.ivu-drawer-header-inner{display:inline-block;width:100%;height:20px;line-height:20px;font-size:16px;color:#17233d;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ivu-drawer-close{z-index:1;font-size:12px;position:absolute;right:8px;top:8px;overflow:hidden;cursor:pointer}.ivu-drawer-close .ivu-icon-ios-close{font-size:31px;color:#999;transition:color .2s ease;position:relative;top:1px}.ivu-drawer-close .ivu-icon-ios-close:hover{color:#444}.ivu-drawer-body{width:100%;height:calc(100% - 51px);padding:16px;font-size:14px;line-height:1.5;word-wrap:break-word;position:absolute;overflow:auto}.ivu-drawer-no-header .ivu-drawer-body{height:100%}.ivu-drawer-no-mask{pointer-events:none}.ivu-drawer-no-mask .ivu-drawer-drag{pointer-events:auto}.ivu-drawer-drag{top:0;height:100%;width:0;position:absolute}.ivu-drawer-drag-left{right:0}.ivu-drawer-drag-move-trigger{width:8px;height:100px;line-height:100px;position:absolute;top:50%;background:#f3f3f3;transform:translate(-50%,-50%);border-radius:4px/6px;box-shadow:0 0 1px 1px rgba(0,0,0,.2);cursor:col-resize}.ivu-drawer-drag-move-trigger-point{display:inline-block;width:50%;transform:translateX(50%)}.ivu-drawer-drag-move-trigger-point i{display:block;border-bottom:1px solid silver;padding-bottom:2px}.ivu-breadcrumb{color:#999;font-size:14px}.ivu-breadcrumb a{color:#515a6e;transition:color .2s ease-in-out}.ivu-breadcrumb a:hover{color:#57a3f3}.ivu-breadcrumb>span:last-child{font-weight:700;color:#515a6e}.ivu-breadcrumb>span:last-child .ivu-breadcrumb-item-separator{display:none}.ivu-breadcrumb-item-separator{margin:0 8px;color:#dcdee2}.ivu-breadcrumb-item-link>.ivu-icon+span{margin-left:4px}.ivu-list{position:relative}.ivu-list-items{margin:0;padding:0;list-style:none}.ivu-list-item{display:flex;align-items:center;padding:12px 0}.ivu-list-item-content{color:#515a6e}.ivu-list-item-meta{display:flex;flex:1;align-items:flex-start;font-size:0}.ivu-list-item-meta-avatar{margin-right:16px}.ivu-list-item-meta-content{flex:1 0}.ivu-list-item-meta-title{font-weight:500;margin-bottom:4px;color:#515a6e;font-size:14px;line-height:22px}.ivu-list-item-meta-title>a{color:#515a6e;transition:all .2s}.ivu-list-item-meta-title>a:hover{color:#2d8cf0}.ivu-list-item-meta-description{color:rgba(0,0,0,.45);font-size:14px;line-height:22px}.ivu-list-item-action{flex:0 0 auto;margin-left:48px;padding:0;font-size:0;list-style:none}.ivu-list-item-action>li{position:relative;display:inline-block;padding:0 8px;color:rgba(0,0,0,.45);font-size:14px;line-height:22px;text-align:center;cursor:pointer}.ivu-list-item-action>li:after{content:'';position:absolute;top:50%;right:0;width:1px;height:14px;margin-top:-7px;background-color:#e8eaec}.ivu-list-item-action>li:first-child{padding-left:0}.ivu-list-item-action>li:last-child:after{display:none}.ivu-list-header{background:0 0}.ivu-list-footer{background:0 0}.ivu-list-footer,.ivu-list-header{padding-top:12px;padding-bottom:12px}.ivu-list-split .ivu-list-item{border-bottom:1px solid #e8eaec}.ivu-list-split .ivu-list-item:last-child{border-bottom:none}.ivu-list-split .ivu-list-header{border-bottom:1px solid #e8eaec}.ivu-list-split .ivu-list-footer{border-top:1px solid #e8eaec}.ivu-list-large .ivu-list-item{padding-top:16px;padding-bottom:16px}.ivu-list-small .ivu-list-item{padding-top:8px;padding-bottom:8px}.ivu-list-vertical .ivu-list-item{align-items:initial}.ivu-list-vertical .ivu-list-item-main{display:block;flex:1}.ivu-list-vertical .ivu-list-item-extra{margin-left:40px}.ivu-list-vertical .ivu-list-item-meta{margin-bottom:16px}.ivu-list-vertical .ivu-list-item-meta-title{margin-bottom:12px;color:rgba(0,0,0,.85);font-size:16px;line-height:24px}.ivu-list-vertical .ivu-list-item-action{margin-top:16px;margin-left:auto}.ivu-list-vertical .ivu-list-item-action>li{padding:0 16px}.ivu-list-vertical .ivu-list-item-action>li:first-child{padding-left:0}.ivu-list-item-no-flex{display:block}.ivu-list:not(.ivu-list-vertical) .ivu-list-item-no-flex .ivu-list-item-action{float:right}.ivu-list-bordered{border:1px solid #dcdee2;border-radius:6px}.ivu-list-bordered .ivu-list-header{padding-right:24px;padding-left:24px}.ivu-list-bordered .ivu-list-footer{padding-right:24px;padding-left:24px}.ivu-list-bordered .ivu-list-item{padding-right:24px;padding-left:24px;border-bottom:1px solid #e8eaec}.ivu-list-bordered .ivu-list-pagination{margin:16px 24px}.ivu-list-bordered.ivu-list-small .ivu-list-item{padding-right:16px;padding-left:16px}.ivu-list-bordered.ivu-list-small .ivu-list-footer,.ivu-list-bordered.ivu-list-small .ivu-list-header{padding:8px 16px}.ivu-list-bordered.ivu-list-large .ivu-list-footer,.ivu-list-bordered.ivu-list-large .ivu-list-header{padding:16px 24px}@media screen and (max-width:768px){.ivu-list-item-action{margin-left:24px}.ivu-list-vertical .ivu-list-item-extra{margin-left:24px}}@media screen and (max-width:576px){.ivu-list-item{flex-wrap:wrap}.ivu-list-item-action{margin-left:12px}.ivu-list-vertical .ivu-list-item{flex-wrap:wrap-reverse}.ivu-list-vertical .ivu-list-item-main{min-width:220px}.ivu-list-vertical .ivu-list-item-extra{margin:auto auto 16px}}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-datetime/dist/vue-datetime.css":
+/*!*****************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-datetime/dist/vue-datetime.css ***!
+  \*****************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-fade-enter-active,\n.vdatetime-fade-leave-active {\n  transition: opacity .4s;\n}\n\n.vdatetime-fade-enter,\n.vdatetime-fade-leave-to {\n  opacity: 0;\n}\n\n.vdatetime-overlay {\n  z-index: 999;\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  background: rgba(0, 0, 0, .5);\n  transition: opacity .5s;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-popup {\n  box-sizing: border-box;\n  z-index: 1000;\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  width: 340px;\n  max-width: calc(100% - 30px);\n  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .3);\n  color: #444;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif;\n  line-height: 1.18;\n  background: #fff;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)\n}\n\n.vdatetime-popup * {\n    box-sizing: border-box\n}\n\n.vdatetime-popup__header {\n  padding: 18px 30px;\n  background: #3f51b5;\n  color: #fff;\n  font-size: 32px;\n}\n\n.vdatetime-popup__title {\n  margin-bottom: 8px;\n  font-size: 21px;\n  font-weight: 300;\n}\n\n.vdatetime-popup__year {\n  font-weight: 300;\n  font-size: 14px;\n  opacity: 0.7;\n  cursor: pointer;\n  transition: opacity .3s\n}\n\n.vdatetime-popup__year:hover {\n    opacity: 1\n}\n\n.vdatetime-popup__date {\n  line-height: 1;\n  cursor: pointer;\n}\n\n.vdatetime-popup__actions {\n  padding: 0 20px 10px 30px;\n  text-align: right;\n}\n\n.vdatetime-popup__actions__button {\n  display: inline-block;\n  border: none;\n  padding: 10px 20px;\n  background: transparent;\n  font-size: 16px;\n  color: #3f51b5;\n  cursor: pointer;\n  transition: color .3s\n}\n\n.vdatetime-popup__actions__button:hover {\n    color: #444\n}\n.vdatetime-calendar__navigation--previous:hover svg path, .vdatetime-calendar__navigation--next:hover svg path {\n    stroke: #888;\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-calendar__navigation,\n.vdatetime-calendar__navigation * {\n  box-sizing: border-box;\n}\n\n.vdatetime-calendar__navigation {\n  position: relative;\n  margin: 15px 0;\n  padding: 0 30px;\n  width: 100%;\n}\n\n.vdatetime-calendar__navigation--previous,\n.vdatetime-calendar__navigation--next {\n  position: absolute;\n  top: 0;\n  padding: 0 5px;\n  width: 18px;\n  cursor: pointer\n}\n\n.vdatetime-calendar__navigation--previous svg, .vdatetime-calendar__navigation--next svg {\n    width: 8px;\n    height: 13px;\n}\n\n.vdatetime-calendar__navigation--previous svg path, .vdatetime-calendar__navigation--next svg path {\n      transition: stroke .3s;\n}\n\n.vdatetime-calendar__navigation--previous {\n  left: 25px;\n}\n\n.vdatetime-calendar__navigation--next {\n  right: 25px;\n  transform: scaleX(-1);\n}\n\n.vdatetime-calendar__current--month {\n  text-align: center;\n  text-transform: capitalize;\n}\n\n.vdatetime-calendar__month {\n  padding: 0 20px;\n  transition: height .2s;\n}\n\n.vdatetime-calendar__month__weekday,\n.vdatetime-calendar__month__day {\n  display: inline-block;\n  width: 14.28571%;\n  line-height: 36px;\n  text-align: center;\n  font-size: 15px;\n  font-weight: 300;\n  cursor: pointer\n}\n\n.vdatetime-calendar__month__weekday > span, .vdatetime-calendar__month__day > span {\n    display: block;\n    width: 100%;\n    position: relative;\n    height: 0;\n    padding: 0 0 100%;\n    overflow: hidden;\n}\n\n.vdatetime-calendar__month__weekday > span > span, .vdatetime-calendar__month__day > span > span {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      position: absolute;\n      top: 0;\n      right: 0;\n      bottom: 0;\n      left: 0;\n      border: 0;\n      border-radius: 50%;\n      transition: background-color .3s, color .3s;\n}\n\n.vdatetime-calendar__month__weekday {\n  font-weight: bold;\n}\n\n.vdatetime-calendar__month__day:hover > span > span {\n  background: #eee;\n}\n\n.vdatetime-calendar__month__day--selected {\n}\n\n.vdatetime-calendar__month__day--selected > span > span,\n  .vdatetime-calendar__month__day--selected:hover > span > span {\n    color: #fff;\n    background: #3f51b5;\n}\n\n.vdatetime-calendar__month__day--disabled {\n  opacity: 0.4;\n  cursor: default\n}\n\n.vdatetime-calendar__month__day--disabled:hover > span > span {\n    color: inherit;\n    background: transparent;\n}\n.vdatetime-time-picker__list::-webkit-scrollbar-thumb {\n    background: #ccc\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-time-picker__list::-webkit-scrollbar-track {\n    background: #efefef\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-time-picker * {\n    box-sizing: border-box\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-time-picker {\n  box-sizing: border-box\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-time-picker::after {\n    content: '';\n    display: table;\n    clear: both\n}\n\n.vdatetime-time-picker__list {\n  float: left;\n  width: 50%;\n  height: 305px;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch\n}\n\n.vdatetime-time-picker__list::-webkit-scrollbar {\n    width: 3px\n}\n\n.vdatetime-time-picker__with-suffix .vdatetime-time-picker__list {\n  width: 33.3%;\n}\n\n.vdatetime-time-picker__item {\n  padding: 10px 0;\n  font-size: 20px;\n  text-align: center;\n  cursor: pointer;\n  transition: font-size .3s;\n}\n\n.vdatetime-time-picker__item:hover {\n  font-size: 32px;\n}\n\n.vdatetime-time-picker__item--selected {\n  color: #3f51b5;\n  font-size: 32px;\n}\n\n.vdatetime-time-picker__item--disabled {\n  opacity: 0.4;\n  cursor: default;\n  font-size: 20px !important;\n}\n.vdatetime-year-picker__list::-webkit-scrollbar-thumb {\n    background: #ccc\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-year-picker__list::-webkit-scrollbar-track {\n    background: #efefef\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-year-picker * {\n    box-sizing: border-box\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-year-picker {\n  box-sizing: border-box\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-year-picker::after {\n    content: '';\n    display: table;\n    clear: both\n}\n\n.vdatetime-year-picker__list {\n  float: left;\n  width: 100%;\n  height: 305px;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch\n}\n\n.vdatetime-year-picker__list::-webkit-scrollbar {\n    width: 3px\n}\n\n.vdatetime-year-picker__item {\n  padding: 10px 0;\n  font-size: 20px;\n  text-align: center;\n  cursor: pointer;\n  transition: font-size .3s;\n}\n\n.vdatetime-year-picker__item:hover {\n  font-size: 32px;\n}\n\n.vdatetime-year-picker__item--selected {\n  color: #3f51b5;\n  font-size: 32px;\n}\n\n.vdatetime-year-picker__item--disabled {\n  opacity: 0.4;\n  cursor: default\n}\n\n.vdatetime-year-picker__item--disabled:hover {\n    color: inherit;\n    background: transparent\n}\n.vdatetime-month-picker__list::-webkit-scrollbar-thumb {\n    background: #ccc\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-month-picker__list::-webkit-scrollbar-track {\n    background: #efefef\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-month-picker * {\n    box-sizing: border-box\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-month-picker {\n  box-sizing: border-box\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.vdatetime-month-picker::after {\n    content: '';\n    display: table;\n    clear: both\n}\n\n.vdatetime-month-picker__list {\n  float: left;\n  width: 100%;\n  height: 305px;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch\n}\n\n.vdatetime-month-picker__list::-webkit-scrollbar {\n    width: 3px\n}\n\n.vdatetime-month-picker__item {\n  padding: 10px 0;\n  font-size: 20px;\n  text-align: center;\n  cursor: pointer;\n  transition: font-size .3s;\n}\n\n.vdatetime-month-picker__item:hover {\n  font-size: 32px;\n}\n\n.vdatetime-month-picker__item--selected {\n  color: #3f51b5;\n  font-size: 32px;\n}\n\n.vdatetime-month-picker__item--disabled {\n  opacity: 0.4;\n  cursor: default\n}\n\n.vdatetime-month-picker__item--disabled:hover {\n    color: inherit;\n    background: transparent\n}\n", ""]);
 
 // exports
 
@@ -4044,10 +4480,10 @@ exports.push([module.i, "\n.show_sidebar {\n  transform: translateX(0px);\n  tra
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4056,7 +4492,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.btn-loading {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n", ""]);
+exports.push([module.i, "\n.btn-loading {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n.theme-color .vdatetime-popup__header,\n.theme-color .vdatetime-calendar__month__day--selected > span > span,\n.theme-color .vdatetime-calendar__month__day--selected:hover > span > span {\n  background: linear-gradient(60deg, #ab47bc, #8e24aa) !important;\n}\n.theme-color .vdatetime-year-picker__item--selected,\n.theme-color .vdatetime-time-picker__item--selected,\n.theme-color .vdatetime-popup__actions__button {\n  color: #9124a3 !important;\n}\n", ""]);
 
 // exports
 
@@ -4094,7 +4530,26 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*//////////////////////////////////////////////////////////////////\n[ RESTYLE TAG ]*/\n*[data-v-2c7edb8c] {\n  margin: 0px;\n  padding: 0px;\n  box-sizing: border-box;\n}\nbody[data-v-2c7edb8c],\nhtml[data-v-2c7edb8c] {\n  height: 100%;\n  font-family: Poppins-Regular, sans-serif;\n}\n\n/*---------------------------------------------*/\na[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 14px;\n  line-height: 1.7;\n  color: #666666;\n  margin: 0px;\n  transition: all 0.4s;\n  -webkit-transition: all 0.4s;\n  -o-transition: all 0.4s;\n  -moz-transition: all 0.4s;\n}\na[data-v-2c7edb8c]:focus {\n  outline: none !important;\n}\na[data-v-2c7edb8c]:hover {\n  text-decoration: none;\n  color: #57b846;\n}\n\n/*---------------------------------------------*/\nh1[data-v-2c7edb8c],\nh2[data-v-2c7edb8c],\nh3[data-v-2c7edb8c],\nh4[data-v-2c7edb8c],\nh5[data-v-2c7edb8c],\nh6[data-v-2c7edb8c] {\n  margin: 0px;\n}\np[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 14px;\n  line-height: 1.7;\n  color: #666666;\n  margin: 0px;\n}\nul[data-v-2c7edb8c],\nli[data-v-2c7edb8c] {\n  margin: 0px;\n  list-style-type: none;\n}\n\n/*---------------------------------------------*/\ninput[data-v-2c7edb8c] {\n  outline: none;\n  border: none;\n}\ntextarea[data-v-2c7edb8c] {\n  outline: none;\n  border: none;\n}\ntextarea[data-v-2c7edb8c]:focus,\ninput[data-v-2c7edb8c]:focus {\n  border-color: transparent !important;\n}\ninput[data-v-2c7edb8c]:focus::-webkit-input-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]:focus:-moz-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]:focus::-moz-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]:focus:-ms-input-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus::-webkit-input-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus:-moz-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus::-moz-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus:-ms-input-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]::-webkit-input-placeholder {\n  color: #999999;\n}\ninput[data-v-2c7edb8c]:-moz-placeholder {\n  color: #999999;\n}\ninput[data-v-2c7edb8c]::-moz-placeholder {\n  color: #999999;\n}\ninput[data-v-2c7edb8c]:-ms-input-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]::-webkit-input-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]:-moz-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]::-moz-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]:-ms-input-placeholder {\n  color: #999999;\n}\n\n/*---------------------------------------------*/\nbutton[data-v-2c7edb8c] {\n  outline: none !important;\n  border: none;\n  background: transparent;\n}\nbutton[data-v-2c7edb8c]:hover {\n  cursor: pointer;\n}\niframe[data-v-2c7edb8c] {\n  border: none !important;\n}\n\n/*//////////////////////////////////////////////////////////////////\n[ Utility ]*/\n.txt1[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 13px;\n  line-height: 1.5;\n  color: #999999;\n}\n.txt2[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 13px;\n  line-height: 1.5;\n  color: #666666;\n}\n\n/*//////////////////////////////////////////////////////////////////\n[ login ]*/\n.limiter[data-v-2c7edb8c] {\n  width: 100%;\n  margin: 0 auto;\n}\n.container-login100[data-v-2c7edb8c] {\n  width: 100%;\n  min-height: 100vh;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  padding: 15px;\n  background: #9053c7;\n  background: linear-gradient(-135deg, #c850c0, #4158d0);\n}\n.wrap-login100[data-v-2c7edb8c] {\n  width: 960px;\n  background: #fff;\n  border-radius: 10px;\n  overflow: hidden;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  /* padding: 177px 130px 33px 95px; */\n  padding: 110px;\n}\n\n/*------------------------------------------------------------------\n[  ]*/\n.login100-pic[data-v-2c7edb8c] {\n  width: 316px;\n}\n.login100-pic img[data-v-2c7edb8c] {\n  max-width: 100%;\n}\n\n/*------------------------------------------------------------------\n[  ]*/\n.login100-form[data-v-2c7edb8c] {\n  width: 290px;\n}\n.login100-form-title[data-v-2c7edb8c] {\n  font-family: Poppins-Bold;\n  font-size: 24px;\n  color: #333333;\n  line-height: 1.2;\n  text-align: center;\n\n  width: 100%;\n  display: block;\n  padding-bottom: 54px;\n}\n\n/*---------------------------------------------*/\n.wrap-input100[data-v-2c7edb8c] {\n  position: relative;\n  width: 100%;\n  z-index: 1;\n  margin-bottom: 10px;\n}\n.input100[data-v-2c7edb8c] {\n  font-family: Poppins-Medium;\n  font-size: 15px;\n  line-height: 1.5;\n  color: #666666;\n\n  display: block;\n  width: 100%;\n  background: #e6e6e6;\n  height: 50px;\n  border-radius: 25px;\n  padding: 0 30px 0 68px;\n}\n\n/*------------------------------------------------------------------\n[ Focus ]*/\n.focus-input100[data-v-2c7edb8c] {\n  display: block;\n  position: absolute;\n  border-radius: 25px;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0px 0px 0px 0px;\n  color: #c850c0;\n}\n.input100:focus + .focus-input100[data-v-2c7edb8c] {\n  -webkit-animation: anim-shadow-data-v-2c7edb8c 0.5s ease-in-out forwards;\n  animation: anim-shadow-data-v-2c7edb8c 0.5s ease-in-out forwards;\n}\n@-webkit-keyframes anim-shadow-data-v-2c7edb8c {\nto {\n    box-shadow: 0px 0px 70px 25px;\n    opacity: 0;\n}\n}\n@keyframes anim-shadow-data-v-2c7edb8c {\nto {\n    box-shadow: 0px 0px 70px 25px;\n    opacity: 0;\n}\n}\n.symbol-input100[data-v-2c7edb8c] {\n  font-size: 15px;\n  display: flex;\n  align-items: center;\n  position: absolute;\n  border-radius: 25px;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  padding-left: 35px;\n  pointer-events: none;\n  color: #666666;\n  transition: all 0.4s;\n}\n.input100:focus + .focus-input100 + .symbol-input100[data-v-2c7edb8c] {\n  color: #c850c0;\n  padding-left: 28px;\n}\n\n/*------------------------------------------------------------------\n[ Button ]*/\n.container-login100-form-btn[data-v-2c7edb8c] {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  padding-top: 20px;\n}\n.login100-form-btn[data-v-2c7edb8c] {\n  font-family: Montserrat-Bold;\n  font-size: 15px;\n  line-height: 1.5;\n  color: #fff;\n  text-transform: uppercase;\n\n  width: 100%;\n  height: 50px;\n  border-radius: 25px;\n  background-color: #9c27b0;\n  border-color: #9c27b0;\n  box-shadow: 0 2px 2px 0 rgb(156 39 176 / 14%),\n    0 3px 1px -2px rgb(156 39 176 / 20%), 0 1px 5px 0 rgb(156 39 176 / 12%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0 25px;\n  transition: all 0.4s;\n}\n.login100-form-btn[data-v-2c7edb8c]:hover {\n  color: #fff;\n  background-color: #9124a3;\n  border-color: #701c7e;\n  box-shadow: 0 14px 26px -12px rgb(156 39 176 / 42%),\n    0 4px 23px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(156 39 176 / 20%);\n}\n\n/*------------------------------------------------------------------\n[ Responsive ]*/\n@media (max-width: 992px) {\n.wrap-login100[data-v-2c7edb8c] {\n    padding: 177px 90px 33px 85px;\n}\n.login100-pic[data-v-2c7edb8c] {\n    width: 35%;\n}\n.login100-form[data-v-2c7edb8c] {\n    width: 50%;\n}\n}\n@media (max-width: 768px) {\n.wrap-login100[data-v-2c7edb8c] {\n    padding: 100px 80px 33px 80px;\n}\n.login100-pic[data-v-2c7edb8c] {\n    display: none;\n}\n.login100-form[data-v-2c7edb8c] {\n    width: 100%;\n}\n}\n@media (max-width: 576px) {\n.wrap-login100[data-v-2c7edb8c] {\n    padding: 100px 15px 33px 15px;\n}\n}\n\n/*------------------------------------------------------------------\n[ Alert validate ]*/\n.validate-input[data-v-2c7edb8c] {\n  position: relative;\n}\n.alert-validate[data-v-2c7edb8c]::before {\n  content: attr(data-validate);\n  position: absolute;\n  max-width: 70%;\n  background-color: white;\n  border: 1px solid #c80000;\n  border-radius: 13px;\n  padding: 4px 25px 4px 10px;\n  top: 50%;\n  transform: translateY(-50%);\n  right: 8px;\n  pointer-events: none;\n\n  font-family: Poppins-Medium;\n  color: #c80000;\n  font-size: 13px;\n  line-height: 1.4;\n  text-align: left;\n\n  visibility: hidden;\n  opacity: 0;\n  transition: opacity 0.4s;\n}\n.alert-validate[data-v-2c7edb8c]::after {\n  content: \"\\F06A\";\n  font-family: FontAwesome;\n  display: block;\n  position: absolute;\n  color: #c80000;\n  font-size: 15px;\n  top: 50%;\n  transform: translateY(-50%);\n  right: 13px;\n}\n.alert-validate[data-v-2c7edb8c]:hover:before {\n  visibility: visible;\n  opacity: 1;\n}\n@media (max-width: 992px) {\n.alert-validate[data-v-2c7edb8c]::before {\n    visibility: visible;\n    opacity: 1;\n}\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*//////////////////////////////////////////////////////////////////\n[ RESTYLE TAG ]*/\n*[data-v-2c7edb8c] {\n  margin: 0px;\n  padding: 0px;\n  box-sizing: border-box;\n}\nbody[data-v-2c7edb8c],\nhtml[data-v-2c7edb8c] {\n  height: 100%;\n  font-family: Poppins-Regular, sans-serif;\n}\n\n/*---------------------------------------------*/\na[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 14px;\n  line-height: 1.7;\n  color: #666666;\n  margin: 0px;\n  transition: all 0.4s;\n  -webkit-transition: all 0.4s;\n  -o-transition: all 0.4s;\n  -moz-transition: all 0.4s;\n}\na[data-v-2c7edb8c]:focus {\n  outline: none !important;\n}\na[data-v-2c7edb8c]:hover {\n  text-decoration: none;\n  color: #57b846;\n}\n\n/*---------------------------------------------*/\nh1[data-v-2c7edb8c],\nh2[data-v-2c7edb8c],\nh3[data-v-2c7edb8c],\nh4[data-v-2c7edb8c],\nh5[data-v-2c7edb8c],\nh6[data-v-2c7edb8c] {\n  margin: 0px;\n}\np[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 14px;\n  line-height: 1.7;\n  color: #666666;\n  margin: 0px;\n}\nul[data-v-2c7edb8c],\nli[data-v-2c7edb8c] {\n  margin: 0px;\n  list-style-type: none;\n}\n\n/*---------------------------------------------*/\ninput[data-v-2c7edb8c] {\n  outline: none;\n  border: none;\n}\ntextarea[data-v-2c7edb8c] {\n  outline: none;\n  border: none;\n}\ntextarea[data-v-2c7edb8c]:focus,\ninput[data-v-2c7edb8c]:focus {\n  border-color: transparent !important;\n}\ninput[data-v-2c7edb8c]:focus::-webkit-input-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]:focus:-moz-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]:focus::-moz-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]:focus:-ms-input-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus::-webkit-input-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus:-moz-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus::-moz-placeholder {\n  color: transparent;\n}\ntextarea[data-v-2c7edb8c]:focus:-ms-input-placeholder {\n  color: transparent;\n}\ninput[data-v-2c7edb8c]::-webkit-input-placeholder {\n  color: #999999;\n}\ninput[data-v-2c7edb8c]:-moz-placeholder {\n  color: #999999;\n}\ninput[data-v-2c7edb8c]::-moz-placeholder {\n  color: #999999;\n}\ninput[data-v-2c7edb8c]:-ms-input-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]::-webkit-input-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]:-moz-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]::-moz-placeholder {\n  color: #999999;\n}\ntextarea[data-v-2c7edb8c]:-ms-input-placeholder {\n  color: #999999;\n}\n\n/*---------------------------------------------*/\nbutton[data-v-2c7edb8c] {\n  outline: none !important;\n  border: none;\n  background: transparent;\n}\nbutton[data-v-2c7edb8c]:hover {\n  cursor: pointer;\n}\niframe[data-v-2c7edb8c] {\n  border: none !important;\n}\n\n/*//////////////////////////////////////////////////////////////////\n[ Utility ]*/\n.txt1[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 13px;\n  line-height: 1.5;\n  color: #999999;\n}\n.txt2[data-v-2c7edb8c] {\n  font-family: Poppins-Regular;\n  font-size: 13px;\n  line-height: 1.5;\n  color: #666666;\n}\n\n/*//////////////////////////////////////////////////////////////////\n[ login ]*/\n.limiter[data-v-2c7edb8c] {\n  width: 100%;\n  margin: 0 auto;\n}\n.container-login100[data-v-2c7edb8c] {\n  width: 100%;\n  min-height: 100vh;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  align-items: center;\n  padding: 15px;\n  background: #9053c7;\n  background: linear-gradient(-135deg, #c850c0, #4158d0);\n}\n.wrap-login100[data-v-2c7edb8c] {\n  width: 960px;\n  background: #fff;\n  border-radius: 10px;\n  overflow: hidden;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  /* padding: 177px 130px 33px 95px; */\n  padding: 110px;\n}\n\n/*------------------------------------------------------------------\n[  ]*/\n.login100-pic[data-v-2c7edb8c] {\n  width: 316px;\n}\n.login100-pic img[data-v-2c7edb8c] {\n  max-width: 100%;\n}\n\n/*------------------------------------------------------------------\n[  ]*/\n.login100-form[data-v-2c7edb8c] {\n  width: 290px;\n}\n.login100-form-title[data-v-2c7edb8c] {\n  font-family: Poppins-Bold;\n  font-size: 24px;\n  color: #333333;\n  line-height: 1.2;\n  text-align: center;\n\n  width: 100%;\n  display: block;\n  padding-bottom: 54px;\n}\n\n/*---------------------------------------------*/\n.wrap-input100[data-v-2c7edb8c] {\n  position: relative;\n  width: 100%;\n  z-index: 1;\n  margin-bottom: 10px;\n}\n.input100[data-v-2c7edb8c] {\n  font-family: Poppins-Medium;\n  font-size: 15px;\n  line-height: 1.5;\n  color: #666666;\n\n  display: block;\n  width: 100%;\n  background: #e6e6e6;\n  height: 50px;\n  border-radius: 25px;\n  padding: 0 30px 0 68px;\n}\n\n/*------------------------------------------------------------------\n[ Focus ]*/\n.focus-input100[data-v-2c7edb8c] {\n  display: block;\n  position: absolute;\n  border-radius: 25px;\n  bottom: 0;\n  left: 0;\n  z-index: -1;\n  width: 100%;\n  height: 100%;\n  box-shadow: 0px 0px 0px 0px;\n  color: #c850c0;\n}\n.input100:focus + .focus-input100[data-v-2c7edb8c] {\n  -webkit-animation: anim-shadow-data-v-2c7edb8c 0.5s ease-in-out forwards;\n  animation: anim-shadow-data-v-2c7edb8c 0.5s ease-in-out forwards;\n}\n@-webkit-keyframes anim-shadow-data-v-2c7edb8c {\nto {\n    box-shadow: 0px 0px 70px 25px;\n    opacity: 0;\n}\n}\n@keyframes anim-shadow-data-v-2c7edb8c {\nto {\n    box-shadow: 0px 0px 70px 25px;\n    opacity: 0;\n}\n}\n.symbol-input100[data-v-2c7edb8c] {\n  font-size: 15px;\n  display: flex;\n  align-items: center;\n  position: absolute;\n  border-radius: 25px;\n  bottom: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  padding-left: 35px;\n  pointer-events: none;\n  color: #666666;\n  transition: all 0.4s;\n}\n.input100:focus + .focus-input100 + .symbol-input100[data-v-2c7edb8c] {\n  color: #c850c0;\n  padding-left: 28px;\n}\n\n/*------------------------------------------------------------------\n[ Button ]*/\n.container-login100-form-btn[data-v-2c7edb8c] {\n  width: 100%;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  padding-top: 20px;\n}\n.login100-form-btn[data-v-2c7edb8c] {\n  font-family: Montserrat-Bold;\n  font-size: 15px;\n  line-height: 1.5;\n  color: #fff;\n  text-transform: uppercase;\n\n  width: 100%;\n  height: 50px;\n  border-radius: 25px;\n  background-color: #9c27b0;\n  border-color: #9c27b0;\n  box-shadow: 0 2px 2px 0 rgb(156 39 176 / 14%),\n    0 3px 1px -2px rgb(156 39 176 / 20%), 0 1px 5px 0 rgb(156 39 176 / 12%);\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  padding: 0 25px;\n  transition: all 0.4s;\n}\n.login100-form-btn[data-v-2c7edb8c]:hover {\n  color: #fff;\n  background-color: #9124a3;\n  border-color: #701c7e;\n  box-shadow: 0 14px 26px -12px rgb(156 39 176 / 42%),\n    0 4px 23px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(156 39 176 / 20%);\n}\n\n/*------------------------------------------------------------------\n[ Responsive ]*/\n@media (max-width: 992px) {\n.wrap-login100[data-v-2c7edb8c] {\n    padding: 177px 90px 33px 85px;\n}\n.login100-pic[data-v-2c7edb8c] {\n    width: 35%;\n}\n.login100-form[data-v-2c7edb8c] {\n    width: 50%;\n}\n}\n@media (max-width: 768px) {\n.wrap-login100[data-v-2c7edb8c] {\n    padding: 100px 80px 33px 80px;\n}\n.login100-pic[data-v-2c7edb8c] {\n    display: none;\n}\n.login100-form[data-v-2c7edb8c] {\n    width: 100%;\n}\n}\n@media (max-width: 576px) {\n.wrap-login100[data-v-2c7edb8c] {\n    padding: 100px 15px 33px 15px;\n}\n}\n\n/*------------------------------------------------------------------\n[ Alert validate ]*/\n.validate-input[data-v-2c7edb8c] {\n  position: relative;\n}\n.alert-validate[data-v-2c7edb8c]::before {\n  content: attr(data-validate);\n  position: absolute;\n  max-width: 70%;\n  background-color: white;\n  border: 1px solid #c80000;\n  border-radius: 13px;\n  padding: 4px 25px 4px 10px;\n  top: 50%;\n  transform: translateY(-50%);\n  right: 8px;\n  pointer-events: none;\n\n  font-family: Poppins-Medium;\n  color: #c80000;\n  font-size: 13px;\n  line-height: 1.4;\n  text-align: left;\n\n  visibility: hidden;\n  opacity: 0;\n  transition: opacity 0.4s;\n}\n.alert-validate[data-v-2c7edb8c]::after {\n  content: \"\\F06A\";\n  font-family: FontAwesome;\n  display: block;\n  position: absolute;\n  color: #c80000;\n  font-size: 15px;\n  top: 50%;\n  transform: translateY(-50%);\n  right: 13px;\n}\n.alert-validate[data-v-2c7edb8c]:hover:before {\n  visibility: visible;\n  opacity: 1;\n}\n@media (max-width: 992px) {\n.alert-validate[data-v-2c7edb8c]::before {\n    visibility: visible;\n    opacity: 1;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/users.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.btn-loading {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n", ""]);
 
 // exports
 
@@ -21380,6 +21835,8456 @@ module.exports = function escape(url) {
 
 /***/ }),
 
+/***/ "./node_modules/luxon/build/cjs-browser/luxon.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/luxon/build/cjs-browser/luxon.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  subClass.__proto__ = superClass;
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _construct(Parent, args, Class) {
+  if (_isNativeReflectConstruct()) {
+    _construct = Reflect.construct;
+  } else {
+    _construct = function _construct(Parent, args, Class) {
+      var a = [null];
+      a.push.apply(a, args);
+      var Constructor = Function.bind.apply(Parent, a);
+      var instance = new Constructor();
+      if (Class) _setPrototypeOf(instance, Class.prototype);
+      return instance;
+    };
+  }
+
+  return _construct.apply(null, arguments);
+}
+
+function _isNativeFunction(fn) {
+  return Function.toString.call(fn).indexOf("[native code]") !== -1;
+}
+
+function _wrapNativeSuper(Class) {
+  var _cache = typeof Map === "function" ? new Map() : undefined;
+
+  _wrapNativeSuper = function _wrapNativeSuper(Class) {
+    if (Class === null || !_isNativeFunction(Class)) return Class;
+
+    if (typeof Class !== "function") {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    if (typeof _cache !== "undefined") {
+      if (_cache.has(Class)) return _cache.get(Class);
+
+      _cache.set(Class, Wrapper);
+    }
+
+    function Wrapper() {
+      return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+    }
+
+    Wrapper.prototype = Object.create(Class.prototype, {
+      constructor: {
+        value: Wrapper,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    return _setPrototypeOf(Wrapper, Class);
+  };
+
+  return _wrapNativeSuper(Class);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
+function _createForOfIteratorHelperLoose(o) {
+  var i = 0;
+
+  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
+    if (Array.isArray(o) || (o = _unsupportedIterableToArray(o))) return function () {
+      if (i >= o.length) return {
+        done: true
+      };
+      return {
+        done: false,
+        value: o[i++]
+      };
+    };
+    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+
+  i = o[Symbol.iterator]();
+  return i.next.bind(i);
+}
+
+// these aren't really private, but nor are they really useful to document
+
+/**
+ * @private
+ */
+var LuxonError = /*#__PURE__*/function (_Error) {
+  _inheritsLoose(LuxonError, _Error);
+
+  function LuxonError() {
+    return _Error.apply(this, arguments) || this;
+  }
+
+  return LuxonError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+/**
+ * @private
+ */
+
+
+var InvalidDateTimeError = /*#__PURE__*/function (_LuxonError) {
+  _inheritsLoose(InvalidDateTimeError, _LuxonError);
+
+  function InvalidDateTimeError(reason) {
+    return _LuxonError.call(this, "Invalid DateTime: " + reason.toMessage()) || this;
+  }
+
+  return InvalidDateTimeError;
+}(LuxonError);
+/**
+ * @private
+ */
+
+var InvalidIntervalError = /*#__PURE__*/function (_LuxonError2) {
+  _inheritsLoose(InvalidIntervalError, _LuxonError2);
+
+  function InvalidIntervalError(reason) {
+    return _LuxonError2.call(this, "Invalid Interval: " + reason.toMessage()) || this;
+  }
+
+  return InvalidIntervalError;
+}(LuxonError);
+/**
+ * @private
+ */
+
+var InvalidDurationError = /*#__PURE__*/function (_LuxonError3) {
+  _inheritsLoose(InvalidDurationError, _LuxonError3);
+
+  function InvalidDurationError(reason) {
+    return _LuxonError3.call(this, "Invalid Duration: " + reason.toMessage()) || this;
+  }
+
+  return InvalidDurationError;
+}(LuxonError);
+/**
+ * @private
+ */
+
+var ConflictingSpecificationError = /*#__PURE__*/function (_LuxonError4) {
+  _inheritsLoose(ConflictingSpecificationError, _LuxonError4);
+
+  function ConflictingSpecificationError() {
+    return _LuxonError4.apply(this, arguments) || this;
+  }
+
+  return ConflictingSpecificationError;
+}(LuxonError);
+/**
+ * @private
+ */
+
+var InvalidUnitError = /*#__PURE__*/function (_LuxonError5) {
+  _inheritsLoose(InvalidUnitError, _LuxonError5);
+
+  function InvalidUnitError(unit) {
+    return _LuxonError5.call(this, "Invalid unit " + unit) || this;
+  }
+
+  return InvalidUnitError;
+}(LuxonError);
+/**
+ * @private
+ */
+
+var InvalidArgumentError = /*#__PURE__*/function (_LuxonError6) {
+  _inheritsLoose(InvalidArgumentError, _LuxonError6);
+
+  function InvalidArgumentError() {
+    return _LuxonError6.apply(this, arguments) || this;
+  }
+
+  return InvalidArgumentError;
+}(LuxonError);
+/**
+ * @private
+ */
+
+var ZoneIsAbstractError = /*#__PURE__*/function (_LuxonError7) {
+  _inheritsLoose(ZoneIsAbstractError, _LuxonError7);
+
+  function ZoneIsAbstractError() {
+    return _LuxonError7.call(this, "Zone is an abstract class") || this;
+  }
+
+  return ZoneIsAbstractError;
+}(LuxonError);
+
+/**
+ * @private
+ */
+var n = "numeric",
+    s = "short",
+    l = "long";
+var DATE_SHORT = {
+  year: n,
+  month: n,
+  day: n
+};
+var DATE_MED = {
+  year: n,
+  month: s,
+  day: n
+};
+var DATE_MED_WITH_WEEKDAY = {
+  year: n,
+  month: s,
+  day: n,
+  weekday: s
+};
+var DATE_FULL = {
+  year: n,
+  month: l,
+  day: n
+};
+var DATE_HUGE = {
+  year: n,
+  month: l,
+  day: n,
+  weekday: l
+};
+var TIME_SIMPLE = {
+  hour: n,
+  minute: n
+};
+var TIME_WITH_SECONDS = {
+  hour: n,
+  minute: n,
+  second: n
+};
+var TIME_WITH_SHORT_OFFSET = {
+  hour: n,
+  minute: n,
+  second: n,
+  timeZoneName: s
+};
+var TIME_WITH_LONG_OFFSET = {
+  hour: n,
+  minute: n,
+  second: n,
+  timeZoneName: l
+};
+var TIME_24_SIMPLE = {
+  hour: n,
+  minute: n,
+  hour12: false
+};
+/**
+ * {@link toLocaleString}; format like '09:30:23', always 24-hour.
+ */
+
+var TIME_24_WITH_SECONDS = {
+  hour: n,
+  minute: n,
+  second: n,
+  hour12: false
+};
+/**
+ * {@link toLocaleString}; format like '09:30:23 EDT', always 24-hour.
+ */
+
+var TIME_24_WITH_SHORT_OFFSET = {
+  hour: n,
+  minute: n,
+  second: n,
+  hour12: false,
+  timeZoneName: s
+};
+/**
+ * {@link toLocaleString}; format like '09:30:23 Eastern Daylight Time', always 24-hour.
+ */
+
+var TIME_24_WITH_LONG_OFFSET = {
+  hour: n,
+  minute: n,
+  second: n,
+  hour12: false,
+  timeZoneName: l
+};
+/**
+ * {@link toLocaleString}; format like '10/14/1983, 9:30 AM'. Only 12-hour if the locale is.
+ */
+
+var DATETIME_SHORT = {
+  year: n,
+  month: n,
+  day: n,
+  hour: n,
+  minute: n
+};
+/**
+ * {@link toLocaleString}; format like '10/14/1983, 9:30:33 AM'. Only 12-hour if the locale is.
+ */
+
+var DATETIME_SHORT_WITH_SECONDS = {
+  year: n,
+  month: n,
+  day: n,
+  hour: n,
+  minute: n,
+  second: n
+};
+var DATETIME_MED = {
+  year: n,
+  month: s,
+  day: n,
+  hour: n,
+  minute: n
+};
+var DATETIME_MED_WITH_SECONDS = {
+  year: n,
+  month: s,
+  day: n,
+  hour: n,
+  minute: n,
+  second: n
+};
+var DATETIME_MED_WITH_WEEKDAY = {
+  year: n,
+  month: s,
+  day: n,
+  weekday: s,
+  hour: n,
+  minute: n
+};
+var DATETIME_FULL = {
+  year: n,
+  month: l,
+  day: n,
+  hour: n,
+  minute: n,
+  timeZoneName: s
+};
+var DATETIME_FULL_WITH_SECONDS = {
+  year: n,
+  month: l,
+  day: n,
+  hour: n,
+  minute: n,
+  second: n,
+  timeZoneName: s
+};
+var DATETIME_HUGE = {
+  year: n,
+  month: l,
+  day: n,
+  weekday: l,
+  hour: n,
+  minute: n,
+  timeZoneName: l
+};
+var DATETIME_HUGE_WITH_SECONDS = {
+  year: n,
+  month: l,
+  day: n,
+  weekday: l,
+  hour: n,
+  minute: n,
+  second: n,
+  timeZoneName: l
+};
+
+/*
+  This is just a junk drawer, containing anything used across multiple classes.
+  Because Luxon is small(ish), this should stay small and we won't worry about splitting
+  it up into, say, parsingUtil.js and basicUtil.js and so on. But they are divided up by feature area.
+*/
+/**
+ * @private
+ */
+// TYPES
+
+function isUndefined(o) {
+  return typeof o === "undefined";
+}
+function isNumber(o) {
+  return typeof o === "number";
+}
+function isInteger(o) {
+  return typeof o === "number" && o % 1 === 0;
+}
+function isString(o) {
+  return typeof o === "string";
+}
+function isDate(o) {
+  return Object.prototype.toString.call(o) === "[object Date]";
+} // CAPABILITIES
+
+function hasIntl() {
+  try {
+    return typeof Intl !== "undefined" && Intl.DateTimeFormat;
+  } catch (e) {
+    return false;
+  }
+}
+function hasFormatToParts() {
+  return !isUndefined(Intl.DateTimeFormat.prototype.formatToParts);
+}
+function hasRelative() {
+  try {
+    return typeof Intl !== "undefined" && !!Intl.RelativeTimeFormat;
+  } catch (e) {
+    return false;
+  }
+} // OBJECTS AND ARRAYS
+
+function maybeArray(thing) {
+  return Array.isArray(thing) ? thing : [thing];
+}
+function bestBy(arr, by, compare) {
+  if (arr.length === 0) {
+    return undefined;
+  }
+
+  return arr.reduce(function (best, next) {
+    var pair = [by(next), next];
+
+    if (!best) {
+      return pair;
+    } else if (compare(best[0], pair[0]) === best[0]) {
+      return best;
+    } else {
+      return pair;
+    }
+  }, null)[1];
+}
+function pick(obj, keys) {
+  return keys.reduce(function (a, k) {
+    a[k] = obj[k];
+    return a;
+  }, {});
+}
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+} // NUMBERS AND STRINGS
+
+function integerBetween(thing, bottom, top) {
+  return isInteger(thing) && thing >= bottom && thing <= top;
+} // x % n but takes the sign of n instead of x
+
+function floorMod(x, n) {
+  return x - n * Math.floor(x / n);
+}
+function padStart(input, n) {
+  if (n === void 0) {
+    n = 2;
+  }
+
+  var minus = input < 0 ? "-" : "";
+  var target = minus ? input * -1 : input;
+  var result;
+
+  if (target.toString().length < n) {
+    result = ("0".repeat(n) + target).slice(-n);
+  } else {
+    result = target.toString();
+  }
+
+  return "" + minus + result;
+}
+function parseInteger(string) {
+  if (isUndefined(string) || string === null || string === "") {
+    return undefined;
+  } else {
+    return parseInt(string, 10);
+  }
+}
+function parseMillis(fraction) {
+  // Return undefined (instead of 0) in these cases, where fraction is not set
+  if (isUndefined(fraction) || fraction === null || fraction === "") {
+    return undefined;
+  } else {
+    var f = parseFloat("0." + fraction) * 1000;
+    return Math.floor(f);
+  }
+}
+function roundTo(number, digits, towardZero) {
+  if (towardZero === void 0) {
+    towardZero = false;
+  }
+
+  var factor = Math.pow(10, digits),
+      rounder = towardZero ? Math.trunc : Math.round;
+  return rounder(number * factor) / factor;
+} // DATE BASICS
+
+function isLeapYear(year) {
+  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
+function daysInYear(year) {
+  return isLeapYear(year) ? 366 : 365;
+}
+function daysInMonth(year, month) {
+  var modMonth = floorMod(month - 1, 12) + 1,
+      modYear = year + (month - modMonth) / 12;
+
+  if (modMonth === 2) {
+    return isLeapYear(modYear) ? 29 : 28;
+  } else {
+    return [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][modMonth - 1];
+  }
+} // covert a calendar object to a local timestamp (epoch, but with the offset baked in)
+
+function objToLocalTS(obj) {
+  var d = Date.UTC(obj.year, obj.month - 1, obj.day, obj.hour, obj.minute, obj.second, obj.millisecond); // for legacy reasons, years between 0 and 99 are interpreted as 19XX; revert that
+
+  if (obj.year < 100 && obj.year >= 0) {
+    d = new Date(d);
+    d.setUTCFullYear(d.getUTCFullYear() - 1900);
+  }
+
+  return +d;
+}
+function weeksInWeekYear(weekYear) {
+  var p1 = (weekYear + Math.floor(weekYear / 4) - Math.floor(weekYear / 100) + Math.floor(weekYear / 400)) % 7,
+      last = weekYear - 1,
+      p2 = (last + Math.floor(last / 4) - Math.floor(last / 100) + Math.floor(last / 400)) % 7;
+  return p1 === 4 || p2 === 3 ? 53 : 52;
+}
+function untruncateYear(year) {
+  if (year > 99) {
+    return year;
+  } else return year > 60 ? 1900 + year : 2000 + year;
+} // PARSING
+
+function parseZoneInfo(ts, offsetFormat, locale, timeZone) {
+  if (timeZone === void 0) {
+    timeZone = null;
+  }
+
+  var date = new Date(ts),
+      intlOpts = {
+    hour12: false,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  };
+
+  if (timeZone) {
+    intlOpts.timeZone = timeZone;
+  }
+
+  var modified = Object.assign({
+    timeZoneName: offsetFormat
+  }, intlOpts),
+      intl = hasIntl();
+
+  if (intl && hasFormatToParts()) {
+    var parsed = new Intl.DateTimeFormat(locale, modified).formatToParts(date).find(function (m) {
+      return m.type.toLowerCase() === "timezonename";
+    });
+    return parsed ? parsed.value : null;
+  } else if (intl) {
+    // this probably doesn't work for all locales
+    var without = new Intl.DateTimeFormat(locale, intlOpts).format(date),
+        included = new Intl.DateTimeFormat(locale, modified).format(date),
+        diffed = included.substring(without.length),
+        trimmed = diffed.replace(/^[, \u200e]+/, "");
+    return trimmed;
+  } else {
+    return null;
+  }
+} // signedOffset('-5', '30') -> -330
+
+function signedOffset(offHourStr, offMinuteStr) {
+  var offHour = parseInt(offHourStr, 10); // don't || this because we want to preserve -0
+
+  if (Number.isNaN(offHour)) {
+    offHour = 0;
+  }
+
+  var offMin = parseInt(offMinuteStr, 10) || 0,
+      offMinSigned = offHour < 0 || Object.is(offHour, -0) ? -offMin : offMin;
+  return offHour * 60 + offMinSigned;
+} // COERCION
+
+function asNumber(value) {
+  var numericValue = Number(value);
+  if (typeof value === "boolean" || value === "" || Number.isNaN(numericValue)) throw new InvalidArgumentError("Invalid unit value " + value);
+  return numericValue;
+}
+function normalizeObject(obj, normalizer, nonUnitKeys) {
+  var normalized = {};
+
+  for (var u in obj) {
+    if (hasOwnProperty(obj, u)) {
+      if (nonUnitKeys.indexOf(u) >= 0) continue;
+      var v = obj[u];
+      if (v === undefined || v === null) continue;
+      normalized[normalizer(u)] = asNumber(v);
+    }
+  }
+
+  return normalized;
+}
+function formatOffset(offset, format) {
+  var hours = Math.trunc(Math.abs(offset / 60)),
+      minutes = Math.trunc(Math.abs(offset % 60)),
+      sign = offset >= 0 ? "+" : "-";
+
+  switch (format) {
+    case "short":
+      return "" + sign + padStart(hours, 2) + ":" + padStart(minutes, 2);
+
+    case "narrow":
+      return "" + sign + hours + (minutes > 0 ? ":" + minutes : "");
+
+    case "techie":
+      return "" + sign + padStart(hours, 2) + padStart(minutes, 2);
+
+    default:
+      throw new RangeError("Value format " + format + " is out of range for property format");
+  }
+}
+function timeObject(obj) {
+  return pick(obj, ["hour", "minute", "second", "millisecond"]);
+}
+var ianaRegex = /[A-Za-z_+-]{1,256}(:?\/[A-Za-z_+-]{1,256}(\/[A-Za-z_+-]{1,256})?)?/;
+
+function stringify(obj) {
+  return JSON.stringify(obj, Object.keys(obj).sort());
+}
+/**
+ * @private
+ */
+
+
+var monthsLong = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var monthsShort = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+var monthsNarrow = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+function months(length) {
+  switch (length) {
+    case "narrow":
+      return monthsNarrow;
+
+    case "short":
+      return monthsShort;
+
+    case "long":
+      return monthsLong;
+
+    case "numeric":
+      return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+
+    case "2-digit":
+      return ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+    default:
+      return null;
+  }
+}
+var weekdaysLong = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+var weekdaysShort = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+var weekdaysNarrow = ["M", "T", "W", "T", "F", "S", "S"];
+function weekdays(length) {
+  switch (length) {
+    case "narrow":
+      return weekdaysNarrow;
+
+    case "short":
+      return weekdaysShort;
+
+    case "long":
+      return weekdaysLong;
+
+    case "numeric":
+      return ["1", "2", "3", "4", "5", "6", "7"];
+
+    default:
+      return null;
+  }
+}
+var meridiems = ["AM", "PM"];
+var erasLong = ["Before Christ", "Anno Domini"];
+var erasShort = ["BC", "AD"];
+var erasNarrow = ["B", "A"];
+function eras(length) {
+  switch (length) {
+    case "narrow":
+      return erasNarrow;
+
+    case "short":
+      return erasShort;
+
+    case "long":
+      return erasLong;
+
+    default:
+      return null;
+  }
+}
+function meridiemForDateTime(dt) {
+  return meridiems[dt.hour < 12 ? 0 : 1];
+}
+function weekdayForDateTime(dt, length) {
+  return weekdays(length)[dt.weekday - 1];
+}
+function monthForDateTime(dt, length) {
+  return months(length)[dt.month - 1];
+}
+function eraForDateTime(dt, length) {
+  return eras(length)[dt.year < 0 ? 0 : 1];
+}
+function formatRelativeTime(unit, count, numeric, narrow) {
+  if (numeric === void 0) {
+    numeric = "always";
+  }
+
+  if (narrow === void 0) {
+    narrow = false;
+  }
+
+  var units = {
+    years: ["year", "yr."],
+    quarters: ["quarter", "qtr."],
+    months: ["month", "mo."],
+    weeks: ["week", "wk."],
+    days: ["day", "day", "days"],
+    hours: ["hour", "hr."],
+    minutes: ["minute", "min."],
+    seconds: ["second", "sec."]
+  };
+  var lastable = ["hours", "minutes", "seconds"].indexOf(unit) === -1;
+
+  if (numeric === "auto" && lastable) {
+    var isDay = unit === "days";
+
+    switch (count) {
+      case 1:
+        return isDay ? "tomorrow" : "next " + units[unit][0];
+
+      case -1:
+        return isDay ? "yesterday" : "last " + units[unit][0];
+
+      case 0:
+        return isDay ? "today" : "this " + units[unit][0];
+
+    }
+  }
+
+  var isInPast = Object.is(count, -0) || count < 0,
+      fmtValue = Math.abs(count),
+      singular = fmtValue === 1,
+      lilUnits = units[unit],
+      fmtUnit = narrow ? singular ? lilUnits[1] : lilUnits[2] || lilUnits[1] : singular ? units[unit][0] : unit;
+  return isInPast ? fmtValue + " " + fmtUnit + " ago" : "in " + fmtValue + " " + fmtUnit;
+}
+function formatString(knownFormat) {
+  // these all have the offsets removed because we don't have access to them
+  // without all the intl stuff this is backfilling
+  var filtered = pick(knownFormat, ["weekday", "era", "year", "month", "day", "hour", "minute", "second", "timeZoneName", "hour12"]),
+      key = stringify(filtered),
+      dateTimeHuge = "EEEE, LLLL d, yyyy, h:mm a";
+
+  switch (key) {
+    case stringify(DATE_SHORT):
+      return "M/d/yyyy";
+
+    case stringify(DATE_MED):
+      return "LLL d, yyyy";
+
+    case stringify(DATE_MED_WITH_WEEKDAY):
+      return "EEE, LLL d, yyyy";
+
+    case stringify(DATE_FULL):
+      return "LLLL d, yyyy";
+
+    case stringify(DATE_HUGE):
+      return "EEEE, LLLL d, yyyy";
+
+    case stringify(TIME_SIMPLE):
+      return "h:mm a";
+
+    case stringify(TIME_WITH_SECONDS):
+      return "h:mm:ss a";
+
+    case stringify(TIME_WITH_SHORT_OFFSET):
+      return "h:mm a";
+
+    case stringify(TIME_WITH_LONG_OFFSET):
+      return "h:mm a";
+
+    case stringify(TIME_24_SIMPLE):
+      return "HH:mm";
+
+    case stringify(TIME_24_WITH_SECONDS):
+      return "HH:mm:ss";
+
+    case stringify(TIME_24_WITH_SHORT_OFFSET):
+      return "HH:mm";
+
+    case stringify(TIME_24_WITH_LONG_OFFSET):
+      return "HH:mm";
+
+    case stringify(DATETIME_SHORT):
+      return "M/d/yyyy, h:mm a";
+
+    case stringify(DATETIME_MED):
+      return "LLL d, yyyy, h:mm a";
+
+    case stringify(DATETIME_FULL):
+      return "LLLL d, yyyy, h:mm a";
+
+    case stringify(DATETIME_HUGE):
+      return dateTimeHuge;
+
+    case stringify(DATETIME_SHORT_WITH_SECONDS):
+      return "M/d/yyyy, h:mm:ss a";
+
+    case stringify(DATETIME_MED_WITH_SECONDS):
+      return "LLL d, yyyy, h:mm:ss a";
+
+    case stringify(DATETIME_MED_WITH_WEEKDAY):
+      return "EEE, d LLL yyyy, h:mm a";
+
+    case stringify(DATETIME_FULL_WITH_SECONDS):
+      return "LLLL d, yyyy, h:mm:ss a";
+
+    case stringify(DATETIME_HUGE_WITH_SECONDS):
+      return "EEEE, LLLL d, yyyy, h:mm:ss a";
+
+    default:
+      return dateTimeHuge;
+  }
+}
+
+function stringifyTokens(splits, tokenToString) {
+  var s = "";
+
+  for (var _iterator = _createForOfIteratorHelperLoose(splits), _step; !(_step = _iterator()).done;) {
+    var token = _step.value;
+
+    if (token.literal) {
+      s += token.val;
+    } else {
+      s += tokenToString(token.val);
+    }
+  }
+
+  return s;
+}
+
+var _macroTokenToFormatOpts = {
+  D: DATE_SHORT,
+  DD: DATE_MED,
+  DDD: DATE_FULL,
+  DDDD: DATE_HUGE,
+  t: TIME_SIMPLE,
+  tt: TIME_WITH_SECONDS,
+  ttt: TIME_WITH_SHORT_OFFSET,
+  tttt: TIME_WITH_LONG_OFFSET,
+  T: TIME_24_SIMPLE,
+  TT: TIME_24_WITH_SECONDS,
+  TTT: TIME_24_WITH_SHORT_OFFSET,
+  TTTT: TIME_24_WITH_LONG_OFFSET,
+  f: DATETIME_SHORT,
+  ff: DATETIME_MED,
+  fff: DATETIME_FULL,
+  ffff: DATETIME_HUGE,
+  F: DATETIME_SHORT_WITH_SECONDS,
+  FF: DATETIME_MED_WITH_SECONDS,
+  FFF: DATETIME_FULL_WITH_SECONDS,
+  FFFF: DATETIME_HUGE_WITH_SECONDS
+};
+/**
+ * @private
+ */
+
+var Formatter = /*#__PURE__*/function () {
+  Formatter.create = function create(locale, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    return new Formatter(locale, opts);
+  };
+
+  Formatter.parseFormat = function parseFormat(fmt) {
+    var current = null,
+        currentFull = "",
+        bracketed = false;
+    var splits = [];
+
+    for (var i = 0; i < fmt.length; i++) {
+      var c = fmt.charAt(i);
+
+      if (c === "'") {
+        if (currentFull.length > 0) {
+          splits.push({
+            literal: bracketed,
+            val: currentFull
+          });
+        }
+
+        current = null;
+        currentFull = "";
+        bracketed = !bracketed;
+      } else if (bracketed) {
+        currentFull += c;
+      } else if (c === current) {
+        currentFull += c;
+      } else {
+        if (currentFull.length > 0) {
+          splits.push({
+            literal: false,
+            val: currentFull
+          });
+        }
+
+        currentFull = c;
+        current = c;
+      }
+    }
+
+    if (currentFull.length > 0) {
+      splits.push({
+        literal: bracketed,
+        val: currentFull
+      });
+    }
+
+    return splits;
+  };
+
+  Formatter.macroTokenToFormatOpts = function macroTokenToFormatOpts(token) {
+    return _macroTokenToFormatOpts[token];
+  };
+
+  function Formatter(locale, formatOpts) {
+    this.opts = formatOpts;
+    this.loc = locale;
+    this.systemLoc = null;
+  }
+
+  var _proto = Formatter.prototype;
+
+  _proto.formatWithSystemDefault = function formatWithSystemDefault(dt, opts) {
+    if (this.systemLoc === null) {
+      this.systemLoc = this.loc.redefaultToSystem();
+    }
+
+    var df = this.systemLoc.dtFormatter(dt, Object.assign({}, this.opts, opts));
+    return df.format();
+  };
+
+  _proto.formatDateTime = function formatDateTime(dt, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var df = this.loc.dtFormatter(dt, Object.assign({}, this.opts, opts));
+    return df.format();
+  };
+
+  _proto.formatDateTimeParts = function formatDateTimeParts(dt, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var df = this.loc.dtFormatter(dt, Object.assign({}, this.opts, opts));
+    return df.formatToParts();
+  };
+
+  _proto.resolvedOptions = function resolvedOptions(dt, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var df = this.loc.dtFormatter(dt, Object.assign({}, this.opts, opts));
+    return df.resolvedOptions();
+  };
+
+  _proto.num = function num(n, p) {
+    if (p === void 0) {
+      p = 0;
+    }
+
+    // we get some perf out of doing this here, annoyingly
+    if (this.opts.forceSimple) {
+      return padStart(n, p);
+    }
+
+    var opts = Object.assign({}, this.opts);
+
+    if (p > 0) {
+      opts.padTo = p;
+    }
+
+    return this.loc.numberFormatter(opts).format(n);
+  };
+
+  _proto.formatDateTimeFromString = function formatDateTimeFromString(dt, fmt) {
+    var _this = this;
+
+    var knownEnglish = this.loc.listingMode() === "en",
+        useDateTimeFormatter = this.loc.outputCalendar && this.loc.outputCalendar !== "gregory" && hasFormatToParts(),
+        string = function string(opts, extract) {
+      return _this.loc.extract(dt, opts, extract);
+    },
+        formatOffset = function formatOffset(opts) {
+      if (dt.isOffsetFixed && dt.offset === 0 && opts.allowZ) {
+        return "Z";
+      }
+
+      return dt.isValid ? dt.zone.formatOffset(dt.ts, opts.format) : "";
+    },
+        meridiem = function meridiem() {
+      return knownEnglish ? meridiemForDateTime(dt) : string({
+        hour: "numeric",
+        hour12: true
+      }, "dayperiod");
+    },
+        month = function month(length, standalone) {
+      return knownEnglish ? monthForDateTime(dt, length) : string(standalone ? {
+        month: length
+      } : {
+        month: length,
+        day: "numeric"
+      }, "month");
+    },
+        weekday = function weekday(length, standalone) {
+      return knownEnglish ? weekdayForDateTime(dt, length) : string(standalone ? {
+        weekday: length
+      } : {
+        weekday: length,
+        month: "long",
+        day: "numeric"
+      }, "weekday");
+    },
+        maybeMacro = function maybeMacro(token) {
+      var formatOpts = Formatter.macroTokenToFormatOpts(token);
+
+      if (formatOpts) {
+        return _this.formatWithSystemDefault(dt, formatOpts);
+      } else {
+        return token;
+      }
+    },
+        era = function era(length) {
+      return knownEnglish ? eraForDateTime(dt, length) : string({
+        era: length
+      }, "era");
+    },
+        tokenToString = function tokenToString(token) {
+      // Where possible: http://cldr.unicode.org/translation/date-time-1/date-time#TOC-Standalone-vs.-Format-Styles
+      switch (token) {
+        // ms
+        case "S":
+          return _this.num(dt.millisecond);
+
+        case "u": // falls through
+
+        case "SSS":
+          return _this.num(dt.millisecond, 3);
+        // seconds
+
+        case "s":
+          return _this.num(dt.second);
+
+        case "ss":
+          return _this.num(dt.second, 2);
+        // minutes
+
+        case "m":
+          return _this.num(dt.minute);
+
+        case "mm":
+          return _this.num(dt.minute, 2);
+        // hours
+
+        case "h":
+          return _this.num(dt.hour % 12 === 0 ? 12 : dt.hour % 12);
+
+        case "hh":
+          return _this.num(dt.hour % 12 === 0 ? 12 : dt.hour % 12, 2);
+
+        case "H":
+          return _this.num(dt.hour);
+
+        case "HH":
+          return _this.num(dt.hour, 2);
+        // offset
+
+        case "Z":
+          // like +6
+          return formatOffset({
+            format: "narrow",
+            allowZ: _this.opts.allowZ
+          });
+
+        case "ZZ":
+          // like +06:00
+          return formatOffset({
+            format: "short",
+            allowZ: _this.opts.allowZ
+          });
+
+        case "ZZZ":
+          // like +0600
+          return formatOffset({
+            format: "techie",
+            allowZ: _this.opts.allowZ
+          });
+
+        case "ZZZZ":
+          // like EST
+          return dt.zone.offsetName(dt.ts, {
+            format: "short",
+            locale: _this.loc.locale
+          });
+
+        case "ZZZZZ":
+          // like Eastern Standard Time
+          return dt.zone.offsetName(dt.ts, {
+            format: "long",
+            locale: _this.loc.locale
+          });
+        // zone
+
+        case "z":
+          // like America/New_York
+          return dt.zoneName;
+        // meridiems
+
+        case "a":
+          return meridiem();
+        // dates
+
+        case "d":
+          return useDateTimeFormatter ? string({
+            day: "numeric"
+          }, "day") : _this.num(dt.day);
+
+        case "dd":
+          return useDateTimeFormatter ? string({
+            day: "2-digit"
+          }, "day") : _this.num(dt.day, 2);
+        // weekdays - standalone
+
+        case "c":
+          // like 1
+          return _this.num(dt.weekday);
+
+        case "ccc":
+          // like 'Tues'
+          return weekday("short", true);
+
+        case "cccc":
+          // like 'Tuesday'
+          return weekday("long", true);
+
+        case "ccccc":
+          // like 'T'
+          return weekday("narrow", true);
+        // weekdays - format
+
+        case "E":
+          // like 1
+          return _this.num(dt.weekday);
+
+        case "EEE":
+          // like 'Tues'
+          return weekday("short", false);
+
+        case "EEEE":
+          // like 'Tuesday'
+          return weekday("long", false);
+
+        case "EEEEE":
+          // like 'T'
+          return weekday("narrow", false);
+        // months - standalone
+
+        case "L":
+          // like 1
+          return useDateTimeFormatter ? string({
+            month: "numeric",
+            day: "numeric"
+          }, "month") : _this.num(dt.month);
+
+        case "LL":
+          // like 01, doesn't seem to work
+          return useDateTimeFormatter ? string({
+            month: "2-digit",
+            day: "numeric"
+          }, "month") : _this.num(dt.month, 2);
+
+        case "LLL":
+          // like Jan
+          return month("short", true);
+
+        case "LLLL":
+          // like January
+          return month("long", true);
+
+        case "LLLLL":
+          // like J
+          return month("narrow", true);
+        // months - format
+
+        case "M":
+          // like 1
+          return useDateTimeFormatter ? string({
+            month: "numeric"
+          }, "month") : _this.num(dt.month);
+
+        case "MM":
+          // like 01
+          return useDateTimeFormatter ? string({
+            month: "2-digit"
+          }, "month") : _this.num(dt.month, 2);
+
+        case "MMM":
+          // like Jan
+          return month("short", false);
+
+        case "MMMM":
+          // like January
+          return month("long", false);
+
+        case "MMMMM":
+          // like J
+          return month("narrow", false);
+        // years
+
+        case "y":
+          // like 2014
+          return useDateTimeFormatter ? string({
+            year: "numeric"
+          }, "year") : _this.num(dt.year);
+
+        case "yy":
+          // like 14
+          return useDateTimeFormatter ? string({
+            year: "2-digit"
+          }, "year") : _this.num(dt.year.toString().slice(-2), 2);
+
+        case "yyyy":
+          // like 0012
+          return useDateTimeFormatter ? string({
+            year: "numeric"
+          }, "year") : _this.num(dt.year, 4);
+
+        case "yyyyyy":
+          // like 000012
+          return useDateTimeFormatter ? string({
+            year: "numeric"
+          }, "year") : _this.num(dt.year, 6);
+        // eras
+
+        case "G":
+          // like AD
+          return era("short");
+
+        case "GG":
+          // like Anno Domini
+          return era("long");
+
+        case "GGGGG":
+          return era("narrow");
+
+        case "kk":
+          return _this.num(dt.weekYear.toString().slice(-2), 2);
+
+        case "kkkk":
+          return _this.num(dt.weekYear, 4);
+
+        case "W":
+          return _this.num(dt.weekNumber);
+
+        case "WW":
+          return _this.num(dt.weekNumber, 2);
+
+        case "o":
+          return _this.num(dt.ordinal);
+
+        case "ooo":
+          return _this.num(dt.ordinal, 3);
+
+        case "q":
+          // like 1
+          return _this.num(dt.quarter);
+
+        case "qq":
+          // like 01
+          return _this.num(dt.quarter, 2);
+
+        case "X":
+          return _this.num(Math.floor(dt.ts / 1000));
+
+        case "x":
+          return _this.num(dt.ts);
+
+        default:
+          return maybeMacro(token);
+      }
+    };
+
+    return stringifyTokens(Formatter.parseFormat(fmt), tokenToString);
+  };
+
+  _proto.formatDurationFromString = function formatDurationFromString(dur, fmt) {
+    var _this2 = this;
+
+    var tokenToField = function tokenToField(token) {
+      switch (token[0]) {
+        case "S":
+          return "millisecond";
+
+        case "s":
+          return "second";
+
+        case "m":
+          return "minute";
+
+        case "h":
+          return "hour";
+
+        case "d":
+          return "day";
+
+        case "M":
+          return "month";
+
+        case "y":
+          return "year";
+
+        default:
+          return null;
+      }
+    },
+        tokenToString = function tokenToString(lildur) {
+      return function (token) {
+        var mapped = tokenToField(token);
+
+        if (mapped) {
+          return _this2.num(lildur.get(mapped), token.length);
+        } else {
+          return token;
+        }
+      };
+    },
+        tokens = Formatter.parseFormat(fmt),
+        realTokens = tokens.reduce(function (found, _ref) {
+      var literal = _ref.literal,
+          val = _ref.val;
+      return literal ? found : found.concat(val);
+    }, []),
+        collapsed = dur.shiftTo.apply(dur, realTokens.map(tokenToField).filter(function (t) {
+      return t;
+    }));
+
+    return stringifyTokens(tokens, tokenToString(collapsed));
+  };
+
+  return Formatter;
+}();
+
+var Invalid = /*#__PURE__*/function () {
+  function Invalid(reason, explanation) {
+    this.reason = reason;
+    this.explanation = explanation;
+  }
+
+  var _proto = Invalid.prototype;
+
+  _proto.toMessage = function toMessage() {
+    if (this.explanation) {
+      return this.reason + ": " + this.explanation;
+    } else {
+      return this.reason;
+    }
+  };
+
+  return Invalid;
+}();
+
+/**
+ * @interface
+ */
+
+var Zone = /*#__PURE__*/function () {
+  function Zone() {}
+
+  var _proto = Zone.prototype;
+
+  /**
+   * Returns the offset's common name (such as EST) at the specified timestamp
+   * @abstract
+   * @param {number} ts - Epoch milliseconds for which to get the name
+   * @param {Object} opts - Options to affect the format
+   * @param {string} opts.format - What style of offset to return. Accepts 'long' or 'short'.
+   * @param {string} opts.locale - What locale to return the offset name in.
+   * @return {string}
+   */
+  _proto.offsetName = function offsetName(ts, opts) {
+    throw new ZoneIsAbstractError();
+  }
+  /**
+   * Returns the offset's value as a string
+   * @abstract
+   * @param {number} ts - Epoch milliseconds for which to get the offset
+   * @param {string} format - What style of offset to return.
+   *                          Accepts 'narrow', 'short', or 'techie'. Returning '+6', '+06:00', or '+0600' respectively
+   * @return {string}
+   */
+  ;
+
+  _proto.formatOffset = function formatOffset(ts, format) {
+    throw new ZoneIsAbstractError();
+  }
+  /**
+   * Return the offset in minutes for this zone at the specified timestamp.
+   * @abstract
+   * @param {number} ts - Epoch milliseconds for which to compute the offset
+   * @return {number}
+   */
+  ;
+
+  _proto.offset = function offset(ts) {
+    throw new ZoneIsAbstractError();
+  }
+  /**
+   * Return whether this Zone is equal to another zone
+   * @abstract
+   * @param {Zone} otherZone - the zone to compare
+   * @return {boolean}
+   */
+  ;
+
+  _proto.equals = function equals(otherZone) {
+    throw new ZoneIsAbstractError();
+  }
+  /**
+   * Return whether this Zone is valid.
+   * @abstract
+   * @type {boolean}
+   */
+  ;
+
+  _createClass(Zone, [{
+    key: "type",
+
+    /**
+     * The type of zone
+     * @abstract
+     * @type {string}
+     */
+    get: function get() {
+      throw new ZoneIsAbstractError();
+    }
+    /**
+     * The name of this zone.
+     * @abstract
+     * @type {string}
+     */
+
+  }, {
+    key: "name",
+    get: function get() {
+      throw new ZoneIsAbstractError();
+    }
+    /**
+     * Returns whether the offset is known to be fixed for the whole year.
+     * @abstract
+     * @type {boolean}
+     */
+
+  }, {
+    key: "universal",
+    get: function get() {
+      throw new ZoneIsAbstractError();
+    }
+  }, {
+    key: "isValid",
+    get: function get() {
+      throw new ZoneIsAbstractError();
+    }
+  }]);
+
+  return Zone;
+}();
+
+var singleton = null;
+/**
+ * Represents the local zone for this JavaScript environment.
+ * @implements {Zone}
+ */
+
+var LocalZone = /*#__PURE__*/function (_Zone) {
+  _inheritsLoose(LocalZone, _Zone);
+
+  function LocalZone() {
+    return _Zone.apply(this, arguments) || this;
+  }
+
+  var _proto = LocalZone.prototype;
+
+  /** @override **/
+  _proto.offsetName = function offsetName(ts, _ref) {
+    var format = _ref.format,
+        locale = _ref.locale;
+    return parseZoneInfo(ts, format, locale);
+  }
+  /** @override **/
+  ;
+
+  _proto.formatOffset = function formatOffset$1(ts, format) {
+    return formatOffset(this.offset(ts), format);
+  }
+  /** @override **/
+  ;
+
+  _proto.offset = function offset(ts) {
+    return -new Date(ts).getTimezoneOffset();
+  }
+  /** @override **/
+  ;
+
+  _proto.equals = function equals(otherZone) {
+    return otherZone.type === "local";
+  }
+  /** @override **/
+  ;
+
+  _createClass(LocalZone, [{
+    key: "type",
+
+    /** @override **/
+    get: function get() {
+      return "local";
+    }
+    /** @override **/
+
+  }, {
+    key: "name",
+    get: function get() {
+      if (hasIntl()) {
+        return new Intl.DateTimeFormat().resolvedOptions().timeZone;
+      } else return "local";
+    }
+    /** @override **/
+
+  }, {
+    key: "universal",
+    get: function get() {
+      return false;
+    }
+  }, {
+    key: "isValid",
+    get: function get() {
+      return true;
+    }
+  }], [{
+    key: "instance",
+
+    /**
+     * Get a singleton instance of the local zone
+     * @return {LocalZone}
+     */
+    get: function get() {
+      if (singleton === null) {
+        singleton = new LocalZone();
+      }
+
+      return singleton;
+    }
+  }]);
+
+  return LocalZone;
+}(Zone);
+
+var matchingRegex = RegExp("^" + ianaRegex.source + "$");
+var dtfCache = {};
+
+function makeDTF(zone) {
+  if (!dtfCache[zone]) {
+    dtfCache[zone] = new Intl.DateTimeFormat("en-US", {
+      hour12: false,
+      timeZone: zone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit"
+    });
+  }
+
+  return dtfCache[zone];
+}
+
+var typeToPos = {
+  year: 0,
+  month: 1,
+  day: 2,
+  hour: 3,
+  minute: 4,
+  second: 5
+};
+
+function hackyOffset(dtf, date) {
+  var formatted = dtf.format(date).replace(/\u200E/g, ""),
+      parsed = /(\d+)\/(\d+)\/(\d+),? (\d+):(\d+):(\d+)/.exec(formatted),
+      fMonth = parsed[1],
+      fDay = parsed[2],
+      fYear = parsed[3],
+      fHour = parsed[4],
+      fMinute = parsed[5],
+      fSecond = parsed[6];
+  return [fYear, fMonth, fDay, fHour, fMinute, fSecond];
+}
+
+function partsOffset(dtf, date) {
+  var formatted = dtf.formatToParts(date),
+      filled = [];
+
+  for (var i = 0; i < formatted.length; i++) {
+    var _formatted$i = formatted[i],
+        type = _formatted$i.type,
+        value = _formatted$i.value,
+        pos = typeToPos[type];
+
+    if (!isUndefined(pos)) {
+      filled[pos] = parseInt(value, 10);
+    }
+  }
+
+  return filled;
+}
+
+var ianaZoneCache = {};
+/**
+ * A zone identified by an IANA identifier, like America/New_York
+ * @implements {Zone}
+ */
+
+var IANAZone = /*#__PURE__*/function (_Zone) {
+  _inheritsLoose(IANAZone, _Zone);
+
+  /**
+   * @param {string} name - Zone name
+   * @return {IANAZone}
+   */
+  IANAZone.create = function create(name) {
+    if (!ianaZoneCache[name]) {
+      ianaZoneCache[name] = new IANAZone(name);
+    }
+
+    return ianaZoneCache[name];
+  }
+  /**
+   * Reset local caches. Should only be necessary in testing scenarios.
+   * @return {void}
+   */
+  ;
+
+  IANAZone.resetCache = function resetCache() {
+    ianaZoneCache = {};
+    dtfCache = {};
+  }
+  /**
+   * Returns whether the provided string is a valid specifier. This only checks the string's format, not that the specifier identifies a known zone; see isValidZone for that.
+   * @param {string} s - The string to check validity on
+   * @example IANAZone.isValidSpecifier("America/New_York") //=> true
+   * @example IANAZone.isValidSpecifier("Fantasia/Castle") //=> true
+   * @example IANAZone.isValidSpecifier("Sport~~blorp") //=> false
+   * @return {boolean}
+   */
+  ;
+
+  IANAZone.isValidSpecifier = function isValidSpecifier(s) {
+    return !!(s && s.match(matchingRegex));
+  }
+  /**
+   * Returns whether the provided string identifies a real zone
+   * @param {string} zone - The string to check
+   * @example IANAZone.isValidZone("America/New_York") //=> true
+   * @example IANAZone.isValidZone("Fantasia/Castle") //=> false
+   * @example IANAZone.isValidZone("Sport~~blorp") //=> false
+   * @return {boolean}
+   */
+  ;
+
+  IANAZone.isValidZone = function isValidZone(zone) {
+    try {
+      new Intl.DateTimeFormat("en-US", {
+        timeZone: zone
+      }).format();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  } // Etc/GMT+8 -> -480
+
+  /** @ignore */
+  ;
+
+  IANAZone.parseGMTOffset = function parseGMTOffset(specifier) {
+    if (specifier) {
+      var match = specifier.match(/^Etc\/GMT([+-]\d{1,2})$/i);
+
+      if (match) {
+        return -60 * parseInt(match[1]);
+      }
+    }
+
+    return null;
+  };
+
+  function IANAZone(name) {
+    var _this;
+
+    _this = _Zone.call(this) || this;
+    /** @private **/
+
+    _this.zoneName = name;
+    /** @private **/
+
+    _this.valid = IANAZone.isValidZone(name);
+    return _this;
+  }
+  /** @override **/
+
+
+  var _proto = IANAZone.prototype;
+
+  /** @override **/
+  _proto.offsetName = function offsetName(ts, _ref) {
+    var format = _ref.format,
+        locale = _ref.locale;
+    return parseZoneInfo(ts, format, locale, this.name);
+  }
+  /** @override **/
+  ;
+
+  _proto.formatOffset = function formatOffset$1(ts, format) {
+    return formatOffset(this.offset(ts), format);
+  }
+  /** @override **/
+  ;
+
+  _proto.offset = function offset(ts) {
+    var date = new Date(ts),
+        dtf = makeDTF(this.name),
+        _ref2 = dtf.formatToParts ? partsOffset(dtf, date) : hackyOffset(dtf, date),
+        year = _ref2[0],
+        month = _ref2[1],
+        day = _ref2[2],
+        hour = _ref2[3],
+        minute = _ref2[4],
+        second = _ref2[5],
+        adjustedHour = hour === 24 ? 0 : hour;
+
+    var asUTC = objToLocalTS({
+      year: year,
+      month: month,
+      day: day,
+      hour: adjustedHour,
+      minute: minute,
+      second: second,
+      millisecond: 0
+    });
+    var asTS = +date;
+    var over = asTS % 1000;
+    asTS -= over >= 0 ? over : 1000 + over;
+    return (asUTC - asTS) / (60 * 1000);
+  }
+  /** @override **/
+  ;
+
+  _proto.equals = function equals(otherZone) {
+    return otherZone.type === "iana" && otherZone.name === this.name;
+  }
+  /** @override **/
+  ;
+
+  _createClass(IANAZone, [{
+    key: "type",
+    get: function get() {
+      return "iana";
+    }
+    /** @override **/
+
+  }, {
+    key: "name",
+    get: function get() {
+      return this.zoneName;
+    }
+    /** @override **/
+
+  }, {
+    key: "universal",
+    get: function get() {
+      return false;
+    }
+  }, {
+    key: "isValid",
+    get: function get() {
+      return this.valid;
+    }
+  }]);
+
+  return IANAZone;
+}(Zone);
+
+var singleton$1 = null;
+/**
+ * A zone with a fixed offset (meaning no DST)
+ * @implements {Zone}
+ */
+
+var FixedOffsetZone = /*#__PURE__*/function (_Zone) {
+  _inheritsLoose(FixedOffsetZone, _Zone);
+
+  /**
+   * Get an instance with a specified offset
+   * @param {number} offset - The offset in minutes
+   * @return {FixedOffsetZone}
+   */
+  FixedOffsetZone.instance = function instance(offset) {
+    return offset === 0 ? FixedOffsetZone.utcInstance : new FixedOffsetZone(offset);
+  }
+  /**
+   * Get an instance of FixedOffsetZone from a UTC offset string, like "UTC+6"
+   * @param {string} s - The offset string to parse
+   * @example FixedOffsetZone.parseSpecifier("UTC+6")
+   * @example FixedOffsetZone.parseSpecifier("UTC+06")
+   * @example FixedOffsetZone.parseSpecifier("UTC-6:00")
+   * @return {FixedOffsetZone}
+   */
+  ;
+
+  FixedOffsetZone.parseSpecifier = function parseSpecifier(s) {
+    if (s) {
+      var r = s.match(/^utc(?:([+-]\d{1,2})(?::(\d{2}))?)?$/i);
+
+      if (r) {
+        return new FixedOffsetZone(signedOffset(r[1], r[2]));
+      }
+    }
+
+    return null;
+  };
+
+  _createClass(FixedOffsetZone, null, [{
+    key: "utcInstance",
+
+    /**
+     * Get a singleton instance of UTC
+     * @return {FixedOffsetZone}
+     */
+    get: function get() {
+      if (singleton$1 === null) {
+        singleton$1 = new FixedOffsetZone(0);
+      }
+
+      return singleton$1;
+    }
+  }]);
+
+  function FixedOffsetZone(offset) {
+    var _this;
+
+    _this = _Zone.call(this) || this;
+    /** @private **/
+
+    _this.fixed = offset;
+    return _this;
+  }
+  /** @override **/
+
+
+  var _proto = FixedOffsetZone.prototype;
+
+  /** @override **/
+  _proto.offsetName = function offsetName() {
+    return this.name;
+  }
+  /** @override **/
+  ;
+
+  _proto.formatOffset = function formatOffset$1(ts, format) {
+    return formatOffset(this.fixed, format);
+  }
+  /** @override **/
+  ;
+
+  /** @override **/
+  _proto.offset = function offset() {
+    return this.fixed;
+  }
+  /** @override **/
+  ;
+
+  _proto.equals = function equals(otherZone) {
+    return otherZone.type === "fixed" && otherZone.fixed === this.fixed;
+  }
+  /** @override **/
+  ;
+
+  _createClass(FixedOffsetZone, [{
+    key: "type",
+    get: function get() {
+      return "fixed";
+    }
+    /** @override **/
+
+  }, {
+    key: "name",
+    get: function get() {
+      return this.fixed === 0 ? "UTC" : "UTC" + formatOffset(this.fixed, "narrow");
+    }
+  }, {
+    key: "universal",
+    get: function get() {
+      return true;
+    }
+  }, {
+    key: "isValid",
+    get: function get() {
+      return true;
+    }
+  }]);
+
+  return FixedOffsetZone;
+}(Zone);
+
+/**
+ * A zone that failed to parse. You should never need to instantiate this.
+ * @implements {Zone}
+ */
+
+var InvalidZone = /*#__PURE__*/function (_Zone) {
+  _inheritsLoose(InvalidZone, _Zone);
+
+  function InvalidZone(zoneName) {
+    var _this;
+
+    _this = _Zone.call(this) || this;
+    /**  @private */
+
+    _this.zoneName = zoneName;
+    return _this;
+  }
+  /** @override **/
+
+
+  var _proto = InvalidZone.prototype;
+
+  /** @override **/
+  _proto.offsetName = function offsetName() {
+    return null;
+  }
+  /** @override **/
+  ;
+
+  _proto.formatOffset = function formatOffset() {
+    return "";
+  }
+  /** @override **/
+  ;
+
+  _proto.offset = function offset() {
+    return NaN;
+  }
+  /** @override **/
+  ;
+
+  _proto.equals = function equals() {
+    return false;
+  }
+  /** @override **/
+  ;
+
+  _createClass(InvalidZone, [{
+    key: "type",
+    get: function get() {
+      return "invalid";
+    }
+    /** @override **/
+
+  }, {
+    key: "name",
+    get: function get() {
+      return this.zoneName;
+    }
+    /** @override **/
+
+  }, {
+    key: "universal",
+    get: function get() {
+      return false;
+    }
+  }, {
+    key: "isValid",
+    get: function get() {
+      return false;
+    }
+  }]);
+
+  return InvalidZone;
+}(Zone);
+
+/**
+ * @private
+ */
+function normalizeZone(input, defaultZone) {
+  var offset;
+
+  if (isUndefined(input) || input === null) {
+    return defaultZone;
+  } else if (input instanceof Zone) {
+    return input;
+  } else if (isString(input)) {
+    var lowered = input.toLowerCase();
+    if (lowered === "local") return defaultZone;else if (lowered === "utc" || lowered === "gmt") return FixedOffsetZone.utcInstance;else if ((offset = IANAZone.parseGMTOffset(input)) != null) {
+      // handle Etc/GMT-4, which V8 chokes on
+      return FixedOffsetZone.instance(offset);
+    } else if (IANAZone.isValidSpecifier(lowered)) return IANAZone.create(input);else return FixedOffsetZone.parseSpecifier(lowered) || new InvalidZone(input);
+  } else if (isNumber(input)) {
+    return FixedOffsetZone.instance(input);
+  } else if (typeof input === "object" && input.offset && typeof input.offset === "number") {
+    // This is dumb, but the instanceof check above doesn't seem to really work
+    // so we're duck checking it
+    return input;
+  } else {
+    return new InvalidZone(input);
+  }
+}
+
+var now = function now() {
+  return Date.now();
+},
+    defaultZone = null,
+    // not setting this directly to LocalZone.instance bc loading order issues
+defaultLocale = null,
+    defaultNumberingSystem = null,
+    defaultOutputCalendar = null,
+    throwOnInvalid = false;
+/**
+ * Settings contains static getters and setters that control Luxon's overall behavior. Luxon is a simple library with few options, but the ones it does have live here.
+ */
+
+
+var Settings = /*#__PURE__*/function () {
+  function Settings() {}
+
+  /**
+   * Reset Luxon's global caches. Should only be necessary in testing scenarios.
+   * @return {void}
+   */
+  Settings.resetCaches = function resetCaches() {
+    Locale.resetCache();
+    IANAZone.resetCache();
+  };
+
+  _createClass(Settings, null, [{
+    key: "now",
+
+    /**
+     * Get the callback for returning the current timestamp.
+     * @type {function}
+     */
+    get: function get() {
+      return now;
+    }
+    /**
+     * Set the callback for returning the current timestamp.
+     * The function should return a number, which will be interpreted as an Epoch millisecond count
+     * @type {function}
+     * @example Settings.now = () => Date.now() + 3000 // pretend it is 3 seconds in the future
+     * @example Settings.now = () => 0 // always pretend it's Jan 1, 1970 at midnight in UTC time
+     */
+    ,
+    set: function set(n) {
+      now = n;
+    }
+    /**
+     * Get the default time zone to create DateTimes in.
+     * @type {string}
+     */
+
+  }, {
+    key: "defaultZoneName",
+    get: function get() {
+      return Settings.defaultZone.name;
+    }
+    /**
+     * Set the default time zone to create DateTimes in. Does not affect existing instances.
+     * @type {string}
+     */
+    ,
+    set: function set(z) {
+      if (!z) {
+        defaultZone = null;
+      } else {
+        defaultZone = normalizeZone(z);
+      }
+    }
+    /**
+     * Get the default time zone object to create DateTimes in. Does not affect existing instances.
+     * @type {Zone}
+     */
+
+  }, {
+    key: "defaultZone",
+    get: function get() {
+      return defaultZone || LocalZone.instance;
+    }
+    /**
+     * Get the default locale to create DateTimes with. Does not affect existing instances.
+     * @type {string}
+     */
+
+  }, {
+    key: "defaultLocale",
+    get: function get() {
+      return defaultLocale;
+    }
+    /**
+     * Set the default locale to create DateTimes with. Does not affect existing instances.
+     * @type {string}
+     */
+    ,
+    set: function set(locale) {
+      defaultLocale = locale;
+    }
+    /**
+     * Get the default numbering system to create DateTimes with. Does not affect existing instances.
+     * @type {string}
+     */
+
+  }, {
+    key: "defaultNumberingSystem",
+    get: function get() {
+      return defaultNumberingSystem;
+    }
+    /**
+     * Set the default numbering system to create DateTimes with. Does not affect existing instances.
+     * @type {string}
+     */
+    ,
+    set: function set(numberingSystem) {
+      defaultNumberingSystem = numberingSystem;
+    }
+    /**
+     * Get the default output calendar to create DateTimes with. Does not affect existing instances.
+     * @type {string}
+     */
+
+  }, {
+    key: "defaultOutputCalendar",
+    get: function get() {
+      return defaultOutputCalendar;
+    }
+    /**
+     * Set the default output calendar to create DateTimes with. Does not affect existing instances.
+     * @type {string}
+     */
+    ,
+    set: function set(outputCalendar) {
+      defaultOutputCalendar = outputCalendar;
+    }
+    /**
+     * Get whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
+     * @type {boolean}
+     */
+
+  }, {
+    key: "throwOnInvalid",
+    get: function get() {
+      return throwOnInvalid;
+    }
+    /**
+     * Set whether Luxon will throw when it encounters invalid DateTimes, Durations, or Intervals
+     * @type {boolean}
+     */
+    ,
+    set: function set(t) {
+      throwOnInvalid = t;
+    }
+  }]);
+
+  return Settings;
+}();
+
+var intlDTCache = {};
+
+function getCachedDTF(locString, opts) {
+  if (opts === void 0) {
+    opts = {};
+  }
+
+  var key = JSON.stringify([locString, opts]);
+  var dtf = intlDTCache[key];
+
+  if (!dtf) {
+    dtf = new Intl.DateTimeFormat(locString, opts);
+    intlDTCache[key] = dtf;
+  }
+
+  return dtf;
+}
+
+var intlNumCache = {};
+
+function getCachedINF(locString, opts) {
+  if (opts === void 0) {
+    opts = {};
+  }
+
+  var key = JSON.stringify([locString, opts]);
+  var inf = intlNumCache[key];
+
+  if (!inf) {
+    inf = new Intl.NumberFormat(locString, opts);
+    intlNumCache[key] = inf;
+  }
+
+  return inf;
+}
+
+var intlRelCache = {};
+
+function getCachedRTF(locString, opts) {
+  if (opts === void 0) {
+    opts = {};
+  }
+
+  var _opts = opts,
+      base = _opts.base,
+      cacheKeyOpts = _objectWithoutPropertiesLoose(_opts, ["base"]); // exclude `base` from the options
+
+
+  var key = JSON.stringify([locString, cacheKeyOpts]);
+  var inf = intlRelCache[key];
+
+  if (!inf) {
+    inf = new Intl.RelativeTimeFormat(locString, opts);
+    intlRelCache[key] = inf;
+  }
+
+  return inf;
+}
+
+var sysLocaleCache = null;
+
+function systemLocale() {
+  if (sysLocaleCache) {
+    return sysLocaleCache;
+  } else if (hasIntl()) {
+    var computedSys = new Intl.DateTimeFormat().resolvedOptions().locale; // node sometimes defaults to "und". Override that because that is dumb
+
+    sysLocaleCache = !computedSys || computedSys === "und" ? "en-US" : computedSys;
+    return sysLocaleCache;
+  } else {
+    sysLocaleCache = "en-US";
+    return sysLocaleCache;
+  }
+}
+
+function parseLocaleString(localeStr) {
+  // I really want to avoid writing a BCP 47 parser
+  // see, e.g. https://github.com/wooorm/bcp-47
+  // Instead, we'll do this:
+  // a) if the string has no -u extensions, just leave it alone
+  // b) if it does, use Intl to resolve everything
+  // c) if Intl fails, try again without the -u
+  var uIndex = localeStr.indexOf("-u-");
+
+  if (uIndex === -1) {
+    return [localeStr];
+  } else {
+    var options;
+    var smaller = localeStr.substring(0, uIndex);
+
+    try {
+      options = getCachedDTF(localeStr).resolvedOptions();
+    } catch (e) {
+      options = getCachedDTF(smaller).resolvedOptions();
+    }
+
+    var _options = options,
+        numberingSystem = _options.numberingSystem,
+        calendar = _options.calendar; // return the smaller one so that we can append the calendar and numbering overrides to it
+
+    return [smaller, numberingSystem, calendar];
+  }
+}
+
+function intlConfigString(localeStr, numberingSystem, outputCalendar) {
+  if (hasIntl()) {
+    if (outputCalendar || numberingSystem) {
+      localeStr += "-u";
+
+      if (outputCalendar) {
+        localeStr += "-ca-" + outputCalendar;
+      }
+
+      if (numberingSystem) {
+        localeStr += "-nu-" + numberingSystem;
+      }
+
+      return localeStr;
+    } else {
+      return localeStr;
+    }
+  } else {
+    return [];
+  }
+}
+
+function mapMonths(f) {
+  var ms = [];
+
+  for (var i = 1; i <= 12; i++) {
+    var dt = DateTime.utc(2016, i, 1);
+    ms.push(f(dt));
+  }
+
+  return ms;
+}
+
+function mapWeekdays(f) {
+  var ms = [];
+
+  for (var i = 1; i <= 7; i++) {
+    var dt = DateTime.utc(2016, 11, 13 + i);
+    ms.push(f(dt));
+  }
+
+  return ms;
+}
+
+function listStuff(loc, length, defaultOK, englishFn, intlFn) {
+  var mode = loc.listingMode(defaultOK);
+
+  if (mode === "error") {
+    return null;
+  } else if (mode === "en") {
+    return englishFn(length);
+  } else {
+    return intlFn(length);
+  }
+}
+
+function supportsFastNumbers(loc) {
+  if (loc.numberingSystem && loc.numberingSystem !== "latn") {
+    return false;
+  } else {
+    return loc.numberingSystem === "latn" || !loc.locale || loc.locale.startsWith("en") || hasIntl() && new Intl.DateTimeFormat(loc.intl).resolvedOptions().numberingSystem === "latn";
+  }
+}
+/**
+ * @private
+ */
+
+
+var PolyNumberFormatter = /*#__PURE__*/function () {
+  function PolyNumberFormatter(intl, forceSimple, opts) {
+    this.padTo = opts.padTo || 0;
+    this.floor = opts.floor || false;
+
+    if (!forceSimple && hasIntl()) {
+      var intlOpts = {
+        useGrouping: false
+      };
+      if (opts.padTo > 0) intlOpts.minimumIntegerDigits = opts.padTo;
+      this.inf = getCachedINF(intl, intlOpts);
+    }
+  }
+
+  var _proto = PolyNumberFormatter.prototype;
+
+  _proto.format = function format(i) {
+    if (this.inf) {
+      var fixed = this.floor ? Math.floor(i) : i;
+      return this.inf.format(fixed);
+    } else {
+      // to match the browser's numberformatter defaults
+      var _fixed = this.floor ? Math.floor(i) : roundTo(i, 3);
+
+      return padStart(_fixed, this.padTo);
+    }
+  };
+
+  return PolyNumberFormatter;
+}();
+/**
+ * @private
+ */
+
+
+var PolyDateFormatter = /*#__PURE__*/function () {
+  function PolyDateFormatter(dt, intl, opts) {
+    this.opts = opts;
+    this.hasIntl = hasIntl();
+    var z;
+
+    if (dt.zone.universal && this.hasIntl) {
+      // UTC-8 or Etc/UTC-8 are not part of tzdata, only Etc/GMT+8 and the like.
+      // That is why fixed-offset TZ is set to that unless it is:
+      // 1. Outside of the supported range Etc/GMT-14 to Etc/GMT+12.
+      // 2. Not a whole hour, e.g. UTC+4:30.
+      var gmtOffset = -1 * (dt.offset / 60);
+
+      if (gmtOffset >= -14 && gmtOffset <= 12 && gmtOffset % 1 === 0) {
+        z = gmtOffset >= 0 ? "Etc/GMT+" + gmtOffset : "Etc/GMT" + gmtOffset;
+        this.dt = dt;
+      } else {
+        // Not all fixed-offset zones like Etc/+4:30 are present in tzdata.
+        // So we have to make do. Two cases:
+        // 1. The format options tell us to show the zone. We can't do that, so the best
+        // we can do is format the date in UTC.
+        // 2. The format options don't tell us to show the zone. Then we can adjust them
+        // the time and tell the formatter to show it to us in UTC, so that the time is right
+        // and the bad zone doesn't show up.
+        z = "UTC";
+
+        if (opts.timeZoneName) {
+          this.dt = dt;
+        } else {
+          this.dt = dt.offset === 0 ? dt : DateTime.fromMillis(dt.ts + dt.offset * 60 * 1000);
+        }
+      }
+    } else if (dt.zone.type === "local") {
+      this.dt = dt;
+    } else {
+      this.dt = dt;
+      z = dt.zone.name;
+    }
+
+    if (this.hasIntl) {
+      var intlOpts = Object.assign({}, this.opts);
+
+      if (z) {
+        intlOpts.timeZone = z;
+      }
+
+      this.dtf = getCachedDTF(intl, intlOpts);
+    }
+  }
+
+  var _proto2 = PolyDateFormatter.prototype;
+
+  _proto2.format = function format() {
+    if (this.hasIntl) {
+      return this.dtf.format(this.dt.toJSDate());
+    } else {
+      var tokenFormat = formatString(this.opts),
+          loc = Locale.create("en-US");
+      return Formatter.create(loc).formatDateTimeFromString(this.dt, tokenFormat);
+    }
+  };
+
+  _proto2.formatToParts = function formatToParts() {
+    if (this.hasIntl && hasFormatToParts()) {
+      return this.dtf.formatToParts(this.dt.toJSDate());
+    } else {
+      // This is kind of a cop out. We actually could do this for English. However, we couldn't do it for intl strings
+      // and IMO it's too weird to have an uncanny valley like that
+      return [];
+    }
+  };
+
+  _proto2.resolvedOptions = function resolvedOptions() {
+    if (this.hasIntl) {
+      return this.dtf.resolvedOptions();
+    } else {
+      return {
+        locale: "en-US",
+        numberingSystem: "latn",
+        outputCalendar: "gregory"
+      };
+    }
+  };
+
+  return PolyDateFormatter;
+}();
+/**
+ * @private
+ */
+
+
+var PolyRelFormatter = /*#__PURE__*/function () {
+  function PolyRelFormatter(intl, isEnglish, opts) {
+    this.opts = Object.assign({
+      style: "long"
+    }, opts);
+
+    if (!isEnglish && hasRelative()) {
+      this.rtf = getCachedRTF(intl, opts);
+    }
+  }
+
+  var _proto3 = PolyRelFormatter.prototype;
+
+  _proto3.format = function format(count, unit) {
+    if (this.rtf) {
+      return this.rtf.format(count, unit);
+    } else {
+      return formatRelativeTime(unit, count, this.opts.numeric, this.opts.style !== "long");
+    }
+  };
+
+  _proto3.formatToParts = function formatToParts(count, unit) {
+    if (this.rtf) {
+      return this.rtf.formatToParts(count, unit);
+    } else {
+      return [];
+    }
+  };
+
+  return PolyRelFormatter;
+}();
+/**
+ * @private
+ */
+
+
+var Locale = /*#__PURE__*/function () {
+  Locale.fromOpts = function fromOpts(opts) {
+    return Locale.create(opts.locale, opts.numberingSystem, opts.outputCalendar, opts.defaultToEN);
+  };
+
+  Locale.create = function create(locale, numberingSystem, outputCalendar, defaultToEN) {
+    if (defaultToEN === void 0) {
+      defaultToEN = false;
+    }
+
+    var specifiedLocale = locale || Settings.defaultLocale,
+        // the system locale is useful for human readable strings but annoying for parsing/formatting known formats
+    localeR = specifiedLocale || (defaultToEN ? "en-US" : systemLocale()),
+        numberingSystemR = numberingSystem || Settings.defaultNumberingSystem,
+        outputCalendarR = outputCalendar || Settings.defaultOutputCalendar;
+    return new Locale(localeR, numberingSystemR, outputCalendarR, specifiedLocale);
+  };
+
+  Locale.resetCache = function resetCache() {
+    sysLocaleCache = null;
+    intlDTCache = {};
+    intlNumCache = {};
+    intlRelCache = {};
+  };
+
+  Locale.fromObject = function fromObject(_temp) {
+    var _ref = _temp === void 0 ? {} : _temp,
+        locale = _ref.locale,
+        numberingSystem = _ref.numberingSystem,
+        outputCalendar = _ref.outputCalendar;
+
+    return Locale.create(locale, numberingSystem, outputCalendar);
+  };
+
+  function Locale(locale, numbering, outputCalendar, specifiedLocale) {
+    var _parseLocaleString = parseLocaleString(locale),
+        parsedLocale = _parseLocaleString[0],
+        parsedNumberingSystem = _parseLocaleString[1],
+        parsedOutputCalendar = _parseLocaleString[2];
+
+    this.locale = parsedLocale;
+    this.numberingSystem = numbering || parsedNumberingSystem || null;
+    this.outputCalendar = outputCalendar || parsedOutputCalendar || null;
+    this.intl = intlConfigString(this.locale, this.numberingSystem, this.outputCalendar);
+    this.weekdaysCache = {
+      format: {},
+      standalone: {}
+    };
+    this.monthsCache = {
+      format: {},
+      standalone: {}
+    };
+    this.meridiemCache = null;
+    this.eraCache = {};
+    this.specifiedLocale = specifiedLocale;
+    this.fastNumbersCached = null;
+  }
+
+  var _proto4 = Locale.prototype;
+
+  _proto4.listingMode = function listingMode(defaultOK) {
+    if (defaultOK === void 0) {
+      defaultOK = true;
+    }
+
+    var intl = hasIntl(),
+        hasFTP = intl && hasFormatToParts(),
+        isActuallyEn = this.isEnglish(),
+        hasNoWeirdness = (this.numberingSystem === null || this.numberingSystem === "latn") && (this.outputCalendar === null || this.outputCalendar === "gregory");
+
+    if (!hasFTP && !(isActuallyEn && hasNoWeirdness) && !defaultOK) {
+      return "error";
+    } else if (!hasFTP || isActuallyEn && hasNoWeirdness) {
+      return "en";
+    } else {
+      return "intl";
+    }
+  };
+
+  _proto4.clone = function clone(alts) {
+    if (!alts || Object.getOwnPropertyNames(alts).length === 0) {
+      return this;
+    } else {
+      return Locale.create(alts.locale || this.specifiedLocale, alts.numberingSystem || this.numberingSystem, alts.outputCalendar || this.outputCalendar, alts.defaultToEN || false);
+    }
+  };
+
+  _proto4.redefaultToEN = function redefaultToEN(alts) {
+    if (alts === void 0) {
+      alts = {};
+    }
+
+    return this.clone(Object.assign({}, alts, {
+      defaultToEN: true
+    }));
+  };
+
+  _proto4.redefaultToSystem = function redefaultToSystem(alts) {
+    if (alts === void 0) {
+      alts = {};
+    }
+
+    return this.clone(Object.assign({}, alts, {
+      defaultToEN: false
+    }));
+  };
+
+  _proto4.months = function months$1(length, format, defaultOK) {
+    var _this = this;
+
+    if (format === void 0) {
+      format = false;
+    }
+
+    if (defaultOK === void 0) {
+      defaultOK = true;
+    }
+
+    return listStuff(this, length, defaultOK, months, function () {
+      var intl = format ? {
+        month: length,
+        day: "numeric"
+      } : {
+        month: length
+      },
+          formatStr = format ? "format" : "standalone";
+
+      if (!_this.monthsCache[formatStr][length]) {
+        _this.monthsCache[formatStr][length] = mapMonths(function (dt) {
+          return _this.extract(dt, intl, "month");
+        });
+      }
+
+      return _this.monthsCache[formatStr][length];
+    });
+  };
+
+  _proto4.weekdays = function weekdays$1(length, format, defaultOK) {
+    var _this2 = this;
+
+    if (format === void 0) {
+      format = false;
+    }
+
+    if (defaultOK === void 0) {
+      defaultOK = true;
+    }
+
+    return listStuff(this, length, defaultOK, weekdays, function () {
+      var intl = format ? {
+        weekday: length,
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      } : {
+        weekday: length
+      },
+          formatStr = format ? "format" : "standalone";
+
+      if (!_this2.weekdaysCache[formatStr][length]) {
+        _this2.weekdaysCache[formatStr][length] = mapWeekdays(function (dt) {
+          return _this2.extract(dt, intl, "weekday");
+        });
+      }
+
+      return _this2.weekdaysCache[formatStr][length];
+    });
+  };
+
+  _proto4.meridiems = function meridiems$1(defaultOK) {
+    var _this3 = this;
+
+    if (defaultOK === void 0) {
+      defaultOK = true;
+    }
+
+    return listStuff(this, undefined, defaultOK, function () {
+      return meridiems;
+    }, function () {
+      // In theory there could be aribitrary day periods. We're gonna assume there are exactly two
+      // for AM and PM. This is probably wrong, but it's makes parsing way easier.
+      if (!_this3.meridiemCache) {
+        var intl = {
+          hour: "numeric",
+          hour12: true
+        };
+        _this3.meridiemCache = [DateTime.utc(2016, 11, 13, 9), DateTime.utc(2016, 11, 13, 19)].map(function (dt) {
+          return _this3.extract(dt, intl, "dayperiod");
+        });
+      }
+
+      return _this3.meridiemCache;
+    });
+  };
+
+  _proto4.eras = function eras$1(length, defaultOK) {
+    var _this4 = this;
+
+    if (defaultOK === void 0) {
+      defaultOK = true;
+    }
+
+    return listStuff(this, length, defaultOK, eras, function () {
+      var intl = {
+        era: length
+      }; // This is problematic. Different calendars are going to define eras totally differently. What I need is the minimum set of dates
+      // to definitely enumerate them.
+
+      if (!_this4.eraCache[length]) {
+        _this4.eraCache[length] = [DateTime.utc(-40, 1, 1), DateTime.utc(2017, 1, 1)].map(function (dt) {
+          return _this4.extract(dt, intl, "era");
+        });
+      }
+
+      return _this4.eraCache[length];
+    });
+  };
+
+  _proto4.extract = function extract(dt, intlOpts, field) {
+    var df = this.dtFormatter(dt, intlOpts),
+        results = df.formatToParts(),
+        matching = results.find(function (m) {
+      return m.type.toLowerCase() === field;
+    });
+    return matching ? matching.value : null;
+  };
+
+  _proto4.numberFormatter = function numberFormatter(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    // this forcesimple option is never used (the only caller short-circuits on it, but it seems safer to leave)
+    // (in contrast, the rest of the condition is used heavily)
+    return new PolyNumberFormatter(this.intl, opts.forceSimple || this.fastNumbers, opts);
+  };
+
+  _proto4.dtFormatter = function dtFormatter(dt, intlOpts) {
+    if (intlOpts === void 0) {
+      intlOpts = {};
+    }
+
+    return new PolyDateFormatter(dt, this.intl, intlOpts);
+  };
+
+  _proto4.relFormatter = function relFormatter(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    return new PolyRelFormatter(this.intl, this.isEnglish(), opts);
+  };
+
+  _proto4.isEnglish = function isEnglish() {
+    return this.locale === "en" || this.locale.toLowerCase() === "en-us" || hasIntl() && new Intl.DateTimeFormat(this.intl).resolvedOptions().locale.startsWith("en-us");
+  };
+
+  _proto4.equals = function equals(other) {
+    return this.locale === other.locale && this.numberingSystem === other.numberingSystem && this.outputCalendar === other.outputCalendar;
+  };
+
+  _createClass(Locale, [{
+    key: "fastNumbers",
+    get: function get() {
+      if (this.fastNumbersCached == null) {
+        this.fastNumbersCached = supportsFastNumbers(this);
+      }
+
+      return this.fastNumbersCached;
+    }
+  }]);
+
+  return Locale;
+}();
+
+/*
+ * This file handles parsing for well-specified formats. Here's how it works:
+ * Two things go into parsing: a regex to match with and an extractor to take apart the groups in the match.
+ * An extractor is just a function that takes a regex match array and returns a { year: ..., month: ... } object
+ * parse() does the work of executing the regex and applying the extractor. It takes multiple regex/extractor pairs to try in sequence.
+ * Extractors can take a "cursor" representing the offset in the match to look at. This makes it easy to combine extractors.
+ * combineExtractors() does the work of combining them, keeping track of the cursor through multiple extractions.
+ * Some extractions are super dumb and simpleParse and fromStrings help DRY them.
+ */
+
+function combineRegexes() {
+  for (var _len = arguments.length, regexes = new Array(_len), _key = 0; _key < _len; _key++) {
+    regexes[_key] = arguments[_key];
+  }
+
+  var full = regexes.reduce(function (f, r) {
+    return f + r.source;
+  }, "");
+  return RegExp("^" + full + "$");
+}
+
+function combineExtractors() {
+  for (var _len2 = arguments.length, extractors = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    extractors[_key2] = arguments[_key2];
+  }
+
+  return function (m) {
+    return extractors.reduce(function (_ref, ex) {
+      var mergedVals = _ref[0],
+          mergedZone = _ref[1],
+          cursor = _ref[2];
+
+      var _ex = ex(m, cursor),
+          val = _ex[0],
+          zone = _ex[1],
+          next = _ex[2];
+
+      return [Object.assign(mergedVals, val), mergedZone || zone, next];
+    }, [{}, null, 1]).slice(0, 2);
+  };
+}
+
+function parse(s) {
+  if (s == null) {
+    return [null, null];
+  }
+
+  for (var _len3 = arguments.length, patterns = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+    patterns[_key3 - 1] = arguments[_key3];
+  }
+
+  for (var _i = 0, _patterns = patterns; _i < _patterns.length; _i++) {
+    var _patterns$_i = _patterns[_i],
+        regex = _patterns$_i[0],
+        extractor = _patterns$_i[1];
+    var m = regex.exec(s);
+
+    if (m) {
+      return extractor(m);
+    }
+  }
+
+  return [null, null];
+}
+
+function simpleParse() {
+  for (var _len4 = arguments.length, keys = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+    keys[_key4] = arguments[_key4];
+  }
+
+  return function (match, cursor) {
+    var ret = {};
+    var i;
+
+    for (i = 0; i < keys.length; i++) {
+      ret[keys[i]] = parseInteger(match[cursor + i]);
+    }
+
+    return [ret, null, cursor + i];
+  };
+} // ISO and SQL parsing
+
+
+var offsetRegex = /(?:(Z)|([+-]\d\d)(?::?(\d\d))?)/,
+    isoTimeBaseRegex = /(\d\d)(?::?(\d\d)(?::?(\d\d)(?:[.,](\d{1,30}))?)?)?/,
+    isoTimeRegex = RegExp("" + isoTimeBaseRegex.source + offsetRegex.source + "?"),
+    isoTimeExtensionRegex = RegExp("(?:T" + isoTimeRegex.source + ")?"),
+    isoYmdRegex = /([+-]\d{6}|\d{4})(?:-?(\d\d)(?:-?(\d\d))?)?/,
+    isoWeekRegex = /(\d{4})-?W(\d\d)(?:-?(\d))?/,
+    isoOrdinalRegex = /(\d{4})-?(\d{3})/,
+    extractISOWeekData = simpleParse("weekYear", "weekNumber", "weekDay"),
+    extractISOOrdinalData = simpleParse("year", "ordinal"),
+    sqlYmdRegex = /(\d{4})-(\d\d)-(\d\d)/,
+    // dumbed-down version of the ISO one
+sqlTimeRegex = RegExp(isoTimeBaseRegex.source + " ?(?:" + offsetRegex.source + "|(" + ianaRegex.source + "))?"),
+    sqlTimeExtensionRegex = RegExp("(?: " + sqlTimeRegex.source + ")?");
+
+function int(match, pos, fallback) {
+  var m = match[pos];
+  return isUndefined(m) ? fallback : parseInteger(m);
+}
+
+function extractISOYmd(match, cursor) {
+  var item = {
+    year: int(match, cursor),
+    month: int(match, cursor + 1, 1),
+    day: int(match, cursor + 2, 1)
+  };
+  return [item, null, cursor + 3];
+}
+
+function extractISOTime(match, cursor) {
+  var item = {
+    hours: int(match, cursor, 0),
+    minutes: int(match, cursor + 1, 0),
+    seconds: int(match, cursor + 2, 0),
+    milliseconds: parseMillis(match[cursor + 3])
+  };
+  return [item, null, cursor + 4];
+}
+
+function extractISOOffset(match, cursor) {
+  var local = !match[cursor] && !match[cursor + 1],
+      fullOffset = signedOffset(match[cursor + 1], match[cursor + 2]),
+      zone = local ? null : FixedOffsetZone.instance(fullOffset);
+  return [{}, zone, cursor + 3];
+}
+
+function extractIANAZone(match, cursor) {
+  var zone = match[cursor] ? IANAZone.create(match[cursor]) : null;
+  return [{}, zone, cursor + 1];
+} // ISO time parsing
+
+
+var isoTimeOnly = RegExp("^T?" + isoTimeBaseRegex.source + "$"); // ISO duration parsing
+
+var isoDuration = /^-?P(?:(?:(-?\d{1,9})Y)?(?:(-?\d{1,9})M)?(?:(-?\d{1,9})W)?(?:(-?\d{1,9})D)?(?:T(?:(-?\d{1,9})H)?(?:(-?\d{1,9})M)?(?:(-?\d{1,20})(?:[.,](-?\d{1,9}))?S)?)?)$/;
+
+function extractISODuration(match) {
+  var s = match[0],
+      yearStr = match[1],
+      monthStr = match[2],
+      weekStr = match[3],
+      dayStr = match[4],
+      hourStr = match[5],
+      minuteStr = match[6],
+      secondStr = match[7],
+      millisecondsStr = match[8];
+  var hasNegativePrefix = s[0] === "-";
+
+  var maybeNegate = function maybeNegate(num) {
+    return num && hasNegativePrefix ? -num : num;
+  };
+
+  return [{
+    years: maybeNegate(parseInteger(yearStr)),
+    months: maybeNegate(parseInteger(monthStr)),
+    weeks: maybeNegate(parseInteger(weekStr)),
+    days: maybeNegate(parseInteger(dayStr)),
+    hours: maybeNegate(parseInteger(hourStr)),
+    minutes: maybeNegate(parseInteger(minuteStr)),
+    seconds: maybeNegate(parseInteger(secondStr)),
+    milliseconds: maybeNegate(parseMillis(millisecondsStr))
+  }];
+} // These are a little braindead. EDT *should* tell us that we're in, say, America/New_York
+// and not just that we're in -240 *right now*. But since I don't think these are used that often
+// I'm just going to ignore that
+
+
+var obsOffsets = {
+  GMT: 0,
+  EDT: -4 * 60,
+  EST: -5 * 60,
+  CDT: -5 * 60,
+  CST: -6 * 60,
+  MDT: -6 * 60,
+  MST: -7 * 60,
+  PDT: -7 * 60,
+  PST: -8 * 60
+};
+
+function fromStrings(weekdayStr, yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr) {
+  var result = {
+    year: yearStr.length === 2 ? untruncateYear(parseInteger(yearStr)) : parseInteger(yearStr),
+    month: monthsShort.indexOf(monthStr) + 1,
+    day: parseInteger(dayStr),
+    hour: parseInteger(hourStr),
+    minute: parseInteger(minuteStr)
+  };
+  if (secondStr) result.second = parseInteger(secondStr);
+
+  if (weekdayStr) {
+    result.weekday = weekdayStr.length > 3 ? weekdaysLong.indexOf(weekdayStr) + 1 : weekdaysShort.indexOf(weekdayStr) + 1;
+  }
+
+  return result;
+} // RFC 2822/5322
+
+
+var rfc2822 = /^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s)?(\d{1,2})\s(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s(\d{2,4})\s(\d\d):(\d\d)(?::(\d\d))?\s(?:(UT|GMT|[ECMP][SD]T)|([Zz])|(?:([+-]\d\d)(\d\d)))$/;
+
+function extractRFC2822(match) {
+  var weekdayStr = match[1],
+      dayStr = match[2],
+      monthStr = match[3],
+      yearStr = match[4],
+      hourStr = match[5],
+      minuteStr = match[6],
+      secondStr = match[7],
+      obsOffset = match[8],
+      milOffset = match[9],
+      offHourStr = match[10],
+      offMinuteStr = match[11],
+      result = fromStrings(weekdayStr, yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr);
+  var offset;
+
+  if (obsOffset) {
+    offset = obsOffsets[obsOffset];
+  } else if (milOffset) {
+    offset = 0;
+  } else {
+    offset = signedOffset(offHourStr, offMinuteStr);
+  }
+
+  return [result, new FixedOffsetZone(offset)];
+}
+
+function preprocessRFC2822(s) {
+  // Remove comments and folding whitespace and replace multiple-spaces with a single space
+  return s.replace(/\([^)]*\)|[\n\t]/g, " ").replace(/(\s\s+)/g, " ").trim();
+} // http date
+
+
+var rfc1123 = /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), (\d\d) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{4}) (\d\d):(\d\d):(\d\d) GMT$/,
+    rfc850 = /^(Monday|Tuesday|Wedsday|Thursday|Friday|Saturday|Sunday), (\d\d)-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-(\d\d) (\d\d):(\d\d):(\d\d) GMT$/,
+    ascii = /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) ( \d|\d\d) (\d\d):(\d\d):(\d\d) (\d{4})$/;
+
+function extractRFC1123Or850(match) {
+  var weekdayStr = match[1],
+      dayStr = match[2],
+      monthStr = match[3],
+      yearStr = match[4],
+      hourStr = match[5],
+      minuteStr = match[6],
+      secondStr = match[7],
+      result = fromStrings(weekdayStr, yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr);
+  return [result, FixedOffsetZone.utcInstance];
+}
+
+function extractASCII(match) {
+  var weekdayStr = match[1],
+      monthStr = match[2],
+      dayStr = match[3],
+      hourStr = match[4],
+      minuteStr = match[5],
+      secondStr = match[6],
+      yearStr = match[7],
+      result = fromStrings(weekdayStr, yearStr, monthStr, dayStr, hourStr, minuteStr, secondStr);
+  return [result, FixedOffsetZone.utcInstance];
+}
+
+var isoYmdWithTimeExtensionRegex = combineRegexes(isoYmdRegex, isoTimeExtensionRegex);
+var isoWeekWithTimeExtensionRegex = combineRegexes(isoWeekRegex, isoTimeExtensionRegex);
+var isoOrdinalWithTimeExtensionRegex = combineRegexes(isoOrdinalRegex, isoTimeExtensionRegex);
+var isoTimeCombinedRegex = combineRegexes(isoTimeRegex);
+var extractISOYmdTimeAndOffset = combineExtractors(extractISOYmd, extractISOTime, extractISOOffset);
+var extractISOWeekTimeAndOffset = combineExtractors(extractISOWeekData, extractISOTime, extractISOOffset);
+var extractISOOrdinalDataAndTime = combineExtractors(extractISOOrdinalData, extractISOTime);
+var extractISOTimeAndOffset = combineExtractors(extractISOTime, extractISOOffset);
+/**
+ * @private
+ */
+
+function parseISODate(s) {
+  return parse(s, [isoYmdWithTimeExtensionRegex, extractISOYmdTimeAndOffset], [isoWeekWithTimeExtensionRegex, extractISOWeekTimeAndOffset], [isoOrdinalWithTimeExtensionRegex, extractISOOrdinalDataAndTime], [isoTimeCombinedRegex, extractISOTimeAndOffset]);
+}
+function parseRFC2822Date(s) {
+  return parse(preprocessRFC2822(s), [rfc2822, extractRFC2822]);
+}
+function parseHTTPDate(s) {
+  return parse(s, [rfc1123, extractRFC1123Or850], [rfc850, extractRFC1123Or850], [ascii, extractASCII]);
+}
+function parseISODuration(s) {
+  return parse(s, [isoDuration, extractISODuration]);
+}
+var extractISOTimeOnly = combineExtractors(extractISOTime);
+function parseISOTimeOnly(s) {
+  return parse(s, [isoTimeOnly, extractISOTimeOnly]);
+}
+var sqlYmdWithTimeExtensionRegex = combineRegexes(sqlYmdRegex, sqlTimeExtensionRegex);
+var sqlTimeCombinedRegex = combineRegexes(sqlTimeRegex);
+var extractISOYmdTimeOffsetAndIANAZone = combineExtractors(extractISOYmd, extractISOTime, extractISOOffset, extractIANAZone);
+var extractISOTimeOffsetAndIANAZone = combineExtractors(extractISOTime, extractISOOffset, extractIANAZone);
+function parseSQL(s) {
+  return parse(s, [sqlYmdWithTimeExtensionRegex, extractISOYmdTimeOffsetAndIANAZone], [sqlTimeCombinedRegex, extractISOTimeOffsetAndIANAZone]);
+}
+
+var INVALID = "Invalid Duration"; // unit conversion constants
+
+var lowOrderMatrix = {
+  weeks: {
+    days: 7,
+    hours: 7 * 24,
+    minutes: 7 * 24 * 60,
+    seconds: 7 * 24 * 60 * 60,
+    milliseconds: 7 * 24 * 60 * 60 * 1000
+  },
+  days: {
+    hours: 24,
+    minutes: 24 * 60,
+    seconds: 24 * 60 * 60,
+    milliseconds: 24 * 60 * 60 * 1000
+  },
+  hours: {
+    minutes: 60,
+    seconds: 60 * 60,
+    milliseconds: 60 * 60 * 1000
+  },
+  minutes: {
+    seconds: 60,
+    milliseconds: 60 * 1000
+  },
+  seconds: {
+    milliseconds: 1000
+  }
+},
+    casualMatrix = Object.assign({
+  years: {
+    quarters: 4,
+    months: 12,
+    weeks: 52,
+    days: 365,
+    hours: 365 * 24,
+    minutes: 365 * 24 * 60,
+    seconds: 365 * 24 * 60 * 60,
+    milliseconds: 365 * 24 * 60 * 60 * 1000
+  },
+  quarters: {
+    months: 3,
+    weeks: 13,
+    days: 91,
+    hours: 91 * 24,
+    minutes: 91 * 24 * 60,
+    seconds: 91 * 24 * 60 * 60,
+    milliseconds: 91 * 24 * 60 * 60 * 1000
+  },
+  months: {
+    weeks: 4,
+    days: 30,
+    hours: 30 * 24,
+    minutes: 30 * 24 * 60,
+    seconds: 30 * 24 * 60 * 60,
+    milliseconds: 30 * 24 * 60 * 60 * 1000
+  }
+}, lowOrderMatrix),
+    daysInYearAccurate = 146097.0 / 400,
+    daysInMonthAccurate = 146097.0 / 4800,
+    accurateMatrix = Object.assign({
+  years: {
+    quarters: 4,
+    months: 12,
+    weeks: daysInYearAccurate / 7,
+    days: daysInYearAccurate,
+    hours: daysInYearAccurate * 24,
+    minutes: daysInYearAccurate * 24 * 60,
+    seconds: daysInYearAccurate * 24 * 60 * 60,
+    milliseconds: daysInYearAccurate * 24 * 60 * 60 * 1000
+  },
+  quarters: {
+    months: 3,
+    weeks: daysInYearAccurate / 28,
+    days: daysInYearAccurate / 4,
+    hours: daysInYearAccurate * 24 / 4,
+    minutes: daysInYearAccurate * 24 * 60 / 4,
+    seconds: daysInYearAccurate * 24 * 60 * 60 / 4,
+    milliseconds: daysInYearAccurate * 24 * 60 * 60 * 1000 / 4
+  },
+  months: {
+    weeks: daysInMonthAccurate / 7,
+    days: daysInMonthAccurate,
+    hours: daysInMonthAccurate * 24,
+    minutes: daysInMonthAccurate * 24 * 60,
+    seconds: daysInMonthAccurate * 24 * 60 * 60,
+    milliseconds: daysInMonthAccurate * 24 * 60 * 60 * 1000
+  }
+}, lowOrderMatrix); // units ordered by size
+
+var orderedUnits = ["years", "quarters", "months", "weeks", "days", "hours", "minutes", "seconds", "milliseconds"];
+var reverseUnits = orderedUnits.slice(0).reverse(); // clone really means "create another instance just like this one, but with these changes"
+
+function clone(dur, alts, clear) {
+  if (clear === void 0) {
+    clear = false;
+  }
+
+  // deep merge for vals
+  var conf = {
+    values: clear ? alts.values : Object.assign({}, dur.values, alts.values || {}),
+    loc: dur.loc.clone(alts.loc),
+    conversionAccuracy: alts.conversionAccuracy || dur.conversionAccuracy
+  };
+  return new Duration(conf);
+}
+
+function antiTrunc(n) {
+  return n < 0 ? Math.floor(n) : Math.ceil(n);
+} // NB: mutates parameters
+
+
+function convert(matrix, fromMap, fromUnit, toMap, toUnit) {
+  var conv = matrix[toUnit][fromUnit],
+      raw = fromMap[fromUnit] / conv,
+      sameSign = Math.sign(raw) === Math.sign(toMap[toUnit]),
+      // ok, so this is wild, but see the matrix in the tests
+  added = !sameSign && toMap[toUnit] !== 0 && Math.abs(raw) <= 1 ? antiTrunc(raw) : Math.trunc(raw);
+  toMap[toUnit] += added;
+  fromMap[fromUnit] -= added * conv;
+} // NB: mutates parameters
+
+
+function normalizeValues(matrix, vals) {
+  reverseUnits.reduce(function (previous, current) {
+    if (!isUndefined(vals[current])) {
+      if (previous) {
+        convert(matrix, vals, previous, vals, current);
+      }
+
+      return current;
+    } else {
+      return previous;
+    }
+  }, null);
+}
+/**
+ * A Duration object represents a period of time, like "2 months" or "1 day, 1 hour". Conceptually, it's just a map of units to their quantities, accompanied by some additional configuration and methods for creating, parsing, interrogating, transforming, and formatting them. They can be used on their own or in conjunction with other Luxon types; for example, you can use {@link DateTime.plus} to add a Duration object to a DateTime, producing another DateTime.
+ *
+ * Here is a brief overview of commonly used methods and getters in Duration:
+ *
+ * * **Creation** To create a Duration, use {@link Duration.fromMillis}, {@link Duration.fromObject}, or {@link Duration.fromISO}.
+ * * **Unit values** See the {@link Duration.years}, {@link Duration.months}, {@link Duration.weeks}, {@link Duration.days}, {@link Duration.hours}, {@link Duration.minutes}, {@link Duration.seconds}, {@link Duration.milliseconds} accessors.
+ * * **Configuration** See  {@link Duration.locale} and {@link Duration.numberingSystem} accessors.
+ * * **Transformation** To create new Durations out of old ones use {@link Duration.plus}, {@link Duration.minus}, {@link Duration.normalize}, {@link Duration.set}, {@link Duration.reconfigure}, {@link Duration.shiftTo}, and {@link Duration.negate}.
+ * * **Output** To convert the Duration into other representations, see {@link Duration.as}, {@link Duration.toISO}, {@link Duration.toFormat}, and {@link Duration.toJSON}
+ *
+ * There's are more methods documented below. In addition, for more information on subtler topics like internationalization and validity, see the external documentation.
+ */
+
+
+var Duration = /*#__PURE__*/function () {
+  /**
+   * @private
+   */
+  function Duration(config) {
+    var accurate = config.conversionAccuracy === "longterm" || false;
+    /**
+     * @access private
+     */
+
+    this.values = config.values;
+    /**
+     * @access private
+     */
+
+    this.loc = config.loc || Locale.create();
+    /**
+     * @access private
+     */
+
+    this.conversionAccuracy = accurate ? "longterm" : "casual";
+    /**
+     * @access private
+     */
+
+    this.invalid = config.invalid || null;
+    /**
+     * @access private
+     */
+
+    this.matrix = accurate ? accurateMatrix : casualMatrix;
+    /**
+     * @access private
+     */
+
+    this.isLuxonDuration = true;
+  }
+  /**
+   * Create Duration from a number of milliseconds.
+   * @param {number} count of milliseconds
+   * @param {Object} opts - options for parsing
+   * @param {string} [opts.locale='en-US'] - the locale to use
+   * @param {string} opts.numberingSystem - the numbering system to use
+   * @param {string} [opts.conversionAccuracy='casual'] - the conversion system to use
+   * @return {Duration}
+   */
+
+
+  Duration.fromMillis = function fromMillis(count, opts) {
+    return Duration.fromObject(Object.assign({
+      milliseconds: count
+    }, opts));
+  }
+  /**
+   * Create a Duration from a JavaScript object with keys like 'years' and 'hours.
+   * If this object is empty then a zero milliseconds duration is returned.
+   * @param {Object} obj - the object to create the DateTime from
+   * @param {number} obj.years
+   * @param {number} obj.quarters
+   * @param {number} obj.months
+   * @param {number} obj.weeks
+   * @param {number} obj.days
+   * @param {number} obj.hours
+   * @param {number} obj.minutes
+   * @param {number} obj.seconds
+   * @param {number} obj.milliseconds
+   * @param {string} [obj.locale='en-US'] - the locale to use
+   * @param {string} obj.numberingSystem - the numbering system to use
+   * @param {string} [obj.conversionAccuracy='casual'] - the conversion system to use
+   * @return {Duration}
+   */
+  ;
+
+  Duration.fromObject = function fromObject(obj) {
+    if (obj == null || typeof obj !== "object") {
+      throw new InvalidArgumentError("Duration.fromObject: argument expected to be an object, got " + (obj === null ? "null" : typeof obj));
+    }
+
+    return new Duration({
+      values: normalizeObject(obj, Duration.normalizeUnit, ["locale", "numberingSystem", "conversionAccuracy", "zone" // a bit of debt; it's super inconvenient internally not to be able to blindly pass this
+      ]),
+      loc: Locale.fromObject(obj),
+      conversionAccuracy: obj.conversionAccuracy
+    });
+  }
+  /**
+   * Create a Duration from an ISO 8601 duration string.
+   * @param {string} text - text to parse
+   * @param {Object} opts - options for parsing
+   * @param {string} [opts.locale='en-US'] - the locale to use
+   * @param {string} opts.numberingSystem - the numbering system to use
+   * @param {string} [opts.conversionAccuracy='casual'] - the conversion system to use
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Durations
+   * @example Duration.fromISO('P3Y6M1W4DT12H30M5S').toObject() //=> { years: 3, months: 6, weeks: 1, days: 4, hours: 12, minutes: 30, seconds: 5 }
+   * @example Duration.fromISO('PT23H').toObject() //=> { hours: 23 }
+   * @example Duration.fromISO('P5Y3M').toObject() //=> { years: 5, months: 3 }
+   * @return {Duration}
+   */
+  ;
+
+  Duration.fromISO = function fromISO(text, opts) {
+    var _parseISODuration = parseISODuration(text),
+        parsed = _parseISODuration[0];
+
+    if (parsed) {
+      var obj = Object.assign(parsed, opts);
+      return Duration.fromObject(obj);
+    } else {
+      return Duration.invalid("unparsable", "the input \"" + text + "\" can't be parsed as ISO 8601");
+    }
+  }
+  /**
+   * Create a Duration from an ISO 8601 time string.
+   * @param {string} text - text to parse
+   * @param {Object} opts - options for parsing
+   * @param {string} [opts.locale='en-US'] - the locale to use
+   * @param {string} opts.numberingSystem - the numbering system to use
+   * @param {string} [opts.conversionAccuracy='casual'] - the conversion system to use
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Times
+   * @example Duration.fromISOTime('11:22:33.444').toObject() //=> { hours: 11, minutes: 22, seconds: 33, milliseconds: 444 }
+   * @example Duration.fromISOTime('11:00').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+   * @example Duration.fromISOTime('T11:00').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+   * @example Duration.fromISOTime('1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+   * @example Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
+   * @return {Duration}
+   */
+  ;
+
+  Duration.fromISOTime = function fromISOTime(text, opts) {
+    var _parseISOTimeOnly = parseISOTimeOnly(text),
+        parsed = _parseISOTimeOnly[0];
+
+    if (parsed) {
+      var obj = Object.assign(parsed, opts);
+      return Duration.fromObject(obj);
+    } else {
+      return Duration.invalid("unparsable", "the input \"" + text + "\" can't be parsed as ISO 8601");
+    }
+  }
+  /**
+   * Create an invalid Duration.
+   * @param {string} reason - simple string of why this datetime is invalid. Should not contain parameters or anything else data-dependent
+   * @param {string} [explanation=null] - longer explanation, may include parameters and other useful debugging information
+   * @return {Duration}
+   */
+  ;
+
+  Duration.invalid = function invalid(reason, explanation) {
+    if (explanation === void 0) {
+      explanation = null;
+    }
+
+    if (!reason) {
+      throw new InvalidArgumentError("need to specify a reason the Duration is invalid");
+    }
+
+    var invalid = reason instanceof Invalid ? reason : new Invalid(reason, explanation);
+
+    if (Settings.throwOnInvalid) {
+      throw new InvalidDurationError(invalid);
+    } else {
+      return new Duration({
+        invalid: invalid
+      });
+    }
+  }
+  /**
+   * @private
+   */
+  ;
+
+  Duration.normalizeUnit = function normalizeUnit(unit) {
+    var normalized = {
+      year: "years",
+      years: "years",
+      quarter: "quarters",
+      quarters: "quarters",
+      month: "months",
+      months: "months",
+      week: "weeks",
+      weeks: "weeks",
+      day: "days",
+      days: "days",
+      hour: "hours",
+      hours: "hours",
+      minute: "minutes",
+      minutes: "minutes",
+      second: "seconds",
+      seconds: "seconds",
+      millisecond: "milliseconds",
+      milliseconds: "milliseconds"
+    }[unit ? unit.toLowerCase() : unit];
+    if (!normalized) throw new InvalidUnitError(unit);
+    return normalized;
+  }
+  /**
+   * Check if an object is a Duration. Works across context boundaries
+   * @param {object} o
+   * @return {boolean}
+   */
+  ;
+
+  Duration.isDuration = function isDuration(o) {
+    return o && o.isLuxonDuration || false;
+  }
+  /**
+   * Get  the locale of a Duration, such 'en-GB'
+   * @type {string}
+   */
+  ;
+
+  var _proto = Duration.prototype;
+
+  /**
+   * Returns a string representation of this Duration formatted according to the specified format string. You may use these tokens:
+   * * `S` for milliseconds
+   * * `s` for seconds
+   * * `m` for minutes
+   * * `h` for hours
+   * * `d` for days
+   * * `M` for months
+   * * `y` for years
+   * Notes:
+   * * Add padding by repeating the token, e.g. "yy" pads the years to two digits, "hhhh" pads the hours out to four digits
+   * * The duration will be converted to the set of units in the format string using {@link Duration.shiftTo} and the Durations's conversion accuracy setting.
+   * @param {string} fmt - the format string
+   * @param {Object} opts - options
+   * @param {boolean} [opts.floor=true] - floor numerical values
+   * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("y d s") //=> "1 6 2"
+   * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("yy dd sss") //=> "01 06 002"
+   * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toFormat("M S") //=> "12 518402000"
+   * @return {string}
+   */
+  _proto.toFormat = function toFormat(fmt, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    // reverse-compat since 1.2; we always round down now, never up, and we do it by default
+    var fmtOpts = Object.assign({}, opts, {
+      floor: opts.round !== false && opts.floor !== false
+    });
+    return this.isValid ? Formatter.create(this.loc, fmtOpts).formatDurationFromString(this, fmt) : INVALID;
+  }
+  /**
+   * Returns a JavaScript object with this Duration's values.
+   * @param opts - options for generating the object
+   * @param {boolean} [opts.includeConfig=false] - include configuration attributes in the output
+   * @example Duration.fromObject({ years: 1, days: 6, seconds: 2 }).toObject() //=> { years: 1, days: 6, seconds: 2 }
+   * @return {Object}
+   */
+  ;
+
+  _proto.toObject = function toObject(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    if (!this.isValid) return {};
+    var base = Object.assign({}, this.values);
+
+    if (opts.includeConfig) {
+      base.conversionAccuracy = this.conversionAccuracy;
+      base.numberingSystem = this.loc.numberingSystem;
+      base.locale = this.loc.locale;
+    }
+
+    return base;
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of this Duration.
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Durations
+   * @example Duration.fromObject({ years: 3, seconds: 45 }).toISO() //=> 'P3YT45S'
+   * @example Duration.fromObject({ months: 4, seconds: 45 }).toISO() //=> 'P4MT45S'
+   * @example Duration.fromObject({ months: 5 }).toISO() //=> 'P5M'
+   * @example Duration.fromObject({ minutes: 5 }).toISO() //=> 'PT5M'
+   * @example Duration.fromObject({ milliseconds: 6 }).toISO() //=> 'PT0.006S'
+   * @return {string}
+   */
+  ;
+
+  _proto.toISO = function toISO() {
+    // we could use the formatter, but this is an easier way to get the minimum string
+    if (!this.isValid) return null;
+    var s = "P";
+    if (this.years !== 0) s += this.years + "Y";
+    if (this.months !== 0 || this.quarters !== 0) s += this.months + this.quarters * 3 + "M";
+    if (this.weeks !== 0) s += this.weeks + "W";
+    if (this.days !== 0) s += this.days + "D";
+    if (this.hours !== 0 || this.minutes !== 0 || this.seconds !== 0 || this.milliseconds !== 0) s += "T";
+    if (this.hours !== 0) s += this.hours + "H";
+    if (this.minutes !== 0) s += this.minutes + "M";
+    if (this.seconds !== 0 || this.milliseconds !== 0) // this will handle "floating point madness" by removing extra decimal places
+      // https://stackoverflow.com/questions/588004/is-floating-point-math-broken
+      s += roundTo(this.seconds + this.milliseconds / 1000, 3) + "S";
+    if (s === "P") s += "T0S";
+    return s;
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of this Duration, formatted as a time of day.
+   * Note that this will return null if the duration is invalid, negative, or equal to or greater than 24 hours.
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Times
+   * @param {Object} opts - options
+   * @param {boolean} [opts.suppressMilliseconds=false] - exclude milliseconds from the format if they're 0
+   * @param {boolean} [opts.suppressSeconds=false] - exclude seconds from the format if they're 0
+   * @param {boolean} [opts.includePrefix=false] - include the `T` prefix
+   * @param {string} [opts.format='extended'] - choose between the basic and extended format
+   * @example Duration.fromObject({ hours: 11 }).toISOTime() //=> '11:00:00.000'
+   * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressMilliseconds: true }) //=> '11:00:00'
+   * @example Duration.fromObject({ hours: 11 }).toISOTime({ suppressSeconds: true }) //=> '11:00'
+   * @example Duration.fromObject({ hours: 11 }).toISOTime({ includePrefix: true }) //=> 'T11:00:00.000'
+   * @example Duration.fromObject({ hours: 11 }).toISOTime({ format: 'basic' }) //=> '110000.000'
+   * @return {string}
+   */
+  ;
+
+  _proto.toISOTime = function toISOTime(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    if (!this.isValid) return null;
+    var millis = this.toMillis();
+    if (millis < 0 || millis >= 86400000) return null;
+    opts = Object.assign({
+      suppressMilliseconds: false,
+      suppressSeconds: false,
+      includePrefix: false,
+      format: "extended"
+    }, opts);
+    var value = this.shiftTo("hours", "minutes", "seconds", "milliseconds");
+    var fmt = opts.format === "basic" ? "hhmm" : "hh:mm";
+
+    if (!opts.suppressSeconds || value.seconds !== 0 || value.milliseconds !== 0) {
+      fmt += opts.format === "basic" ? "ss" : ":ss";
+
+      if (!opts.suppressMilliseconds || value.milliseconds !== 0) {
+        fmt += ".SSS";
+      }
+    }
+
+    var str = value.toFormat(fmt);
+
+    if (opts.includePrefix) {
+      str = "T" + str;
+    }
+
+    return str;
+  }
+  /**
+   * Returns an ISO 8601 representation of this Duration appropriate for use in JSON.
+   * @return {string}
+   */
+  ;
+
+  _proto.toJSON = function toJSON() {
+    return this.toISO();
+  }
+  /**
+   * Returns an ISO 8601 representation of this Duration appropriate for use in debugging.
+   * @return {string}
+   */
+  ;
+
+  _proto.toString = function toString() {
+    return this.toISO();
+  }
+  /**
+   * Returns an milliseconds value of this Duration.
+   * @return {number}
+   */
+  ;
+
+  _proto.toMillis = function toMillis() {
+    return this.as("milliseconds");
+  }
+  /**
+   * Returns an milliseconds value of this Duration. Alias of {@link toMillis}
+   * @return {number}
+   */
+  ;
+
+  _proto.valueOf = function valueOf() {
+    return this.toMillis();
+  }
+  /**
+   * Make this Duration longer by the specified amount. Return a newly-constructed Duration.
+   * @param {Duration|Object|number} duration - The amount to add. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
+   * @return {Duration}
+   */
+  ;
+
+  _proto.plus = function plus(duration) {
+    if (!this.isValid) return this;
+    var dur = friendlyDuration(duration),
+        result = {};
+
+    for (var _iterator = _createForOfIteratorHelperLoose(orderedUnits), _step; !(_step = _iterator()).done;) {
+      var k = _step.value;
+
+      if (hasOwnProperty(dur.values, k) || hasOwnProperty(this.values, k)) {
+        result[k] = dur.get(k) + this.get(k);
+      }
+    }
+
+    return clone(this, {
+      values: result
+    }, true);
+  }
+  /**
+   * Make this Duration shorter by the specified amount. Return a newly-constructed Duration.
+   * @param {Duration|Object|number} duration - The amount to subtract. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
+   * @return {Duration}
+   */
+  ;
+
+  _proto.minus = function minus(duration) {
+    if (!this.isValid) return this;
+    var dur = friendlyDuration(duration);
+    return this.plus(dur.negate());
+  }
+  /**
+   * Scale this Duration by the specified amount. Return a newly-constructed Duration.
+   * @param {function} fn - The function to apply to each unit. Arity is 1 or 2: the value of the unit and, optionally, the unit name. Must return a number.
+   * @example Duration.fromObject({ hours: 1, minutes: 30 }).mapUnit(x => x * 2) //=> { hours: 2, minutes: 60 }
+   * @example Duration.fromObject({ hours: 1, minutes: 30 }).mapUnit((x, u) => u === "hour" ? x * 2 : x) //=> { hours: 2, minutes: 30 }
+   * @return {Duration}
+   */
+  ;
+
+  _proto.mapUnits = function mapUnits(fn) {
+    if (!this.isValid) return this;
+    var result = {};
+
+    for (var _i = 0, _Object$keys = Object.keys(this.values); _i < _Object$keys.length; _i++) {
+      var k = _Object$keys[_i];
+      result[k] = asNumber(fn(this.values[k], k));
+    }
+
+    return clone(this, {
+      values: result
+    }, true);
+  }
+  /**
+   * Get the value of unit.
+   * @param {string} unit - a unit such as 'minute' or 'day'
+   * @example Duration.fromObject({years: 2, days: 3}).years //=> 2
+   * @example Duration.fromObject({years: 2, days: 3}).months //=> 0
+   * @example Duration.fromObject({years: 2, days: 3}).days //=> 3
+   * @return {number}
+   */
+  ;
+
+  _proto.get = function get(unit) {
+    return this[Duration.normalizeUnit(unit)];
+  }
+  /**
+   * "Set" the values of specified units. Return a newly-constructed Duration.
+   * @param {Object} values - a mapping of units to numbers
+   * @example dur.set({ years: 2017 })
+   * @example dur.set({ hours: 8, minutes: 30 })
+   * @return {Duration}
+   */
+  ;
+
+  _proto.set = function set(values) {
+    if (!this.isValid) return this;
+    var mixed = Object.assign(this.values, normalizeObject(values, Duration.normalizeUnit, []));
+    return clone(this, {
+      values: mixed
+    });
+  }
+  /**
+   * "Set" the locale and/or numberingSystem.  Returns a newly-constructed Duration.
+   * @example dur.reconfigure({ locale: 'en-GB' })
+   * @return {Duration}
+   */
+  ;
+
+  _proto.reconfigure = function reconfigure(_temp) {
+    var _ref = _temp === void 0 ? {} : _temp,
+        locale = _ref.locale,
+        numberingSystem = _ref.numberingSystem,
+        conversionAccuracy = _ref.conversionAccuracy;
+
+    var loc = this.loc.clone({
+      locale: locale,
+      numberingSystem: numberingSystem
+    }),
+        opts = {
+      loc: loc
+    };
+
+    if (conversionAccuracy) {
+      opts.conversionAccuracy = conversionAccuracy;
+    }
+
+    return clone(this, opts);
+  }
+  /**
+   * Return the length of the duration in the specified unit.
+   * @param {string} unit - a unit such as 'minutes' or 'days'
+   * @example Duration.fromObject({years: 1}).as('days') //=> 365
+   * @example Duration.fromObject({years: 1}).as('months') //=> 12
+   * @example Duration.fromObject({hours: 60}).as('days') //=> 2.5
+   * @return {number}
+   */
+  ;
+
+  _proto.as = function as(unit) {
+    return this.isValid ? this.shiftTo(unit).get(unit) : NaN;
+  }
+  /**
+   * Reduce this Duration to its canonical representation in its current units.
+   * @example Duration.fromObject({ years: 2, days: 5000 }).normalize().toObject() //=> { years: 15, days: 255 }
+   * @example Duration.fromObject({ hours: 12, minutes: -45 }).normalize().toObject() //=> { hours: 11, minutes: 15 }
+   * @return {Duration}
+   */
+  ;
+
+  _proto.normalize = function normalize() {
+    if (!this.isValid) return this;
+    var vals = this.toObject();
+    normalizeValues(this.matrix, vals);
+    return clone(this, {
+      values: vals
+    }, true);
+  }
+  /**
+   * Convert this Duration into its representation in a different set of units.
+   * @example Duration.fromObject({ hours: 1, seconds: 30 }).shiftTo('minutes', 'milliseconds').toObject() //=> { minutes: 60, milliseconds: 30000 }
+   * @return {Duration}
+   */
+  ;
+
+  _proto.shiftTo = function shiftTo() {
+    for (var _len = arguments.length, units = new Array(_len), _key = 0; _key < _len; _key++) {
+      units[_key] = arguments[_key];
+    }
+
+    if (!this.isValid) return this;
+
+    if (units.length === 0) {
+      return this;
+    }
+
+    units = units.map(function (u) {
+      return Duration.normalizeUnit(u);
+    });
+    var built = {},
+        accumulated = {},
+        vals = this.toObject();
+    var lastUnit;
+
+    for (var _iterator2 = _createForOfIteratorHelperLoose(orderedUnits), _step2; !(_step2 = _iterator2()).done;) {
+      var k = _step2.value;
+
+      if (units.indexOf(k) >= 0) {
+        lastUnit = k;
+        var own = 0; // anything we haven't boiled down yet should get boiled to this unit
+
+        for (var ak in accumulated) {
+          own += this.matrix[ak][k] * accumulated[ak];
+          accumulated[ak] = 0;
+        } // plus anything that's already in this unit
+
+
+        if (isNumber(vals[k])) {
+          own += vals[k];
+        }
+
+        var i = Math.trunc(own);
+        built[k] = i;
+        accumulated[k] = own - i; // we'd like to absorb these fractions in another unit
+        // plus anything further down the chain that should be rolled up in to this
+
+        for (var down in vals) {
+          if (orderedUnits.indexOf(down) > orderedUnits.indexOf(k)) {
+            convert(this.matrix, vals, down, built, k);
+          }
+        } // otherwise, keep it in the wings to boil it later
+
+      } else if (isNumber(vals[k])) {
+        accumulated[k] = vals[k];
+      }
+    } // anything leftover becomes the decimal for the last unit
+    // lastUnit must be defined since units is not empty
+
+
+    for (var key in accumulated) {
+      if (accumulated[key] !== 0) {
+        built[lastUnit] += key === lastUnit ? accumulated[key] : accumulated[key] / this.matrix[lastUnit][key];
+      }
+    }
+
+    return clone(this, {
+      values: built
+    }, true).normalize();
+  }
+  /**
+   * Return the negative of this Duration.
+   * @example Duration.fromObject({ hours: 1, seconds: 30 }).negate().toObject() //=> { hours: -1, seconds: -30 }
+   * @return {Duration}
+   */
+  ;
+
+  _proto.negate = function negate() {
+    if (!this.isValid) return this;
+    var negated = {};
+
+    for (var _i2 = 0, _Object$keys2 = Object.keys(this.values); _i2 < _Object$keys2.length; _i2++) {
+      var k = _Object$keys2[_i2];
+      negated[k] = -this.values[k];
+    }
+
+    return clone(this, {
+      values: negated
+    }, true);
+  }
+  /**
+   * Get the years.
+   * @type {number}
+   */
+  ;
+
+  /**
+   * Equality check
+   * Two Durations are equal iff they have the same units and the same values for each unit.
+   * @param {Duration} other
+   * @return {boolean}
+   */
+  _proto.equals = function equals(other) {
+    if (!this.isValid || !other.isValid) {
+      return false;
+    }
+
+    if (!this.loc.equals(other.loc)) {
+      return false;
+    }
+
+    function eq(v1, v2) {
+      // Consider 0 and undefined as equal
+      if (v1 === undefined || v1 === 0) return v2 === undefined || v2 === 0;
+      return v1 === v2;
+    }
+
+    for (var _iterator3 = _createForOfIteratorHelperLoose(orderedUnits), _step3; !(_step3 = _iterator3()).done;) {
+      var u = _step3.value;
+
+      if (!eq(this.values[u], other.values[u])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  _createClass(Duration, [{
+    key: "locale",
+    get: function get() {
+      return this.isValid ? this.loc.locale : null;
+    }
+    /**
+     * Get the numbering system of a Duration, such 'beng'. The numbering system is used when formatting the Duration
+     *
+     * @type {string}
+     */
+
+  }, {
+    key: "numberingSystem",
+    get: function get() {
+      return this.isValid ? this.loc.numberingSystem : null;
+    }
+  }, {
+    key: "years",
+    get: function get() {
+      return this.isValid ? this.values.years || 0 : NaN;
+    }
+    /**
+     * Get the quarters.
+     * @type {number}
+     */
+
+  }, {
+    key: "quarters",
+    get: function get() {
+      return this.isValid ? this.values.quarters || 0 : NaN;
+    }
+    /**
+     * Get the months.
+     * @type {number}
+     */
+
+  }, {
+    key: "months",
+    get: function get() {
+      return this.isValid ? this.values.months || 0 : NaN;
+    }
+    /**
+     * Get the weeks
+     * @type {number}
+     */
+
+  }, {
+    key: "weeks",
+    get: function get() {
+      return this.isValid ? this.values.weeks || 0 : NaN;
+    }
+    /**
+     * Get the days.
+     * @type {number}
+     */
+
+  }, {
+    key: "days",
+    get: function get() {
+      return this.isValid ? this.values.days || 0 : NaN;
+    }
+    /**
+     * Get the hours.
+     * @type {number}
+     */
+
+  }, {
+    key: "hours",
+    get: function get() {
+      return this.isValid ? this.values.hours || 0 : NaN;
+    }
+    /**
+     * Get the minutes.
+     * @type {number}
+     */
+
+  }, {
+    key: "minutes",
+    get: function get() {
+      return this.isValid ? this.values.minutes || 0 : NaN;
+    }
+    /**
+     * Get the seconds.
+     * @return {number}
+     */
+
+  }, {
+    key: "seconds",
+    get: function get() {
+      return this.isValid ? this.values.seconds || 0 : NaN;
+    }
+    /**
+     * Get the milliseconds.
+     * @return {number}
+     */
+
+  }, {
+    key: "milliseconds",
+    get: function get() {
+      return this.isValid ? this.values.milliseconds || 0 : NaN;
+    }
+    /**
+     * Returns whether the Duration is invalid. Invalid durations are returned by diff operations
+     * on invalid DateTimes or Intervals.
+     * @return {boolean}
+     */
+
+  }, {
+    key: "isValid",
+    get: function get() {
+      return this.invalid === null;
+    }
+    /**
+     * Returns an error code if this Duration became invalid, or null if the Duration is valid
+     * @return {string}
+     */
+
+  }, {
+    key: "invalidReason",
+    get: function get() {
+      return this.invalid ? this.invalid.reason : null;
+    }
+    /**
+     * Returns an explanation of why this Duration became invalid, or null if the Duration is valid
+     * @type {string}
+     */
+
+  }, {
+    key: "invalidExplanation",
+    get: function get() {
+      return this.invalid ? this.invalid.explanation : null;
+    }
+  }]);
+
+  return Duration;
+}();
+function friendlyDuration(durationish) {
+  if (isNumber(durationish)) {
+    return Duration.fromMillis(durationish);
+  } else if (Duration.isDuration(durationish)) {
+    return durationish;
+  } else if (typeof durationish === "object") {
+    return Duration.fromObject(durationish);
+  } else {
+    throw new InvalidArgumentError("Unknown duration argument " + durationish + " of type " + typeof durationish);
+  }
+}
+
+var INVALID$1 = "Invalid Interval"; // checks if the start is equal to or before the end
+
+function validateStartEnd(start, end) {
+  if (!start || !start.isValid) {
+    return Interval.invalid("missing or invalid start");
+  } else if (!end || !end.isValid) {
+    return Interval.invalid("missing or invalid end");
+  } else if (end < start) {
+    return Interval.invalid("end before start", "The end of an interval must be after its start, but you had start=" + start.toISO() + " and end=" + end.toISO());
+  } else {
+    return null;
+  }
+}
+/**
+ * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}. Conceptually, it's a container for those two endpoints, accompanied by methods for creating, parsing, interrogating, comparing, transforming, and formatting them.
+ *
+ * Here is a brief overview of the most commonly used methods and getters in Interval:
+ *
+ * * **Creation** To create an Interval, use {@link fromDateTimes}, {@link after}, {@link before}, or {@link fromISO}.
+ * * **Accessors** Use {@link start} and {@link end} to get the start and end.
+ * * **Interrogation** To analyze the Interval, use {@link count}, {@link length}, {@link hasSame}, {@link contains}, {@link isAfter}, or {@link isBefore}.
+ * * **Transformation** To create other Intervals out of this one, use {@link set}, {@link splitAt}, {@link splitBy}, {@link divideEqually}, {@link merge}, {@link xor}, {@link union}, {@link intersection}, or {@link difference}.
+ * * **Comparison** To compare this Interval to another one, use {@link equals}, {@link overlaps}, {@link abutsStart}, {@link abutsEnd}, {@link engulfs}.
+ * * **Output** To convert the Interval into other representations, see {@link toString}, {@link toISO}, {@link toISODate}, {@link toISOTime}, {@link toFormat}, and {@link toDuration}.
+ */
+
+
+var Interval = /*#__PURE__*/function () {
+  /**
+   * @private
+   */
+  function Interval(config) {
+    /**
+     * @access private
+     */
+    this.s = config.start;
+    /**
+     * @access private
+     */
+
+    this.e = config.end;
+    /**
+     * @access private
+     */
+
+    this.invalid = config.invalid || null;
+    /**
+     * @access private
+     */
+
+    this.isLuxonInterval = true;
+  }
+  /**
+   * Create an invalid Interval.
+   * @param {string} reason - simple string of why this Interval is invalid. Should not contain parameters or anything else data-dependent
+   * @param {string} [explanation=null] - longer explanation, may include parameters and other useful debugging information
+   * @return {Interval}
+   */
+
+
+  Interval.invalid = function invalid(reason, explanation) {
+    if (explanation === void 0) {
+      explanation = null;
+    }
+
+    if (!reason) {
+      throw new InvalidArgumentError("need to specify a reason the Interval is invalid");
+    }
+
+    var invalid = reason instanceof Invalid ? reason : new Invalid(reason, explanation);
+
+    if (Settings.throwOnInvalid) {
+      throw new InvalidIntervalError(invalid);
+    } else {
+      return new Interval({
+        invalid: invalid
+      });
+    }
+  }
+  /**
+   * Create an Interval from a start DateTime and an end DateTime. Inclusive of the start but not the end.
+   * @param {DateTime|Date|Object} start
+   * @param {DateTime|Date|Object} end
+   * @return {Interval}
+   */
+  ;
+
+  Interval.fromDateTimes = function fromDateTimes(start, end) {
+    var builtStart = friendlyDateTime(start),
+        builtEnd = friendlyDateTime(end);
+    var validateError = validateStartEnd(builtStart, builtEnd);
+
+    if (validateError == null) {
+      return new Interval({
+        start: builtStart,
+        end: builtEnd
+      });
+    } else {
+      return validateError;
+    }
+  }
+  /**
+   * Create an Interval from a start DateTime and a Duration to extend to.
+   * @param {DateTime|Date|Object} start
+   * @param {Duration|Object|number} duration - the length of the Interval.
+   * @return {Interval}
+   */
+  ;
+
+  Interval.after = function after(start, duration) {
+    var dur = friendlyDuration(duration),
+        dt = friendlyDateTime(start);
+    return Interval.fromDateTimes(dt, dt.plus(dur));
+  }
+  /**
+   * Create an Interval from an end DateTime and a Duration to extend backwards to.
+   * @param {DateTime|Date|Object} end
+   * @param {Duration|Object|number} duration - the length of the Interval.
+   * @return {Interval}
+   */
+  ;
+
+  Interval.before = function before(end, duration) {
+    var dur = friendlyDuration(duration),
+        dt = friendlyDateTime(end);
+    return Interval.fromDateTimes(dt.minus(dur), dt);
+  }
+  /**
+   * Create an Interval from an ISO 8601 string.
+   * Accepts `<start>/<end>`, `<start>/<duration>`, and `<duration>/<end>` formats.
+   * @param {string} text - the ISO string to parse
+   * @param {Object} [opts] - options to pass {@link DateTime.fromISO} and optionally {@link Duration.fromISO}
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+   * @return {Interval}
+   */
+  ;
+
+  Interval.fromISO = function fromISO(text, opts) {
+    var _split = (text || "").split("/", 2),
+        s = _split[0],
+        e = _split[1];
+
+    if (s && e) {
+      var start, startIsValid;
+
+      try {
+        start = DateTime.fromISO(s, opts);
+        startIsValid = start.isValid;
+      } catch (e) {
+        startIsValid = false;
+      }
+
+      var end, endIsValid;
+
+      try {
+        end = DateTime.fromISO(e, opts);
+        endIsValid = end.isValid;
+      } catch (e) {
+        endIsValid = false;
+      }
+
+      if (startIsValid && endIsValid) {
+        return Interval.fromDateTimes(start, end);
+      }
+
+      if (startIsValid) {
+        var dur = Duration.fromISO(e, opts);
+
+        if (dur.isValid) {
+          return Interval.after(start, dur);
+        }
+      } else if (endIsValid) {
+        var _dur = Duration.fromISO(s, opts);
+
+        if (_dur.isValid) {
+          return Interval.before(end, _dur);
+        }
+      }
+    }
+
+    return Interval.invalid("unparsable", "the input \"" + text + "\" can't be parsed as ISO 8601");
+  }
+  /**
+   * Check if an object is an Interval. Works across context boundaries
+   * @param {object} o
+   * @return {boolean}
+   */
+  ;
+
+  Interval.isInterval = function isInterval(o) {
+    return o && o.isLuxonInterval || false;
+  }
+  /**
+   * Returns the start of the Interval
+   * @type {DateTime}
+   */
+  ;
+
+  var _proto = Interval.prototype;
+
+  /**
+   * Returns the length of the Interval in the specified unit.
+   * @param {string} unit - the unit (such as 'hours' or 'days') to return the length in.
+   * @return {number}
+   */
+  _proto.length = function length(unit) {
+    if (unit === void 0) {
+      unit = "milliseconds";
+    }
+
+    return this.isValid ? this.toDuration.apply(this, [unit]).get(unit) : NaN;
+  }
+  /**
+   * Returns the count of minutes, hours, days, months, or years included in the Interval, even in part.
+   * Unlike {@link length} this counts sections of the calendar, not periods of time, e.g. specifying 'day'
+   * asks 'what dates are included in this interval?', not 'how many days long is this interval?'
+   * @param {string} [unit='milliseconds'] - the unit of time to count.
+   * @return {number}
+   */
+  ;
+
+  _proto.count = function count(unit) {
+    if (unit === void 0) {
+      unit = "milliseconds";
+    }
+
+    if (!this.isValid) return NaN;
+    var start = this.start.startOf(unit),
+        end = this.end.startOf(unit);
+    return Math.floor(end.diff(start, unit).get(unit)) + 1;
+  }
+  /**
+   * Returns whether this Interval's start and end are both in the same unit of time
+   * @param {string} unit - the unit of time to check sameness on
+   * @return {boolean}
+   */
+  ;
+
+  _proto.hasSame = function hasSame(unit) {
+    return this.isValid ? this.isEmpty() || this.e.minus(1).hasSame(this.s, unit) : false;
+  }
+  /**
+   * Return whether this Interval has the same start and end DateTimes.
+   * @return {boolean}
+   */
+  ;
+
+  _proto.isEmpty = function isEmpty() {
+    return this.s.valueOf() === this.e.valueOf();
+  }
+  /**
+   * Return whether this Interval's start is after the specified DateTime.
+   * @param {DateTime} dateTime
+   * @return {boolean}
+   */
+  ;
+
+  _proto.isAfter = function isAfter(dateTime) {
+    if (!this.isValid) return false;
+    return this.s > dateTime;
+  }
+  /**
+   * Return whether this Interval's end is before the specified DateTime.
+   * @param {DateTime} dateTime
+   * @return {boolean}
+   */
+  ;
+
+  _proto.isBefore = function isBefore(dateTime) {
+    if (!this.isValid) return false;
+    return this.e <= dateTime;
+  }
+  /**
+   * Return whether this Interval contains the specified DateTime.
+   * @param {DateTime} dateTime
+   * @return {boolean}
+   */
+  ;
+
+  _proto.contains = function contains(dateTime) {
+    if (!this.isValid) return false;
+    return this.s <= dateTime && this.e > dateTime;
+  }
+  /**
+   * "Sets" the start and/or end dates. Returns a newly-constructed Interval.
+   * @param {Object} values - the values to set
+   * @param {DateTime} values.start - the starting DateTime
+   * @param {DateTime} values.end - the ending DateTime
+   * @return {Interval}
+   */
+  ;
+
+  _proto.set = function set(_temp) {
+    var _ref = _temp === void 0 ? {} : _temp,
+        start = _ref.start,
+        end = _ref.end;
+
+    if (!this.isValid) return this;
+    return Interval.fromDateTimes(start || this.s, end || this.e);
+  }
+  /**
+   * Split this Interval at each of the specified DateTimes
+   * @param {...[DateTime]} dateTimes - the unit of time to count.
+   * @return {[Interval]}
+   */
+  ;
+
+  _proto.splitAt = function splitAt() {
+    var _this = this;
+
+    if (!this.isValid) return [];
+
+    for (var _len = arguments.length, dateTimes = new Array(_len), _key = 0; _key < _len; _key++) {
+      dateTimes[_key] = arguments[_key];
+    }
+
+    var sorted = dateTimes.map(friendlyDateTime).filter(function (d) {
+      return _this.contains(d);
+    }).sort(),
+        results = [];
+    var s = this.s,
+        i = 0;
+
+    while (s < this.e) {
+      var added = sorted[i] || this.e,
+          next = +added > +this.e ? this.e : added;
+      results.push(Interval.fromDateTimes(s, next));
+      s = next;
+      i += 1;
+    }
+
+    return results;
+  }
+  /**
+   * Split this Interval into smaller Intervals, each of the specified length.
+   * Left over time is grouped into a smaller interval
+   * @param {Duration|Object|number} duration - The length of each resulting interval.
+   * @return {[Interval]}
+   */
+  ;
+
+  _proto.splitBy = function splitBy(duration) {
+    var dur = friendlyDuration(duration);
+
+    if (!this.isValid || !dur.isValid || dur.as("milliseconds") === 0) {
+      return [];
+    }
+
+    var s = this.s,
+        added,
+        next;
+    var results = [];
+
+    while (s < this.e) {
+      added = s.plus(dur);
+      next = +added > +this.e ? this.e : added;
+      results.push(Interval.fromDateTimes(s, next));
+      s = next;
+    }
+
+    return results;
+  }
+  /**
+   * Split this Interval into the specified number of smaller intervals.
+   * @param {number} numberOfParts - The number of Intervals to divide the Interval into.
+   * @return {[Interval]}
+   */
+  ;
+
+  _proto.divideEqually = function divideEqually(numberOfParts) {
+    if (!this.isValid) return [];
+    return this.splitBy(this.length() / numberOfParts).slice(0, numberOfParts);
+  }
+  /**
+   * Return whether this Interval overlaps with the specified Interval
+   * @param {Interval} other
+   * @return {boolean}
+   */
+  ;
+
+  _proto.overlaps = function overlaps(other) {
+    return this.e > other.s && this.s < other.e;
+  }
+  /**
+   * Return whether this Interval's end is adjacent to the specified Interval's start.
+   * @param {Interval} other
+   * @return {boolean}
+   */
+  ;
+
+  _proto.abutsStart = function abutsStart(other) {
+    if (!this.isValid) return false;
+    return +this.e === +other.s;
+  }
+  /**
+   * Return whether this Interval's start is adjacent to the specified Interval's end.
+   * @param {Interval} other
+   * @return {boolean}
+   */
+  ;
+
+  _proto.abutsEnd = function abutsEnd(other) {
+    if (!this.isValid) return false;
+    return +other.e === +this.s;
+  }
+  /**
+   * Return whether this Interval engulfs the start and end of the specified Interval.
+   * @param {Interval} other
+   * @return {boolean}
+   */
+  ;
+
+  _proto.engulfs = function engulfs(other) {
+    if (!this.isValid) return false;
+    return this.s <= other.s && this.e >= other.e;
+  }
+  /**
+   * Return whether this Interval has the same start and end as the specified Interval.
+   * @param {Interval} other
+   * @return {boolean}
+   */
+  ;
+
+  _proto.equals = function equals(other) {
+    if (!this.isValid || !other.isValid) {
+      return false;
+    }
+
+    return this.s.equals(other.s) && this.e.equals(other.e);
+  }
+  /**
+   * Return an Interval representing the intersection of this Interval and the specified Interval.
+   * Specifically, the resulting Interval has the maximum start time and the minimum end time of the two Intervals.
+   * Returns null if the intersection is empty, meaning, the intervals don't intersect.
+   * @param {Interval} other
+   * @return {Interval}
+   */
+  ;
+
+  _proto.intersection = function intersection(other) {
+    if (!this.isValid) return this;
+    var s = this.s > other.s ? this.s : other.s,
+        e = this.e < other.e ? this.e : other.e;
+
+    if (s > e) {
+      return null;
+    } else {
+      return Interval.fromDateTimes(s, e);
+    }
+  }
+  /**
+   * Return an Interval representing the union of this Interval and the specified Interval.
+   * Specifically, the resulting Interval has the minimum start time and the maximum end time of the two Intervals.
+   * @param {Interval} other
+   * @return {Interval}
+   */
+  ;
+
+  _proto.union = function union(other) {
+    if (!this.isValid) return this;
+    var s = this.s < other.s ? this.s : other.s,
+        e = this.e > other.e ? this.e : other.e;
+    return Interval.fromDateTimes(s, e);
+  }
+  /**
+   * Merge an array of Intervals into a equivalent minimal set of Intervals.
+   * Combines overlapping and adjacent Intervals.
+   * @param {[Interval]} intervals
+   * @return {[Interval]}
+   */
+  ;
+
+  Interval.merge = function merge(intervals) {
+    var _intervals$sort$reduc = intervals.sort(function (a, b) {
+      return a.s - b.s;
+    }).reduce(function (_ref2, item) {
+      var sofar = _ref2[0],
+          current = _ref2[1];
+
+      if (!current) {
+        return [sofar, item];
+      } else if (current.overlaps(item) || current.abutsStart(item)) {
+        return [sofar, current.union(item)];
+      } else {
+        return [sofar.concat([current]), item];
+      }
+    }, [[], null]),
+        found = _intervals$sort$reduc[0],
+        final = _intervals$sort$reduc[1];
+
+    if (final) {
+      found.push(final);
+    }
+
+    return found;
+  }
+  /**
+   * Return an array of Intervals representing the spans of time that only appear in one of the specified Intervals.
+   * @param {[Interval]} intervals
+   * @return {[Interval]}
+   */
+  ;
+
+  Interval.xor = function xor(intervals) {
+    var _Array$prototype;
+
+    var start = null,
+        currentCount = 0;
+
+    var results = [],
+        ends = intervals.map(function (i) {
+      return [{
+        time: i.s,
+        type: "s"
+      }, {
+        time: i.e,
+        type: "e"
+      }];
+    }),
+        flattened = (_Array$prototype = Array.prototype).concat.apply(_Array$prototype, ends),
+        arr = flattened.sort(function (a, b) {
+      return a.time - b.time;
+    });
+
+    for (var _iterator = _createForOfIteratorHelperLoose(arr), _step; !(_step = _iterator()).done;) {
+      var i = _step.value;
+      currentCount += i.type === "s" ? 1 : -1;
+
+      if (currentCount === 1) {
+        start = i.time;
+      } else {
+        if (start && +start !== +i.time) {
+          results.push(Interval.fromDateTimes(start, i.time));
+        }
+
+        start = null;
+      }
+    }
+
+    return Interval.merge(results);
+  }
+  /**
+   * Return an Interval representing the span of time in this Interval that doesn't overlap with any of the specified Intervals.
+   * @param {...Interval} intervals
+   * @return {[Interval]}
+   */
+  ;
+
+  _proto.difference = function difference() {
+    var _this2 = this;
+
+    for (var _len2 = arguments.length, intervals = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      intervals[_key2] = arguments[_key2];
+    }
+
+    return Interval.xor([this].concat(intervals)).map(function (i) {
+      return _this2.intersection(i);
+    }).filter(function (i) {
+      return i && !i.isEmpty();
+    });
+  }
+  /**
+   * Returns a string representation of this Interval appropriate for debugging.
+   * @return {string}
+   */
+  ;
+
+  _proto.toString = function toString() {
+    if (!this.isValid) return INVALID$1;
+    return "[" + this.s.toISO() + " \u2013 " + this.e.toISO() + ")";
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of this Interval.
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+   * @param {Object} opts - The same options as {@link DateTime.toISO}
+   * @return {string}
+   */
+  ;
+
+  _proto.toISO = function toISO(opts) {
+    if (!this.isValid) return INVALID$1;
+    return this.s.toISO(opts) + "/" + this.e.toISO(opts);
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of date of this Interval.
+   * The time components are ignored.
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+   * @return {string}
+   */
+  ;
+
+  _proto.toISODate = function toISODate() {
+    if (!this.isValid) return INVALID$1;
+    return this.s.toISODate() + "/" + this.e.toISODate();
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of time of this Interval.
+   * The date components are ignored.
+   * @see https://en.wikipedia.org/wiki/ISO_8601#Time_intervals
+   * @param {Object} opts - The same options as {@link DateTime.toISO}
+   * @return {string}
+   */
+  ;
+
+  _proto.toISOTime = function toISOTime(opts) {
+    if (!this.isValid) return INVALID$1;
+    return this.s.toISOTime(opts) + "/" + this.e.toISOTime(opts);
+  }
+  /**
+   * Returns a string representation of this Interval formatted according to the specified format string.
+   * @param {string} dateFormat - the format string. This string formats the start and end time. See {@link DateTime.toFormat} for details.
+   * @param {Object} opts - options
+   * @param {string} [opts.separator =  ' – '] - a separator to place between the start and end representations
+   * @return {string}
+   */
+  ;
+
+  _proto.toFormat = function toFormat(dateFormat, _temp2) {
+    var _ref3 = _temp2 === void 0 ? {} : _temp2,
+        _ref3$separator = _ref3.separator,
+        separator = _ref3$separator === void 0 ? " – " : _ref3$separator;
+
+    if (!this.isValid) return INVALID$1;
+    return "" + this.s.toFormat(dateFormat) + separator + this.e.toFormat(dateFormat);
+  }
+  /**
+   * Return a Duration representing the time spanned by this interval.
+   * @param {string|string[]} [unit=['milliseconds']] - the unit or units (such as 'hours' or 'days') to include in the duration.
+   * @param {Object} opts - options that affect the creation of the Duration
+   * @param {string} [opts.conversionAccuracy='casual'] - the conversion system to use
+   * @example Interval.fromDateTimes(dt1, dt2).toDuration().toObject() //=> { milliseconds: 88489257 }
+   * @example Interval.fromDateTimes(dt1, dt2).toDuration('days').toObject() //=> { days: 1.0241812152777778 }
+   * @example Interval.fromDateTimes(dt1, dt2).toDuration(['hours', 'minutes']).toObject() //=> { hours: 24, minutes: 34.82095 }
+   * @example Interval.fromDateTimes(dt1, dt2).toDuration(['hours', 'minutes', 'seconds']).toObject() //=> { hours: 24, minutes: 34, seconds: 49.257 }
+   * @example Interval.fromDateTimes(dt1, dt2).toDuration('seconds').toObject() //=> { seconds: 88489.257 }
+   * @return {Duration}
+   */
+  ;
+
+  _proto.toDuration = function toDuration(unit, opts) {
+    if (!this.isValid) {
+      return Duration.invalid(this.invalidReason);
+    }
+
+    return this.e.diff(this.s, unit, opts);
+  }
+  /**
+   * Run mapFn on the interval start and end, returning a new Interval from the resulting DateTimes
+   * @param {function} mapFn
+   * @return {Interval}
+   * @example Interval.fromDateTimes(dt1, dt2).mapEndpoints(endpoint => endpoint.toUTC())
+   * @example Interval.fromDateTimes(dt1, dt2).mapEndpoints(endpoint => endpoint.plus({ hours: 2 }))
+   */
+  ;
+
+  _proto.mapEndpoints = function mapEndpoints(mapFn) {
+    return Interval.fromDateTimes(mapFn(this.s), mapFn(this.e));
+  };
+
+  _createClass(Interval, [{
+    key: "start",
+    get: function get() {
+      return this.isValid ? this.s : null;
+    }
+    /**
+     * Returns the end of the Interval
+     * @type {DateTime}
+     */
+
+  }, {
+    key: "end",
+    get: function get() {
+      return this.isValid ? this.e : null;
+    }
+    /**
+     * Returns whether this Interval's end is at least its start, meaning that the Interval isn't 'backwards'.
+     * @type {boolean}
+     */
+
+  }, {
+    key: "isValid",
+    get: function get() {
+      return this.invalidReason === null;
+    }
+    /**
+     * Returns an error code if this Interval is invalid, or null if the Interval is valid
+     * @type {string}
+     */
+
+  }, {
+    key: "invalidReason",
+    get: function get() {
+      return this.invalid ? this.invalid.reason : null;
+    }
+    /**
+     * Returns an explanation of why this Interval became invalid, or null if the Interval is valid
+     * @type {string}
+     */
+
+  }, {
+    key: "invalidExplanation",
+    get: function get() {
+      return this.invalid ? this.invalid.explanation : null;
+    }
+  }]);
+
+  return Interval;
+}();
+
+/**
+ * The Info class contains static methods for retrieving general time and date related data. For example, it has methods for finding out if a time zone has a DST, for listing the months in any supported locale, and for discovering which of Luxon features are available in the current environment.
+ */
+
+var Info = /*#__PURE__*/function () {
+  function Info() {}
+
+  /**
+   * Return whether the specified zone contains a DST.
+   * @param {string|Zone} [zone='local'] - Zone to check. Defaults to the environment's local zone.
+   * @return {boolean}
+   */
+  Info.hasDST = function hasDST(zone) {
+    if (zone === void 0) {
+      zone = Settings.defaultZone;
+    }
+
+    var proto = DateTime.now().setZone(zone).set({
+      month: 12
+    });
+    return !zone.universal && proto.offset !== proto.set({
+      month: 6
+    }).offset;
+  }
+  /**
+   * Return whether the specified zone is a valid IANA specifier.
+   * @param {string} zone - Zone to check
+   * @return {boolean}
+   */
+  ;
+
+  Info.isValidIANAZone = function isValidIANAZone(zone) {
+    return IANAZone.isValidSpecifier(zone) && IANAZone.isValidZone(zone);
+  }
+  /**
+   * Converts the input into a {@link Zone} instance.
+   *
+   * * If `input` is already a Zone instance, it is returned unchanged.
+   * * If `input` is a string containing a valid time zone name, a Zone instance
+   *   with that name is returned.
+   * * If `input` is a string that doesn't refer to a known time zone, a Zone
+   *   instance with {@link Zone.isValid} == false is returned.
+   * * If `input is a number, a Zone instance with the specified fixed offset
+   *   in minutes is returned.
+   * * If `input` is `null` or `undefined`, the default zone is returned.
+   * @param {string|Zone|number} [input] - the value to be converted
+   * @return {Zone}
+   */
+  ;
+
+  Info.normalizeZone = function normalizeZone$1(input) {
+    return normalizeZone(input, Settings.defaultZone);
+  }
+  /**
+   * Return an array of standalone month names.
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
+   * @param {string} [length='long'] - the length of the month representation, such as "numeric", "2-digit", "narrow", "short", "long"
+   * @param {Object} opts - options
+   * @param {string} [opts.locale] - the locale code
+   * @param {string} [opts.numberingSystem=null] - the numbering system
+   * @param {string} [opts.outputCalendar='gregory'] - the calendar
+   * @example Info.months()[0] //=> 'January'
+   * @example Info.months('short')[0] //=> 'Jan'
+   * @example Info.months('numeric')[0] //=> '1'
+   * @example Info.months('short', { locale: 'fr-CA' } )[0] //=> 'janv.'
+   * @example Info.months('numeric', { locale: 'ar' })[0] //=> '١'
+   * @example Info.months('long', { outputCalendar: 'islamic' })[0] //=> 'Rabiʻ I'
+   * @return {[string]}
+   */
+  ;
+
+  Info.months = function months(length, _temp) {
+    if (length === void 0) {
+      length = "long";
+    }
+
+    var _ref = _temp === void 0 ? {} : _temp,
+        _ref$locale = _ref.locale,
+        locale = _ref$locale === void 0 ? null : _ref$locale,
+        _ref$numberingSystem = _ref.numberingSystem,
+        numberingSystem = _ref$numberingSystem === void 0 ? null : _ref$numberingSystem,
+        _ref$outputCalendar = _ref.outputCalendar,
+        outputCalendar = _ref$outputCalendar === void 0 ? "gregory" : _ref$outputCalendar;
+
+    return Locale.create(locale, numberingSystem, outputCalendar).months(length);
+  }
+  /**
+   * Return an array of format month names.
+   * Format months differ from standalone months in that they're meant to appear next to the day of the month. In some languages, that
+   * changes the string.
+   * See {@link months}
+   * @param {string} [length='long'] - the length of the month representation, such as "numeric", "2-digit", "narrow", "short", "long"
+   * @param {Object} opts - options
+   * @param {string} [opts.locale] - the locale code
+   * @param {string} [opts.numberingSystem=null] - the numbering system
+   * @param {string} [opts.outputCalendar='gregory'] - the calendar
+   * @return {[string]}
+   */
+  ;
+
+  Info.monthsFormat = function monthsFormat(length, _temp2) {
+    if (length === void 0) {
+      length = "long";
+    }
+
+    var _ref2 = _temp2 === void 0 ? {} : _temp2,
+        _ref2$locale = _ref2.locale,
+        locale = _ref2$locale === void 0 ? null : _ref2$locale,
+        _ref2$numberingSystem = _ref2.numberingSystem,
+        numberingSystem = _ref2$numberingSystem === void 0 ? null : _ref2$numberingSystem,
+        _ref2$outputCalendar = _ref2.outputCalendar,
+        outputCalendar = _ref2$outputCalendar === void 0 ? "gregory" : _ref2$outputCalendar;
+
+    return Locale.create(locale, numberingSystem, outputCalendar).months(length, true);
+  }
+  /**
+   * Return an array of standalone week names.
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
+   * @param {string} [length='long'] - the length of the weekday representation, such as "narrow", "short", "long".
+   * @param {Object} opts - options
+   * @param {string} [opts.locale] - the locale code
+   * @param {string} [opts.numberingSystem=null] - the numbering system
+   * @example Info.weekdays()[0] //=> 'Monday'
+   * @example Info.weekdays('short')[0] //=> 'Mon'
+   * @example Info.weekdays('short', { locale: 'fr-CA' })[0] //=> 'lun.'
+   * @example Info.weekdays('short', { locale: 'ar' })[0] //=> 'الاثنين'
+   * @return {[string]}
+   */
+  ;
+
+  Info.weekdays = function weekdays(length, _temp3) {
+    if (length === void 0) {
+      length = "long";
+    }
+
+    var _ref3 = _temp3 === void 0 ? {} : _temp3,
+        _ref3$locale = _ref3.locale,
+        locale = _ref3$locale === void 0 ? null : _ref3$locale,
+        _ref3$numberingSystem = _ref3.numberingSystem,
+        numberingSystem = _ref3$numberingSystem === void 0 ? null : _ref3$numberingSystem;
+
+    return Locale.create(locale, numberingSystem, null).weekdays(length);
+  }
+  /**
+   * Return an array of format week names.
+   * Format weekdays differ from standalone weekdays in that they're meant to appear next to more date information. In some languages, that
+   * changes the string.
+   * See {@link weekdays}
+   * @param {string} [length='long'] - the length of the weekday representation, such as "narrow", "short", "long".
+   * @param {Object} opts - options
+   * @param {string} [opts.locale=null] - the locale code
+   * @param {string} [opts.numberingSystem=null] - the numbering system
+   * @return {[string]}
+   */
+  ;
+
+  Info.weekdaysFormat = function weekdaysFormat(length, _temp4) {
+    if (length === void 0) {
+      length = "long";
+    }
+
+    var _ref4 = _temp4 === void 0 ? {} : _temp4,
+        _ref4$locale = _ref4.locale,
+        locale = _ref4$locale === void 0 ? null : _ref4$locale,
+        _ref4$numberingSystem = _ref4.numberingSystem,
+        numberingSystem = _ref4$numberingSystem === void 0 ? null : _ref4$numberingSystem;
+
+    return Locale.create(locale, numberingSystem, null).weekdays(length, true);
+  }
+  /**
+   * Return an array of meridiems.
+   * @param {Object} opts - options
+   * @param {string} [opts.locale] - the locale code
+   * @example Info.meridiems() //=> [ 'AM', 'PM' ]
+   * @example Info.meridiems({ locale: 'my' }) //=> [ 'နံနက်', 'ညနေ' ]
+   * @return {[string]}
+   */
+  ;
+
+  Info.meridiems = function meridiems(_temp5) {
+    var _ref5 = _temp5 === void 0 ? {} : _temp5,
+        _ref5$locale = _ref5.locale,
+        locale = _ref5$locale === void 0 ? null : _ref5$locale;
+
+    return Locale.create(locale).meridiems();
+  }
+  /**
+   * Return an array of eras, such as ['BC', 'AD']. The locale can be specified, but the calendar system is always Gregorian.
+   * @param {string} [length='short'] - the length of the era representation, such as "short" or "long".
+   * @param {Object} opts - options
+   * @param {string} [opts.locale] - the locale code
+   * @example Info.eras() //=> [ 'BC', 'AD' ]
+   * @example Info.eras('long') //=> [ 'Before Christ', 'Anno Domini' ]
+   * @example Info.eras('long', { locale: 'fr' }) //=> [ 'avant Jésus-Christ', 'après Jésus-Christ' ]
+   * @return {[string]}
+   */
+  ;
+
+  Info.eras = function eras(length, _temp6) {
+    if (length === void 0) {
+      length = "short";
+    }
+
+    var _ref6 = _temp6 === void 0 ? {} : _temp6,
+        _ref6$locale = _ref6.locale,
+        locale = _ref6$locale === void 0 ? null : _ref6$locale;
+
+    return Locale.create(locale, null, "gregory").eras(length);
+  }
+  /**
+   * Return the set of available features in this environment.
+   * Some features of Luxon are not available in all environments. For example, on older browsers, timezone support is not available. Use this function to figure out if that's the case.
+   * Keys:
+   * * `zones`: whether this environment supports IANA timezones
+   * * `intlTokens`: whether this environment supports internationalized token-based formatting/parsing
+   * * `intl`: whether this environment supports general internationalization
+   * * `relative`: whether this environment supports relative time formatting
+   * @example Info.features() //=> { intl: true, intlTokens: false, zones: true, relative: false }
+   * @return {Object}
+   */
+  ;
+
+  Info.features = function features() {
+    var intl = false,
+        intlTokens = false,
+        zones = false,
+        relative = false;
+
+    if (hasIntl()) {
+      intl = true;
+      intlTokens = hasFormatToParts();
+      relative = hasRelative();
+
+      try {
+        zones = new Intl.DateTimeFormat("en", {
+          timeZone: "America/New_York"
+        }).resolvedOptions().timeZone === "America/New_York";
+      } catch (e) {
+        zones = false;
+      }
+    }
+
+    return {
+      intl: intl,
+      intlTokens: intlTokens,
+      zones: zones,
+      relative: relative
+    };
+  };
+
+  return Info;
+}();
+
+function dayDiff(earlier, later) {
+  var utcDayStart = function utcDayStart(dt) {
+    return dt.toUTC(0, {
+      keepLocalTime: true
+    }).startOf("day").valueOf();
+  },
+      ms = utcDayStart(later) - utcDayStart(earlier);
+
+  return Math.floor(Duration.fromMillis(ms).as("days"));
+}
+
+function highOrderDiffs(cursor, later, units) {
+  var differs = [["years", function (a, b) {
+    return b.year - a.year;
+  }], ["quarters", function (a, b) {
+    return b.quarter - a.quarter;
+  }], ["months", function (a, b) {
+    return b.month - a.month + (b.year - a.year) * 12;
+  }], ["weeks", function (a, b) {
+    var days = dayDiff(a, b);
+    return (days - days % 7) / 7;
+  }], ["days", dayDiff]];
+  var results = {};
+  var lowestOrder, highWater;
+
+  for (var _i = 0, _differs = differs; _i < _differs.length; _i++) {
+    var _differs$_i = _differs[_i],
+        unit = _differs$_i[0],
+        differ = _differs$_i[1];
+
+    if (units.indexOf(unit) >= 0) {
+      var _cursor$plus;
+
+      lowestOrder = unit;
+      var delta = differ(cursor, later);
+      highWater = cursor.plus((_cursor$plus = {}, _cursor$plus[unit] = delta, _cursor$plus));
+
+      if (highWater > later) {
+        var _cursor$plus2;
+
+        cursor = cursor.plus((_cursor$plus2 = {}, _cursor$plus2[unit] = delta - 1, _cursor$plus2));
+        delta -= 1;
+      } else {
+        cursor = highWater;
+      }
+
+      results[unit] = delta;
+    }
+  }
+
+  return [cursor, results, highWater, lowestOrder];
+}
+
+function _diff (earlier, later, units, opts) {
+  var _highOrderDiffs = highOrderDiffs(earlier, later, units),
+      cursor = _highOrderDiffs[0],
+      results = _highOrderDiffs[1],
+      highWater = _highOrderDiffs[2],
+      lowestOrder = _highOrderDiffs[3];
+
+  var remainingMillis = later - cursor;
+  var lowerOrderUnits = units.filter(function (u) {
+    return ["hours", "minutes", "seconds", "milliseconds"].indexOf(u) >= 0;
+  });
+
+  if (lowerOrderUnits.length === 0) {
+    if (highWater < later) {
+      var _cursor$plus3;
+
+      highWater = cursor.plus((_cursor$plus3 = {}, _cursor$plus3[lowestOrder] = 1, _cursor$plus3));
+    }
+
+    if (highWater !== cursor) {
+      results[lowestOrder] = (results[lowestOrder] || 0) + remainingMillis / (highWater - cursor);
+    }
+  }
+
+  var duration = Duration.fromObject(Object.assign(results, opts));
+
+  if (lowerOrderUnits.length > 0) {
+    var _Duration$fromMillis;
+
+    return (_Duration$fromMillis = Duration.fromMillis(remainingMillis, opts)).shiftTo.apply(_Duration$fromMillis, lowerOrderUnits).plus(duration);
+  } else {
+    return duration;
+  }
+}
+
+var numberingSystems = {
+  arab: "[\u0660-\u0669]",
+  arabext: "[\u06F0-\u06F9]",
+  bali: "[\u1B50-\u1B59]",
+  beng: "[\u09E6-\u09EF]",
+  deva: "[\u0966-\u096F]",
+  fullwide: "[\uFF10-\uFF19]",
+  gujr: "[\u0AE6-\u0AEF]",
+  hanidec: "[〇|一|二|三|四|五|六|七|八|九]",
+  khmr: "[\u17E0-\u17E9]",
+  knda: "[\u0CE6-\u0CEF]",
+  laoo: "[\u0ED0-\u0ED9]",
+  limb: "[\u1946-\u194F]",
+  mlym: "[\u0D66-\u0D6F]",
+  mong: "[\u1810-\u1819]",
+  mymr: "[\u1040-\u1049]",
+  orya: "[\u0B66-\u0B6F]",
+  tamldec: "[\u0BE6-\u0BEF]",
+  telu: "[\u0C66-\u0C6F]",
+  thai: "[\u0E50-\u0E59]",
+  tibt: "[\u0F20-\u0F29]",
+  latn: "\\d"
+};
+var numberingSystemsUTF16 = {
+  arab: [1632, 1641],
+  arabext: [1776, 1785],
+  bali: [6992, 7001],
+  beng: [2534, 2543],
+  deva: [2406, 2415],
+  fullwide: [65296, 65303],
+  gujr: [2790, 2799],
+  khmr: [6112, 6121],
+  knda: [3302, 3311],
+  laoo: [3792, 3801],
+  limb: [6470, 6479],
+  mlym: [3430, 3439],
+  mong: [6160, 6169],
+  mymr: [4160, 4169],
+  orya: [2918, 2927],
+  tamldec: [3046, 3055],
+  telu: [3174, 3183],
+  thai: [3664, 3673],
+  tibt: [3872, 3881]
+}; // eslint-disable-next-line
+
+var hanidecChars = numberingSystems.hanidec.replace(/[\[|\]]/g, "").split("");
+function parseDigits(str) {
+  var value = parseInt(str, 10);
+
+  if (isNaN(value)) {
+    value = "";
+
+    for (var i = 0; i < str.length; i++) {
+      var code = str.charCodeAt(i);
+
+      if (str[i].search(numberingSystems.hanidec) !== -1) {
+        value += hanidecChars.indexOf(str[i]);
+      } else {
+        for (var key in numberingSystemsUTF16) {
+          var _numberingSystemsUTF = numberingSystemsUTF16[key],
+              min = _numberingSystemsUTF[0],
+              max = _numberingSystemsUTF[1];
+
+          if (code >= min && code <= max) {
+            value += code - min;
+          }
+        }
+      }
+    }
+
+    return parseInt(value, 10);
+  } else {
+    return value;
+  }
+}
+function digitRegex(_ref, append) {
+  var numberingSystem = _ref.numberingSystem;
+
+  if (append === void 0) {
+    append = "";
+  }
+
+  return new RegExp("" + numberingSystems[numberingSystem || "latn"] + append);
+}
+
+var MISSING_FTP = "missing Intl.DateTimeFormat.formatToParts support";
+
+function intUnit(regex, post) {
+  if (post === void 0) {
+    post = function post(i) {
+      return i;
+    };
+  }
+
+  return {
+    regex: regex,
+    deser: function deser(_ref) {
+      var s = _ref[0];
+      return post(parseDigits(s));
+    }
+  };
+}
+
+var NBSP = String.fromCharCode(160);
+var spaceOrNBSP = "( |" + NBSP + ")";
+var spaceOrNBSPRegExp = new RegExp(spaceOrNBSP, "g");
+
+function fixListRegex(s) {
+  // make dots optional and also make them literal
+  // make space and non breakable space characters interchangeable
+  return s.replace(/\./g, "\\.?").replace(spaceOrNBSPRegExp, spaceOrNBSP);
+}
+
+function stripInsensitivities(s) {
+  return s.replace(/\./g, "") // ignore dots that were made optional
+  .replace(spaceOrNBSPRegExp, " ") // interchange space and nbsp
+  .toLowerCase();
+}
+
+function oneOf(strings, startIndex) {
+  if (strings === null) {
+    return null;
+  } else {
+    return {
+      regex: RegExp(strings.map(fixListRegex).join("|")),
+      deser: function deser(_ref2) {
+        var s = _ref2[0];
+        return strings.findIndex(function (i) {
+          return stripInsensitivities(s) === stripInsensitivities(i);
+        }) + startIndex;
+      }
+    };
+  }
+}
+
+function offset(regex, groups) {
+  return {
+    regex: regex,
+    deser: function deser(_ref3) {
+      var h = _ref3[1],
+          m = _ref3[2];
+      return signedOffset(h, m);
+    },
+    groups: groups
+  };
+}
+
+function simple(regex) {
+  return {
+    regex: regex,
+    deser: function deser(_ref4) {
+      var s = _ref4[0];
+      return s;
+    }
+  };
+}
+
+function escapeToken(value) {
+  // eslint-disable-next-line no-useless-escape
+  return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&");
+}
+
+function unitForToken(token, loc) {
+  var one = digitRegex(loc),
+      two = digitRegex(loc, "{2}"),
+      three = digitRegex(loc, "{3}"),
+      four = digitRegex(loc, "{4}"),
+      six = digitRegex(loc, "{6}"),
+      oneOrTwo = digitRegex(loc, "{1,2}"),
+      oneToThree = digitRegex(loc, "{1,3}"),
+      oneToSix = digitRegex(loc, "{1,6}"),
+      oneToNine = digitRegex(loc, "{1,9}"),
+      twoToFour = digitRegex(loc, "{2,4}"),
+      fourToSix = digitRegex(loc, "{4,6}"),
+      literal = function literal(t) {
+    return {
+      regex: RegExp(escapeToken(t.val)),
+      deser: function deser(_ref5) {
+        var s = _ref5[0];
+        return s;
+      },
+      literal: true
+    };
+  },
+      unitate = function unitate(t) {
+    if (token.literal) {
+      return literal(t);
+    }
+
+    switch (t.val) {
+      // era
+      case "G":
+        return oneOf(loc.eras("short", false), 0);
+
+      case "GG":
+        return oneOf(loc.eras("long", false), 0);
+      // years
+
+      case "y":
+        return intUnit(oneToSix);
+
+      case "yy":
+        return intUnit(twoToFour, untruncateYear);
+
+      case "yyyy":
+        return intUnit(four);
+
+      case "yyyyy":
+        return intUnit(fourToSix);
+
+      case "yyyyyy":
+        return intUnit(six);
+      // months
+
+      case "M":
+        return intUnit(oneOrTwo);
+
+      case "MM":
+        return intUnit(two);
+
+      case "MMM":
+        return oneOf(loc.months("short", true, false), 1);
+
+      case "MMMM":
+        return oneOf(loc.months("long", true, false), 1);
+
+      case "L":
+        return intUnit(oneOrTwo);
+
+      case "LL":
+        return intUnit(two);
+
+      case "LLL":
+        return oneOf(loc.months("short", false, false), 1);
+
+      case "LLLL":
+        return oneOf(loc.months("long", false, false), 1);
+      // dates
+
+      case "d":
+        return intUnit(oneOrTwo);
+
+      case "dd":
+        return intUnit(two);
+      // ordinals
+
+      case "o":
+        return intUnit(oneToThree);
+
+      case "ooo":
+        return intUnit(three);
+      // time
+
+      case "HH":
+        return intUnit(two);
+
+      case "H":
+        return intUnit(oneOrTwo);
+
+      case "hh":
+        return intUnit(two);
+
+      case "h":
+        return intUnit(oneOrTwo);
+
+      case "mm":
+        return intUnit(two);
+
+      case "m":
+        return intUnit(oneOrTwo);
+
+      case "q":
+        return intUnit(oneOrTwo);
+
+      case "qq":
+        return intUnit(two);
+
+      case "s":
+        return intUnit(oneOrTwo);
+
+      case "ss":
+        return intUnit(two);
+
+      case "S":
+        return intUnit(oneToThree);
+
+      case "SSS":
+        return intUnit(three);
+
+      case "u":
+        return simple(oneToNine);
+      // meridiem
+
+      case "a":
+        return oneOf(loc.meridiems(), 0);
+      // weekYear (k)
+
+      case "kkkk":
+        return intUnit(four);
+
+      case "kk":
+        return intUnit(twoToFour, untruncateYear);
+      // weekNumber (W)
+
+      case "W":
+        return intUnit(oneOrTwo);
+
+      case "WW":
+        return intUnit(two);
+      // weekdays
+
+      case "E":
+      case "c":
+        return intUnit(one);
+
+      case "EEE":
+        return oneOf(loc.weekdays("short", false, false), 1);
+
+      case "EEEE":
+        return oneOf(loc.weekdays("long", false, false), 1);
+
+      case "ccc":
+        return oneOf(loc.weekdays("short", true, false), 1);
+
+      case "cccc":
+        return oneOf(loc.weekdays("long", true, false), 1);
+      // offset/zone
+
+      case "Z":
+      case "ZZ":
+        return offset(new RegExp("([+-]" + oneOrTwo.source + ")(?::(" + two.source + "))?"), 2);
+
+      case "ZZZ":
+        return offset(new RegExp("([+-]" + oneOrTwo.source + ")(" + two.source + ")?"), 2);
+      // we don't support ZZZZ (PST) or ZZZZZ (Pacific Standard Time) in parsing
+      // because we don't have any way to figure out what they are
+
+      case "z":
+        return simple(/[a-z_+-/]{1,256}?/i);
+
+      default:
+        return literal(t);
+    }
+  };
+
+  var unit = unitate(token) || {
+    invalidReason: MISSING_FTP
+  };
+  unit.token = token;
+  return unit;
+}
+
+var partTypeStyleToTokenVal = {
+  year: {
+    "2-digit": "yy",
+    numeric: "yyyyy"
+  },
+  month: {
+    numeric: "M",
+    "2-digit": "MM",
+    short: "MMM",
+    long: "MMMM"
+  },
+  day: {
+    numeric: "d",
+    "2-digit": "dd"
+  },
+  weekday: {
+    short: "EEE",
+    long: "EEEE"
+  },
+  dayperiod: "a",
+  dayPeriod: "a",
+  hour: {
+    numeric: "h",
+    "2-digit": "hh"
+  },
+  minute: {
+    numeric: "m",
+    "2-digit": "mm"
+  },
+  second: {
+    numeric: "s",
+    "2-digit": "ss"
+  }
+};
+
+function tokenForPart(part, locale, formatOpts) {
+  var type = part.type,
+      value = part.value;
+
+  if (type === "literal") {
+    return {
+      literal: true,
+      val: value
+    };
+  }
+
+  var style = formatOpts[type];
+  var val = partTypeStyleToTokenVal[type];
+
+  if (typeof val === "object") {
+    val = val[style];
+  }
+
+  if (val) {
+    return {
+      literal: false,
+      val: val
+    };
+  }
+
+  return undefined;
+}
+
+function buildRegex(units) {
+  var re = units.map(function (u) {
+    return u.regex;
+  }).reduce(function (f, r) {
+    return f + "(" + r.source + ")";
+  }, "");
+  return ["^" + re + "$", units];
+}
+
+function match(input, regex, handlers) {
+  var matches = input.match(regex);
+
+  if (matches) {
+    var all = {};
+    var matchIndex = 1;
+
+    for (var i in handlers) {
+      if (hasOwnProperty(handlers, i)) {
+        var h = handlers[i],
+            groups = h.groups ? h.groups + 1 : 1;
+
+        if (!h.literal && h.token) {
+          all[h.token.val[0]] = h.deser(matches.slice(matchIndex, matchIndex + groups));
+        }
+
+        matchIndex += groups;
+      }
+    }
+
+    return [matches, all];
+  } else {
+    return [matches, {}];
+  }
+}
+
+function dateTimeFromMatches(matches) {
+  var toField = function toField(token) {
+    switch (token) {
+      case "S":
+        return "millisecond";
+
+      case "s":
+        return "second";
+
+      case "m":
+        return "minute";
+
+      case "h":
+      case "H":
+        return "hour";
+
+      case "d":
+        return "day";
+
+      case "o":
+        return "ordinal";
+
+      case "L":
+      case "M":
+        return "month";
+
+      case "y":
+        return "year";
+
+      case "E":
+      case "c":
+        return "weekday";
+
+      case "W":
+        return "weekNumber";
+
+      case "k":
+        return "weekYear";
+
+      case "q":
+        return "quarter";
+
+      default:
+        return null;
+    }
+  };
+
+  var zone;
+
+  if (!isUndefined(matches.Z)) {
+    zone = new FixedOffsetZone(matches.Z);
+  } else if (!isUndefined(matches.z)) {
+    zone = IANAZone.create(matches.z);
+  } else {
+    zone = null;
+  }
+
+  if (!isUndefined(matches.q)) {
+    matches.M = (matches.q - 1) * 3 + 1;
+  }
+
+  if (!isUndefined(matches.h)) {
+    if (matches.h < 12 && matches.a === 1) {
+      matches.h += 12;
+    } else if (matches.h === 12 && matches.a === 0) {
+      matches.h = 0;
+    }
+  }
+
+  if (matches.G === 0 && matches.y) {
+    matches.y = -matches.y;
+  }
+
+  if (!isUndefined(matches.u)) {
+    matches.S = parseMillis(matches.u);
+  }
+
+  var vals = Object.keys(matches).reduce(function (r, k) {
+    var f = toField(k);
+
+    if (f) {
+      r[f] = matches[k];
+    }
+
+    return r;
+  }, {});
+  return [vals, zone];
+}
+
+var dummyDateTimeCache = null;
+
+function getDummyDateTime() {
+  if (!dummyDateTimeCache) {
+    dummyDateTimeCache = DateTime.fromMillis(1555555555555);
+  }
+
+  return dummyDateTimeCache;
+}
+
+function maybeExpandMacroToken(token, locale) {
+  if (token.literal) {
+    return token;
+  }
+
+  var formatOpts = Formatter.macroTokenToFormatOpts(token.val);
+
+  if (!formatOpts) {
+    return token;
+  }
+
+  var formatter = Formatter.create(locale, formatOpts);
+  var parts = formatter.formatDateTimeParts(getDummyDateTime());
+  var tokens = parts.map(function (p) {
+    return tokenForPart(p, locale, formatOpts);
+  });
+
+  if (tokens.includes(undefined)) {
+    return token;
+  }
+
+  return tokens;
+}
+
+function expandMacroTokens(tokens, locale) {
+  var _Array$prototype;
+
+  return (_Array$prototype = Array.prototype).concat.apply(_Array$prototype, tokens.map(function (t) {
+    return maybeExpandMacroToken(t, locale);
+  }));
+}
+/**
+ * @private
+ */
+
+
+function explainFromTokens(locale, input, format) {
+  var tokens = expandMacroTokens(Formatter.parseFormat(format), locale),
+      units = tokens.map(function (t) {
+    return unitForToken(t, locale);
+  }),
+      disqualifyingUnit = units.find(function (t) {
+    return t.invalidReason;
+  });
+
+  if (disqualifyingUnit) {
+    return {
+      input: input,
+      tokens: tokens,
+      invalidReason: disqualifyingUnit.invalidReason
+    };
+  } else {
+    var _buildRegex = buildRegex(units),
+        regexString = _buildRegex[0],
+        handlers = _buildRegex[1],
+        regex = RegExp(regexString, "i"),
+        _match = match(input, regex, handlers),
+        rawMatches = _match[0],
+        matches = _match[1],
+        _ref6 = matches ? dateTimeFromMatches(matches) : [null, null],
+        result = _ref6[0],
+        zone = _ref6[1];
+
+    if (hasOwnProperty(matches, "a") && hasOwnProperty(matches, "H")) {
+      throw new ConflictingSpecificationError("Can't include meridiem when specifying 24-hour format");
+    }
+
+    return {
+      input: input,
+      tokens: tokens,
+      regex: regex,
+      rawMatches: rawMatches,
+      matches: matches,
+      result: result,
+      zone: zone
+    };
+  }
+}
+function parseFromTokens(locale, input, format) {
+  var _explainFromTokens = explainFromTokens(locale, input, format),
+      result = _explainFromTokens.result,
+      zone = _explainFromTokens.zone,
+      invalidReason = _explainFromTokens.invalidReason;
+
+  return [result, zone, invalidReason];
+}
+
+var nonLeapLadder = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
+    leapLadder = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
+
+function unitOutOfRange(unit, value) {
+  return new Invalid("unit out of range", "you specified " + value + " (of type " + typeof value + ") as a " + unit + ", which is invalid");
+}
+
+function dayOfWeek(year, month, day) {
+  var js = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
+  return js === 0 ? 7 : js;
+}
+
+function computeOrdinal(year, month, day) {
+  return day + (isLeapYear(year) ? leapLadder : nonLeapLadder)[month - 1];
+}
+
+function uncomputeOrdinal(year, ordinal) {
+  var table = isLeapYear(year) ? leapLadder : nonLeapLadder,
+      month0 = table.findIndex(function (i) {
+    return i < ordinal;
+  }),
+      day = ordinal - table[month0];
+  return {
+    month: month0 + 1,
+    day: day
+  };
+}
+/**
+ * @private
+ */
+
+
+function gregorianToWeek(gregObj) {
+  var year = gregObj.year,
+      month = gregObj.month,
+      day = gregObj.day,
+      ordinal = computeOrdinal(year, month, day),
+      weekday = dayOfWeek(year, month, day);
+  var weekNumber = Math.floor((ordinal - weekday + 10) / 7),
+      weekYear;
+
+  if (weekNumber < 1) {
+    weekYear = year - 1;
+    weekNumber = weeksInWeekYear(weekYear);
+  } else if (weekNumber > weeksInWeekYear(year)) {
+    weekYear = year + 1;
+    weekNumber = 1;
+  } else {
+    weekYear = year;
+  }
+
+  return Object.assign({
+    weekYear: weekYear,
+    weekNumber: weekNumber,
+    weekday: weekday
+  }, timeObject(gregObj));
+}
+function weekToGregorian(weekData) {
+  var weekYear = weekData.weekYear,
+      weekNumber = weekData.weekNumber,
+      weekday = weekData.weekday,
+      weekdayOfJan4 = dayOfWeek(weekYear, 1, 4),
+      yearInDays = daysInYear(weekYear);
+  var ordinal = weekNumber * 7 + weekday - weekdayOfJan4 - 3,
+      year;
+
+  if (ordinal < 1) {
+    year = weekYear - 1;
+    ordinal += daysInYear(year);
+  } else if (ordinal > yearInDays) {
+    year = weekYear + 1;
+    ordinal -= daysInYear(weekYear);
+  } else {
+    year = weekYear;
+  }
+
+  var _uncomputeOrdinal = uncomputeOrdinal(year, ordinal),
+      month = _uncomputeOrdinal.month,
+      day = _uncomputeOrdinal.day;
+
+  return Object.assign({
+    year: year,
+    month: month,
+    day: day
+  }, timeObject(weekData));
+}
+function gregorianToOrdinal(gregData) {
+  var year = gregData.year,
+      month = gregData.month,
+      day = gregData.day,
+      ordinal = computeOrdinal(year, month, day);
+  return Object.assign({
+    year: year,
+    ordinal: ordinal
+  }, timeObject(gregData));
+}
+function ordinalToGregorian(ordinalData) {
+  var year = ordinalData.year,
+      ordinal = ordinalData.ordinal,
+      _uncomputeOrdinal2 = uncomputeOrdinal(year, ordinal),
+      month = _uncomputeOrdinal2.month,
+      day = _uncomputeOrdinal2.day;
+
+  return Object.assign({
+    year: year,
+    month: month,
+    day: day
+  }, timeObject(ordinalData));
+}
+function hasInvalidWeekData(obj) {
+  var validYear = isInteger(obj.weekYear),
+      validWeek = integerBetween(obj.weekNumber, 1, weeksInWeekYear(obj.weekYear)),
+      validWeekday = integerBetween(obj.weekday, 1, 7);
+
+  if (!validYear) {
+    return unitOutOfRange("weekYear", obj.weekYear);
+  } else if (!validWeek) {
+    return unitOutOfRange("week", obj.week);
+  } else if (!validWeekday) {
+    return unitOutOfRange("weekday", obj.weekday);
+  } else return false;
+}
+function hasInvalidOrdinalData(obj) {
+  var validYear = isInteger(obj.year),
+      validOrdinal = integerBetween(obj.ordinal, 1, daysInYear(obj.year));
+
+  if (!validYear) {
+    return unitOutOfRange("year", obj.year);
+  } else if (!validOrdinal) {
+    return unitOutOfRange("ordinal", obj.ordinal);
+  } else return false;
+}
+function hasInvalidGregorianData(obj) {
+  var validYear = isInteger(obj.year),
+      validMonth = integerBetween(obj.month, 1, 12),
+      validDay = integerBetween(obj.day, 1, daysInMonth(obj.year, obj.month));
+
+  if (!validYear) {
+    return unitOutOfRange("year", obj.year);
+  } else if (!validMonth) {
+    return unitOutOfRange("month", obj.month);
+  } else if (!validDay) {
+    return unitOutOfRange("day", obj.day);
+  } else return false;
+}
+function hasInvalidTimeData(obj) {
+  var hour = obj.hour,
+      minute = obj.minute,
+      second = obj.second,
+      millisecond = obj.millisecond;
+  var validHour = integerBetween(hour, 0, 23) || hour === 24 && minute === 0 && second === 0 && millisecond === 0,
+      validMinute = integerBetween(minute, 0, 59),
+      validSecond = integerBetween(second, 0, 59),
+      validMillisecond = integerBetween(millisecond, 0, 999);
+
+  if (!validHour) {
+    return unitOutOfRange("hour", hour);
+  } else if (!validMinute) {
+    return unitOutOfRange("minute", minute);
+  } else if (!validSecond) {
+    return unitOutOfRange("second", second);
+  } else if (!validMillisecond) {
+    return unitOutOfRange("millisecond", millisecond);
+  } else return false;
+}
+
+var INVALID$2 = "Invalid DateTime";
+var MAX_DATE = 8.64e15;
+
+function unsupportedZone(zone) {
+  return new Invalid("unsupported zone", "the zone \"" + zone.name + "\" is not supported");
+} // we cache week data on the DT object and this intermediates the cache
+
+
+function possiblyCachedWeekData(dt) {
+  if (dt.weekData === null) {
+    dt.weekData = gregorianToWeek(dt.c);
+  }
+
+  return dt.weekData;
+} // clone really means, "make a new object with these modifications". all "setters" really use this
+// to create a new object while only changing some of the properties
+
+
+function clone$1(inst, alts) {
+  var current = {
+    ts: inst.ts,
+    zone: inst.zone,
+    c: inst.c,
+    o: inst.o,
+    loc: inst.loc,
+    invalid: inst.invalid
+  };
+  return new DateTime(Object.assign({}, current, alts, {
+    old: current
+  }));
+} // find the right offset a given local time. The o input is our guess, which determines which
+// offset we'll pick in ambiguous cases (e.g. there are two 3 AMs b/c Fallback DST)
+
+
+function fixOffset(localTS, o, tz) {
+  // Our UTC time is just a guess because our offset is just a guess
+  var utcGuess = localTS - o * 60 * 1000; // Test whether the zone matches the offset for this ts
+
+  var o2 = tz.offset(utcGuess); // If so, offset didn't change and we're done
+
+  if (o === o2) {
+    return [utcGuess, o];
+  } // If not, change the ts by the difference in the offset
+
+
+  utcGuess -= (o2 - o) * 60 * 1000; // If that gives us the local time we want, we're done
+
+  var o3 = tz.offset(utcGuess);
+
+  if (o2 === o3) {
+    return [utcGuess, o2];
+  } // If it's different, we're in a hole time. The offset has changed, but the we don't adjust the time
+
+
+  return [localTS - Math.min(o2, o3) * 60 * 1000, Math.max(o2, o3)];
+} // convert an epoch timestamp into a calendar object with the given offset
+
+
+function tsToObj(ts, offset) {
+  ts += offset * 60 * 1000;
+  var d = new Date(ts);
+  return {
+    year: d.getUTCFullYear(),
+    month: d.getUTCMonth() + 1,
+    day: d.getUTCDate(),
+    hour: d.getUTCHours(),
+    minute: d.getUTCMinutes(),
+    second: d.getUTCSeconds(),
+    millisecond: d.getUTCMilliseconds()
+  };
+} // convert a calendar object to a epoch timestamp
+
+
+function objToTS(obj, offset, zone) {
+  return fixOffset(objToLocalTS(obj), offset, zone);
+} // create a new DT instance by adding a duration, adjusting for DSTs
+
+
+function adjustTime(inst, dur) {
+  var oPre = inst.o,
+      year = inst.c.year + Math.trunc(dur.years),
+      month = inst.c.month + Math.trunc(dur.months) + Math.trunc(dur.quarters) * 3,
+      c = Object.assign({}, inst.c, {
+    year: year,
+    month: month,
+    day: Math.min(inst.c.day, daysInMonth(year, month)) + Math.trunc(dur.days) + Math.trunc(dur.weeks) * 7
+  }),
+      millisToAdd = Duration.fromObject({
+    years: dur.years - Math.trunc(dur.years),
+    quarters: dur.quarters - Math.trunc(dur.quarters),
+    months: dur.months - Math.trunc(dur.months),
+    weeks: dur.weeks - Math.trunc(dur.weeks),
+    days: dur.days - Math.trunc(dur.days),
+    hours: dur.hours,
+    minutes: dur.minutes,
+    seconds: dur.seconds,
+    milliseconds: dur.milliseconds
+  }).as("milliseconds"),
+      localTS = objToLocalTS(c);
+
+  var _fixOffset = fixOffset(localTS, oPre, inst.zone),
+      ts = _fixOffset[0],
+      o = _fixOffset[1];
+
+  if (millisToAdd !== 0) {
+    ts += millisToAdd; // that could have changed the offset by going over a DST, but we want to keep the ts the same
+
+    o = inst.zone.offset(ts);
+  }
+
+  return {
+    ts: ts,
+    o: o
+  };
+} // helper useful in turning the results of parsing into real dates
+// by handling the zone options
+
+
+function parseDataToDateTime(parsed, parsedZone, opts, format, text) {
+  var setZone = opts.setZone,
+      zone = opts.zone;
+
+  if (parsed && Object.keys(parsed).length !== 0) {
+    var interpretationZone = parsedZone || zone,
+        inst = DateTime.fromObject(Object.assign(parsed, opts, {
+      zone: interpretationZone,
+      // setZone is a valid option in the calling methods, but not in fromObject
+      setZone: undefined
+    }));
+    return setZone ? inst : inst.setZone(zone);
+  } else {
+    return DateTime.invalid(new Invalid("unparsable", "the input \"" + text + "\" can't be parsed as " + format));
+  }
+} // if you want to output a technical format (e.g. RFC 2822), this helper
+// helps handle the details
+
+
+function toTechFormat(dt, format, allowZ) {
+  if (allowZ === void 0) {
+    allowZ = true;
+  }
+
+  return dt.isValid ? Formatter.create(Locale.create("en-US"), {
+    allowZ: allowZ,
+    forceSimple: true
+  }).formatDateTimeFromString(dt, format) : null;
+} // technical time formats (e.g. the time part of ISO 8601), take some options
+// and this commonizes their handling
+
+
+function toTechTimeFormat(dt, _ref) {
+  var _ref$suppressSeconds = _ref.suppressSeconds,
+      suppressSeconds = _ref$suppressSeconds === void 0 ? false : _ref$suppressSeconds,
+      _ref$suppressMillisec = _ref.suppressMilliseconds,
+      suppressMilliseconds = _ref$suppressMillisec === void 0 ? false : _ref$suppressMillisec,
+      includeOffset = _ref.includeOffset,
+      _ref$includePrefix = _ref.includePrefix,
+      includePrefix = _ref$includePrefix === void 0 ? false : _ref$includePrefix,
+      _ref$includeZone = _ref.includeZone,
+      includeZone = _ref$includeZone === void 0 ? false : _ref$includeZone,
+      _ref$spaceZone = _ref.spaceZone,
+      spaceZone = _ref$spaceZone === void 0 ? false : _ref$spaceZone,
+      _ref$format = _ref.format,
+      format = _ref$format === void 0 ? "extended" : _ref$format;
+  var fmt = format === "basic" ? "HHmm" : "HH:mm";
+
+  if (!suppressSeconds || dt.second !== 0 || dt.millisecond !== 0) {
+    fmt += format === "basic" ? "ss" : ":ss";
+
+    if (!suppressMilliseconds || dt.millisecond !== 0) {
+      fmt += ".SSS";
+    }
+  }
+
+  if ((includeZone || includeOffset) && spaceZone) {
+    fmt += " ";
+  }
+
+  if (includeZone) {
+    fmt += "z";
+  } else if (includeOffset) {
+    fmt += format === "basic" ? "ZZZ" : "ZZ";
+  }
+
+  var str = toTechFormat(dt, fmt);
+
+  if (includePrefix) {
+    str = "T" + str;
+  }
+
+  return str;
+} // defaults for unspecified units in the supported calendars
+
+
+var defaultUnitValues = {
+  month: 1,
+  day: 1,
+  hour: 0,
+  minute: 0,
+  second: 0,
+  millisecond: 0
+},
+    defaultWeekUnitValues = {
+  weekNumber: 1,
+  weekday: 1,
+  hour: 0,
+  minute: 0,
+  second: 0,
+  millisecond: 0
+},
+    defaultOrdinalUnitValues = {
+  ordinal: 1,
+  hour: 0,
+  minute: 0,
+  second: 0,
+  millisecond: 0
+}; // Units in the supported calendars, sorted by bigness
+
+var orderedUnits$1 = ["year", "month", "day", "hour", "minute", "second", "millisecond"],
+    orderedWeekUnits = ["weekYear", "weekNumber", "weekday", "hour", "minute", "second", "millisecond"],
+    orderedOrdinalUnits = ["year", "ordinal", "hour", "minute", "second", "millisecond"]; // standardize case and plurality in units
+
+function normalizeUnit(unit) {
+  var normalized = {
+    year: "year",
+    years: "year",
+    month: "month",
+    months: "month",
+    day: "day",
+    days: "day",
+    hour: "hour",
+    hours: "hour",
+    minute: "minute",
+    minutes: "minute",
+    quarter: "quarter",
+    quarters: "quarter",
+    second: "second",
+    seconds: "second",
+    millisecond: "millisecond",
+    milliseconds: "millisecond",
+    weekday: "weekday",
+    weekdays: "weekday",
+    weeknumber: "weekNumber",
+    weeksnumber: "weekNumber",
+    weeknumbers: "weekNumber",
+    weekyear: "weekYear",
+    weekyears: "weekYear",
+    ordinal: "ordinal"
+  }[unit.toLowerCase()];
+  if (!normalized) throw new InvalidUnitError(unit);
+  return normalized;
+} // this is a dumbed down version of fromObject() that runs about 60% faster
+// but doesn't do any validation, makes a bunch of assumptions about what units
+// are present, and so on.
+
+
+function quickDT(obj, zone) {
+  // assume we have the higher-order units
+  for (var _iterator = _createForOfIteratorHelperLoose(orderedUnits$1), _step; !(_step = _iterator()).done;) {
+    var u = _step.value;
+
+    if (isUndefined(obj[u])) {
+      obj[u] = defaultUnitValues[u];
+    }
+  }
+
+  var invalid = hasInvalidGregorianData(obj) || hasInvalidTimeData(obj);
+
+  if (invalid) {
+    return DateTime.invalid(invalid);
+  }
+
+  var tsNow = Settings.now(),
+      offsetProvis = zone.offset(tsNow),
+      _objToTS = objToTS(obj, offsetProvis, zone),
+      ts = _objToTS[0],
+      o = _objToTS[1];
+
+  return new DateTime({
+    ts: ts,
+    zone: zone,
+    o: o
+  });
+}
+
+function diffRelative(start, end, opts) {
+  var round = isUndefined(opts.round) ? true : opts.round,
+      format = function format(c, unit) {
+    c = roundTo(c, round || opts.calendary ? 0 : 2, true);
+    var formatter = end.loc.clone(opts).relFormatter(opts);
+    return formatter.format(c, unit);
+  },
+      differ = function differ(unit) {
+    if (opts.calendary) {
+      if (!end.hasSame(start, unit)) {
+        return end.startOf(unit).diff(start.startOf(unit), unit).get(unit);
+      } else return 0;
+    } else {
+      return end.diff(start, unit).get(unit);
+    }
+  };
+
+  if (opts.unit) {
+    return format(differ(opts.unit), opts.unit);
+  }
+
+  for (var _iterator2 = _createForOfIteratorHelperLoose(opts.units), _step2; !(_step2 = _iterator2()).done;) {
+    var unit = _step2.value;
+    var count = differ(unit);
+
+    if (Math.abs(count) >= 1) {
+      return format(count, unit);
+    }
+  }
+
+  return format(0, opts.units[opts.units.length - 1]);
+}
+/**
+ * A DateTime is an immutable data structure representing a specific date and time and accompanying methods. It contains class and instance methods for creating, parsing, interrogating, transforming, and formatting them.
+ *
+ * A DateTime comprises of:
+ * * A timestamp. Each DateTime instance refers to a specific millisecond of the Unix epoch.
+ * * A time zone. Each instance is considered in the context of a specific zone (by default the local system's zone).
+ * * Configuration properties that effect how output strings are formatted, such as `locale`, `numberingSystem`, and `outputCalendar`.
+ *
+ * Here is a brief overview of the most commonly used functionality it provides:
+ *
+ * * **Creation**: To create a DateTime from its components, use one of its factory class methods: {@link local}, {@link utc}, and (most flexibly) {@link fromObject}. To create one from a standard string format, use {@link fromISO}, {@link fromHTTP}, and {@link fromRFC2822}. To create one from a custom string format, use {@link fromFormat}. To create one from a native JS date, use {@link fromJSDate}.
+ * * **Gregorian calendar and time**: To examine the Gregorian properties of a DateTime individually (i.e as opposed to collectively through {@link toObject}), use the {@link year}, {@link month},
+ * {@link day}, {@link hour}, {@link minute}, {@link second}, {@link millisecond} accessors.
+ * * **Week calendar**: For ISO week calendar attributes, see the {@link weekYear}, {@link weekNumber}, and {@link weekday} accessors.
+ * * **Configuration** See the {@link locale} and {@link numberingSystem} accessors.
+ * * **Transformation**: To transform the DateTime into other DateTimes, use {@link set}, {@link reconfigure}, {@link setZone}, {@link setLocale}, {@link plus}, {@link minus}, {@link endOf}, {@link startOf}, {@link toUTC}, and {@link toLocal}.
+ * * **Output**: To convert the DateTime to other representations, use the {@link toRelative}, {@link toRelativeCalendar}, {@link toJSON}, {@link toISO}, {@link toHTTP}, {@link toObject}, {@link toRFC2822}, {@link toString}, {@link toLocaleString}, {@link toFormat}, {@link toMillis} and {@link toJSDate}.
+ *
+ * There's plenty others documented below. In addition, for more information on subtler topics like internationalization, time zones, alternative calendars, validity, and so on, see the external documentation.
+ */
+
+
+var DateTime = /*#__PURE__*/function () {
+  /**
+   * @access private
+   */
+  function DateTime(config) {
+    var zone = config.zone || Settings.defaultZone;
+    var invalid = config.invalid || (Number.isNaN(config.ts) ? new Invalid("invalid input") : null) || (!zone.isValid ? unsupportedZone(zone) : null);
+    /**
+     * @access private
+     */
+
+    this.ts = isUndefined(config.ts) ? Settings.now() : config.ts;
+    var c = null,
+        o = null;
+
+    if (!invalid) {
+      var unchanged = config.old && config.old.ts === this.ts && config.old.zone.equals(zone);
+
+      if (unchanged) {
+        var _ref2 = [config.old.c, config.old.o];
+        c = _ref2[0];
+        o = _ref2[1];
+      } else {
+        var ot = zone.offset(this.ts);
+        c = tsToObj(this.ts, ot);
+        invalid = Number.isNaN(c.year) ? new Invalid("invalid input") : null;
+        c = invalid ? null : c;
+        o = invalid ? null : ot;
+      }
+    }
+    /**
+     * @access private
+     */
+
+
+    this._zone = zone;
+    /**
+     * @access private
+     */
+
+    this.loc = config.loc || Locale.create();
+    /**
+     * @access private
+     */
+
+    this.invalid = invalid;
+    /**
+     * @access private
+     */
+
+    this.weekData = null;
+    /**
+     * @access private
+     */
+
+    this.c = c;
+    /**
+     * @access private
+     */
+
+    this.o = o;
+    /**
+     * @access private
+     */
+
+    this.isLuxonDateTime = true;
+  } // CONSTRUCT
+
+  /**
+   * Create a DateTime for the current instant, in the system's time zone.
+   *
+   * Use Settings to override these default values if needed.
+   * @example DateTime.now().toISO() //~> now in the ISO format
+   * @return {DateTime}
+   */
+
+
+  DateTime.now = function now() {
+    return new DateTime({});
+  }
+  /**
+   * Create a local DateTime
+   * @param {number} [year] - The calendar year. If omitted (as in, call `local()` with no arguments), the current time will be used
+   * @param {number} [month=1] - The month, 1-indexed
+   * @param {number} [day=1] - The day of the month, 1-indexed
+   * @param {number} [hour=0] - The hour of the day, in 24-hour time
+   * @param {number} [minute=0] - The minute of the hour, meaning a number between 0 and 59
+   * @param {number} [second=0] - The second of the minute, meaning a number between 0 and 59
+   * @param {number} [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
+   * @example DateTime.local()                            //~> now
+   * @example DateTime.local(2017)                        //~> 2017-01-01T00:00:00
+   * @example DateTime.local(2017, 3)                     //~> 2017-03-01T00:00:00
+   * @example DateTime.local(2017, 3, 12)                 //~> 2017-03-12T00:00:00
+   * @example DateTime.local(2017, 3, 12, 5)              //~> 2017-03-12T05:00:00
+   * @example DateTime.local(2017, 3, 12, 5, 45)          //~> 2017-03-12T05:45:00
+   * @example DateTime.local(2017, 3, 12, 5, 45, 10)      //~> 2017-03-12T05:45:10
+   * @example DateTime.local(2017, 3, 12, 5, 45, 10, 765) //~> 2017-03-12T05:45:10.765
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.local = function local(year, month, day, hour, minute, second, millisecond) {
+    if (isUndefined(year)) {
+      return new DateTime({});
+    } else {
+      return quickDT({
+        year: year,
+        month: month,
+        day: day,
+        hour: hour,
+        minute: minute,
+        second: second,
+        millisecond: millisecond
+      }, Settings.defaultZone);
+    }
+  }
+  /**
+   * Create a DateTime in UTC
+   * @param {number} [year] - The calendar year. If omitted (as in, call `utc()` with no arguments), the current time will be used
+   * @param {number} [month=1] - The month, 1-indexed
+   * @param {number} [day=1] - The day of the month
+   * @param {number} [hour=0] - The hour of the day, in 24-hour time
+   * @param {number} [minute=0] - The minute of the hour, meaning a number between 0 and 59
+   * @param {number} [second=0] - The second of the minute, meaning a number between 0 and 59
+   * @param {number} [millisecond=0] - The millisecond of the second, meaning a number between 0 and 999
+   * @example DateTime.utc()                            //~> now
+   * @example DateTime.utc(2017)                        //~> 2017-01-01T00:00:00Z
+   * @example DateTime.utc(2017, 3)                     //~> 2017-03-01T00:00:00Z
+   * @example DateTime.utc(2017, 3, 12)                 //~> 2017-03-12T00:00:00Z
+   * @example DateTime.utc(2017, 3, 12, 5)              //~> 2017-03-12T05:00:00Z
+   * @example DateTime.utc(2017, 3, 12, 5, 45)          //~> 2017-03-12T05:45:00Z
+   * @example DateTime.utc(2017, 3, 12, 5, 45, 10)      //~> 2017-03-12T05:45:10Z
+   * @example DateTime.utc(2017, 3, 12, 5, 45, 10, 765) //~> 2017-03-12T05:45:10.765Z
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.utc = function utc(year, month, day, hour, minute, second, millisecond) {
+    if (isUndefined(year)) {
+      return new DateTime({
+        ts: Settings.now(),
+        zone: FixedOffsetZone.utcInstance
+      });
+    } else {
+      return quickDT({
+        year: year,
+        month: month,
+        day: day,
+        hour: hour,
+        minute: minute,
+        second: second,
+        millisecond: millisecond
+      }, FixedOffsetZone.utcInstance);
+    }
+  }
+  /**
+   * Create a DateTime from a JavaScript Date object. Uses the default zone.
+   * @param {Date} date - a JavaScript Date object
+   * @param {Object} options - configuration options for the DateTime
+   * @param {string|Zone} [options.zone='local'] - the zone to place the DateTime into
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromJSDate = function fromJSDate(date, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var ts = isDate(date) ? date.valueOf() : NaN;
+
+    if (Number.isNaN(ts)) {
+      return DateTime.invalid("invalid input");
+    }
+
+    var zoneToUse = normalizeZone(options.zone, Settings.defaultZone);
+
+    if (!zoneToUse.isValid) {
+      return DateTime.invalid(unsupportedZone(zoneToUse));
+    }
+
+    return new DateTime({
+      ts: ts,
+      zone: zoneToUse,
+      loc: Locale.fromObject(options)
+    });
+  }
+  /**
+   * Create a DateTime from a number of milliseconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
+   * @param {number} milliseconds - a number of milliseconds since 1970 UTC
+   * @param {Object} options - configuration options for the DateTime
+   * @param {string|Zone} [options.zone='local'] - the zone to place the DateTime into
+   * @param {string} [options.locale] - a locale to set on the resulting DateTime instance
+   * @param {string} options.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @param {string} options.numberingSystem - the numbering system to set on the resulting DateTime instance
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromMillis = function fromMillis(milliseconds, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    if (!isNumber(milliseconds)) {
+      throw new InvalidArgumentError("fromMillis requires a numerical input, but received a " + typeof milliseconds + " with value " + milliseconds);
+    } else if (milliseconds < -MAX_DATE || milliseconds > MAX_DATE) {
+      // this isn't perfect because because we can still end up out of range because of additional shifting, but it's a start
+      return DateTime.invalid("Timestamp out of range");
+    } else {
+      return new DateTime({
+        ts: milliseconds,
+        zone: normalizeZone(options.zone, Settings.defaultZone),
+        loc: Locale.fromObject(options)
+      });
+    }
+  }
+  /**
+   * Create a DateTime from a number of seconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
+   * @param {number} seconds - a number of seconds since 1970 UTC
+   * @param {Object} options - configuration options for the DateTime
+   * @param {string|Zone} [options.zone='local'] - the zone to place the DateTime into
+   * @param {string} [options.locale] - a locale to set on the resulting DateTime instance
+   * @param {string} options.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @param {string} options.numberingSystem - the numbering system to set on the resulting DateTime instance
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromSeconds = function fromSeconds(seconds, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    if (!isNumber(seconds)) {
+      throw new InvalidArgumentError("fromSeconds requires a numerical input");
+    } else {
+      return new DateTime({
+        ts: seconds * 1000,
+        zone: normalizeZone(options.zone, Settings.defaultZone),
+        loc: Locale.fromObject(options)
+      });
+    }
+  }
+  /**
+   * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.
+   * @param {Object} obj - the object to create the DateTime from
+   * @param {number} obj.year - a year, such as 1987
+   * @param {number} obj.month - a month, 1-12
+   * @param {number} obj.day - a day of the month, 1-31, depending on the month
+   * @param {number} obj.ordinal - day of the year, 1-365 or 366
+   * @param {number} obj.weekYear - an ISO week year
+   * @param {number} obj.weekNumber - an ISO week number, between 1 and 52 or 53, depending on the year
+   * @param {number} obj.weekday - an ISO weekday, 1-7, where 1 is Monday and 7 is Sunday
+   * @param {number} obj.hour - hour of the day, 0-23
+   * @param {number} obj.minute - minute of the hour, 0-59
+   * @param {number} obj.second - second of the minute, 0-59
+   * @param {number} obj.millisecond - millisecond of the second, 0-999
+   * @param {string|Zone} [obj.zone='local'] - interpret the numbers in the context of a particular zone. Can take any value taken as the first argument to setZone()
+   * @param {string} [obj.locale='system's locale'] - a locale to set on the resulting DateTime instance
+   * @param {string} obj.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @param {string} obj.numberingSystem - the numbering system to set on the resulting DateTime instance
+   * @example DateTime.fromObject({ year: 1982, month: 5, day: 25}).toISODate() //=> '1982-05-25'
+   * @example DateTime.fromObject({ year: 1982 }).toISODate() //=> '1982-01-01'
+   * @example DateTime.fromObject({ hour: 10, minute: 26, second: 6 }) //~> today at 10:26:06
+   * @example DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'utc' }),
+   * @example DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'local' })
+   * @example DateTime.fromObject({ hour: 10, minute: 26, second: 6, zone: 'America/New_York' })
+   * @example DateTime.fromObject({ weekYear: 2016, weekNumber: 2, weekday: 3 }).toISODate() //=> '2016-01-13'
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromObject = function fromObject(obj) {
+    var zoneToUse = normalizeZone(obj.zone, Settings.defaultZone);
+
+    if (!zoneToUse.isValid) {
+      return DateTime.invalid(unsupportedZone(zoneToUse));
+    }
+
+    var tsNow = Settings.now(),
+        offsetProvis = zoneToUse.offset(tsNow),
+        normalized = normalizeObject(obj, normalizeUnit, ["zone", "locale", "outputCalendar", "numberingSystem"]),
+        containsOrdinal = !isUndefined(normalized.ordinal),
+        containsGregorYear = !isUndefined(normalized.year),
+        containsGregorMD = !isUndefined(normalized.month) || !isUndefined(normalized.day),
+        containsGregor = containsGregorYear || containsGregorMD,
+        definiteWeekDef = normalized.weekYear || normalized.weekNumber,
+        loc = Locale.fromObject(obj); // cases:
+    // just a weekday -> this week's instance of that weekday, no worries
+    // (gregorian data or ordinal) + (weekYear or weekNumber) -> error
+    // (gregorian month or day) + ordinal -> error
+    // otherwise just use weeks or ordinals or gregorian, depending on what's specified
+
+    if ((containsGregor || containsOrdinal) && definiteWeekDef) {
+      throw new ConflictingSpecificationError("Can't mix weekYear/weekNumber units with year/month/day or ordinals");
+    }
+
+    if (containsGregorMD && containsOrdinal) {
+      throw new ConflictingSpecificationError("Can't mix ordinal dates with month/day");
+    }
+
+    var useWeekData = definiteWeekDef || normalized.weekday && !containsGregor; // configure ourselves to deal with gregorian dates or week stuff
+
+    var units,
+        defaultValues,
+        objNow = tsToObj(tsNow, offsetProvis);
+
+    if (useWeekData) {
+      units = orderedWeekUnits;
+      defaultValues = defaultWeekUnitValues;
+      objNow = gregorianToWeek(objNow);
+    } else if (containsOrdinal) {
+      units = orderedOrdinalUnits;
+      defaultValues = defaultOrdinalUnitValues;
+      objNow = gregorianToOrdinal(objNow);
+    } else {
+      units = orderedUnits$1;
+      defaultValues = defaultUnitValues;
+    } // set default values for missing stuff
+
+
+    var foundFirst = false;
+
+    for (var _iterator3 = _createForOfIteratorHelperLoose(units), _step3; !(_step3 = _iterator3()).done;) {
+      var u = _step3.value;
+      var v = normalized[u];
+
+      if (!isUndefined(v)) {
+        foundFirst = true;
+      } else if (foundFirst) {
+        normalized[u] = defaultValues[u];
+      } else {
+        normalized[u] = objNow[u];
+      }
+    } // make sure the values we have are in range
+
+
+    var higherOrderInvalid = useWeekData ? hasInvalidWeekData(normalized) : containsOrdinal ? hasInvalidOrdinalData(normalized) : hasInvalidGregorianData(normalized),
+        invalid = higherOrderInvalid || hasInvalidTimeData(normalized);
+
+    if (invalid) {
+      return DateTime.invalid(invalid);
+    } // compute the actual time
+
+
+    var gregorian = useWeekData ? weekToGregorian(normalized) : containsOrdinal ? ordinalToGregorian(normalized) : normalized,
+        _objToTS2 = objToTS(gregorian, offsetProvis, zoneToUse),
+        tsFinal = _objToTS2[0],
+        offsetFinal = _objToTS2[1],
+        inst = new DateTime({
+      ts: tsFinal,
+      zone: zoneToUse,
+      o: offsetFinal,
+      loc: loc
+    }); // gregorian data + weekday serves only to validate
+
+
+    if (normalized.weekday && containsGregor && obj.weekday !== inst.weekday) {
+      return DateTime.invalid("mismatched weekday", "you can't specify both a weekday of " + normalized.weekday + " and a date of " + inst.toISO());
+    }
+
+    return inst;
+  }
+  /**
+   * Create a DateTime from an ISO 8601 string
+   * @param {string} text - the ISO string
+   * @param {Object} opts - options to affect the creation
+   * @param {string|Zone} [opts.zone='local'] - use this zone if no offset is specified in the input string itself. Will also convert the time to this zone
+   * @param {boolean} [opts.setZone=false] - override the zone with a fixed-offset zone specified in the string itself, if it specifies one
+   * @param {string} [opts.locale='system's locale'] - a locale to set on the resulting DateTime instance
+   * @param {string} opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @param {string} opts.numberingSystem - the numbering system to set on the resulting DateTime instance
+   * @example DateTime.fromISO('2016-05-25T09:08:34.123')
+   * @example DateTime.fromISO('2016-05-25T09:08:34.123+06:00')
+   * @example DateTime.fromISO('2016-05-25T09:08:34.123+06:00', {setZone: true})
+   * @example DateTime.fromISO('2016-05-25T09:08:34.123', {zone: 'utc'})
+   * @example DateTime.fromISO('2016-W05-4')
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromISO = function fromISO(text, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var _parseISODate = parseISODate(text),
+        vals = _parseISODate[0],
+        parsedZone = _parseISODate[1];
+
+    return parseDataToDateTime(vals, parsedZone, opts, "ISO 8601", text);
+  }
+  /**
+   * Create a DateTime from an RFC 2822 string
+   * @param {string} text - the RFC 2822 string
+   * @param {Object} opts - options to affect the creation
+   * @param {string|Zone} [opts.zone='local'] - convert the time to this zone. Since the offset is always specified in the string itself, this has no effect on the interpretation of string, merely the zone the resulting DateTime is expressed in.
+   * @param {boolean} [opts.setZone=false] - override the zone with a fixed-offset zone specified in the string itself, if it specifies one
+   * @param {string} [opts.locale='system's locale'] - a locale to set on the resulting DateTime instance
+   * @param {string} opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @param {string} opts.numberingSystem - the numbering system to set on the resulting DateTime instance
+   * @example DateTime.fromRFC2822('25 Nov 2016 13:23:12 GMT')
+   * @example DateTime.fromRFC2822('Fri, 25 Nov 2016 13:23:12 +0600')
+   * @example DateTime.fromRFC2822('25 Nov 2016 13:23 Z')
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromRFC2822 = function fromRFC2822(text, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var _parseRFC2822Date = parseRFC2822Date(text),
+        vals = _parseRFC2822Date[0],
+        parsedZone = _parseRFC2822Date[1];
+
+    return parseDataToDateTime(vals, parsedZone, opts, "RFC 2822", text);
+  }
+  /**
+   * Create a DateTime from an HTTP header date
+   * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1
+   * @param {string} text - the HTTP header date
+   * @param {Object} opts - options to affect the creation
+   * @param {string|Zone} [opts.zone='local'] - convert the time to this zone. Since HTTP dates are always in UTC, this has no effect on the interpretation of string, merely the zone the resulting DateTime is expressed in.
+   * @param {boolean} [opts.setZone=false] - override the zone with the fixed-offset zone specified in the string. For HTTP dates, this is always UTC, so this option is equivalent to setting the `zone` option to 'utc', but this option is included for consistency with similar methods.
+   * @param {string} [opts.locale='system's locale'] - a locale to set on the resulting DateTime instance
+   * @param {string} opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @param {string} opts.numberingSystem - the numbering system to set on the resulting DateTime instance
+   * @example DateTime.fromHTTP('Sun, 06 Nov 1994 08:49:37 GMT')
+   * @example DateTime.fromHTTP('Sunday, 06-Nov-94 08:49:37 GMT')
+   * @example DateTime.fromHTTP('Sun Nov  6 08:49:37 1994')
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromHTTP = function fromHTTP(text, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var _parseHTTPDate = parseHTTPDate(text),
+        vals = _parseHTTPDate[0],
+        parsedZone = _parseHTTPDate[1];
+
+    return parseDataToDateTime(vals, parsedZone, opts, "HTTP", opts);
+  }
+  /**
+   * Create a DateTime from an input string and format string.
+   * Defaults to en-US if no locale has been specified, regardless of the system's locale.
+   * @see https://moment.github.io/luxon/docs/manual/parsing.html#table-of-tokens
+   * @param {string} text - the string to parse
+   * @param {string} fmt - the format the string is expected to be in (see the link below for the formats)
+   * @param {Object} opts - options to affect the creation
+   * @param {string|Zone} [opts.zone='local'] - use this zone if no offset is specified in the input string itself. Will also convert the DateTime to this zone
+   * @param {boolean} [opts.setZone=false] - override the zone with a zone specified in the string itself, if it specifies one
+   * @param {string} [opts.locale='en-US'] - a locale string to use when parsing. Will also set the DateTime to this locale
+   * @param {string} opts.numberingSystem - the numbering system to use when parsing. Will also set the resulting DateTime to this numbering system
+   * @param {string} opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromFormat = function fromFormat(text, fmt, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    if (isUndefined(text) || isUndefined(fmt)) {
+      throw new InvalidArgumentError("fromFormat requires an input string and a format");
+    }
+
+    var _opts = opts,
+        _opts$locale = _opts.locale,
+        locale = _opts$locale === void 0 ? null : _opts$locale,
+        _opts$numberingSystem = _opts.numberingSystem,
+        numberingSystem = _opts$numberingSystem === void 0 ? null : _opts$numberingSystem,
+        localeToUse = Locale.fromOpts({
+      locale: locale,
+      numberingSystem: numberingSystem,
+      defaultToEN: true
+    }),
+        _parseFromTokens = parseFromTokens(localeToUse, text, fmt),
+        vals = _parseFromTokens[0],
+        parsedZone = _parseFromTokens[1],
+        invalid = _parseFromTokens[2];
+
+    if (invalid) {
+      return DateTime.invalid(invalid);
+    } else {
+      return parseDataToDateTime(vals, parsedZone, opts, "format " + fmt, text);
+    }
+  }
+  /**
+   * @deprecated use fromFormat instead
+   */
+  ;
+
+  DateTime.fromString = function fromString(text, fmt, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    return DateTime.fromFormat(text, fmt, opts);
+  }
+  /**
+   * Create a DateTime from a SQL date, time, or datetime
+   * Defaults to en-US if no locale has been specified, regardless of the system's locale
+   * @param {string} text - the string to parse
+   * @param {Object} opts - options to affect the creation
+   * @param {string|Zone} [opts.zone='local'] - use this zone if no offset is specified in the input string itself. Will also convert the DateTime to this zone
+   * @param {boolean} [opts.setZone=false] - override the zone with a zone specified in the string itself, if it specifies one
+   * @param {string} [opts.locale='en-US'] - a locale string to use when parsing. Will also set the DateTime to this locale
+   * @param {string} opts.numberingSystem - the numbering system to use when parsing. Will also set the resulting DateTime to this numbering system
+   * @param {string} opts.outputCalendar - the output calendar to set on the resulting DateTime instance
+   * @example DateTime.fromSQL('2017-05-15')
+   * @example DateTime.fromSQL('2017-05-15 09:12:34')
+   * @example DateTime.fromSQL('2017-05-15 09:12:34.342')
+   * @example DateTime.fromSQL('2017-05-15 09:12:34.342+06:00')
+   * @example DateTime.fromSQL('2017-05-15 09:12:34.342 America/Los_Angeles')
+   * @example DateTime.fromSQL('2017-05-15 09:12:34.342 America/Los_Angeles', { setZone: true })
+   * @example DateTime.fromSQL('2017-05-15 09:12:34.342', { zone: 'America/Los_Angeles' })
+   * @example DateTime.fromSQL('09:12:34.342')
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.fromSQL = function fromSQL(text, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var _parseSQL = parseSQL(text),
+        vals = _parseSQL[0],
+        parsedZone = _parseSQL[1];
+
+    return parseDataToDateTime(vals, parsedZone, opts, "SQL", text);
+  }
+  /**
+   * Create an invalid DateTime.
+   * @param {string} reason - simple string of why this DateTime is invalid. Should not contain parameters or anything else data-dependent
+   * @param {string} [explanation=null] - longer explanation, may include parameters and other useful debugging information
+   * @return {DateTime}
+   */
+  ;
+
+  DateTime.invalid = function invalid(reason, explanation) {
+    if (explanation === void 0) {
+      explanation = null;
+    }
+
+    if (!reason) {
+      throw new InvalidArgumentError("need to specify a reason the DateTime is invalid");
+    }
+
+    var invalid = reason instanceof Invalid ? reason : new Invalid(reason, explanation);
+
+    if (Settings.throwOnInvalid) {
+      throw new InvalidDateTimeError(invalid);
+    } else {
+      return new DateTime({
+        invalid: invalid
+      });
+    }
+  }
+  /**
+   * Check if an object is a DateTime. Works across context boundaries
+   * @param {object} o
+   * @return {boolean}
+   */
+  ;
+
+  DateTime.isDateTime = function isDateTime(o) {
+    return o && o.isLuxonDateTime || false;
+  } // INFO
+
+  /**
+   * Get the value of unit.
+   * @param {string} unit - a unit such as 'minute' or 'day'
+   * @example DateTime.local(2017, 7, 4).get('month'); //=> 7
+   * @example DateTime.local(2017, 7, 4).get('day'); //=> 4
+   * @return {number}
+   */
+  ;
+
+  var _proto = DateTime.prototype;
+
+  _proto.get = function get(unit) {
+    return this[unit];
+  }
+  /**
+   * Returns whether the DateTime is valid. Invalid DateTimes occur when:
+   * * The DateTime was created from invalid calendar information, such as the 13th month or February 30
+   * * The DateTime was created by an operation on another invalid date
+   * @type {boolean}
+   */
+  ;
+
+  /**
+   * Returns the resolved Intl options for this DateTime.
+   * This is useful in understanding the behavior of formatting methods
+   * @param {Object} opts - the same options as toLocaleString
+   * @return {Object}
+   */
+  _proto.resolvedLocaleOpts = function resolvedLocaleOpts(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var _Formatter$create$res = Formatter.create(this.loc.clone(opts), opts).resolvedOptions(this),
+        locale = _Formatter$create$res.locale,
+        numberingSystem = _Formatter$create$res.numberingSystem,
+        calendar = _Formatter$create$res.calendar;
+
+    return {
+      locale: locale,
+      numberingSystem: numberingSystem,
+      outputCalendar: calendar
+    };
+  } // TRANSFORM
+
+  /**
+   * "Set" the DateTime's zone to UTC. Returns a newly-constructed DateTime.
+   *
+   * Equivalent to {@link setZone}('utc')
+   * @param {number} [offset=0] - optionally, an offset from UTC in minutes
+   * @param {Object} [opts={}] - options to pass to `setZone()`
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.toUTC = function toUTC(offset, opts) {
+    if (offset === void 0) {
+      offset = 0;
+    }
+
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    return this.setZone(FixedOffsetZone.instance(offset), opts);
+  }
+  /**
+   * "Set" the DateTime's zone to the host's local zone. Returns a newly-constructed DateTime.
+   *
+   * Equivalent to `setZone('local')`
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.toLocal = function toLocal() {
+    return this.setZone(Settings.defaultZone);
+  }
+  /**
+   * "Set" the DateTime's zone to specified zone. Returns a newly-constructed DateTime.
+   *
+   * By default, the setter keeps the underlying time the same (as in, the same timestamp), but the new instance will report different local times and consider DSTs when making computations, as with {@link plus}. You may wish to use {@link toLocal} and {@link toUTC} which provide simple convenience wrappers for commonly used zones.
+   * @param {string|Zone} [zone='local'] - a zone identifier. As a string, that can be any IANA zone supported by the host environment, or a fixed-offset name of the form 'UTC+3', or the strings 'local' or 'utc'. You may also supply an instance of a {@link Zone} class.
+   * @param {Object} opts - options
+   * @param {boolean} [opts.keepLocalTime=false] - If true, adjust the underlying time so that the local time stays the same, but in the target zone. You should rarely need this.
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.setZone = function setZone(zone, _temp) {
+    var _ref3 = _temp === void 0 ? {} : _temp,
+        _ref3$keepLocalTime = _ref3.keepLocalTime,
+        keepLocalTime = _ref3$keepLocalTime === void 0 ? false : _ref3$keepLocalTime,
+        _ref3$keepCalendarTim = _ref3.keepCalendarTime,
+        keepCalendarTime = _ref3$keepCalendarTim === void 0 ? false : _ref3$keepCalendarTim;
+
+    zone = normalizeZone(zone, Settings.defaultZone);
+
+    if (zone.equals(this.zone)) {
+      return this;
+    } else if (!zone.isValid) {
+      return DateTime.invalid(unsupportedZone(zone));
+    } else {
+      var newTS = this.ts;
+
+      if (keepLocalTime || keepCalendarTime) {
+        var offsetGuess = zone.offset(this.ts);
+        var asObj = this.toObject();
+
+        var _objToTS3 = objToTS(asObj, offsetGuess, zone);
+
+        newTS = _objToTS3[0];
+      }
+
+      return clone$1(this, {
+        ts: newTS,
+        zone: zone
+      });
+    }
+  }
+  /**
+   * "Set" the locale, numberingSystem, or outputCalendar. Returns a newly-constructed DateTime.
+   * @param {Object} properties - the properties to set
+   * @example DateTime.local(2017, 5, 25).reconfigure({ locale: 'en-GB' })
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.reconfigure = function reconfigure(_temp2) {
+    var _ref4 = _temp2 === void 0 ? {} : _temp2,
+        locale = _ref4.locale,
+        numberingSystem = _ref4.numberingSystem,
+        outputCalendar = _ref4.outputCalendar;
+
+    var loc = this.loc.clone({
+      locale: locale,
+      numberingSystem: numberingSystem,
+      outputCalendar: outputCalendar
+    });
+    return clone$1(this, {
+      loc: loc
+    });
+  }
+  /**
+   * "Set" the locale. Returns a newly-constructed DateTime.
+   * Just a convenient alias for reconfigure({ locale })
+   * @example DateTime.local(2017, 5, 25).setLocale('en-GB')
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.setLocale = function setLocale(locale) {
+    return this.reconfigure({
+      locale: locale
+    });
+  }
+  /**
+   * "Set" the values of specified units. Returns a newly-constructed DateTime.
+   * You can only set units with this method; for "setting" metadata, see {@link reconfigure} and {@link setZone}.
+   * @param {Object} values - a mapping of units to numbers
+   * @example dt.set({ year: 2017 })
+   * @example dt.set({ hour: 8, minute: 30 })
+   * @example dt.set({ weekday: 5 })
+   * @example dt.set({ year: 2005, ordinal: 234 })
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.set = function set(values) {
+    if (!this.isValid) return this;
+    var normalized = normalizeObject(values, normalizeUnit, []),
+        settingWeekStuff = !isUndefined(normalized.weekYear) || !isUndefined(normalized.weekNumber) || !isUndefined(normalized.weekday);
+    var mixed;
+
+    if (settingWeekStuff) {
+      mixed = weekToGregorian(Object.assign(gregorianToWeek(this.c), normalized));
+    } else if (!isUndefined(normalized.ordinal)) {
+      mixed = ordinalToGregorian(Object.assign(gregorianToOrdinal(this.c), normalized));
+    } else {
+      mixed = Object.assign(this.toObject(), normalized); // if we didn't set the day but we ended up on an overflow date,
+      // use the last day of the right month
+
+      if (isUndefined(normalized.day)) {
+        mixed.day = Math.min(daysInMonth(mixed.year, mixed.month), mixed.day);
+      }
+    }
+
+    var _objToTS4 = objToTS(mixed, this.o, this.zone),
+        ts = _objToTS4[0],
+        o = _objToTS4[1];
+
+    return clone$1(this, {
+      ts: ts,
+      o: o
+    });
+  }
+  /**
+   * Add a period of time to this DateTime and return the resulting DateTime
+   *
+   * Adding hours, minutes, seconds, or milliseconds increases the timestamp by the right number of milliseconds. Adding days, months, or years shifts the calendar, accounting for DSTs and leap years along the way. Thus, `dt.plus({ hours: 24 })` may result in a different time than `dt.plus({ days: 1 })` if there's a DST shift in between.
+   * @param {Duration|Object|number} duration - The amount to add. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
+   * @example DateTime.now().plus(123) //~> in 123 milliseconds
+   * @example DateTime.now().plus({ minutes: 15 }) //~> in 15 minutes
+   * @example DateTime.now().plus({ days: 1 }) //~> this time tomorrow
+   * @example DateTime.now().plus({ days: -1 }) //~> this time yesterday
+   * @example DateTime.now().plus({ hours: 3, minutes: 13 }) //~> in 3 hr, 13 min
+   * @example DateTime.now().plus(Duration.fromObject({ hours: 3, minutes: 13 })) //~> in 3 hr, 13 min
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.plus = function plus(duration) {
+    if (!this.isValid) return this;
+    var dur = friendlyDuration(duration);
+    return clone$1(this, adjustTime(this, dur));
+  }
+  /**
+   * Subtract a period of time to this DateTime and return the resulting DateTime
+   * See {@link plus}
+   * @param {Duration|Object|number} duration - The amount to subtract. Either a Luxon Duration, a number of milliseconds, the object argument to Duration.fromObject()
+   @return {DateTime}
+  */
+  ;
+
+  _proto.minus = function minus(duration) {
+    if (!this.isValid) return this;
+    var dur = friendlyDuration(duration).negate();
+    return clone$1(this, adjustTime(this, dur));
+  }
+  /**
+   * "Set" this DateTime to the beginning of a unit of time.
+   * @param {string} unit - The unit to go to the beginning of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+   * @example DateTime.local(2014, 3, 3).startOf('month').toISODate(); //=> '2014-03-01'
+   * @example DateTime.local(2014, 3, 3).startOf('year').toISODate(); //=> '2014-01-01'
+   * @example DateTime.local(2014, 3, 3).startOf('week').toISODate(); //=> '2014-03-03', weeks always start on Mondays
+   * @example DateTime.local(2014, 3, 3, 5, 30).startOf('day').toISOTime(); //=> '00:00.000-05:00'
+   * @example DateTime.local(2014, 3, 3, 5, 30).startOf('hour').toISOTime(); //=> '05:00:00.000-05:00'
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.startOf = function startOf(unit) {
+    if (!this.isValid) return this;
+    var o = {},
+        normalizedUnit = Duration.normalizeUnit(unit);
+
+    switch (normalizedUnit) {
+      case "years":
+        o.month = 1;
+      // falls through
+
+      case "quarters":
+      case "months":
+        o.day = 1;
+      // falls through
+
+      case "weeks":
+      case "days":
+        o.hour = 0;
+      // falls through
+
+      case "hours":
+        o.minute = 0;
+      // falls through
+
+      case "minutes":
+        o.second = 0;
+      // falls through
+
+      case "seconds":
+        o.millisecond = 0;
+        break;
+      // no default, invalid units throw in normalizeUnit()
+    }
+
+    if (normalizedUnit === "weeks") {
+      o.weekday = 1;
+    }
+
+    if (normalizedUnit === "quarters") {
+      var q = Math.ceil(this.month / 3);
+      o.month = (q - 1) * 3 + 1;
+    }
+
+    return this.set(o);
+  }
+  /**
+   * "Set" this DateTime to the end (meaning the last millisecond) of a unit of time
+   * @param {string} unit - The unit to go to the end of. Can be 'year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', or 'millisecond'.
+   * @example DateTime.local(2014, 3, 3).endOf('month').toISO(); //=> '2014-03-31T23:59:59.999-05:00'
+   * @example DateTime.local(2014, 3, 3).endOf('year').toISO(); //=> '2014-12-31T23:59:59.999-05:00'
+   * @example DateTime.local(2014, 3, 3).endOf('week').toISO(); // => '2014-03-09T23:59:59.999-05:00', weeks start on Mondays
+   * @example DateTime.local(2014, 3, 3, 5, 30).endOf('day').toISO(); //=> '2014-03-03T23:59:59.999-05:00'
+   * @example DateTime.local(2014, 3, 3, 5, 30).endOf('hour').toISO(); //=> '2014-03-03T05:59:59.999-05:00'
+   * @return {DateTime}
+   */
+  ;
+
+  _proto.endOf = function endOf(unit) {
+    var _this$plus;
+
+    return this.isValid ? this.plus((_this$plus = {}, _this$plus[unit] = 1, _this$plus)).startOf(unit).minus(1) : this;
+  } // OUTPUT
+
+  /**
+   * Returns a string representation of this DateTime formatted according to the specified format string.
+   * **You may not want this.** See {@link toLocaleString} for a more flexible formatting tool. For a table of tokens and their interpretations, see [here](https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens).
+   * Defaults to en-US if no locale has been specified, regardless of the system's locale.
+   * @see https://moment.github.io/luxon/docs/manual/formatting.html#table-of-tokens
+   * @param {string} fmt - the format string
+   * @param {Object} opts - opts to override the configuration options
+   * @example DateTime.now().toFormat('yyyy LLL dd') //=> '2017 Apr 22'
+   * @example DateTime.now().setLocale('fr').toFormat('yyyy LLL dd') //=> '2017 avr. 22'
+   * @example DateTime.now().toFormat('yyyy LLL dd', { locale: "fr" }) //=> '2017 avr. 22'
+   * @example DateTime.now().toFormat("HH 'hours and' mm 'minutes'") //=> '20 hours and 55 minutes'
+   * @return {string}
+   */
+  ;
+
+  _proto.toFormat = function toFormat(fmt, opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    return this.isValid ? Formatter.create(this.loc.redefaultToEN(opts)).formatDateTimeFromString(this, fmt) : INVALID$2;
+  }
+  /**
+   * Returns a localized string representing this date. Accepts the same options as the Intl.DateTimeFormat constructor and any presets defined by Luxon, such as `DateTime.DATE_FULL` or `DateTime.TIME_SIMPLE`.
+   * The exact behavior of this method is browser-specific, but in general it will return an appropriate representation
+   * of the DateTime in the assigned locale.
+   * Defaults to the system's locale if no locale has been specified
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat
+   * @param opts {Object} - Intl.DateTimeFormat constructor options and configuration options
+   * @example DateTime.now().toLocaleString(); //=> 4/20/2017
+   * @example DateTime.now().setLocale('en-gb').toLocaleString(); //=> '20/04/2017'
+   * @example DateTime.now().toLocaleString({ locale: 'en-gb' }); //=> '20/04/2017'
+   * @example DateTime.now().toLocaleString(DateTime.DATE_FULL); //=> 'April 20, 2017'
+   * @example DateTime.now().toLocaleString(DateTime.TIME_SIMPLE); //=> '11:32 AM'
+   * @example DateTime.now().toLocaleString(DateTime.DATETIME_SHORT); //=> '4/20/2017, 11:32 AM'
+   * @example DateTime.now().toLocaleString({ weekday: 'long', month: 'long', day: '2-digit' }); //=> 'Thursday, April 20'
+   * @example DateTime.now().toLocaleString({ weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' }); //=> 'Thu, Apr 20, 11:27 AM'
+   * @example DateTime.now().toLocaleString({ hour: '2-digit', minute: '2-digit', hour12: false }); //=> '11:32'
+   * @return {string}
+   */
+  ;
+
+  _proto.toLocaleString = function toLocaleString(opts) {
+    if (opts === void 0) {
+      opts = DATE_SHORT;
+    }
+
+    return this.isValid ? Formatter.create(this.loc.clone(opts), opts).formatDateTime(this) : INVALID$2;
+  }
+  /**
+   * Returns an array of format "parts", meaning individual tokens along with metadata. This is allows callers to post-process individual sections of the formatted output.
+   * Defaults to the system's locale if no locale has been specified
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat/formatToParts
+   * @param opts {Object} - Intl.DateTimeFormat constructor options, same as `toLocaleString`.
+   * @example DateTime.now().toLocaleParts(); //=> [
+   *                                   //=>   { type: 'day', value: '25' },
+   *                                   //=>   { type: 'literal', value: '/' },
+   *                                   //=>   { type: 'month', value: '05' },
+   *                                   //=>   { type: 'literal', value: '/' },
+   *                                   //=>   { type: 'year', value: '1982' }
+   *                                   //=> ]
+   */
+  ;
+
+  _proto.toLocaleParts = function toLocaleParts(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    return this.isValid ? Formatter.create(this.loc.clone(opts), opts).formatDateTimeParts(this) : [];
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of this DateTime
+   * @param {Object} opts - options
+   * @param {boolean} [opts.suppressMilliseconds=false] - exclude milliseconds from the format if they're 0
+   * @param {boolean} [opts.suppressSeconds=false] - exclude seconds from the format if they're 0
+   * @param {boolean} [opts.includeOffset=true] - include the offset, such as 'Z' or '-04:00'
+   * @param {string} [opts.format='extended'] - choose between the basic and extended format
+   * @example DateTime.utc(1982, 5, 25).toISO() //=> '1982-05-25T00:00:00.000Z'
+   * @example DateTime.now().toISO() //=> '2017-04-22T20:47:05.335-04:00'
+   * @example DateTime.now().toISO({ includeOffset: false }) //=> '2017-04-22T20:47:05.335'
+   * @example DateTime.now().toISO({ format: 'basic' }) //=> '20170422T204705.335-0400'
+   * @return {string}
+   */
+  ;
+
+  _proto.toISO = function toISO(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    if (!this.isValid) {
+      return null;
+    }
+
+    return this.toISODate(opts) + "T" + this.toISOTime(opts);
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of this DateTime's date component
+   * @param {Object} opts - options
+   * @param {string} [opts.format='extended'] - choose between the basic and extended format
+   * @example DateTime.utc(1982, 5, 25).toISODate() //=> '1982-05-25'
+   * @example DateTime.utc(1982, 5, 25).toISODate({ format: 'basic' }) //=> '19820525'
+   * @return {string}
+   */
+  ;
+
+  _proto.toISODate = function toISODate(_temp3) {
+    var _ref5 = _temp3 === void 0 ? {} : _temp3,
+        _ref5$format = _ref5.format,
+        format = _ref5$format === void 0 ? "extended" : _ref5$format;
+
+    var fmt = format === "basic" ? "yyyyMMdd" : "yyyy-MM-dd";
+
+    if (this.year > 9999) {
+      fmt = "+" + fmt;
+    }
+
+    return toTechFormat(this, fmt);
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of this DateTime's week date
+   * @example DateTime.utc(1982, 5, 25).toISOWeekDate() //=> '1982-W21-2'
+   * @return {string}
+   */
+  ;
+
+  _proto.toISOWeekDate = function toISOWeekDate() {
+    return toTechFormat(this, "kkkk-'W'WW-c");
+  }
+  /**
+   * Returns an ISO 8601-compliant string representation of this DateTime's time component
+   * @param {Object} opts - options
+   * @param {boolean} [opts.suppressMilliseconds=false] - exclude milliseconds from the format if they're 0
+   * @param {boolean} [opts.suppressSeconds=false] - exclude seconds from the format if they're 0
+   * @param {boolean} [opts.includeOffset=true] - include the offset, such as 'Z' or '-04:00'
+   * @param {boolean} [opts.includePrefix=false] - include the `T` prefix
+   * @param {string} [opts.format='extended'] - choose between the basic and extended format
+   * @example DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime() //=> '07:34:19.361Z'
+   * @example DateTime.utc().set({ hour: 7, minute: 34, seconds: 0, milliseconds: 0 }).toISOTime({ suppressSeconds: true }) //=> '07:34Z'
+   * @example DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ format: 'basic' }) //=> '073419.361Z'
+   * @example DateTime.utc().set({ hour: 7, minute: 34 }).toISOTime({ includePrefix: true }) //=> 'T07:34:19.361Z'
+   * @return {string}
+   */
+  ;
+
+  _proto.toISOTime = function toISOTime(_temp4) {
+    var _ref6 = _temp4 === void 0 ? {} : _temp4,
+        _ref6$suppressMillise = _ref6.suppressMilliseconds,
+        suppressMilliseconds = _ref6$suppressMillise === void 0 ? false : _ref6$suppressMillise,
+        _ref6$suppressSeconds = _ref6.suppressSeconds,
+        suppressSeconds = _ref6$suppressSeconds === void 0 ? false : _ref6$suppressSeconds,
+        _ref6$includeOffset = _ref6.includeOffset,
+        includeOffset = _ref6$includeOffset === void 0 ? true : _ref6$includeOffset,
+        _ref6$includePrefix = _ref6.includePrefix,
+        includePrefix = _ref6$includePrefix === void 0 ? false : _ref6$includePrefix,
+        _ref6$format = _ref6.format,
+        format = _ref6$format === void 0 ? "extended" : _ref6$format;
+
+    return toTechTimeFormat(this, {
+      suppressSeconds: suppressSeconds,
+      suppressMilliseconds: suppressMilliseconds,
+      includeOffset: includeOffset,
+      includePrefix: includePrefix,
+      format: format
+    });
+  }
+  /**
+   * Returns an RFC 2822-compatible string representation of this DateTime, always in UTC
+   * @example DateTime.utc(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 +0000'
+   * @example DateTime.local(2014, 7, 13).toRFC2822() //=> 'Sun, 13 Jul 2014 00:00:00 -0400'
+   * @return {string}
+   */
+  ;
+
+  _proto.toRFC2822 = function toRFC2822() {
+    return toTechFormat(this, "EEE, dd LLL yyyy HH:mm:ss ZZZ", false);
+  }
+  /**
+   * Returns a string representation of this DateTime appropriate for use in HTTP headers.
+   * Specifically, the string conforms to RFC 1123.
+   * @see https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1
+   * @example DateTime.utc(2014, 7, 13).toHTTP() //=> 'Sun, 13 Jul 2014 00:00:00 GMT'
+   * @example DateTime.utc(2014, 7, 13, 19).toHTTP() //=> 'Sun, 13 Jul 2014 19:00:00 GMT'
+   * @return {string}
+   */
+  ;
+
+  _proto.toHTTP = function toHTTP() {
+    return toTechFormat(this.toUTC(), "EEE, dd LLL yyyy HH:mm:ss 'GMT'");
+  }
+  /**
+   * Returns a string representation of this DateTime appropriate for use in SQL Date
+   * @example DateTime.utc(2014, 7, 13).toSQLDate() //=> '2014-07-13'
+   * @return {string}
+   */
+  ;
+
+  _proto.toSQLDate = function toSQLDate() {
+    return toTechFormat(this, "yyyy-MM-dd");
+  }
+  /**
+   * Returns a string representation of this DateTime appropriate for use in SQL Time
+   * @param {Object} opts - options
+   * @param {boolean} [opts.includeZone=false] - include the zone, such as 'America/New_York'. Overrides includeOffset.
+   * @param {boolean} [opts.includeOffset=true] - include the offset, such as 'Z' or '-04:00'
+   * @example DateTime.utc().toSQL() //=> '05:15:16.345'
+   * @example DateTime.now().toSQL() //=> '05:15:16.345 -04:00'
+   * @example DateTime.now().toSQL({ includeOffset: false }) //=> '05:15:16.345'
+   * @example DateTime.now().toSQL({ includeZone: false }) //=> '05:15:16.345 America/New_York'
+   * @return {string}
+   */
+  ;
+
+  _proto.toSQLTime = function toSQLTime(_temp5) {
+    var _ref7 = _temp5 === void 0 ? {} : _temp5,
+        _ref7$includeOffset = _ref7.includeOffset,
+        includeOffset = _ref7$includeOffset === void 0 ? true : _ref7$includeOffset,
+        _ref7$includeZone = _ref7.includeZone,
+        includeZone = _ref7$includeZone === void 0 ? false : _ref7$includeZone;
+
+    return toTechTimeFormat(this, {
+      includeOffset: includeOffset,
+      includeZone: includeZone,
+      spaceZone: true
+    });
+  }
+  /**
+   * Returns a string representation of this DateTime appropriate for use in SQL DateTime
+   * @param {Object} opts - options
+   * @param {boolean} [opts.includeZone=false] - include the zone, such as 'America/New_York'. Overrides includeOffset.
+   * @param {boolean} [opts.includeOffset=true] - include the offset, such as 'Z' or '-04:00'
+   * @example DateTime.utc(2014, 7, 13).toSQL() //=> '2014-07-13 00:00:00.000 Z'
+   * @example DateTime.local(2014, 7, 13).toSQL() //=> '2014-07-13 00:00:00.000 -04:00'
+   * @example DateTime.local(2014, 7, 13).toSQL({ includeOffset: false }) //=> '2014-07-13 00:00:00.000'
+   * @example DateTime.local(2014, 7, 13).toSQL({ includeZone: true }) //=> '2014-07-13 00:00:00.000 America/New_York'
+   * @return {string}
+   */
+  ;
+
+  _proto.toSQL = function toSQL(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    if (!this.isValid) {
+      return null;
+    }
+
+    return this.toSQLDate() + " " + this.toSQLTime(opts);
+  }
+  /**
+   * Returns a string representation of this DateTime appropriate for debugging
+   * @return {string}
+   */
+  ;
+
+  _proto.toString = function toString() {
+    return this.isValid ? this.toISO() : INVALID$2;
+  }
+  /**
+   * Returns the epoch milliseconds of this DateTime. Alias of {@link toMillis}
+   * @return {number}
+   */
+  ;
+
+  _proto.valueOf = function valueOf() {
+    return this.toMillis();
+  }
+  /**
+   * Returns the epoch milliseconds of this DateTime.
+   * @return {number}
+   */
+  ;
+
+  _proto.toMillis = function toMillis() {
+    return this.isValid ? this.ts : NaN;
+  }
+  /**
+   * Returns the epoch seconds of this DateTime.
+   * @return {number}
+   */
+  ;
+
+  _proto.toSeconds = function toSeconds() {
+    return this.isValid ? this.ts / 1000 : NaN;
+  }
+  /**
+   * Returns an ISO 8601 representation of this DateTime appropriate for use in JSON.
+   * @return {string}
+   */
+  ;
+
+  _proto.toJSON = function toJSON() {
+    return this.toISO();
+  }
+  /**
+   * Returns a BSON serializable equivalent to this DateTime.
+   * @return {Date}
+   */
+  ;
+
+  _proto.toBSON = function toBSON() {
+    return this.toJSDate();
+  }
+  /**
+   * Returns a JavaScript object with this DateTime's year, month, day, and so on.
+   * @param opts - options for generating the object
+   * @param {boolean} [opts.includeConfig=false] - include configuration attributes in the output
+   * @example DateTime.now().toObject() //=> { year: 2017, month: 4, day: 22, hour: 20, minute: 49, second: 42, millisecond: 268 }
+   * @return {Object}
+   */
+  ;
+
+  _proto.toObject = function toObject(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    if (!this.isValid) return {};
+    var base = Object.assign({}, this.c);
+
+    if (opts.includeConfig) {
+      base.outputCalendar = this.outputCalendar;
+      base.numberingSystem = this.loc.numberingSystem;
+      base.locale = this.loc.locale;
+    }
+
+    return base;
+  }
+  /**
+   * Returns a JavaScript Date equivalent to this DateTime.
+   * @return {Date}
+   */
+  ;
+
+  _proto.toJSDate = function toJSDate() {
+    return new Date(this.isValid ? this.ts : NaN);
+  } // COMPARE
+
+  /**
+   * Return the difference between two DateTimes as a Duration.
+   * @param {DateTime} otherDateTime - the DateTime to compare this one to
+   * @param {string|string[]} [unit=['milliseconds']] - the unit or array of units (such as 'hours' or 'days') to include in the duration.
+   * @param {Object} opts - options that affect the creation of the Duration
+   * @param {string} [opts.conversionAccuracy='casual'] - the conversion system to use
+   * @example
+   * var i1 = DateTime.fromISO('1982-05-25T09:45'),
+   *     i2 = DateTime.fromISO('1983-10-14T10:30');
+   * i2.diff(i1).toObject() //=> { milliseconds: 43807500000 }
+   * i2.diff(i1, 'hours').toObject() //=> { hours: 12168.75 }
+   * i2.diff(i1, ['months', 'days']).toObject() //=> { months: 16, days: 19.03125 }
+   * i2.diff(i1, ['months', 'days', 'hours']).toObject() //=> { months: 16, days: 19, hours: 0.75 }
+   * @return {Duration}
+   */
+  ;
+
+  _proto.diff = function diff(otherDateTime, unit, opts) {
+    if (unit === void 0) {
+      unit = "milliseconds";
+    }
+
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    if (!this.isValid || !otherDateTime.isValid) {
+      return Duration.invalid(this.invalid || otherDateTime.invalid, "created by diffing an invalid DateTime");
+    }
+
+    var durOpts = Object.assign({
+      locale: this.locale,
+      numberingSystem: this.numberingSystem
+    }, opts);
+
+    var units = maybeArray(unit).map(Duration.normalizeUnit),
+        otherIsLater = otherDateTime.valueOf() > this.valueOf(),
+        earlier = otherIsLater ? this : otherDateTime,
+        later = otherIsLater ? otherDateTime : this,
+        diffed = _diff(earlier, later, units, durOpts);
+
+    return otherIsLater ? diffed.negate() : diffed;
+  }
+  /**
+   * Return the difference between this DateTime and right now.
+   * See {@link diff}
+   * @param {string|string[]} [unit=['milliseconds']] - the unit or units units (such as 'hours' or 'days') to include in the duration
+   * @param {Object} opts - options that affect the creation of the Duration
+   * @param {string} [opts.conversionAccuracy='casual'] - the conversion system to use
+   * @return {Duration}
+   */
+  ;
+
+  _proto.diffNow = function diffNow(unit, opts) {
+    if (unit === void 0) {
+      unit = "milliseconds";
+    }
+
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    return this.diff(DateTime.now(), unit, opts);
+  }
+  /**
+   * Return an Interval spanning between this DateTime and another DateTime
+   * @param {DateTime} otherDateTime - the other end point of the Interval
+   * @return {Interval}
+   */
+  ;
+
+  _proto.until = function until(otherDateTime) {
+    return this.isValid ? Interval.fromDateTimes(this, otherDateTime) : this;
+  }
+  /**
+   * Return whether this DateTime is in the same unit of time as another DateTime.
+   * Higher-order units must also be identical for this function to return `true`.
+   * Note that time zones are **ignored** in this comparison, which compares the **local** calendar time. Use {@link setZone} to convert one of the dates if needed.
+   * @param {DateTime} otherDateTime - the other DateTime
+   * @param {string} unit - the unit of time to check sameness on
+   * @example DateTime.now().hasSame(otherDT, 'day'); //~> true if otherDT is in the same current calendar day
+   * @return {boolean}
+   */
+  ;
+
+  _proto.hasSame = function hasSame(otherDateTime, unit) {
+    if (!this.isValid) return false;
+    var inputMs = otherDateTime.valueOf();
+    var otherZoneDateTime = this.setZone(otherDateTime.zone, {
+      keepLocalTime: true
+    });
+    return otherZoneDateTime.startOf(unit) <= inputMs && inputMs <= otherZoneDateTime.endOf(unit);
+  }
+  /**
+   * Equality check
+   * Two DateTimes are equal iff they represent the same millisecond, have the same zone and location, and are both valid.
+   * To compare just the millisecond values, use `+dt1 === +dt2`.
+   * @param {DateTime} other - the other DateTime
+   * @return {boolean}
+   */
+  ;
+
+  _proto.equals = function equals(other) {
+    return this.isValid && other.isValid && this.valueOf() === other.valueOf() && this.zone.equals(other.zone) && this.loc.equals(other.loc);
+  }
+  /**
+   * Returns a string representation of a this time relative to now, such as "in two days". Can only internationalize if your
+   * platform supports Intl.RelativeTimeFormat. Rounds down by default.
+   * @param {Object} options - options that affect the output
+   * @param {DateTime} [options.base=DateTime.now()] - the DateTime to use as the basis to which this time is compared. Defaults to now.
+   * @param {string} [options.style="long"] - the style of units, must be "long", "short", or "narrow"
+   * @param {string} options.unit - use a specific unit; if omitted, the method will pick the unit. Use one of "years", "quarters", "months", "weeks", "days", "hours", "minutes", or "seconds"
+   * @param {boolean} [options.round=true] - whether to round the numbers in the output.
+   * @param {number} [options.padding=0] - padding in milliseconds. This allows you to round up the result if it fits inside the threshold. Don't use in combination with {round: false} because the decimal output will include the padding.
+   * @param {string} options.locale - override the locale of this DateTime
+   * @param {string} options.numberingSystem - override the numberingSystem of this DateTime. The Intl system may choose not to honor this
+   * @example DateTime.now().plus({ days: 1 }).toRelative() //=> "in 1 day"
+   * @example DateTime.now().setLocale("es").toRelative({ days: 1 }) //=> "dentro de 1 día"
+   * @example DateTime.now().plus({ days: 1 }).toRelative({ locale: "fr" }) //=> "dans 23 heures"
+   * @example DateTime.now().minus({ days: 2 }).toRelative() //=> "2 days ago"
+   * @example DateTime.now().minus({ days: 2 }).toRelative({ unit: "hours" }) //=> "48 hours ago"
+   * @example DateTime.now().minus({ hours: 36 }).toRelative({ round: false }) //=> "1.5 days ago"
+   */
+  ;
+
+  _proto.toRelative = function toRelative(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    if (!this.isValid) return null;
+    var base = options.base || DateTime.fromObject({
+      zone: this.zone
+    }),
+        padding = options.padding ? this < base ? -options.padding : options.padding : 0;
+    return diffRelative(base, this.plus(padding), Object.assign(options, {
+      numeric: "always",
+      units: ["years", "months", "days", "hours", "minutes", "seconds"]
+    }));
+  }
+  /**
+   * Returns a string representation of this date relative to today, such as "yesterday" or "next month".
+   * Only internationalizes on platforms that supports Intl.RelativeTimeFormat.
+   * @param {Object} options - options that affect the output
+   * @param {DateTime} [options.base=DateTime.now()] - the DateTime to use as the basis to which this time is compared. Defaults to now.
+   * @param {string} options.locale - override the locale of this DateTime
+   * @param {string} options.unit - use a specific unit; if omitted, the method will pick the unit. Use one of "years", "quarters", "months", "weeks", or "days"
+   * @param {string} options.numberingSystem - override the numberingSystem of this DateTime. The Intl system may choose not to honor this
+   * @example DateTime.now().plus({ days: 1 }).toRelativeCalendar() //=> "tomorrow"
+   * @example DateTime.now().setLocale("es").plus({ days: 1 }).toRelative() //=> ""mañana"
+   * @example DateTime.now().plus({ days: 1 }).toRelativeCalendar({ locale: "fr" }) //=> "demain"
+   * @example DateTime.now().minus({ days: 2 }).toRelativeCalendar() //=> "2 days ago"
+   */
+  ;
+
+  _proto.toRelativeCalendar = function toRelativeCalendar(options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    if (!this.isValid) return null;
+    return diffRelative(options.base || DateTime.fromObject({
+      zone: this.zone
+    }), this, Object.assign(options, {
+      numeric: "auto",
+      units: ["years", "months", "days"],
+      calendary: true
+    }));
+  }
+  /**
+   * Return the min of several date times
+   * @param {...DateTime} dateTimes - the DateTimes from which to choose the minimum
+   * @return {DateTime} the min DateTime, or undefined if called with no argument
+   */
+  ;
+
+  DateTime.min = function min() {
+    for (var _len = arguments.length, dateTimes = new Array(_len), _key = 0; _key < _len; _key++) {
+      dateTimes[_key] = arguments[_key];
+    }
+
+    if (!dateTimes.every(DateTime.isDateTime)) {
+      throw new InvalidArgumentError("min requires all arguments be DateTimes");
+    }
+
+    return bestBy(dateTimes, function (i) {
+      return i.valueOf();
+    }, Math.min);
+  }
+  /**
+   * Return the max of several date times
+   * @param {...DateTime} dateTimes - the DateTimes from which to choose the maximum
+   * @return {DateTime} the max DateTime, or undefined if called with no argument
+   */
+  ;
+
+  DateTime.max = function max() {
+    for (var _len2 = arguments.length, dateTimes = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      dateTimes[_key2] = arguments[_key2];
+    }
+
+    if (!dateTimes.every(DateTime.isDateTime)) {
+      throw new InvalidArgumentError("max requires all arguments be DateTimes");
+    }
+
+    return bestBy(dateTimes, function (i) {
+      return i.valueOf();
+    }, Math.max);
+  } // MISC
+
+  /**
+   * Explain how a string would be parsed by fromFormat()
+   * @param {string} text - the string to parse
+   * @param {string} fmt - the format the string is expected to be in (see description)
+   * @param {Object} options - options taken by fromFormat()
+   * @return {Object}
+   */
+  ;
+
+  DateTime.fromFormatExplain = function fromFormatExplain(text, fmt, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    var _options = options,
+        _options$locale = _options.locale,
+        locale = _options$locale === void 0 ? null : _options$locale,
+        _options$numberingSys = _options.numberingSystem,
+        numberingSystem = _options$numberingSys === void 0 ? null : _options$numberingSys,
+        localeToUse = Locale.fromOpts({
+      locale: locale,
+      numberingSystem: numberingSystem,
+      defaultToEN: true
+    });
+    return explainFromTokens(localeToUse, text, fmt);
+  }
+  /**
+   * @deprecated use fromFormatExplain instead
+   */
+  ;
+
+  DateTime.fromStringExplain = function fromStringExplain(text, fmt, options) {
+    if (options === void 0) {
+      options = {};
+    }
+
+    return DateTime.fromFormatExplain(text, fmt, options);
+  } // FORMAT PRESETS
+
+  /**
+   * {@link toLocaleString} format like 10/14/1983
+   * @type {Object}
+   */
+  ;
+
+  _createClass(DateTime, [{
+    key: "isValid",
+    get: function get() {
+      return this.invalid === null;
+    }
+    /**
+     * Returns an error code if this DateTime is invalid, or null if the DateTime is valid
+     * @type {string}
+     */
+
+  }, {
+    key: "invalidReason",
+    get: function get() {
+      return this.invalid ? this.invalid.reason : null;
+    }
+    /**
+     * Returns an explanation of why this DateTime became invalid, or null if the DateTime is valid
+     * @type {string}
+     */
+
+  }, {
+    key: "invalidExplanation",
+    get: function get() {
+      return this.invalid ? this.invalid.explanation : null;
+    }
+    /**
+     * Get the locale of a DateTime, such 'en-GB'. The locale is used when formatting the DateTime
+     *
+     * @type {string}
+     */
+
+  }, {
+    key: "locale",
+    get: function get() {
+      return this.isValid ? this.loc.locale : null;
+    }
+    /**
+     * Get the numbering system of a DateTime, such 'beng'. The numbering system is used when formatting the DateTime
+     *
+     * @type {string}
+     */
+
+  }, {
+    key: "numberingSystem",
+    get: function get() {
+      return this.isValid ? this.loc.numberingSystem : null;
+    }
+    /**
+     * Get the output calendar of a DateTime, such 'islamic'. The output calendar is used when formatting the DateTime
+     *
+     * @type {string}
+     */
+
+  }, {
+    key: "outputCalendar",
+    get: function get() {
+      return this.isValid ? this.loc.outputCalendar : null;
+    }
+    /**
+     * Get the time zone associated with this DateTime.
+     * @type {Zone}
+     */
+
+  }, {
+    key: "zone",
+    get: function get() {
+      return this._zone;
+    }
+    /**
+     * Get the name of the time zone.
+     * @type {string}
+     */
+
+  }, {
+    key: "zoneName",
+    get: function get() {
+      return this.isValid ? this.zone.name : null;
+    }
+    /**
+     * Get the year
+     * @example DateTime.local(2017, 5, 25).year //=> 2017
+     * @type {number}
+     */
+
+  }, {
+    key: "year",
+    get: function get() {
+      return this.isValid ? this.c.year : NaN;
+    }
+    /**
+     * Get the quarter
+     * @example DateTime.local(2017, 5, 25).quarter //=> 2
+     * @type {number}
+     */
+
+  }, {
+    key: "quarter",
+    get: function get() {
+      return this.isValid ? Math.ceil(this.c.month / 3) : NaN;
+    }
+    /**
+     * Get the month (1-12).
+     * @example DateTime.local(2017, 5, 25).month //=> 5
+     * @type {number}
+     */
+
+  }, {
+    key: "month",
+    get: function get() {
+      return this.isValid ? this.c.month : NaN;
+    }
+    /**
+     * Get the day of the month (1-30ish).
+     * @example DateTime.local(2017, 5, 25).day //=> 25
+     * @type {number}
+     */
+
+  }, {
+    key: "day",
+    get: function get() {
+      return this.isValid ? this.c.day : NaN;
+    }
+    /**
+     * Get the hour of the day (0-23).
+     * @example DateTime.local(2017, 5, 25, 9).hour //=> 9
+     * @type {number}
+     */
+
+  }, {
+    key: "hour",
+    get: function get() {
+      return this.isValid ? this.c.hour : NaN;
+    }
+    /**
+     * Get the minute of the hour (0-59).
+     * @example DateTime.local(2017, 5, 25, 9, 30).minute //=> 30
+     * @type {number}
+     */
+
+  }, {
+    key: "minute",
+    get: function get() {
+      return this.isValid ? this.c.minute : NaN;
+    }
+    /**
+     * Get the second of the minute (0-59).
+     * @example DateTime.local(2017, 5, 25, 9, 30, 52).second //=> 52
+     * @type {number}
+     */
+
+  }, {
+    key: "second",
+    get: function get() {
+      return this.isValid ? this.c.second : NaN;
+    }
+    /**
+     * Get the millisecond of the second (0-999).
+     * @example DateTime.local(2017, 5, 25, 9, 30, 52, 654).millisecond //=> 654
+     * @type {number}
+     */
+
+  }, {
+    key: "millisecond",
+    get: function get() {
+      return this.isValid ? this.c.millisecond : NaN;
+    }
+    /**
+     * Get the week year
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     * @example DateTime.local(2014, 11, 31).weekYear //=> 2015
+     * @type {number}
+     */
+
+  }, {
+    key: "weekYear",
+    get: function get() {
+      return this.isValid ? possiblyCachedWeekData(this).weekYear : NaN;
+    }
+    /**
+     * Get the week number of the week year (1-52ish).
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     * @example DateTime.local(2017, 5, 25).weekNumber //=> 21
+     * @type {number}
+     */
+
+  }, {
+    key: "weekNumber",
+    get: function get() {
+      return this.isValid ? possiblyCachedWeekData(this).weekNumber : NaN;
+    }
+    /**
+     * Get the day of the week.
+     * 1 is Monday and 7 is Sunday
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     * @example DateTime.local(2014, 11, 31).weekday //=> 4
+     * @type {number}
+     */
+
+  }, {
+    key: "weekday",
+    get: function get() {
+      return this.isValid ? possiblyCachedWeekData(this).weekday : NaN;
+    }
+    /**
+     * Get the ordinal (meaning the day of the year)
+     * @example DateTime.local(2017, 5, 25).ordinal //=> 145
+     * @type {number|DateTime}
+     */
+
+  }, {
+    key: "ordinal",
+    get: function get() {
+      return this.isValid ? gregorianToOrdinal(this.c).ordinal : NaN;
+    }
+    /**
+     * Get the human readable short month name, such as 'Oct'.
+     * Defaults to the system's locale if no locale has been specified
+     * @example DateTime.local(2017, 10, 30).monthShort //=> Oct
+     * @type {string}
+     */
+
+  }, {
+    key: "monthShort",
+    get: function get() {
+      return this.isValid ? Info.months("short", {
+        locale: this.locale
+      })[this.month - 1] : null;
+    }
+    /**
+     * Get the human readable long month name, such as 'October'.
+     * Defaults to the system's locale if no locale has been specified
+     * @example DateTime.local(2017, 10, 30).monthLong //=> October
+     * @type {string}
+     */
+
+  }, {
+    key: "monthLong",
+    get: function get() {
+      return this.isValid ? Info.months("long", {
+        locale: this.locale
+      })[this.month - 1] : null;
+    }
+    /**
+     * Get the human readable short weekday, such as 'Mon'.
+     * Defaults to the system's locale if no locale has been specified
+     * @example DateTime.local(2017, 10, 30).weekdayShort //=> Mon
+     * @type {string}
+     */
+
+  }, {
+    key: "weekdayShort",
+    get: function get() {
+      return this.isValid ? Info.weekdays("short", {
+        locale: this.locale
+      })[this.weekday - 1] : null;
+    }
+    /**
+     * Get the human readable long weekday, such as 'Monday'.
+     * Defaults to the system's locale if no locale has been specified
+     * @example DateTime.local(2017, 10, 30).weekdayLong //=> Monday
+     * @type {string}
+     */
+
+  }, {
+    key: "weekdayLong",
+    get: function get() {
+      return this.isValid ? Info.weekdays("long", {
+        locale: this.locale
+      })[this.weekday - 1] : null;
+    }
+    /**
+     * Get the UTC offset of this DateTime in minutes
+     * @example DateTime.now().offset //=> -240
+     * @example DateTime.utc().offset //=> 0
+     * @type {number}
+     */
+
+  }, {
+    key: "offset",
+    get: function get() {
+      return this.isValid ? +this.o : NaN;
+    }
+    /**
+     * Get the short human name for the zone's current offset, for example "EST" or "EDT".
+     * Defaults to the system's locale if no locale has been specified
+     * @type {string}
+     */
+
+  }, {
+    key: "offsetNameShort",
+    get: function get() {
+      if (this.isValid) {
+        return this.zone.offsetName(this.ts, {
+          format: "short",
+          locale: this.locale
+        });
+      } else {
+        return null;
+      }
+    }
+    /**
+     * Get the long human name for the zone's current offset, for example "Eastern Standard Time" or "Eastern Daylight Time".
+     * Defaults to the system's locale if no locale has been specified
+     * @type {string}
+     */
+
+  }, {
+    key: "offsetNameLong",
+    get: function get() {
+      if (this.isValid) {
+        return this.zone.offsetName(this.ts, {
+          format: "long",
+          locale: this.locale
+        });
+      } else {
+        return null;
+      }
+    }
+    /**
+     * Get whether this zone's offset ever changes, as in a DST.
+     * @type {boolean}
+     */
+
+  }, {
+    key: "isOffsetFixed",
+    get: function get() {
+      return this.isValid ? this.zone.universal : null;
+    }
+    /**
+     * Get whether the DateTime is in a DST.
+     * @type {boolean}
+     */
+
+  }, {
+    key: "isInDST",
+    get: function get() {
+      if (this.isOffsetFixed) {
+        return false;
+      } else {
+        return this.offset > this.set({
+          month: 1
+        }).offset || this.offset > this.set({
+          month: 5
+        }).offset;
+      }
+    }
+    /**
+     * Returns true if this DateTime is in a leap year, false otherwise
+     * @example DateTime.local(2016).isInLeapYear //=> true
+     * @example DateTime.local(2013).isInLeapYear //=> false
+     * @type {boolean}
+     */
+
+  }, {
+    key: "isInLeapYear",
+    get: function get() {
+      return isLeapYear(this.year);
+    }
+    /**
+     * Returns the number of days in this DateTime's month
+     * @example DateTime.local(2016, 2).daysInMonth //=> 29
+     * @example DateTime.local(2016, 3).daysInMonth //=> 31
+     * @type {number}
+     */
+
+  }, {
+    key: "daysInMonth",
+    get: function get() {
+      return daysInMonth(this.year, this.month);
+    }
+    /**
+     * Returns the number of days in this DateTime's year
+     * @example DateTime.local(2016).daysInYear //=> 366
+     * @example DateTime.local(2013).daysInYear //=> 365
+     * @type {number}
+     */
+
+  }, {
+    key: "daysInYear",
+    get: function get() {
+      return this.isValid ? daysInYear(this.year) : NaN;
+    }
+    /**
+     * Returns the number of weeks in this DateTime's year
+     * @see https://en.wikipedia.org/wiki/ISO_week_date
+     * @example DateTime.local(2004).weeksInWeekYear //=> 53
+     * @example DateTime.local(2013).weeksInWeekYear //=> 52
+     * @type {number}
+     */
+
+  }, {
+    key: "weeksInWeekYear",
+    get: function get() {
+      return this.isValid ? weeksInWeekYear(this.weekYear) : NaN;
+    }
+  }], [{
+    key: "DATE_SHORT",
+    get: function get() {
+      return DATE_SHORT;
+    }
+    /**
+     * {@link toLocaleString} format like 'Oct 14, 1983'
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATE_MED",
+    get: function get() {
+      return DATE_MED;
+    }
+    /**
+     * {@link toLocaleString} format like 'Fri, Oct 14, 1983'
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATE_MED_WITH_WEEKDAY",
+    get: function get() {
+      return DATE_MED_WITH_WEEKDAY;
+    }
+    /**
+     * {@link toLocaleString} format like 'October 14, 1983'
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATE_FULL",
+    get: function get() {
+      return DATE_FULL;
+    }
+    /**
+     * {@link toLocaleString} format like 'Tuesday, October 14, 1983'
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATE_HUGE",
+    get: function get() {
+      return DATE_HUGE;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30 AM'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_SIMPLE",
+    get: function get() {
+      return TIME_SIMPLE;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30:23 AM'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_WITH_SECONDS",
+    get: function get() {
+      return TIME_WITH_SECONDS;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30:23 AM EDT'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_WITH_SHORT_OFFSET",
+    get: function get() {
+      return TIME_WITH_SHORT_OFFSET;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30:23 AM Eastern Daylight Time'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_WITH_LONG_OFFSET",
+    get: function get() {
+      return TIME_WITH_LONG_OFFSET;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30', always 24-hour.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_24_SIMPLE",
+    get: function get() {
+      return TIME_24_SIMPLE;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30:23', always 24-hour.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_24_WITH_SECONDS",
+    get: function get() {
+      return TIME_24_WITH_SECONDS;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30:23 EDT', always 24-hour.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_24_WITH_SHORT_OFFSET",
+    get: function get() {
+      return TIME_24_WITH_SHORT_OFFSET;
+    }
+    /**
+     * {@link toLocaleString} format like '09:30:23 Eastern Daylight Time', always 24-hour.
+     * @type {Object}
+     */
+
+  }, {
+    key: "TIME_24_WITH_LONG_OFFSET",
+    get: function get() {
+      return TIME_24_WITH_LONG_OFFSET;
+    }
+    /**
+     * {@link toLocaleString} format like '10/14/1983, 9:30 AM'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_SHORT",
+    get: function get() {
+      return DATETIME_SHORT;
+    }
+    /**
+     * {@link toLocaleString} format like '10/14/1983, 9:30:33 AM'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_SHORT_WITH_SECONDS",
+    get: function get() {
+      return DATETIME_SHORT_WITH_SECONDS;
+    }
+    /**
+     * {@link toLocaleString} format like 'Oct 14, 1983, 9:30 AM'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_MED",
+    get: function get() {
+      return DATETIME_MED;
+    }
+    /**
+     * {@link toLocaleString} format like 'Oct 14, 1983, 9:30:33 AM'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_MED_WITH_SECONDS",
+    get: function get() {
+      return DATETIME_MED_WITH_SECONDS;
+    }
+    /**
+     * {@link toLocaleString} format like 'Fri, 14 Oct 1983, 9:30 AM'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_MED_WITH_WEEKDAY",
+    get: function get() {
+      return DATETIME_MED_WITH_WEEKDAY;
+    }
+    /**
+     * {@link toLocaleString} format like 'October 14, 1983, 9:30 AM EDT'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_FULL",
+    get: function get() {
+      return DATETIME_FULL;
+    }
+    /**
+     * {@link toLocaleString} format like 'October 14, 1983, 9:30:33 AM EDT'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_FULL_WITH_SECONDS",
+    get: function get() {
+      return DATETIME_FULL_WITH_SECONDS;
+    }
+    /**
+     * {@link toLocaleString} format like 'Friday, October 14, 1983, 9:30 AM Eastern Daylight Time'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_HUGE",
+    get: function get() {
+      return DATETIME_HUGE;
+    }
+    /**
+     * {@link toLocaleString} format like 'Friday, October 14, 1983, 9:30:33 AM Eastern Daylight Time'. Only 12-hour if the locale is.
+     * @type {Object}
+     */
+
+  }, {
+    key: "DATETIME_HUGE_WITH_SECONDS",
+    get: function get() {
+      return DATETIME_HUGE_WITH_SECONDS;
+    }
+  }]);
+
+  return DateTime;
+}();
+function friendlyDateTime(dateTimeish) {
+  if (DateTime.isDateTime(dateTimeish)) {
+    return dateTimeish;
+  } else if (dateTimeish && dateTimeish.valueOf && isNumber(dateTimeish.valueOf())) {
+    return DateTime.fromJSDate(dateTimeish);
+  } else if (dateTimeish && typeof dateTimeish === "object") {
+    return DateTime.fromObject(dateTimeish);
+  } else {
+    throw new InvalidArgumentError("Unknown datetime argument: " + dateTimeish + ", of type " + typeof dateTimeish);
+  }
+}
+
+var VERSION = "1.26.0";
+
+exports.DateTime = DateTime;
+exports.Duration = Duration;
+exports.FixedOffsetZone = FixedOffsetZone;
+exports.IANAZone = IANAZone;
+exports.Info = Info;
+exports.Interval = Interval;
+exports.InvalidZone = InvalidZone;
+exports.LocalZone = LocalZone;
+exports.Settings = Settings;
+exports.VERSION = VERSION;
+exports.Zone = Zone;
+//# sourceMappingURL=luxon.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -22592,15 +31497,15 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./admins.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./elections.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -22661,6 +31566,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./register.vue?vue&type=style&index=0&id=2c7edb8c&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/register.vue?vue&type=style&index=0&id=2c7edb8c&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=style&index=0&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/users.vue?vue&type=style&index=0&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./users.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -69172,6 +78107,973 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/vue-datetime/dist/vue-datetime.css":
+/*!*********************************************************!*\
+  !*** ./node_modules/vue-datetime/dist/vue-datetime.css ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../css-loader??ref--6-1!../../postcss-loader/src??ref--6-2!./vue-datetime.css */ "./node_modules/css-loader/index.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-datetime/dist/vue-datetime.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-datetime/dist/vue-datetime.js":
+/*!********************************************************!*\
+  !*** ./node_modules/vue-datetime/dist/vue-datetime.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*!
+ * vue-datetime v1.0.0-beta.14
+ * (c) 2020 Mario Juárez
+ * Released under the MIT License.
+ */
+
+(function (global, factory) {
+	 true ? factory(exports, __webpack_require__(/*! luxon */ "./node_modules/luxon/build/cjs-browser/luxon.js")) :
+	undefined;
+}(this, (function (exports,luxon) { 'use strict';
+
+var FlowManager = function FlowManager (flow, endStatus) {
+  if ( flow === void 0 ) flow = [];
+  if ( endStatus === void 0 ) endStatus = null;
+
+  this.flow = flow;
+  this.endStatus = endStatus;
+  this.diversionNext = null;
+};
+
+FlowManager.prototype.step = function step (index) {
+  return this.flow.length > index ? this.flow[index] : this.endStatus
+};
+
+FlowManager.prototype.first = function first () {
+  return this.step(0)
+};
+
+FlowManager.prototype.next = function next (current) {
+  if (this.diversionNext) {
+    var next = this.diversionNext;
+    this.diversionNext = null;
+
+    return next
+  }
+
+  return this.step(this.flow.indexOf(current) + 1)
+};
+
+FlowManager.prototype.diversion = function diversion (next) {
+  this.diversionNext = next;
+};
+
+function capitalize (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+function datetimeFromISO (string) {
+  var datetime = luxon.DateTime.fromISO(string).toUTC();
+
+  return datetime.isValid ? datetime : null
+}
+
+function monthDays (year, month, weekStart) {
+  var monthDate = luxon.DateTime.local(year, month, 1);
+  var firstDay = monthDate.weekday - weekStart;
+
+  if (firstDay < 0) {
+    firstDay += 7;
+  }
+  var lastDay = (weekStart - monthDate.weekday - monthDate.daysInMonth) % 7;
+  if (lastDay < 0) {
+    lastDay += 7;
+  }
+
+  return Array.apply(null, Array(monthDate.daysInMonth + firstDay + lastDay))
+    .map(function (value, index) { return (index + 1 <= firstDay || index >= firstDay + monthDate.daysInMonth) ? null : (index + 1 - firstDay); }
+    )
+}
+
+function monthDayIsDisabled (minDate, maxDate, year, month, day) {
+  var date = luxon.DateTime.fromObject({ year: year, month: month, day: day, zone: 'UTC' });
+
+  minDate = minDate ? startOfDay(minDate.setZone('UTC', { keepLocalTime: true })) : null;
+  maxDate = maxDate ? startOfDay(maxDate.setZone('UTC', { keepLocalTime: true })) : null;
+
+  return (minDate && date < minDate) ||
+         (maxDate && date > maxDate)
+}
+
+function monthIsDisabled (minDate, maxDate, year, month) {
+  return (minDate && minDate > luxon.DateTime.utc(year, month, luxon.DateTime.utc(year, month).daysInMonth)) ||
+         (maxDate && maxDate < luxon.DateTime.utc(year, month, 1))
+}
+
+function yearIsDisabled (minDate, maxDate, year) {
+  var minYear = minDate ? minDate.year : null;
+  var maxYear = maxDate ? maxDate.year : null;
+
+  return (minYear && year < minYear) ||
+         (maxYear && year > maxYear)
+}
+
+function timeComponentIsDisabled (min, max, component) {
+  return (min !== null && component < min) ||
+         (max !== null && component > max)
+}
+
+function weekdays (weekStart) {
+  if (--weekStart < 0) {
+    weekStart = 6;
+  }
+
+  var weekDays = luxon.Info.weekdays('short').map(function (weekday) { return capitalize(weekday); });
+
+  weekDays = weekDays.concat(weekDays.splice(0, weekStart));
+
+  return weekDays
+}
+
+function months () {
+  return luxon.Info.months().map(function (month) { return capitalize(month); })
+}
+
+function hours (step) {
+  return Array.apply(null, Array(Math.ceil(24 / step))).map(function (item, index) { return index * step; })
+}
+
+function minutes (step) {
+  return Array.apply(null, Array(Math.ceil(60 / step))).map(function (item, index) { return index * step; })
+}
+
+function years (current) {
+  return Array.apply(null, Array(201)).map(function (item, index) { return current - 100 + index; })
+}
+
+function pad (number) {
+  return number < 10 ? '0' + number : number
+}
+
+function startOfDay (datetime) {
+  return datetime.startOf('day')
+}
+
+function createFlowManager (flow) {
+  return new FlowManager(flow, 'end')
+}
+
+function createFlowManagerFromType (type) {
+  var flow = [];
+
+  switch (type) {
+    case 'datetime':
+      flow = ['date', 'time'];
+      break
+    case 'time':
+      flow = ['time'];
+      break
+    default:
+      flow = ['date'];
+  }
+
+  return new FlowManager(flow, 'end')
+}
+
+function weekStart () {
+  var weekstart;
+
+  try {
+    weekstart = __webpack_require__(/*! weekstart/package.json */ "./node_modules/weekstart/package.json").version ? __webpack_require__(/*! weekstart */ "./node_modules/weekstart/dist/es-module/main.js") : null;
+  } catch (e) {
+    weekstart = window.weekstart;
+  }
+
+  var firstDay = weekstart ? weekstart.getWeekStartByLocale(luxon.Settings.defaultLocale) : 1;
+
+  return firstDay === 0 ? 7 : firstDay
+}
+
+var DatetimeCalendar = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-calendar"},[_c('div',{staticClass:"vdatetime-calendar__navigation"},[_c('div',{staticClass:"vdatetime-calendar__navigation--previous",on:{"click":_vm.previousMonth}},[_c('svg',{attrs:{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 61.3 102.8"}},[_c('path',{attrs:{"fill":"none","stroke":"#444","stroke-width":"14","stroke-miterlimit":"10","d":"M56.3 97.8L9.9 51.4 56.3 5"}})])]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__current--month"},[_vm._v(_vm._s(_vm.monthName)+" "+_vm._s(_vm.newYear))]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__navigation--next",on:{"click":_vm.nextMonth}},[_c('svg',{attrs:{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 61.3 102.8"}},[_c('path',{attrs:{"fill":"none","stroke":"#444","stroke-width":"14","stroke-miterlimit":"10","d":"M56.3 97.8L9.9 51.4 56.3 5"}})])])]),_vm._v(" "),_c('div',{staticClass:"vdatetime-calendar__month"},[_vm._l((_vm.weekdays),function(weekday){return _c('div',{staticClass:"vdatetime-calendar__month__weekday"},[_vm._v(_vm._s(weekday))])}),_vm._v(" "),_vm._l((_vm.days),function(day){return _c('div',{staticClass:"vdatetime-calendar__month__day",class:{'vdatetime-calendar__month__day--selected': day.selected, 'vdatetime-calendar__month__day--disabled': day.disabled},on:{"click":function($event){_vm.selectDay(day);}}},[_c('span',[_c('span',[_vm._v(_vm._s(day.number))])])])})],2)])},staticRenderFns: [],
+  props: {
+    year: {
+      type: Number,
+      required: true
+    },
+    month: {
+      type: Number,
+      required: true
+    },
+    day: {
+      type: Number,
+      default: null
+    },
+    disabled: {
+      type: Array
+    },
+    minDate: {
+      type: luxon.DateTime,
+      default: null
+    },
+    maxDate: {
+      type: luxon.DateTime,
+      default: null
+    },
+    weekStart: {
+      type: Number,
+      default: 1
+    }
+  },
+
+  data: function data () {
+    return {
+      newDate: luxon.DateTime.fromObject({ year: this.year, month: this.month, zone: 'UTC' }),
+      weekdays: weekdays(this.weekStart),
+      months: months()
+    }
+  },
+
+  computed: {
+    newYear: function newYear () {
+      return this.newDate.year
+    },
+    newMonth: function newMonth () {
+      return this.newDate.month
+    },
+    monthName: function monthName () {
+      return this.months[this.newMonth - 1]
+    },
+    days: function days () {
+      var this$1 = this;
+
+      return monthDays(this.newYear, this.newMonth, this.weekStart).map(function (day) { return ({
+        number: day,
+        selected: day && this$1.year === this$1.newYear && this$1.month === this$1.newMonth && this$1.day === day,
+        disabled: !day || monthDayIsDisabled(this$1.minDate, this$1.maxDate, this$1.newYear, this$1.newMonth, day)
+      }); })
+    }
+  },
+
+  methods: {
+    selectDay: function selectDay (day) {
+      if (day.disabled) {
+        return
+      }
+
+      this.$emit('change', this.newYear, this.newMonth, day.number);
+    },
+    previousMonth: function previousMonth () {
+      this.newDate = this.newDate.minus({ months: 1 });
+    },
+    nextMonth: function nextMonth () {
+      this.newDate = this.newDate.plus({ months: 1 });
+    }
+  }
+};
+
+var DatetimeTimePicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:{'vdatetime-time-picker': true, 'vdatetime-time-picker__with-suffix': _vm.use12Hour}},[_c('div',{ref:"hourList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--hours"},_vm._l((_vm.hours),function(hour){return _c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': hour.selected, 'vdatetime-time-picker__item--disabled': hour.disabled},on:{"click":function($event){_vm.selectHour(hour);}}},[_vm._v(_vm._s(_vm.formatHour(hour.number)))])})),_vm._v(" "),_c('div',{ref:"minuteList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--minutes"},_vm._l((_vm.minutes),function(minute){return _c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': minute.selected, 'vdatetime-time-picker__item--disabled': minute.disabled},on:{"click":function($event){_vm.selectMinute(minute);}}},[_vm._v(_vm._s(minute.number))])})),_vm._v(" "),(_vm.use12Hour)?_c('div',{ref:"suffixList",staticClass:"vdatetime-time-picker__list vdatetime-time-picker__list--suffix"},[_c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': _vm.hour < 12},on:{"click":function($event){_vm.selectSuffix('am');}}},[_vm._v("am")]),_vm._v(" "),_c('div',{staticClass:"vdatetime-time-picker__item",class:{'vdatetime-time-picker__item--selected': _vm.hour >= 12},on:{"click":function($event){_vm.selectSuffix('pm');}}},[_vm._v("pm")])]):_vm._e()])},staticRenderFns: [],
+  props: {
+    hour: {
+      type: Number,
+      required: true
+    },
+    minute: {
+      type: Number,
+      required: true
+    },
+    use12Hour: {
+      type: Boolean,
+      default: false
+    },
+    hourStep: {
+      type: Number,
+      default: 1
+    },
+    minuteStep: {
+      type: Number,
+      default: 1
+    },
+    minTime: {
+      type: String,
+      default: null
+    },
+    maxTime: {
+      type: String,
+      default: null
+    }
+  },
+
+  computed: {
+    hours: function hours$1 () {
+      var this$1 = this;
+
+      return hours(this.hourStep).filter(function (hour) {
+        if (!this$1.use12Hour) {
+          return true
+        } else {
+          if (this$1.hour < 12) {
+            return hour < 12
+          } else {
+            return hour >= 12
+          }
+        }
+      }).map(function (hour) { return ({
+        number: pad(hour),
+        selected: hour === this$1.hour,
+        disabled: timeComponentIsDisabled(this$1.minHour, this$1.maxHour, hour)
+      }); })
+    },
+    minutes: function minutes$1 () {
+      var this$1 = this;
+
+      return minutes(this.minuteStep).map(function (minute) { return ({
+        number: pad(minute),
+        selected: minute === this$1.minute,
+        disabled: timeComponentIsDisabled(this$1.minMinute, this$1.maxMinute, minute)
+      }); })
+    },
+    minHour: function minHour () {
+      return this.minTime ? parseInt(this.minTime.split(':')[0]) : null
+    },
+    minMinute: function minMinute () {
+      return this.minTime && this.minHour === this.hour ? parseInt(this.minTime.split(':')[1]) : null
+    },
+    maxHour: function maxHour () {
+      return this.maxTime ? parseInt(this.maxTime.split(':')[0]) : null
+    },
+    maxMinute: function maxMinute () {
+      return this.maxTime && this.maxHour === this.hour ? parseInt(this.maxTime.split(':')[1]) : null
+    }
+  },
+
+  methods: {
+    selectHour: function selectHour (hour) {
+      if (hour.disabled) {
+        return
+      }
+
+      this.$emit('change', { hour: parseInt(hour.number) });
+    },
+    selectMinute: function selectMinute (minute) {
+      if (minute.disabled) {
+        return
+      }
+
+      this.$emit('change', { minute: parseInt(minute.number) });
+    },
+    selectSuffix: function selectSuffix (suffix) {
+      if (suffix === 'am') {
+        if (this.hour >= 12) {
+          this.$emit('change', { hour: parseInt(this.hour - 12), suffixTouched: true });
+        }
+      }
+      if (suffix === 'pm') {
+        if (this.hour < 12) {
+          this.$emit('change', { hour: parseInt(this.hour + 12), suffixTouched: true });
+        }
+      }
+    },
+    formatHour: function formatHour (hour) {
+      var numHour = Number(hour);
+      if (this.use12Hour) {
+        if (numHour === 0) {
+          return 12
+        }
+        if (numHour > 12) {
+          return numHour - 12
+        }
+        return numHour
+      }
+      return hour
+    }
+  },
+
+  mounted: function mounted () {
+    var selectedHour = this.$refs.hourList.querySelector('.vdatetime-time-picker__item--selected');
+    var selectedMinute = this.$refs.minuteList.querySelector('.vdatetime-time-picker__item--selected');
+    this.$refs.hourList.scrollTop = selectedHour ? selectedHour.offsetTop - 250 : 0;
+    this.$refs.minuteList.scrollTop = selectedMinute ? selectedMinute.offsetTop - 250 : 0;
+  }
+};
+
+var DatetimeYearPicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-year-picker"},[_c('div',{ref:"yearList",staticClass:"vdatetime-year-picker__list vdatetime-year-picker__list"},_vm._l((_vm.years),function(year){return _c('div',{staticClass:"vdatetime-year-picker__item",class:{'vdatetime-year-picker__item--selected': year.selected, 'vdatetime-year-picker__item--disabled': year.disabled},on:{"click":function($event){_vm.select(year);}}},[_vm._v(_vm._s(year.number)+" ")])}))])},staticRenderFns: [],
+  props: {
+    year: {
+      type: Number,
+      required: true
+    },
+    minDate: {
+      type: luxon.DateTime,
+      default: null
+    },
+    maxDate: {
+      type: luxon.DateTime,
+      default: null
+    }
+  },
+
+  computed: {
+    years: function years$1 () {
+      var this$1 = this;
+
+      return years(this.year).map(function (year) { return ({
+        number: year,
+        selected: year === this$1.year,
+        disabled: !year || yearIsDisabled(this$1.minDate, this$1.maxDate, year)
+      }); })
+    }
+  },
+
+  methods: {
+    select: function select (year) {
+      if (year.disabled) {
+        return
+      }
+
+      this.$emit('change', parseInt(year.number));
+    },
+
+    scrollToCurrent: function scrollToCurrent () {
+      if (this.$refs.yearList) {
+        var selectedYear = this.$refs.yearList.querySelector('.vdatetime-year-picker__item--selected');
+        this.$refs.yearList.scrollTop = selectedYear ? selectedYear.offsetTop - 250 : 0;
+      }
+    }
+  },
+
+  mounted: function mounted () {
+    this.scrollToCurrent();
+  },
+
+  updated: function updated () {
+    this.scrollToCurrent();
+  }
+};
+
+var DatetimeMonthPicker = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-month-picker"},[_c('div',{ref:"monthList",staticClass:"vdatetime-month-picker__list vdatetime-month-picker__list"},_vm._l((_vm.months),function(month){return _c('div',{staticClass:"vdatetime-month-picker__item",class:{'vdatetime-month-picker__item--selected': month.selected, 'vdatetime-month-picker__item--disabled': month.disabled},on:{"click":function($event){_vm.select(month);}}},[_vm._v(_vm._s(month.label)+" ")])}))])},staticRenderFns: [],
+  props: {
+    year: {
+      type: Number,
+      required: true
+    },
+    month: {
+      type: Number,
+      required: true
+    },
+    minDate: {
+      type: luxon.DateTime,
+      default: null
+    },
+    maxDate: {
+      type: luxon.DateTime,
+      default: null
+    }
+  },
+
+  computed: {
+    months: function months$1 () {
+      var this$1 = this;
+
+      return months(this.month).map(function (month, index) { return ({
+        number: ++index,
+        label: month,
+        selected: index === this$1.month,
+        disabled: !index || monthIsDisabled(this$1.minDate, this$1.maxDate, this$1.year, index)
+      }); })
+    }
+  },
+
+  methods: {
+    select: function select (month) {
+      if (month.disabled) {
+        return
+      }
+
+      this.$emit('change', parseInt(month.number));
+    },
+
+    scrollToCurrent: function scrollToCurrent () {
+      var selectedMonth = this.$refs.monthList.querySelector('.vdatetime-month-picker__item--selected');
+      this.$refs.monthList.scrollTop = selectedMonth ? selectedMonth.offsetTop - 250 : 0;
+    }
+  },
+
+  mounted: function mounted () {
+    this.scrollToCurrent();
+  },
+
+  updated: function updated () {
+    this.scrollToCurrent();
+  }
+};
+
+var KEY_TAB = 9;
+var KEY_ENTER = 13;
+var KEY_ESC = 27;
+
+var DatetimePopup = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime-popup"},[_c('div',{staticClass:"vdatetime-popup__header"},[(_vm.title)?_c('div',{staticClass:"vdatetime-popup__title"},[_vm._v(_vm._s(_vm.title))]):_vm._e(),_vm._v(" "),(_vm.type !== 'time')?_c('div',{staticClass:"vdatetime-popup__year",on:{"click":_vm.showYear}},[_vm._v(_vm._s(_vm.year))]):_vm._e(),_vm._v(" "),(_vm.type !== 'time')?_c('div',{staticClass:"vdatetime-popup__date",on:{"click":_vm.showMonth}},[_vm._v(_vm._s(_vm.dateFormatted))]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__body"},[(_vm.step === 'year')?_c('datetime-year-picker',{attrs:{"min-date":_vm.minDatetime,"max-date":_vm.maxDatetime,"year":_vm.year},on:{"change":_vm.onChangeYear}}):_vm._e(),_vm._v(" "),(_vm.step === 'month')?_c('datetime-month-picker',{attrs:{"min-date":_vm.minDatetime,"max-date":_vm.maxDatetime,"year":_vm.year,"month":_vm.month},on:{"change":_vm.onChangeMonth}}):_vm._e(),_vm._v(" "),(_vm.step === 'date')?_c('datetime-calendar',{attrs:{"year":_vm.year,"month":_vm.month,"day":_vm.day,"min-date":_vm.minDatetime,"max-date":_vm.maxDatetime,"week-start":_vm.weekStart},on:{"change":_vm.onChangeDate}}):_vm._e(),_vm._v(" "),(_vm.step === 'time')?_c('datetime-time-picker',{attrs:{"hour":_vm.hour,"minute":_vm.minute,"use12-hour":_vm.use12Hour,"hour-step":_vm.hourStep,"minute-step":_vm.minuteStep,"min-time":_vm.minTime,"max-time":_vm.maxTime},on:{"change":_vm.onChangeTime}}):_vm._e()],1),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__actions"},[_c('div',{staticClass:"vdatetime-popup__actions__button vdatetime-popup__actions__button--cancel",on:{"click":_vm.cancel}},[_vm._t("button-cancel__internal",[_vm._v(_vm._s(_vm.phrases.cancel))],{step:_vm.step})],2),_vm._v(" "),_c('div',{staticClass:"vdatetime-popup__actions__button vdatetime-popup__actions__button--confirm",on:{"click":_vm.confirm}},[_vm._t("button-confirm__internal",[_vm._v(_vm._s(_vm.phrases.ok))],{step:_vm.step})],2)])])},staticRenderFns: [],
+  components: {
+    DatetimeCalendar: DatetimeCalendar,
+    DatetimeTimePicker: DatetimeTimePicker,
+    DatetimeYearPicker: DatetimeYearPicker,
+    DatetimeMonthPicker: DatetimeMonthPicker
+  },
+
+  props: {
+    datetime: {
+      type: luxon.DateTime,
+      required: true
+    },
+    phrases: {
+      type: Object,
+      default: function default$1 () {
+        return {
+          cancel: 'Cancel',
+          ok: 'Ok'
+        }
+      }
+    },
+    type: {
+      type: String,
+      default: 'date'
+    },
+    use12Hour: {
+      type: Boolean,
+      default: false
+    },
+    hourStep: {
+      type: Number,
+      default: 1
+    },
+    minuteStep: {
+      type: Number,
+      default: 1
+    },
+    minDatetime: {
+      type: luxon.DateTime,
+      default: null
+    },
+    maxDatetime: {
+      type: luxon.DateTime,
+      default: null
+    },
+    auto: {
+      type: Boolean,
+      default: false
+    },
+    weekStart: {
+      type: Number,
+      default: 1
+    },
+    flow: {
+      type: Array
+    },
+    title: {
+      type: String
+    }
+  },
+
+  data: function data () {
+    var flowManager = this.flow
+      ? createFlowManager(this.flow)
+      : createFlowManagerFromType(this.type);
+
+    return {
+      newDatetime: this.datetime,
+      flowManager: flowManager,
+      step: flowManager.first(),
+      timePartsTouched: []
+    }
+  },
+
+  created: function created () {
+    document.addEventListener('keydown', this.onKeyDown);
+  },
+
+  beforeDestroy: function beforeDestroy () {
+    document.removeEventListener('keydown', this.onKeyDown);
+  },
+
+  computed: {
+    year: function year () {
+      return this.newDatetime.year
+    },
+    month: function month () {
+      return this.newDatetime.month
+    },
+    day: function day () {
+      return this.newDatetime.day
+    },
+    hour: function hour () {
+      return this.newDatetime.hour
+    },
+    minute: function minute () {
+      return this.newDatetime.minute
+    },
+    dateFormatted: function dateFormatted () {
+      return this.newDatetime.toLocaleString({
+        month: 'long',
+        day: 'numeric'
+      })
+    },
+    minTime: function minTime () {
+      return (
+        this.minDatetime &&
+        this.minDatetime.year === this.year &&
+        this.minDatetime.month === this.month &&
+        this.minDatetime.day === this.day
+      ) ? this.minDatetime.toFormat('HH:mm') : null
+    },
+    maxTime: function maxTime () {
+      return (
+        this.maxDatetime &&
+        this.maxDatetime.year === this.year &&
+        this.maxDatetime.month === this.month &&
+        this.maxDatetime.day === this.day
+      ) ? this.maxDatetime.toFormat('HH:mm') : null
+    }
+  },
+
+  methods: {
+    nextStep: function nextStep () {
+      this.step = this.flowManager.next(this.step);
+      this.timePartsTouched = [];
+
+      if (this.step === 'end') {
+        this.$emit('confirm', this.newDatetime);
+      }
+    },
+    showYear: function showYear () {
+      this.step = 'year';
+      this.flowManager.diversion('date');
+    },
+    showMonth: function showMonth () {
+      this.step = 'month';
+      this.flowManager.diversion('date');
+    },
+    confirm: function confirm () {
+      this.nextStep();
+    },
+    cancel: function cancel () {
+      this.$emit('cancel');
+    },
+    onChangeYear: function onChangeYear (year) {
+      this.newDatetime = this.newDatetime.set({ year: year });
+
+      if (this.auto) {
+        this.nextStep();
+      }
+    },
+    onChangeMonth: function onChangeMonth (month) {
+      this.newDatetime = this.newDatetime.set({ month: month });
+
+      if (this.auto) {
+        this.nextStep();
+      }
+    },
+    onChangeDate: function onChangeDate (year, month, day) {
+      this.newDatetime = this.newDatetime.set({ year: year, month: month, day: day });
+
+      if (this.auto) {
+        this.nextStep();
+      }
+    },
+    onChangeTime: function onChangeTime (ref) {
+      var hour = ref.hour;
+      var minute = ref.minute;
+      var suffixTouched = ref.suffixTouched;
+
+      if (suffixTouched) {
+        this.timePartsTouched['suffix'] = true;
+      }
+
+      if (Number.isInteger(hour)) {
+        this.newDatetime = this.newDatetime.set({ hour: hour });
+        this.timePartsTouched['hour'] = true;
+      }
+
+      if (Number.isInteger(minute)) {
+        this.newDatetime = this.newDatetime.set({ minute: minute });
+        this.timePartsTouched['minute'] = true;
+      }
+
+      var goNext = this.auto && this.timePartsTouched['hour'] && this.timePartsTouched['minute'] && (
+        this.timePartsTouched['suffix'] ||
+        !this.use12Hour
+      );
+
+      if (goNext) {
+        this.nextStep();
+      }
+    },
+    onKeyDown: function onKeyDown (event) {
+      switch (event.keyCode) {
+        case KEY_ESC:
+        case KEY_TAB:
+          this.cancel();
+          break
+
+        case KEY_ENTER:
+          this.nextStep();
+          break
+      }
+    }
+  }
+};
+
+var Datetime = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"vdatetime"},[_vm._t("before"),_vm._v(" "),_c('input',_vm._g(_vm._b({staticClass:"vdatetime-input",class:_vm.inputClass,style:(_vm.inputStyle),attrs:{"id":_vm.inputId,"type":"text"},domProps:{"value":_vm.inputValue},on:{"click":_vm.open,"focus":_vm.open}},'input',_vm.$attrs,false),_vm.$listeners)),_vm._v(" "),(_vm.hiddenName)?_c('input',{attrs:{"type":"hidden","name":_vm.hiddenName},domProps:{"value":_vm.value},on:{"input":_vm.setValue}}):_vm._e(),_vm._v(" "),_vm._t("after"),_vm._v(" "),_c('transition-group',{attrs:{"name":"vdatetime-fade","tag":"div"}},[(_vm.isOpen && !_vm.hideBackdrop)?_c('div',{key:"overlay",staticClass:"vdatetime-overlay",on:{"click":function($event){if($event.target !== $event.currentTarget){ return null; }_vm.clickOutside($event);}}}):_vm._e(),_vm._v(" "),(_vm.isOpen)?_c('datetime-popup',{key:"popup",attrs:{"type":_vm.type,"datetime":_vm.popupDate,"phrases":_vm.phrases,"use12-hour":_vm.use12Hour,"hour-step":_vm.hourStep,"minute-step":_vm.minuteStep,"min-datetime":_vm.popupMinDatetime,"max-datetime":_vm.popupMaxDatetime,"auto":_vm.auto,"week-start":_vm.weekStart,"flow":_vm.flow,"title":_vm.title},on:{"confirm":_vm.confirm,"cancel":_vm.cancel},scopedSlots:_vm._u([{key:"button-cancel__internal",fn:function(scope){return [_vm._t("button-cancel",[_vm._v(_vm._s(_vm.phrases.cancel))],{step:scope.step})]}},{key:"button-confirm__internal",fn:function(scope){return [_vm._t("button-confirm",[_vm._v(_vm._s(_vm.phrases.ok))],{step:scope.step})]}}])}):_vm._e()],1)],2)},staticRenderFns: [],
+  components: {
+    DatetimePopup: DatetimePopup
+  },
+
+  inheritAttrs: false,
+
+  props: {
+    value: {
+      type: String
+    },
+    valueZone: {
+      type: String,
+      default: 'UTC'
+    },
+    inputId: {
+      type: String,
+      default: null
+    },
+    inputClass: {
+      type: [Object, Array, String],
+      default: ''
+    },
+    inputStyle: {
+      type: [Object, Array, String],
+      default: ''
+    },
+    hiddenName: {
+      type: String
+    },
+    zone: {
+      type: String,
+      default: 'local'
+    },
+    format: {
+      type: [Object, String],
+      default: null
+    },
+    type: {
+      type: String,
+      default: 'date'
+    },
+    phrases: {
+      type: Object,
+      default: function default$1 () {
+        return {
+          cancel: 'Cancel',
+          ok: 'Ok'
+        }
+      }
+    },
+    use12Hour: {
+      type: Boolean,
+      default: false
+    },
+    hourStep: {
+      type: Number,
+      default: 1
+    },
+    minuteStep: {
+      type: Number,
+      default: 1
+    },
+    minDatetime: {
+      type: String,
+      default: null
+    },
+    maxDatetime: {
+      type: String,
+      default: null
+    },
+    auto: {
+      type: Boolean,
+      default: false
+    },
+    weekStart: {
+      type: Number,
+      default: function default$2 () {
+        return weekStart()
+      }
+    },
+    flow: {
+      type: Array
+    },
+    title: {
+      type: String
+    },
+    hideBackdrop: {
+      type: Boolean,
+      default: false
+    },
+    backdropClick: {
+      type: Boolean,
+      default: true
+    }
+  },
+
+  data: function data () {
+    return {
+      isOpen: false,
+      datetime: datetimeFromISO(this.value)
+    }
+  },
+
+  watch: {
+    value: function value (newValue) {
+      this.datetime = datetimeFromISO(newValue);
+    }
+  },
+
+  created: function created () {
+    this.emitInput();
+  },
+
+  computed: {
+    inputValue: function inputValue () {
+      var format = this.format;
+
+      if (!format) {
+        switch (this.type) {
+          case 'date':
+            format = luxon.DateTime.DATE_MED;
+            break
+          case 'time':
+            format = luxon.DateTime.TIME_24_SIMPLE;
+            break
+          case 'datetime':
+          case 'default':
+            format = luxon.DateTime.DATETIME_MED;
+            break
+        }
+      }
+
+      if (typeof format === 'string') {
+        return this.datetime ? luxon.DateTime.fromISO(this.datetime).setZone(this.zone).toFormat(format) : ''
+      } else {
+        return this.datetime ? this.datetime.setZone(this.zone).toLocaleString(format) : ''
+      }
+    },
+    popupDate: function popupDate () {
+      return this.datetime ? this.datetime.setZone(this.zone) : this.newPopupDatetime()
+    },
+    popupMinDatetime: function popupMinDatetime () {
+      return this.minDatetime ? luxon.DateTime.fromISO(this.minDatetime).setZone(this.zone) : null
+    },
+    popupMaxDatetime: function popupMaxDatetime () {
+      return this.maxDatetime ? luxon.DateTime.fromISO(this.maxDatetime).setZone(this.zone) : null
+    }
+  },
+
+  methods: {
+    emitInput: function emitInput () {
+      var datetime = this.datetime ? this.datetime.setZone(this.valueZone) : null;
+
+      if (datetime && this.type === 'date') {
+        datetime = startOfDay(datetime);
+      }
+
+      this.$emit('input', datetime ? datetime.toISO() : '');
+    },
+    open: function open (event) {
+      event.target.blur();
+
+      this.isOpen = true;
+    },
+    close: function close () {
+      this.isOpen = false;
+      this.$emit('close');
+    },
+    confirm: function confirm (datetime) {
+      this.datetime = datetime.toUTC();
+      this.emitInput();
+      this.close();
+    },
+    cancel: function cancel () {
+      this.close();
+    },
+    clickOutside: function clickOutside () {
+      if (this.backdropClick === true) { this.cancel(); }
+    },
+    newPopupDatetime: function newPopupDatetime () {
+      var datetime = luxon.DateTime.utc().setZone(this.zone).set({ seconds: 0, milliseconds: 0 });
+
+      if (this.popupMinDatetime && datetime < this.popupMinDatetime) {
+        datetime = this.popupMinDatetime.set({ seconds: 0, milliseconds: 0 });
+      }
+
+      if (this.popupMaxDatetime && datetime > this.popupMaxDatetime) {
+        datetime = this.popupMaxDatetime.set({ seconds: 0, milliseconds: 0 });
+      }
+
+      if (this.minuteStep === 1) {
+        return datetime
+      }
+
+      var roundedMinute = Math.round(datetime.minute / this.minuteStep) * this.minuteStep;
+
+      if (roundedMinute === 60) {
+        return datetime.plus({ hours: 1 }).set({ minute: 0 })
+      }
+
+      return datetime.set({ minute: roundedMinute })
+    },
+    setValue: function setValue (event) {
+      this.datetime = datetimeFromISO(event.target.value);
+      this.emitInput();
+    }
+  }
+};
+
+function plugin (Vue) {
+  Vue.component('datetime', Datetime);
+  Vue.component('datetime-popup', DatetimePopup);
+}
+
+// Install by default if using the script tag
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(plugin);
+}
+
+var version = '1.0.0-beta.14';
+
+exports['default'] = plugin;
+exports.Datetime = Datetime;
+exports.DatetimePopup = DatetimePopup;
+exports.version = version;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-debounce/dist/vue-debounce.min.js":
 /*!************************************************************!*\
   !*** ./node_modules/vue-debounce/dist/vue-debounce.min.js ***!
@@ -69755,48 +79657,69 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "sidebar-wrapper" }, [
-        _c("ul", { staticClass: "nav" }, [
-          _c(
-            "li",
-            { class: _vm.$route.path == "/" ? "nav-item active" : "nav-item" },
-            [
-              _c(
-                "router-link",
-                { staticClass: "nav-link", attrs: { to: "/" } },
-                [
-                  _c("i", { staticClass: "material-icons" }, [
-                    _vm._v("dashboard")
-                  ]),
+        _c(
+          "ul",
+          { staticClass: "nav" },
+          [
+            _vm.authUser.role == "admin"
+              ? [
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/users"
+                          ? "nav-item active"
+                          : "nav-item"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        { staticClass: "nav-link", attrs: { to: "/users" } },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("person")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Users")])
+                        ]
+                      )
+                    ],
+                    1
+                  ),
                   _vm._v(" "),
-                  _c("p", [_vm._v("Dashboard")])
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/elections"
+                          ? "nav-item active"
+                          : "nav-item"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: "/elections" }
+                        },
+                        [
+                          _c("i", { staticClass: "material-icons" }, [
+                            _vm._v("source")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Elections")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
                 ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              class:
-                _vm.$route.path == "/profile" ? "nav-item active" : "nav-item"
-            },
-            [
-              _c(
-                "router-link",
-                { staticClass: "nav-link", attrs: { to: "/profile" } },
-                [
-                  _c("i", { staticClass: "material-icons" }, [
-                    _vm._v("person")
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v("Profile")])
-                ]
-              )
-            ],
-            1
-          )
-        ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.authUser.role == "alumni" ? void 0 : _vm._e()
+          ],
+          2
+        )
       ])
     ]
   )
@@ -69878,10 +79801,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=template&id=4ff8bbad&":
-/*!****************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/admins.vue?vue&type=template&id=4ff8bbad& ***!
-  \****************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=template&id=7706693e&":
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/elections.vue?vue&type=template&id=7706693e& ***!
+  \*******************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -69908,7 +79831,9 @@ var render = function() {
               [
                 _c("div", { staticClass: "nav-tabs-navigation" }, [
                   _c("div", { staticClass: "nav-tabs-wrapper" }, [
-                    _c("h4", { staticClass: "card-title" }, [_vm._v("Admins")]),
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v("Elections")
+                    ]),
                     _vm._v(" "),
                     _c(
                       "ul",
@@ -69930,9 +79855,9 @@ var render = function() {
                             },
                             [
                               _c("i", { staticClass: "material-icons" }, [
-                                _vm._v("person")
+                                _vm._v("source")
                               ]),
-                              _vm._v(" Add Admin\n                      "),
+                              _vm._v(" Add Election\n                      "),
                               _c("div", { staticClass: "ripple-container" })
                             ]
                           )
@@ -69944,23 +79869,27 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm.allAdmins
+            _vm.allElections
               ? _c("div", { staticClass: "card-body table-responsive" }, [
                   _c("table", { staticClass: "table table-hover" }, [
                     _vm._m(0),
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.allAdmins.data, function(item, index) {
-                        return _vm.allAdmins.total > 0 && !_vm.tableLoading
+                      _vm._l(_vm.allElections.data, function(item, index) {
+                        return _vm.allElections.total > 0 && !_vm.tableLoading
                           ? _c("tr", { key: "ad" + index }, [
                               _c("td", [_vm._v(_vm._s(item.id))]),
                               _vm._v(" "),
                               _c("td", [_vm._v(_vm._s(item.name))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.uid))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.mobile))]),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatDateTime")(item.date_and_time)
+                                  )
+                                )
+                              ]),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -69998,7 +79927,7 @@ var render = function() {
                                       },
                                       on: {
                                         "on-ok": function($event) {
-                                          return _vm.deleteAdmin(index)
+                                          return _vm.deleteElection(index)
                                         }
                                       }
                                     },
@@ -70050,7 +79979,7 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  !_vm.tableLoading && _vm.allAdmins.total == 0
+                  !_vm.tableLoading && _vm.allElections.total == 0
                     ? _c(
                         "div",
                         { staticClass: "d-flex justify-content-center" },
@@ -70067,7 +79996,7 @@ var render = function() {
         "Modal",
         {
           attrs: {
-            title: "Add Admin",
+            title: "Add Election",
             "footer-hide": true,
             "mask-closable": false,
             closable: false
@@ -70087,7 +80016,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.addAdmin($event)
+                  return _vm.addElection($event)
                 }
               }
             },
@@ -70104,27 +80033,35 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.admin.name,
-                          expression: "admin.name"
+                          value: _vm.election.name,
+                          expression: "election.name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.admin.name },
+                      domProps: { value: _vm.election.name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.admin, "name", $event.target.value)
+                          _vm.$set(_vm.election, "name", $event.target.value)
                         }
                       }
                     }),
                     _vm._v(" "),
                     _vm.error.name
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v("*" + _vm._s(_vm.error.name))
-                        ])
+                      ? _c(
+                          "p",
+                          { staticClass: "text-danger" },
+                          [
+                            _c("Icon", { attrs: { type: "md-alert" } }),
+                            _vm._v(
+                              " " + _vm._s(_vm.error.name) + "\n              "
+                            )
+                          ],
+                          1
+                        )
                       : _vm._e()
                   ])
                 ])
@@ -70132,117 +80069,50 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "bmd-label-floating" }, [
-                      _vm._v("Mobile")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.admin.mobile,
-                          expression: "admin.mobile"
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { staticClass: "bmd-label-floating" }, [
+                        _vm._v("Date and Time")
+                      ]),
+                      _vm._v(" "),
+                      _c("datetime", {
+                        staticClass: "theme-color",
+                        attrs: {
+                          "input-class": "form-control",
+                          type: "datetime",
+                          zone: "Asia/Dhaka",
+                          "value-zone": "Asia/Dhaka",
+                          "use12-hour": ""
+                        },
+                        model: {
+                          value: _vm.election.date_and_time,
+                          callback: function($$v) {
+                            _vm.$set(_vm.election, "date_and_time", $$v)
+                          },
+                          expression: "election.date_and_time"
                         }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.admin.mobile },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.admin, "mobile", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.mobile
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v("*" + _vm._s(_vm.error.mobile))
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "bmd-label-floating" }, [
-                      _vm._v("UID")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.admin.uid,
-                          expression: "admin.uid"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.admin.uid },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.admin, "uid", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.uid
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v("*" + _vm._s(_vm.error.uid))
-                        ])
-                      : _vm._e()
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "bmd-label-floating" }, [
-                      _vm._v("Password")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.admin.password,
-                          expression: "admin.password"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "password" },
-                      domProps: { value: _vm.admin.password },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.admin, "password", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.password
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v(
-                            "\n                *" +
-                              _vm._s(_vm.error.password) +
-                              "\n              "
+                      }),
+                      _vm._v(" "),
+                      _vm.error.date_and_time
+                        ? _c(
+                            "p",
+                            { staticClass: "text-danger" },
+                            [
+                              _c("Icon", { attrs: { type: "md-alert" } }),
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm.error.date_and_time) +
+                                  "\n              "
+                              )
+                            ],
+                            1
                           )
-                        ])
-                      : _vm._e()
-                  ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -70269,6 +80139,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-default pull-right",
+                  attrs: { type: "button" },
                   on: { click: _vm.closeModal }
                 },
                 [_c("p", [_vm._v("Cancel")])]
@@ -70284,7 +80155,7 @@ var render = function() {
         "Modal",
         {
           attrs: {
-            title: "Edit Admin",
+            title: "Edit Election",
             "footer-hide": true,
             "mask-closable": false,
             closable: false
@@ -70311,9 +80182,7 @@ var render = function() {
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-12" }, [
                   _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "bmd-label-floating" }, [
-                      _vm._v("Name")
-                    ]),
+                    _c("label", {}, [_vm._v("Name")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -70338,9 +80207,17 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _vm.error.name
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v("*" + _vm._s(_vm.error.name))
-                        ])
+                      ? _c(
+                          "p",
+                          { staticClass: "text-danger" },
+                          [
+                            _c("Icon", { attrs: { type: "md-alert" } }),
+                            _vm._v(
+                              " " + _vm._s(_vm.error.name) + "\n              "
+                            )
+                          ],
+                          1
+                        )
                       : _vm._e()
                   ])
                 ])
@@ -70348,152 +80225,47 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "bmd-label-floating" }, [
-                      _vm._v("Mobile")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.editData.mobile,
-                          expression: "editData.mobile"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.editData.mobile },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.editData, "mobile", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.mobile
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v("*" + _vm._s(_vm.error.mobile))
-                        ])
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", { staticClass: "bmd-label-floating" }, [
-                      _vm._v("UID")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.editData.uid,
-                          expression: "editData.uid"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.editData.uid },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.editData, "uid", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.uid
-                      ? _c("p", { staticClass: "text-danger" }, [
-                          _vm._v("*" + _vm._s(_vm.error.uid))
-                        ])
-                      : _vm._e()
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12" }, [
                   _c(
                     "div",
                     { staticClass: "form-group" },
                     [
-                      _vm.isClickedChangePassword
-                        ? [
-                            _c("label", { staticClass: "bmd-label" }, [
-                              _vm._v("New Password")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.editData.password,
-                                  expression: "editData.password"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { type: "password" },
-                              domProps: { value: _vm.editData.password },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.editData,
-                                    "password",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.error.password
-                              ? _c("p", { staticClass: "text-danger" }, [
-                                  _vm._v(
-                                    "\n                  *" +
-                                      _vm._s(_vm.error.password) +
-                                      "\n                "
-                                  )
-                                ])
-                              : _vm._e()
-                          ]
-                        : _vm._e(),
+                      _c("label", {}, [_vm._v("Date and time")]),
                       _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              _vm.isClickedChangePassword = !_vm.isClickedChangePassword
-                            }
-                          }
+                      _c("datetime", {
+                        staticClass: "theme-color",
+                        attrs: {
+                          "input-class": "form-control",
+                          type: "datetime",
+                          zone: "Asia/Dhaka",
+                          "value-zone": "Asia/Dhaka",
+                          "use12-hour": ""
                         },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(
-                                _vm.isClickedChangePassword
-                                  ? "Cancel"
-                                  : "Change Password"
-                              ) +
-                              "\n              "
+                        model: {
+                          value: _vm.editData.date_and_time,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editData, "date_and_time", $$v)
+                          },
+                          expression: "editData.date_and_time"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.error.date_and_time
+                        ? _c(
+                            "p",
+                            { staticClass: "text-danger" },
+                            [
+                              _c("Icon", { attrs: { type: "md-alert" } }),
+                              _vm._v(
+                                " " +
+                                  _vm._s(_vm.error.date_and_time) +
+                                  "\n              "
+                              )
+                            ],
+                            1
                           )
-                        ]
-                      )
+                        : _vm._e()
                     ],
-                    2
+                    1
                   )
                 ])
               ]),
@@ -70504,7 +80276,7 @@ var render = function() {
                   staticClass:
                     "btn btn-primary pull-right d-flex align-items-center",
                   attrs: { disabled: _vm.modal_loading },
-                  on: { click: _vm.editAdmin }
+                  on: { click: _vm.editElection }
                 },
                 [
                   _vm.modal_loading
@@ -70546,9 +80318,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Name")]),
       _vm._v(" "),
-      _c("th", [_vm._v("UID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Mobile")]),
+      _c("th", [_vm._v("Date")]),
       _vm._v(" "),
       _c("th", [_vm._v("Action")])
     ])
@@ -71937,51 +81707,70 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.onSubmitLogin($event)
+                return _vm.onSubmitRegister($event)
               }
             }
           },
           [
             _c("span", { staticClass: "login100-form-title" }, [
-              _vm._v(" Login ")
+              _vm._v(" Alumni Register ")
             ]),
             _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "wrap-input100 validate-input",
-                attrs: {
-                  "data-validate": "Valid email is required: ex@abc.xyz"
-                }
-              },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formData.email,
-                      expression: "formData.email"
-                    }
-                  ],
-                  staticClass: "input100",
-                  attrs: { type: "email", placeholder: "Email" },
-                  domProps: { value: _vm.formData.email },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.formData, "email", $event.target.value)
-                    }
+            _c("div", { staticClass: "wrap-input100 validate-input" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.name,
+                    expression: "formData.name"
                   }
-                }),
-                _vm._v(" "),
-                _c("span", { staticClass: "focus-input100" }),
-                _vm._v(" "),
-                _vm._m(0)
-              ]
-            ),
+                ],
+                staticClass: "input100",
+                attrs: { type: "text", placeholder: "Name" },
+                domProps: { value: _vm.formData.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "name", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "focus-input100" }),
+              _vm._v(" "),
+              _vm._m(0)
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "wrap-input100 validate-input" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.email,
+                    expression: "formData.email"
+                  }
+                ],
+                staticClass: "input100",
+                attrs: { type: "email", placeholder: "Email" },
+                domProps: { value: _vm.formData.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "email", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "focus-input100" }),
+              _vm._v(" "),
+              _vm._m(1)
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -72014,7 +81803,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("span", { staticClass: "focus-input100" }),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]
             ),
             _vm._v(" "),
@@ -72050,6 +81839,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "symbol-input100" }, [
+      _c("i", { staticClass: "fa fa-user", attrs: { "aria-hidden": "true" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "symbol-input100" }, [
       _c("i", {
         staticClass: "fa fa-envelope",
         attrs: { "aria-hidden": "true" }
@@ -72062,6 +81859,471 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "symbol-input100" }, [
       _c("i", { staticClass: "fa fa-lock", attrs: { "aria-hidden": "true" } })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=template&id=3fbaf26f&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/users.vue?vue&type=template&id=3fbaf26f& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm.allUsers
+              ? _c("div", { staticClass: "card-body table-responsive" }, [
+                  _c("table", { staticClass: "table table-hover" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.allUsers.data, function(item, index) {
+                        return _vm.allUsers.total > 0 && !_vm.tableLoading
+                          ? _c("tr", { key: "ad" + index }, [
+                              _c("td", [_vm._v(_vm._s(item.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.name))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.email))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticStyle: {
+                                    "text-transform": "capitalize"
+                                  }
+                                },
+                                [_vm._v(_vm._s(item.status))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled:
+                                          _vm.deleteLoading &&
+                                          _vm.deleteIndex == index
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.openEditModal(index)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      Edit\n                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "Poptip",
+                                    {
+                                      attrs: {
+                                        confirm: "",
+                                        title:
+                                          "Are you sure you want to delete this?",
+                                        "ok-text": "Delete"
+                                      },
+                                      on: {
+                                        "on-ok": function($event) {
+                                          return _vm.deleteUser(index)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          class:
+                                            _vm.deleteLoading &&
+                                            _vm.deleteIndex == index
+                                              ? "btn btn-primary btn-loading"
+                                              : "btn btn-primary"
+                                        },
+                                        [
+                                          _vm.deleteLoading &&
+                                          _vm.deleteIndex == index
+                                            ? _c("Loader", {
+                                                attrs: {
+                                                  position: "inline",
+                                                  color: "#999999"
+                                                }
+                                              })
+                                            : _c(
+                                                "p",
+                                                { staticClass: "text-center" },
+                                                [_vm._v("Delete")]
+                                              )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.tableLoading
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [_c("Loader")],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.tableLoading && _vm.allUsers.total == 0
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [_c("p", [_vm._v("No data")])]
+                      )
+                    : _vm._e()
+                ])
+              : _vm._e()
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: {
+            title: "Edit User",
+            "footer-hide": true,
+            "mask-closable": false,
+            closable: false
+          },
+          model: {
+            value: _vm.editModal,
+            callback: function($$v) {
+              _vm.editModal = $$v
+            },
+            expression: "editModal"
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", {}, [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.editData.name,
+                          expression: "editData.name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.editData.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.editData, "name", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.error.name
+                      ? _c(
+                          "p",
+                          { staticClass: "text-danger" },
+                          [
+                            _c("Icon", { attrs: { type: "md-alert" } }),
+                            _vm._v(
+                              " " + _vm._s(_vm.error.name) + "\n              "
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", {}, [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.editData.email,
+                          expression: "editData.email"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      staticStyle: { "margin-top": "30px" },
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.editData.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.editData, "email", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.error.email
+                      ? _c(
+                          "p",
+                          { staticClass: "text-danger" },
+                          [
+                            _c("Icon", { attrs: { type: "md-alert" } }),
+                            _vm._v(
+                              " " + _vm._s(_vm.error.email) + "\n              "
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", {}, [_vm._v("Status")]),
+                      _vm._v(" "),
+                      _c(
+                        "Select",
+                        {
+                          staticClass: "form-control",
+                          model: {
+                            value: _vm.editData.status,
+                            callback: function($$v) {
+                              _vm.$set(_vm.editData, "status", $$v)
+                            },
+                            expression: "editData.status"
+                          }
+                        },
+                        [
+                          _c("Option", { attrs: { value: "approved" } }, [
+                            _vm._v("Approved")
+                          ]),
+                          _vm._v(" "),
+                          _c("Option", { attrs: { value: "pending" } }, [
+                            _vm._v("Pending")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _vm.isClickedChangePassword
+                        ? [
+                            _c("label", { staticClass: "bmd-label" }, [
+                              _vm._v("New Password")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.editData.password,
+                                  expression: "editData.password"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "password" },
+                              domProps: { value: _vm.editData.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.editData,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.error.password
+                              ? _c(
+                                  "p",
+                                  { staticClass: "text-danger" },
+                                  [
+                                    _c("Icon", { attrs: { type: "md-alert" } }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(_vm.error.password) +
+                                        "\n                "
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              _vm.isClickedChangePassword = !_vm.isClickedChangePassword
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(
+                                _vm.isClickedChangePassword
+                                  ? "Cancel"
+                                  : "Change Password"
+                              ) +
+                              "\n              "
+                          )
+                        ]
+                      )
+                    ],
+                    2
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-primary pull-right d-flex align-items-center",
+                  attrs: { disabled: _vm.modal_loading },
+                  on: { click: _vm.editUser }
+                },
+                [
+                  _vm.modal_loading
+                    ? [
+                        _c("Loader", {
+                          attrs: { position: "inline", color: "white" }
+                        })
+                      ]
+                    : [_c("p", [_vm._v("Edit")])]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default pull-right",
+                  on: { click: _vm.closeModal }
+                },
+                [_c("p", [_vm._v("Cancel")])]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" })
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header card-header-tabs card-header-primary" },
+      [
+        _c("div", { staticClass: "nav-tabs-navigation" }, [
+          _c("div", { staticClass: "nav-tabs-wrapper" }, [
+            _c("h4", { staticClass: "card-title" }, [_vm._v("Admins")])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "text-warning" }, [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Status")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Action")])
     ])
   }
 ]
@@ -88649,6 +98911,437 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./node_modules/weekstart/dist/es-module/api.js":
+/*!******************************************************!*\
+  !*** ./node_modules/weekstart/dist/es-module/api.js ***!
+  \******************************************************/
+/*! exports provided: getWeekStartByRegion, getWeekStartByLocale */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeekStartByRegion", function() { return getWeekStartByRegion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeekStartByLocale", function() { return getWeekStartByLocale; });
+function getWeekStartByRegion(regionCode, regionDayMap) {
+    var code = regionDayMap[typeof regionCode === 'string' ? regionCode.toUpperCase() : regionCode];
+    return typeof code === 'number' ? code : 1;
+}
+
+function getWeekStartByLocale(locale, langRegionMap, regionDayMap) {
+    if (locale) {
+        var data = locale.toLowerCase().split(/[-_]/);
+        var language = data[0];
+        var country;
+        if (data[1] && data[1].length === 4) {
+            language += "_" + (data[1]);
+            country = data[2];
+        } else {
+            country = data[1];
+        }
+        if (!country) {
+            country = langRegionMap[language];
+        }
+        if (country) {
+            return getWeekStartByRegion(country.match(/^\d+$/) ? Number(country) : country, regionDayMap);
+        }
+    }
+    return 1;
+}
+
+
+//# sourceMappingURL=api.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/weekstart/dist/es-module/langRegionMap.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/weekstart/dist/es-module/langRegionMap.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var langRegionMap = {
+    en: 'US',
+    zh: 'CN',
+    zh_hans: 'CN',
+    hans: 'CN',
+    wuu: 'CN',
+    hsn: 'CN',
+    hak: 'CN',
+    nan: 'CN',
+    gan: 'CN',
+    hi: 'IN',
+    te: 'IN',
+    mr: 'IN',
+    ta: 'IN',
+    gu: 'IN',
+    kn: 'IN',
+    or: 'IN',
+    ml: 'IN',
+    pa_guru: 'IN',
+    bho: 'IN',
+    awa: 'IN',
+    as: 'IN',
+    mwr: 'IN',
+    mai: 'IN',
+    mag: 'IN',
+    bgc: 'IN',
+    hne: 'IN',
+    dcc: 'IN',
+    dz: 'BT',
+    tn: 'BW',
+    am: 'ET',
+    om: 'ET',
+    quc: 'GT',
+    id: 'ID',
+    jv: 'ID',
+    su: 'ID',
+    mad: 'ID',
+    ms_arab: 'ID',
+    ga: 'IE',
+    he: 'IL',
+    jam: 'JM',
+    ja: 'JP',
+    km: 'KH',
+    ko: 'KR',
+    lo: 'LA',
+    mh: 'MH',
+    my: 'MM',
+    mt: 'MT',
+    ne: 'NP',
+    fil: 'PH',
+    ceb: 'PH',
+    ilo: 'PH',
+    ur: 'PK',
+    pa: 'PK',
+    pa_arab: 'PK',
+    arab: 'PK',
+    lah: 'PK',
+    ps: 'PK',
+    sd: 'PK',
+    sd_arab: 'PK',
+    skr: 'PK',
+    gn: 'PY',
+    th: 'TH',
+    tts: 'TH',
+    aeb: 'TN',
+    zh_hant: 'TW',
+    hant: 'TW',
+    sm: 'WS',
+    zu: 'ZA',
+    sn: 'ZW',
+    arq: 'DZ',
+    ar: 'EG',
+    arz: 'EG',
+    fa: 'IR',
+    az_arab: 'IR',
+    ary: 'MA',
+    bn: 'BD',
+    rkt: 'BD',
+    dv: 'MV'
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (langRegionMap);
+//# sourceMappingURL=langRegionMap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/weekstart/dist/es-module/main.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/weekstart/dist/es-module/main.js ***!
+  \*******************************************************/
+/*! exports provided: getWeekStartByRegion, getWeekStartByLocale */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeekStartByRegion", function() { return getWeekStartByRegion$1; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeekStartByLocale", function() { return getWeekStartByLocale$1; });
+/* harmony import */ var _api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api.js */ "./node_modules/weekstart/dist/es-module/api.js");
+/* harmony import */ var _langRegionMap_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./langRegionMap.js */ "./node_modules/weekstart/dist/es-module/langRegionMap.js");
+/* harmony import */ var _regionDayMap_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./regionDayMap.js */ "./node_modules/weekstart/dist/es-module/regionDayMap.js");
+
+
+
+
+function getWeekStartByRegion$1(regionCode) {
+    return Object(_api_js__WEBPACK_IMPORTED_MODULE_0__["getWeekStartByRegion"])(regionCode, _regionDayMap_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+}
+
+function getWeekStartByLocale$1(locale) {
+    return Object(_api_js__WEBPACK_IMPORTED_MODULE_0__["getWeekStartByLocale"])(locale, _langRegionMap_js__WEBPACK_IMPORTED_MODULE_1__["default"], _regionDayMap_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+}
+
+
+//# sourceMappingURL=main.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/weekstart/dist/es-module/regionDayMap.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/weekstart/dist/es-module/regionDayMap.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var regionDayMap = {
+    AG: 0,
+    ATG: 0,
+    28: 0,
+    AR: 0,
+    ARG: 0,
+    32: 0,
+    AS: 0,
+    ASM: 0,
+    16: 0,
+    AU: 0,
+    AUS: 0,
+    36: 0,
+    BR: 0,
+    BRA: 0,
+    76: 0,
+    BS: 0,
+    BHS: 0,
+    44: 0,
+    BT: 0,
+    BTN: 0,
+    64: 0,
+    BW: 0,
+    BWA: 0,
+    72: 0,
+    BZ: 0,
+    BLZ: 0,
+    84: 0,
+    CA: 0,
+    CAN: 0,
+    124: 0,
+    CN: 0,
+    CHN: 0,
+    156: 0,
+    CO: 0,
+    COL: 0,
+    170: 0,
+    DM: 0,
+    DMA: 0,
+    212: 0,
+    DO: 0,
+    DOM: 0,
+    214: 0,
+    ET: 0,
+    ETH: 0,
+    231: 0,
+    GT: 0,
+    GTM: 0,
+    320: 0,
+    GU: 0,
+    GUM: 0,
+    316: 0,
+    HK: 0,
+    HKG: 0,
+    344: 0,
+    HN: 0,
+    HND: 0,
+    340: 0,
+    ID: 0,
+    IDN: 0,
+    360: 0,
+    IE: 0,
+    IRL: 0,
+    372: 0,
+    IL: 0,
+    ISR: 0,
+    376: 0,
+    IN: 0,
+    IND: 0,
+    356: 0,
+    JM: 0,
+    JAM: 0,
+    388: 0,
+    JP: 0,
+    JPN: 0,
+    392: 0,
+    KE: 0,
+    KEN: 0,
+    404: 0,
+    KH: 0,
+    KHM: 0,
+    116: 0,
+    KR: 0,
+    KOR: 0,
+    410: 0,
+    LA: 0,
+    LA0: 0,
+    418: 0,
+    MH: 0,
+    MHL: 0,
+    584: 0,
+    MM: 0,
+    MMR: 0,
+    104: 0,
+    MO: 0,
+    MAC: 0,
+    446: 0,
+    MT: 0,
+    MLT: 0,
+    470: 0,
+    MX: 0,
+    MEX: 0,
+    484: 0,
+    MZ: 0,
+    MOZ: 0,
+    508: 0,
+    NI: 0,
+    NIC: 0,
+    558: 0,
+    NP: 0,
+    NPL: 0,
+    524: 0,
+    NZ: 0,
+    NZL: 0,
+    554: 0,
+    PA: 0,
+    PAN: 0,
+    591: 0,
+    PE: 0,
+    PER: 0,
+    604: 0,
+    PH: 0,
+    PHL: 0,
+    608: 0,
+    PK: 0,
+    PAK: 0,
+    586: 0,
+    PR: 0,
+    PRI: 0,
+    630: 0,
+    PY: 0,
+    PRY: 0,
+    600: 0,
+    SA: 0,
+    SAU: 0,
+    682: 0,
+    SG: 0,
+    SGP: 0,
+    702: 0,
+    SV: 0,
+    SLV: 0,
+    222: 0,
+    TH: 0,
+    THA: 0,
+    764: 0,
+    TN: 0,
+    TUN: 0,
+    788: 0,
+    TT: 0,
+    TTO: 0,
+    780: 0,
+    TW: 0,
+    TWN: 0,
+    158: 0,
+    UM: 0,
+    UMI: 0,
+    581: 0,
+    US: 0,
+    USA: 0,
+    840: 0,
+    VE: 0,
+    VEN: 0,
+    862: 0,
+    VI: 0,
+    VIR: 0,
+    850: 0,
+    WS: 0,
+    WSM: 0,
+    882: 0,
+    YE: 0,
+    YEM: 0,
+    887: 0,
+    ZA: 0,
+    ZAF: 0,
+    710: 0,
+    ZW: 0,
+    ZWE: 0,
+    716: 0,
+    AE: 6,
+    ARE: 6,
+    784: 6,
+    AF: 6,
+    AFG: 6,
+    4: 6,
+    BH: 6,
+    BHR: 6,
+    48: 6,
+    DJ: 6,
+    DJI: 6,
+    262: 6,
+    DZ: 6,
+    DZA: 6,
+    12: 6,
+    EG: 6,
+    EGY: 6,
+    818: 6,
+    IQ: 6,
+    IRQ: 6,
+    368: 6,
+    IR: 6,
+    IRN: 6,
+    364: 6,
+    JO: 6,
+    JOR: 6,
+    400: 6,
+    KW: 6,
+    KWT: 6,
+    414: 6,
+    LY: 6,
+    LBY: 6,
+    434: 6,
+    MA: 6,
+    MAR: 6,
+    504: 6,
+    OM: 6,
+    OMN: 6,
+    512: 6,
+    QA: 6,
+    QAT: 6,
+    634: 6,
+    SD: 6,
+    SDN: 6,
+    729: 6,
+    SY: 6,
+    SYR: 6,
+    760: 6,
+    BD: 5,
+    BGD: 5,
+    50: 5,
+    MV: 5,
+    MDV: 5,
+    462: 5
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (regionDayMap);
+//# sourceMappingURL=regionDayMap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/weekstart/package.json":
+/*!*********************************************!*\
+  !*** ./node_modules/weekstart/package.json ***!
+  \*********************************************/
+/*! exports provided: name, version, description, homepage, main, module, umd:main, keywords, devDependencies, scripts, author, repository, bugs, license, types, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"name\":\"weekstart\",\"version\":\"1.0.1\",\"description\":\"Library to get first day of week.\",\"homepage\":\"https://github.com/gamtiq/weekstart\",\"main\":\"dist/commonjs/main.js\",\"module\":\"dist/es-module/main.js\",\"umd:main\":\"dist/main.js\",\"keywords\":[\"week\",\"start\",\"first\",\"day\",\"locale\",\"country\",\"region\"],\"devDependencies\":{\"@babel/preset-env\":\"7.6.3\",\"eslint\":\"6.5.1\",\"eslint-config-guard\":\"1.0.3\",\"ink-docstrap\":\"1.3.2\",\"jest\":\"24.9.0\",\"jsdoc\":\"3.6.3\",\"microbundle\":\"0.4.4\",\"version-bump-prompt\":\"5.0.5\"},\"scripts\":{\"lint\":\"eslint --cache --max-warnings 0 \\\"**/*.js\\\"\",\"lint-error\":\"eslint --cache \\\"**/*.js\\\"\",\"lint-all\":\"eslint --max-warnings 0 \\\"**/*.js\\\"\",\"lint-all-error\":\"eslint \\\"**/*.js\\\"\",\"test\":\"jest\",\"check\":\"npm run lint && npm test\",\"check-all\":\"npm run lint-all && npm test\",\"doc\":\"jsdoc -c jsdoc-conf.json\",\"build-commonjs\":\"microbundle build \\\"src/!(*.test).js\\\" --output dist/commonjs --format cjs --strict --no-compress\",\"build-esm\":\"microbundle build \\\"src/!(*.test).js\\\" --output dist/es-module --format es --no-compress\",\"build-umd\":\"microbundle build src/main.js src/full.js --output dist --format umd --strict --no-compress\",\"build-umd-min\":\"microbundle build src/main.js src/full.js --output dist/min --format umd --strict\",\"build\":\"npm run build-umd && npm run build-commonjs && npm run build-esm && npm run build-umd-min\",\"all\":\"npm run check-all && npm run doc && npm run build\",\"release\":\"bump patch --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"release-minor\":\"bump minor --commit --tag --all --push package.json package-lock.json bower.json component.json\",\"release-major\":\"bump major --commit --tag --all --push package.json package-lock.json bower.json component.json\"},\"author\":{\"name\":\"Denis Sikuler\"},\"repository\":{\"type\":\"git\",\"url\":\"git://github.com/gamtiq/weekstart.git\"},\"bugs\":{\"url\":\"https://github.com/gamtiq/weekstart/issues\"},\"license\":\"MIT\",\"types\":\"./index.d.ts\"}");
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -88669,6 +99362,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _commons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./commons */ "./resources/js/commons.js");
 /* harmony import */ var vue_debounce__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-debounce */ "./node_modules/vue-debounce/dist/vue-debounce.min.js");
 /* harmony import */ var vue_debounce__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_debounce__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue_datetime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-datetime */ "./node_modules/vue-datetime/dist/vue-datetime.js");
+/* harmony import */ var vue_datetime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_datetime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue_datetime_dist_vue_datetime_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-datetime/dist/vue-datetime.css */ "./node_modules/vue-datetime/dist/vue-datetime.css");
+/* harmony import */ var vue_datetime_dist_vue_datetime_css__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_datetime_dist_vue_datetime_css__WEBPACK_IMPORTED_MODULE_8__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -88682,6 +99379,10 @@ Vue.component("mainapp", __webpack_require__(/*! ./mainapp.vue */ "./resources/j
 
 
 Vue.use(vue_debounce__WEBPACK_IMPORTED_MODULE_6___default.a);
+ // You need a specific loader for CSS files
+
+
+Vue.component('datetime', vue_datetime__WEBPACK_IMPORTED_MODULE_7__["Datetime"]);
 Vue.use(view_design__WEBPACK_IMPORTED_MODULE_2___default.a, {
   locale: view_design_dist_locale_en_US__WEBPACK_IMPORTED_MODULE_4___default.a
 });
@@ -89319,18 +100020,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/pages/admins.vue":
-/*!***************************************!*\
-  !*** ./resources/js/pages/admins.vue ***!
-  \***************************************/
+/***/ "./resources/js/pages/elections.vue":
+/*!******************************************!*\
+  !*** ./resources/js/pages/elections.vue ***!
+  \******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _admins_vue_vue_type_template_id_4ff8bbad___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./admins.vue?vue&type=template&id=4ff8bbad& */ "./resources/js/pages/admins.vue?vue&type=template&id=4ff8bbad&");
-/* harmony import */ var _admins_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admins.vue?vue&type=script&lang=js& */ "./resources/js/pages/admins.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _admins_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./admins.vue?vue&type=style&index=0&lang=css& */ "./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _elections_vue_vue_type_template_id_7706693e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./elections.vue?vue&type=template&id=7706693e& */ "./resources/js/pages/elections.vue?vue&type=template&id=7706693e&");
+/* harmony import */ var _elections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./elections.vue?vue&type=script&lang=js& */ "./resources/js/pages/elections.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _elections_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./elections.vue?vue&type=style&index=0&lang=css& */ "./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -89341,9 +100042,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _admins_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _admins_vue_vue_type_template_id_4ff8bbad___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _admins_vue_vue_type_template_id_4ff8bbad___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _elections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _elections_vue_vue_type_template_id_7706693e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _elections_vue_vue_type_template_id_7706693e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -89353,54 +100054,54 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/pages/admins.vue"
+component.options.__file = "resources/js/pages/elections.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/pages/admins.vue?vue&type=script&lang=js&":
-/*!****************************************************************!*\
-  !*** ./resources/js/pages/admins.vue?vue&type=script&lang=js& ***!
-  \****************************************************************/
+/***/ "./resources/js/pages/elections.vue?vue&type=script&lang=js&":
+/*!*******************************************************************!*\
+  !*** ./resources/js/pages/elections.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./admins.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./elections.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css&":
-/*!************************************************************************!*\
-  !*** ./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css& ***!
-  \************************************************************************/
+/***/ "./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./admins.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./elections.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ "./resources/js/pages/admins.vue?vue&type=template&id=4ff8bbad&":
-/*!**********************************************************************!*\
-  !*** ./resources/js/pages/admins.vue?vue&type=template&id=4ff8bbad& ***!
-  \**********************************************************************/
+/***/ "./resources/js/pages/elections.vue?vue&type=template&id=7706693e&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/pages/elections.vue?vue&type=template&id=7706693e& ***!
+  \*************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_template_id_4ff8bbad___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./admins.vue?vue&type=template&id=4ff8bbad& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/admins.vue?vue&type=template&id=4ff8bbad&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_template_id_4ff8bbad___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_template_id_7706693e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./elections.vue?vue&type=template&id=7706693e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/elections.vue?vue&type=template&id=7706693e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_template_id_7706693e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_admins_vue_vue_type_template_id_4ff8bbad___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_elections_vue_vue_type_template_id_7706693e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -89702,6 +100403,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/users.vue":
+/*!**************************************!*\
+  !*** ./resources/js/pages/users.vue ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _users_vue_vue_type_template_id_3fbaf26f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users.vue?vue&type=template&id=3fbaf26f& */ "./resources/js/pages/users.vue?vue&type=template&id=3fbaf26f&");
+/* harmony import */ var _users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users.vue?vue&type=script&lang=js& */ "./resources/js/pages/users.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _users_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./users.vue?vue&type=style&index=0&lang=css& */ "./resources/js/pages/users.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _users_vue_vue_type_template_id_3fbaf26f___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _users_vue_vue_type_template_id_3fbaf26f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/users.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/users.vue?vue&type=script&lang=js&":
+/*!***************************************************************!*\
+  !*** ./resources/js/pages/users.vue?vue&type=script&lang=js& ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./users.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/users.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/pages/users.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./users.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/users.vue?vue&type=template&id=3fbaf26f&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/pages/users.vue?vue&type=template&id=3fbaf26f& ***!
+  \*********************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_template_id_3fbaf26f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./users.vue?vue&type=template&id=3fbaf26f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users.vue?vue&type=template&id=3fbaf26f&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_template_id_3fbaf26f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_users_vue_vue_type_template_id_3fbaf26f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -89717,11 +100505,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/index */ "./resources/js/pages/index.vue");
 /* harmony import */ var _pages_login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/login */ "./resources/js/pages/login.vue");
 /* harmony import */ var _pages_register__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/register */ "./resources/js/pages/register.vue");
-/* harmony import */ var _pages_admins__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/admins */ "./resources/js/pages/admins.vue");
-/* harmony import */ var _pages_profile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/profile */ "./resources/js/pages/profile.vue");
+/* harmony import */ var _pages_users__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/users */ "./resources/js/pages/users.vue");
+/* harmony import */ var _pages_elections__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/elections */ "./resources/js/pages/elections.vue");
+/* harmony import */ var _pages_profile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/profile */ "./resources/js/pages/profile.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]); // pages
+
 
 
 
@@ -89742,13 +100532,17 @@ var routes = [{
   name: "register",
   component: _pages_register__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
-  path: "/admins",
-  name: "admins",
-  component: _pages_admins__WEBPACK_IMPORTED_MODULE_5__["default"]
+  path: "/users",
+  name: "users",
+  component: _pages_users__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   path: "/profile",
   name: "profile",
-  component: _pages_profile__WEBPACK_IMPORTED_MODULE_6__["default"]
+  component: _pages_profile__WEBPACK_IMPORTED_MODULE_7__["default"]
+}, {
+  path: "/elections",
+  name: "elections",
+  component: _pages_elections__WEBPACK_IMPORTED_MODULE_6__["default"]
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: "history",
