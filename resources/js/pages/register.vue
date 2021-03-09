@@ -61,6 +61,11 @@
               </template>
               <template v-else>Login</template>
             </button>
+            <span class="mt-3">
+              <router-link to="/login"
+                >Already an alumni? Login here</router-link
+              >
+            </span>
           </div>
         </form>
       </div>

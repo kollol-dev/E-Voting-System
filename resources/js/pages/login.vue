@@ -51,6 +51,11 @@
               </template>
               <template v-else>Login</template>
             </button>
+            <span class="mt-3">
+              <router-link to="/register"
+                >Don't have account? Register here</router-link
+              >
+            </span>
           </div>
         </form>
       </div>

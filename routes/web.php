@@ -18,6 +18,9 @@ Route::get("/app/user/logout", 'UserController@logout');
 Route::prefix('/app/admin')->group(function () {
     include_once 'admin/all.php';
 });
+Route::prefix('/app/alumni')->group(function () {
+    include_once 'alumni/all.php';
+});
 
 Route::post('/app/upload/file', 'UploadController@uploadFile');
 

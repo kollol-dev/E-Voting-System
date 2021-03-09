@@ -18,7 +18,7 @@ class CreateElectionPostsTable extends Migration
             $table->bigInteger('election_id')->unsigned();
             $table->foreign('election_id')->references('id')->on('elections')->onDelete('cascade');
             $table->string('name');
-            $table->bigInteger('winner_id')->unsigned();
+            $table->bigInteger('winner_id')->unsigned()->nullable();
             $table->foreign('winner_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

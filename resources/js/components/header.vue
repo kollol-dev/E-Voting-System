@@ -4,7 +4,7 @@
   >
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <a class="navbar-brand" href="javascript:;">Dashboard</a>
+        <a class="navbar-brand" href="javascript:;">Evoting System</a>
       </div>
       <button
         class="navbar-toggler"
@@ -20,20 +20,6 @@
         <span class="navbar-toggler-icon icon-bar"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end">
-        <form class="navbar-form">
-          <div class="input-group no-border">
-            <input
-              type="text"
-              value=""
-              class="form-control"
-              placeholder="Search..."
-            />
-            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-              <i class="material-icons">search</i>
-              <div class="ripple-container"></div>
-            </button>
-          </div>
-        </form>
         <ul class="navbar-nav">
           <li class="nav-item">
             <router-link class="nav-link" to="/">
@@ -41,62 +27,6 @@
               <p class="d-lg-none d-md-block">Stats</p>
             </router-link>
           </li>
-
-          <!-- notifications -->
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link"
-              href="http://example.com"
-              id="navbarDropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              @click="getNotifications"
-            >
-              <i class="material-icons">notifications</i>
-              <span v-if="totalNotification > 0" class="notification">{{
-                totalNotification
-              }}</span>
-              <p class="d-lg-none d-md-block">Some Actions</p>
-            </a>
-            <div
-              class="dropdown-menu dropdown-menu-right"
-              aria-labelledby="navbarDropdownMenuLink"
-              style="min-height: 230px; min-width: 260px"
-            >
-              <Loader
-                style="transform: translateY(90px)"
-                v-if="isLoading"
-                position="center"
-                color="e7e7e7"
-              />
-              <template v-if="!isLoading && totalNotification == 0">
-                <p
-                  style="
-                    transform: translateY(90px);
-                    padding: 0.625rem 1.25rem;
-                    font-size: 0.8125rem;
-                    text-align: center;
-                  "
-                >
-                  No notificaiton found
-                </p>
-              </template>
-              <template v-if="!isLoading && totalNotification > 0">
-                <div
-                  v-for="(item, index) in allNotifications"
-                  :key="'noti' + index"
-                >
-                  <router-link
-                    class="dropdown-item border-bottom"
-                    :to="item.link"
-                    >{{ item.title }}</router-link
-                  >
-                </div>
-              </template>
-            </div>
-          </li>
-          <!-- notifications end -->
 
           <!-- setting dropdown -->
           <li class="nav-item dropdown">

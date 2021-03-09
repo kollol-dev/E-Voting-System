@@ -1,6 +1,6 @@
 <template>
   <diV>
-    <template v-if="$route.path != '/login'">
+    <template v-if="$route.path != '/login' && $route.path != '/register'">
       <div class="wrapper">
         <Sidebar></Sidebar>
         <div class="main-panel">
@@ -42,7 +42,11 @@ export default {
   beforeCreate() {
     if (!window.authUser) {
       try {
-        this.$router.push("/login").catch(() => {});
+        let url =
+          this.$route.path == "/login" || this.$route.path == "/register"
+            ? this.$route.path
+            : "/login";
+        this.$router.push(url).catch(() => {});
       } catch (error) {
         console.log("0014 route.path::");
       }

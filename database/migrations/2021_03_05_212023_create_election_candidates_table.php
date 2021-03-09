@@ -22,7 +22,7 @@ class CreateElectionCandidatesTable extends Migration
             $table->bigInteger('election_post_id')->unsigned();
             $table->foreign('election_post_id')->references('id')->on('election_posts')->onDelete('cascade');
             $table->string('symbol');
-            $table->bigInteger('total_votes');
+            $table->bigInteger('total_votes')->default(0);
             $table->timestamps();
         });
     }
