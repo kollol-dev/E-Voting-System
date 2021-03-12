@@ -9,6 +9,9 @@ Route::post("/app/user/register", 'UserController@register');
 Route::get("/app/user/logout", 'UserController@logout');
 
 
+Route::get('/app/user/get/overview/{id}', 'UserController@getOverviewByElection');
+Route::get('/app/user/get/elections', 'UserController@getElections');
+
 // dashboard
 // Route::prefix('/app/dashboard')->middleware('auth')->group(function () {
 //     Route::get('/get/summery', 'DashboardController@getSummeryData');

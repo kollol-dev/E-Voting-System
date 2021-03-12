@@ -45,19 +45,6 @@
               class="dropdown-menu dropdown-menu-right"
               aria-labelledby="navbarDropdownProfile"
             >
-              <router-link class="dropdown-item" to="/profile">
-                <i class="material-icons mr-1">person</i> Profile
-              </router-link>
-              <router-link
-                v-if="authUser.role == 'Customer'"
-                class="dropdown-item"
-                to="/customer/withdraw_reqeust"
-              >
-                <i class="material-icons mr-1">source</i>
-                Create Withdraw Request</router-link
-              >
-              <div class="dropdown-divider"></div>
-
               <a class="dropdown-item" href="/app/user/logout">
                 <i class="material-icons mr-1">logout</i> Log out</a
               >

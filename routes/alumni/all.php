@@ -4,6 +4,7 @@
 
 
 // election posts candidates
+Route::get('/election/posts/{id}', 'Alumni\ElectionController@getPostsByELectionId');
 Route::get('/election/candidate/{id}', 'Alumni\ElectionController@getCandidateByELectionId');
 Route::get('/election/vote-check/{id}', 'Alumni\ElectionController@checkVoteCastByElectionId');
 Route::post('/election/cast-vote/{id}', 'Alumni\ElectionController@castVote');

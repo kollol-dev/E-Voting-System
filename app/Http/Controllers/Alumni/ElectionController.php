@@ -21,12 +21,22 @@ class ElectionController extends Controller
 {
     public function getCandidateByELectionId($id)
     {
-        return ElectionCandidate::where('election_id', $id)
+        return ElectionCandidate::where('election_post_id', $id)
             ->with('user')
             ->with('post')
             ->with('election')
             ->get();
     }
+    public function getPostsByELectionId($id)
+    {
+        return ElectionPost::where('election_id', $id)
+            ->with('candidates')
+            ->get();
+    }
+
+
+
+
     public function checkVoteCastByElectionId($id)
     {
         $check = Vote::where('user_id', Auth::id())

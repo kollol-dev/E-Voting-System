@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 // models 
 use App\Models\User;
+use App\Models\Election;
 
 // helpers
 use Illuminate\Http\Request;
@@ -65,5 +66,18 @@ class UserController extends Controller
         Auth::logout();
         Session::flush();
         return redirect("/login");
+    }
+
+    public function getOverviewByElection($id)
+    {
+        return Election::where('id', $id)
+            ->with('posts', 'posts.winner')
+            ->withCount('totalVotes')
+            ->first();
+    }
+
+    public function getElections()
+    {
+        return Election::all();
     }
 }

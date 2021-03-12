@@ -13,4 +13,14 @@ class ElectionPost extends Model
     {
         return $this->belongsTo(Election::class, 'election_id');
     }
+
+    public function candidates()
+    {
+        return $this->hasOne(ElectionCandidate::class, 'election_post_id');
+    }
+
+    public function winner()
+    {
+        return $this->belongsTo(User::class, 'winner_id');
+    }
 }

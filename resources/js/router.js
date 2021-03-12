@@ -14,6 +14,7 @@ import election_candidates from "./pages/election_candidates";
 
 // alumni
 import alumni_elections from "./pages/alumni/elections";
+import alumni_posts from "./pages/alumni/posts";
 import alumni_candidates from "./pages/alumni/candidates";
 
 // bring in all the modules routes
@@ -29,6 +30,7 @@ let routes = [
 
     // alumni
     { path: "/alumni/elections", name: "alumni_elections", component: alumni_elections },
+    { path: "/alumni/elections/posts/:id", name: "alumni_posts", component: alumni_posts },
     { path: "/alumni/elections/candidate/:id", name: "alumni_candidates", component: alumni_candidates },
 ];
 
