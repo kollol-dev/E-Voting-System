@@ -107,7 +107,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">User</label>
-              <Select v-model="candidate.user_id">
+              <Select v-model="candidate.user_id" filterable>
                 <Option
                   v-for="(item, index) in allNonCandidates"
                   :key="'nc' + index"
@@ -169,7 +169,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Election</label>
-              <Select v-model="candidate.election_id">
+              <Select v-model="candidate.election_id" filterable>
                 <Option
                   v-for="(item, index) in allElections"
                   :key="'ec' + index"
@@ -186,7 +186,7 @@
           <div class="col-md-6 mb-5">
             <div class="form-group">
               <label class="bmd-label-floating">Election Post</label>
-              <Select v-model="candidate.election_post_id">
+              <Select v-model="candidate.election_post_id" filterable>
                 <Option
                   v-for="(item, index) in allPosts"
                   :key="'ps' + index"
@@ -239,7 +239,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">User</label>
-              <Select v-model="editData.user_id">
+              <Select v-model="editData.user_id" filterable>
                 <Option
                   v-for="(item, index) in allAlumnies"
                   :key="'nc' + index"
@@ -301,7 +301,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Election</label>
-              <Select v-model="editData.election_id">
+              <Select v-model="editData.election_id" filterable>
                 <Option
                   v-for="(item, index) in allElections"
                   :key="'ec' + index"
@@ -318,7 +318,7 @@
           <div class="col-md-6 mb-5">
             <div class="form-group">
               <label class="bmd-label-floating">Election Post</label>
-              <Select v-model="editData.election_post_id">
+              <Select v-model="editData.election_post_id" filterable>
                 <Option
                   v-for="(item, index) in allPosts"
                   :key="'ps' + index"

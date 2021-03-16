@@ -4742,6 +4742,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -81575,6 +81576,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.candidate.user_id,
                             callback: function($$v) {
@@ -81745,6 +81747,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.candidate.election_id,
                             callback: function($$v) {
@@ -81801,6 +81804,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.candidate.election_post_id,
                             callback: function($$v) {
@@ -81922,6 +81926,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.editData.user_id,
                             callback: function($$v) {
@@ -81982,6 +81987,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.editData.election_id,
                             callback: function($$v) {
@@ -82038,6 +82044,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.editData.election_post_id,
                             callback: function($$v) {
@@ -82427,6 +82434,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.post.election_id,
                             callback: function($$v) {
@@ -82590,6 +82598,7 @@ var render = function() {
                       _c(
                         "Select",
                         {
+                          attrs: { filterable: "" },
                           model: {
                             value: _vm.editData.election_id,
                             callback: function($$v) {
@@ -83253,6 +83262,7 @@ var render = function() {
             "Select",
             {
               staticClass: "mb-3",
+              attrs: { filterable: "" },
               on: { "on-change": _vm.getElectionOverview },
               model: {
                 value: _vm.election_id,
@@ -84031,455 +84041,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container-fluid" },
-    [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-md-12" }, [
-          _c("div", { staticClass: "card" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _vm.allUsers
-              ? _c("div", { staticClass: "card-body table-responsive" }, [
-                  _c("table", { staticClass: "table table-hover" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.allUsers.data, function(item, index) {
-                        return _vm.allUsers.total > 0 && !_vm.tableLoading
-                          ? _c("tr", { key: "ad" + index }, [
-                              _c("td", [_vm._v(_vm._s(item.id))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.name))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(item.email))]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  staticStyle: {
-                                    "text-transform": "capitalize"
-                                  }
-                                },
-                                [_vm._v(_vm._s(item.status))]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "btn btn-default",
-                                      attrs: {
-                                        disabled:
-                                          _vm.deleteLoading &&
-                                          _vm.deleteIndex == index
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.openEditModal(index)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                      Edit\n                    "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "Poptip",
-                                    {
-                                      attrs: {
-                                        confirm: "",
-                                        title:
-                                          "Are you sure you want to delete this?",
-                                        "ok-text": "Delete"
-                                      },
-                                      on: {
-                                        "on-ok": function($event) {
-                                          return _vm.deleteUser(index)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          class:
-                                            _vm.deleteLoading &&
-                                            _vm.deleteIndex == index
-                                              ? "btn btn-primary btn-loading"
-                                              : "btn btn-primary"
-                                        },
-                                        [
-                                          _vm.deleteLoading &&
-                                          _vm.deleteIndex == index
-                                            ? _c("Loader", {
-                                                attrs: {
-                                                  position: "inline",
-                                                  color: "#999999"
-                                                }
-                                              })
-                                            : _c(
-                                                "p",
-                                                { staticClass: "text-center" },
-                                                [_vm._v("Delete")]
-                                              )
-                                        ],
-                                        1
-                                      )
-                                    ]
-                                  )
-                                ],
-                                1
-                              )
-                            ])
-                          : _vm._e()
-                      }),
-                      0
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _vm.tableLoading
-                    ? _c(
-                        "div",
-                        { staticClass: "d-flex justify-content-center" },
-                        [_c("Loader")],
-                        1
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  !_vm.tableLoading && _vm.allUsers.total == 0
-                    ? _c(
-                        "div",
-                        { staticClass: "d-flex justify-content-center" },
-                        [_c("p", [_vm._v("No data")])]
-                      )
-                    : _vm._e()
-                ])
-              : _vm._e()
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "Modal",
-        {
-          attrs: {
-            title: "Edit User",
-            "footer-hide": true,
-            "mask-closable": false,
-            closable: false
-          },
-          model: {
-            value: _vm.editModal,
-            callback: function($$v) {
-              _vm.editModal = $$v
-            },
-            expression: "editModal"
-          }
-        },
-        [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", {}, [_vm._v("Name")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.editData.name,
-                          expression: "editData.name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.editData.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.editData, "name", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.name
-                      ? _c(
-                          "p",
-                          { staticClass: "text-danger" },
-                          [
-                            _c("Icon", { attrs: { type: "md-alert" } }),
-                            _vm._v(
-                              " " + _vm._s(_vm.error.name) + "\n              "
-                            )
-                          ],
-                          1
-                        )
-                      : _vm._e()
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", {}, [_vm._v("Email")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.editData.email,
-                          expression: "editData.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      staticStyle: { "margin-top": "30px" },
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.editData.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.editData, "email", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.error.email
-                      ? _c(
-                          "p",
-                          { staticClass: "text-danger" },
-                          [
-                            _c("Icon", { attrs: { type: "md-alert" } }),
-                            _vm._v(
-                              " " + _vm._s(_vm.error.email) + "\n              "
-                            )
-                          ],
-                          1
-                        )
-                      : _vm._e()
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", {}, [_vm._v("Status")]),
-                      _vm._v(" "),
-                      _c(
-                        "Select",
-                        {
-                          staticClass: "form-control",
-                          model: {
-                            value: _vm.editData.status,
-                            callback: function($$v) {
-                              _vm.$set(_vm.editData, "status", $$v)
-                            },
-                            expression: "editData.status"
-                          }
-                        },
-                        [
-                          _c("Option", { attrs: { value: "approved" } }, [
-                            _vm._v("Approved")
-                          ]),
-                          _vm._v(" "),
-                          _c("Option", { attrs: { value: "pending" } }, [
-                            _vm._v("Pending")
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _vm.isClickedChangePassword
-                        ? [
-                            _c("label", { staticClass: "bmd-label" }, [
-                              _vm._v("New Password")
-                            ]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.editData.password,
-                                  expression: "editData.password"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              attrs: { type: "password" },
-                              domProps: { value: _vm.editData.password },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.editData,
-                                    "password",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _vm.error.password
-                              ? _c(
-                                  "p",
-                                  { staticClass: "text-danger" },
-                                  [
-                                    _c("Icon", { attrs: { type: "md-alert" } }),
-                                    _vm._v(
-                                      " " +
-                                        _vm._s(_vm.error.password) +
-                                        "\n                "
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e()
-                          ]
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        {
-                          staticClass: "btn btn-primary",
-                          on: {
-                            click: function($event) {
-                              _vm.isClickedChangePassword = !_vm.isClickedChangePassword
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(
-                                _vm.isClickedChangePassword
-                                  ? "Cancel"
-                                  : "Change Password"
-                              ) +
-                              "\n              "
-                          )
-                        ]
-                      )
-                    ],
-                    2
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass:
-                    "btn btn-primary pull-right d-flex align-items-center",
-                  attrs: { disabled: _vm.modal_loading },
-                  on: { click: _vm.editUser }
-                },
-                [
-                  _vm.modal_loading
-                    ? [
-                        _c("Loader", {
-                          attrs: { position: "inline", color: "white" }
-                        })
-                      ]
-                    : [_c("p", [_vm._v("Edit")])]
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-default pull-right",
-                  on: { click: _vm.closeModal }
-                },
-                [_c("p", [_vm._v("Cancel")])]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "clearfix" })
-            ]
-          )
-        ]
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header card-header-tabs card-header-primary" },
-      [
-        _c("div", { staticClass: "nav-tabs-navigation" }, [
-          _c("div", { staticClass: "nav-tabs-wrapper" }, [
-            _c("h4", { staticClass: "card-title" }, [_vm._v("Admins")])
-          ])
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", { staticClass: "text-warning" }, [
-      _c("th", [_vm._v("ID")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Email")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Status")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Action")])
-    ])
-  }
-]
-render._withStripped = true
+var render = function () {}
+var staticRenderFns = []
 
 
 
@@ -102974,7 +102537,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_election_posts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/election_posts */ "./resources/js/pages/election_posts.vue");
 /* harmony import */ var _pages_election_candidates__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/election_candidates */ "./resources/js/pages/election_candidates.vue");
 /* harmony import */ var _pages_alumni_elections__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/alumni/elections */ "./resources/js/pages/alumni/elections.vue");
-/* harmony import */ var _pages_alumni_posts__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/alumni/posts */ "./resources/js/pages/alumni/posts.vue");
+/* harmony import */ var _pages_alumni_posts__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/alumni/posts */ "./resources/js/pages/alumni/posts.vue");
 /* harmony import */ var _pages_alumni_candidates__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/alumni/candidates */ "./resources/js/pages/alumni/candidates.vue");
 
 
@@ -103033,7 +102596,7 @@ var routes = [{
 }, {
   path: "/alumni/elections/posts/:id",
   name: "alumni_posts",
-  component: _pages_alumni_posts__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _pages_alumni_posts__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {
   path: "/alumni/elections/candidate/:id",
   name: "alumni_candidates",

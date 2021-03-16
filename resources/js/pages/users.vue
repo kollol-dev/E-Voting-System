@@ -6,7 +6,7 @@
           <div class="card-header card-header-tabs card-header-primary">
             <div class="nav-tabs-navigation">
               <div class="nav-tabs-wrapper">
-                <h4 class="card-title">Admins</h4>
+                <h4 class="card-title">Users</h4>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </d\iv>
 
     <!-- edit modal -->
     <Modal
@@ -121,7 +121,7 @@
           <div class="col-md-6">
             <div class="form-group" style="">
               <label class="">Status</label>
-              <Select v-model="editData.status" class="form-control">
+              <Select filterable v-model="editData.status" class="form-control">
                 <Option value="approved">Approved</Option>
                 <Option value="pending">Pending</Option>
               </Select>

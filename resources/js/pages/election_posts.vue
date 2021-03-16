@@ -113,7 +113,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="bmd-label-floating">Election</label>
-              <Select v-model="post.election_id">
+              <Select v-model="post.election_id" filterable>
                 <Option
                   v-for="(item, index) in allElections"
                   :key="'ps' + index"
@@ -177,7 +177,7 @@
           <div class="col-md-6">
             <div class="form-group" style="">
               <label class="">Election</label>
-              <Select v-model="editData.election_id">
+              <Select v-model="editData.election_id" filterable>
                 <Option
                   v-for="(item, index) in allElections"
                   :key="'ps' + index"

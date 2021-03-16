@@ -7,6 +7,7 @@
           class="mb-3"
           v-model="election_id"
           @on-change="getElectionOverview"
+          filterable
         >
           <Option
             v-for="(item, index) in allElections"
