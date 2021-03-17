@@ -21,7 +21,7 @@
                 <th>Symbol</th>
                 <th>Election</th>
                 <th>Post</th>
-                <th>Action</th>
+                <!-- <th>Action</th> -->
               </thead>
               <tbody>
                 <tr
@@ -44,7 +44,7 @@
                   <td>
                     {{ item.post ? item.post.name : "N/A" }}
                   </td>
-                  <td>
+                  <!-- <td>
                     <div
                       v-if="!isVoteCasted"
                       @click="castVote(index)"
@@ -59,7 +59,7 @@
                       <p v-else>Cast</p>
                     </div>
                     <p v-else>Your vote has been casted already</p>
-                  </td>
+                  </td> -->
                 </tr>
               </tbody>
             </table>

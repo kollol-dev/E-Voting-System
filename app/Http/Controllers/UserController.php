@@ -71,7 +71,10 @@ class UserController extends Controller
     public function getOverviewByElection($id)
     {
         return Election::where('id', $id)
-            ->with('posts', 'posts.winner')
+            ->with(['posts' => function ($builder) {
+                $builder->withCount('votes');
+                }, 'posts.winner', 'posts.candidates'])
+            ->with('isVoted')
             ->withCount('totalVotes')
             ->first();
     }

@@ -16,12 +16,6 @@ export default {
     computed: {
         ...mapGetters({
             authUser: "getAuthUser",
-            divisions: "getDivisions",
-            districts: "getDistricts",
-            upazilas: "getUpazilas",
-            cities: "getCities",
-            wards: "getWards",
-            areas: "getAreas",
         })
     },
     filters: {

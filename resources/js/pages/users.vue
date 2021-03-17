@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-    </d\iv>
+    </div>
 
     <!-- edit modal -->
     <Modal

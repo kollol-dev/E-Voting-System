@@ -27,7 +27,9 @@ class ElectionController extends Controller
     public function paginateElection(Request $request)
     {
         $page = isset($request->page) ? $request->page : 1;
-        return Election::paginate(20, ["*"], 'page', $page);
+        return Election::with('posts', 'posts.candidates')
+            ->with('isVoted')
+            ->paginate(20, ["*"], 'page', $page);
     }
 
     // add new election
@@ -262,5 +264,26 @@ class ElectionController extends Controller
     public function getAlumni()
     {
         return User::where('role', 'alumni')->get();
+    }
+
+
+    // check users for nomiation
+    public function checkUsersForNomination($id)
+    {
+        return User::where('role', '!=', 'admin')
+            ->whereNotIn('id', function ($builder) use ($id) {
+                $builder
+                    ->from('election_candidates')
+                    ->where('election_id', $id)
+                    ->select("user_id");
+            })
+            ->get();
+    }
+
+    // get posts by election id
+    public function getPostsByElectionId($id)
+    {
+        return ElectionPost::where('election_id', $id)
+            ->get();
     }
 }

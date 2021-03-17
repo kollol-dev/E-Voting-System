@@ -2500,6 +2500,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -2561,63 +2567,311 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       allElections: [],
-      tableLoading: true
+      tableLoading: true,
+      castModal: false,
+      electionOverview: false,
+      isLoading: false,
+      modal_loading: false
     };
   },
   methods: {
-    paginate: function paginate(page) {
+    openModal: function openModal(item) {
+      this.castModal = true;
+      this.electionOverview = item;
+    },
+    castVote: function castVote(item) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var res;
+        var count, _iterator, _step, i, res;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.tableLoading = true;
-                _context.next = 3;
-                return _this.callApi("get", "/app/admin/election/paginate/all?page=".concat(page));
+                count = 0;
+                _iterator = _createForOfIteratorHelper(item.posts);
 
-              case 3:
+                try {
+                  for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                    i = _step.value;
+                    console.log("i", i);
+
+                    if (i.selectedIndex > -1) {
+                      count += 1;
+                    }
+                  }
+                } catch (err) {
+                  _iterator.e(err);
+                } finally {
+                  _iterator.f();
+                }
+
+                if (!(count < item.posts.length)) {
+                  _context.next = 5;
+                  break;
+                }
+
+                return _context.abrupt("return", _this.e("Please select one candidate symbol of all posts"));
+
+              case 5:
+                _this.modal_loading = true;
+                _context.next = 8;
+                return _this.callApi("post", "/app/alumni/election/cast-vote/".concat(item.id), item // { post_id: this.allElectionCandidates[index].post.id }
+                );
+
+              case 8:
                 res = _context.sent;
 
                 if (res.status == 200) {
-                  _this.allElections = res.data;
+                  _this.$router.go();
+
+                  _this.ns("Your vote has been casted succussfully!");
                 } else {
                   _this.nswr();
                 }
 
-                _this.tableLoading = false;
+                _this.modal_loading = false;
 
-              case 6:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee);
       }))();
+    },
+    selectIndex: function selectIndex(item, index) {
+      var array = _.clone(this.allElections.data);
+
+      var _iterator2 = _createForOfIteratorHelper(array),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var i = _step2.value;
+
+          if (i.id == item.election_id) {
+            var _iterator3 = _createForOfIteratorHelper(i.posts),
+                _step3;
+
+            try {
+              for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+                var j = _step3.value;
+
+                if (j.id == item.id) {
+                  j.selectedIndex = index;
+                }
+              }
+            } catch (err) {
+              _iterator3.e(err);
+            } finally {
+              _iterator3.f();
+            }
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      this.$set(this.allElections, "data", array);
+    },
+    paginate: function paginate(page) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var res, _iterator4, _step4, i, _iterator5, _step5, j;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.tableLoading = true;
+                _context2.next = 3;
+                return _this2.callApi("get", "/app/admin/election/paginate/all?page=".concat(page));
+
+              case 3:
+                res = _context2.sent;
+
+                if (res.status == 200) {
+                  _this2.allElections = res.data;
+                  _iterator4 = _createForOfIteratorHelper(_this2.allElections.data);
+
+                  try {
+                    for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+                      i = _step4.value;
+                      _iterator5 = _createForOfIteratorHelper(i.posts);
+
+                      try {
+                        for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+                          j = _step5.value;
+                          j.selectedIndex = -1;
+                        }
+                      } catch (err) {
+                        _iterator5.e(err);
+                      } finally {
+                        _iterator5.f();
+                      }
+
+                      i.isEnded = "no";
+
+                      if (new Date().getTime() > new Date(i.date_and_time).getTime()) {
+                        i.isEnded = "yes";
+                      }
+                    }
+                  } catch (err) {
+                    _iterator4.e(err);
+                  } finally {
+                    _iterator4.f();
+                  }
+                } else {
+                  _this2.nswr();
+                }
+
+                _this2.tableLoading = false;
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  },
+  filters: {
+    checkDate: function checkDate(value) {
+      return new Date().getTime() > new Date(value).getTime() ? "Runnig" : "Ended";
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
-              _this2.paginate(1);
+              _this3.paginate(1);
 
             case 1:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }))();
   }
 });
@@ -2815,9 +3069,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
 //
 //
 //
@@ -3505,46 +3756,78 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         title: "Exceeding file size limit",
         desc: "File  " + file.name + " is too large, no more than 20M."
       });
+    },
+    getNominatedCandidates: function getNominatedCandidates(id) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var _yield$Promise$all, _yield$Promise$all2, res, post;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _this5.allNonCandidates = [];
+                _this5.allPosts = [];
+                _context5.next = 4;
+                return Promise.all([_this5.callApi("get", "/app/admin/election/cadidate/check/user/".concat(id)), _this5.callApi("get", "/app/admin/election/posts/election/".concat(id))]);
+
+              case 4:
+                _yield$Promise$all = _context5.sent;
+                _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 2);
+                res = _yield$Promise$all2[0];
+                post = _yield$Promise$all2[1];
+
+                if (res.status == 200 && post.status == 200) {
+                  _this5.allNonCandidates = res.data;
+                  _this5.allPosts = post.data;
+                } else {
+                  _this5.nswr();
+                }
+
+              case 9:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
     }
   },
   created: function created() {
-    var _this5 = this;
+    var _this6 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var _yield$Promise$all, _yield$Promise$all2, res, post, nonCandidate, allAlumnies;
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var _yield$Promise$all3, _yield$Promise$all4, res, allAlumnies;
 
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
-              _this5.paginate(1);
+              _this6.paginate(1);
 
-              _context5.next = 3;
-              return Promise.all([_this5.callApi("get", "/app/admin/election/get/all"), _this5.callApi("get", "/app/admin/election/posts/get/all"), _this5.callApi("get", "/app/admin/user/get/non-candidate"), _this5.callApi("get", "/app/admin/user/get/alumni")]);
+              _context6.next = 3;
+              return Promise.all([_this6.callApi("get", "/app/admin/election/get/all"), _this6.callApi("get", "/app/admin/user/get/alumni")]);
 
             case 3:
-              _yield$Promise$all = _context5.sent;
-              _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 4);
-              res = _yield$Promise$all2[0];
-              post = _yield$Promise$all2[1];
-              nonCandidate = _yield$Promise$all2[2];
-              allAlumnies = _yield$Promise$all2[3];
+              _yield$Promise$all3 = _context6.sent;
+              _yield$Promise$all4 = _slicedToArray(_yield$Promise$all3, 2);
+              res = _yield$Promise$all4[0];
+              allAlumnies = _yield$Promise$all4[1];
 
-              if (res.status == 200 && post.status == 200 && nonCandidate.status == 200) {
-                _this5.allElections = res.data;
-                _this5.allPosts = post.data;
-                _this5.allNonCandidates = nonCandidate.data;
-                _this5.allAlumnies = allAlumnies.data;
+              if (res.status == 200 && allAlumnies.status == 200) {
+                _this6.allElections = res.data;
+                _this6.allAlumnies = allAlumnies.data;
               } else {
-                _this5.nswr();
+                _this6.nswr();
               }
 
-            case 10:
+            case 8:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
         }
-      }, _callee5);
+      }, _callee6);
     }))();
   }
 });
@@ -3581,10 +3864,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -3855,7 +4134,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var res, index, _iterator, _step, i, _iterator2, _step2, _i;
+        var res, _iterator, _step, i, _iterator2, _step2, _i;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -3889,14 +4168,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 res = _context.sent;
 
                 if (res.status == 201) {
-                  index = _this.allElections.findIndex(function (i) {
-                    return i.id == _this.post.election_id;
-                  });
-                  res.data.election = _this.allElections[index];
-
-                  _this.allElectionPosts.data.push(res.data);
-
-                  _this.allElectionPosts.total += 1;
+                  // let index = this.allElections.findIndex(
+                  //   (i) => i.id == this.post.election_id
+                  // );
+                  // res.data.election = this.allElections[index];
+                  // this.allElectionPosts.data.push(res.data);
+                  // this.allElectionPosts.total += 1;
+                  _this.$router.go();
 
                   _this.clearData();
                 } else if (res.status == 401 && res.data.name) {
@@ -4743,6 +5021,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4771,6 +5077,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (res.status == 200) {
                   _this.electionOverview = res.data;
+                  _this.electionOverview.isEnded = "no";
+
+                  if (new Date().getTime() > new Date(_this.electionOverview.date_and_time).getTime()) {
+                    _this.electionOverview.isEnded = "yes";
+                  }
                 }
 
                 _this.isLoading = false;
@@ -80956,40 +81267,6 @@ var render = function() {
                                   _vm._s(item.post ? item.post.name : "N/A") +
                                   "\n                "
                               )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              !_vm.isVoteCasted
-                                ? _c(
-                                    "div",
-                                    {
-                                      staticClass: "btn btn-primary",
-                                      attrs: {
-                                        disabled:
-                                          _vm.btnLoading &&
-                                          _vm.btnIndex == index
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.castVote(index)
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _vm.btnLoading && _vm.btnIndex == index
-                                        ? _c("Loader", {
-                                            attrs: {
-                                              color: "#fff",
-                                              position: "inline"
-                                            }
-                                          })
-                                        : _c("p", [_vm._v("Cast")])
-                                    ],
-                                    1
-                                  )
-                                : _c("p", [
-                                    _vm._v("Your vote has been casted already")
-                                  ])
                             ])
                           ])
                         : _vm._e()
@@ -81053,9 +81330,7 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Election")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Post")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Action")])
+      _c("th", [_vm._v("Post")])
     ])
   }
 ]
@@ -81080,83 +81355,322 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _vm.allElections
-            ? _c("div", { staticClass: "card-body table-responsive" }, [
-                _c("table", { staticClass: "table table-hover" }, [
-                  _vm._m(1),
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm.allElections
+              ? _c("div", { staticClass: "card-body table-responsive" }, [
+                  _c("table", { staticClass: "table table-hover" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.allElections.data, function(item, index) {
+                        return _vm.allElections.total > 0 && !_vm.tableLoading
+                          ? _c("tr", { key: "ad" + index }, [
+                              _c("td", [_vm._v(_vm._s(item.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.name))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm._f("formatDateTime")(item.date_and_time)
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "btn btn-light",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.$router.push(
+                                          "/alumni/elections/posts/" + item.id
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    See Posts\n                  "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "btn btn-primary",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.openModal(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                    Cast Vote\n                  "
+                                    )
+                                  ]
+                                )
+                              ])
+                            ])
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.allElections.data, function(item, index) {
-                      return _vm.allElections.total > 0 && !_vm.tableLoading
-                        ? _c("tr", { key: "ad" + index }, [
-                            _c("td", [_vm._v(_vm._s(item.id))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(item.name))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("formatDateTime")(item.date_and_time)
+                  _vm.tableLoading
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [_c("Loader")],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.tableLoading && _vm.allElections.total == 0
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [_c("p", [_vm._v("No data")])]
+                      )
+                    : _vm._e()
+                ])
+              : _vm._e()
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { title: "Election Details", "footer-hide": true },
+          model: {
+            value: _vm.castModal,
+            callback: function($$v) {
+              _vm.castModal = $$v
+            },
+            expression: "castModal"
+          }
+        },
+        [
+          !_vm.isLoading && _vm.electionOverview
+            ? _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.castVote(_vm.electionOverview)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { staticClass: "bmd-label-floating" }, [
+                          _vm._v("Name:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(" " + _vm._s(_vm.electionOverview.name))
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { staticClass: "bmd-label-floating" }, [
+                          _vm._v("Date:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            " " +
+                              _vm._s(
+                                _vm._f("formatDate")(
+                                  _vm.electionOverview.date_and_time
                                 )
                               )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "btn btn-primary",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.$router.push(
-                                        "/alumni/elections/posts/" + item.id
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          {
+                            style:
+                              _vm.electionOverview.isEnded == "yes"
+                                ? "color:red"
+                                : "color:green"
+                          },
+                          [
+                            _vm._v(
+                              "\n              " +
+                                _vm._s(
+                                  _vm.electionOverview.isEnded == "yes"
+                                    ? "Ended"
+                                    : "Running"
+                                ) +
+                                "\n            "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { staticClass: "bmd-label-floating" }, [
+                          _vm._v("Posts:")
+                        ]),
+                        _vm._v(" "),
+                        _vm.electionOverview.posts &&
+                        _vm.electionOverview.posts.length > 0
+                          ? _c(
+                              "span",
+                              _vm._l(_vm.electionOverview.posts, function(
+                                item,
+                                index
+                              ) {
+                                return _c("div", { key: "psts" + index }, [
+                                  _c("p", [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(item.name) +
+                                        "\n                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  item.candidates
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "mt-2" },
+                                        _vm._l(item.candidates, function(
+                                          img,
+                                          pindex
+                                        ) {
+                                          return _c(
+                                            "span",
+                                            {
+                                              key: "pst" + pindex,
+                                              style: " margin: 5px;"
+                                            },
+                                            [
+                                              _c("img", {
+                                                style:
+                                                  pindex == item.selectedIndex
+                                                    ? "border:2px solid rgb(201 58 243); width: 50px; height: 50px; cursor: pointer;"
+                                                    : "width: 50px; height: 50px; cursor: pointer;",
+                                                attrs: {
+                                                  src: img.symbol,
+                                                  alt: ""
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.selectIndex(
+                                                      item,
+                                                      pindex
+                                                    )
+                                                  }
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        }),
+                                        0
                                       )
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                    See Posts\n                  "
-                                  )
-                                ]
-                              )
-                            ])
-                          ])
-                        : _vm._e()
-                    }),
-                    0
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.tableLoading
-                  ? _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-center" },
-                      [_c("Loader")],
-                      1
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                !_vm.tableLoading && _vm.allElections.total == 0
-                  ? _c(
-                      "div",
-                      { staticClass: "d-flex justify-content-center" },
-                      [_c("p", [_vm._v("No data")])]
-                    )
-                  : _vm._e()
-              ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  item.winner
+                                    ? _c("p", [
+                                        _vm._v(
+                                          "winner: " + _vm._s(item.winner.name)
+                                        )
+                                      ])
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  index < _vm.electionOverview.posts.length - 1
+                                    ? _c("div", {
+                                        staticClass: "dropdown-divider"
+                                      })
+                                    : _vm._e()
+                                ])
+                              }),
+                              0
+                            )
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-6" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { staticClass: "bmd-label-floating" }, [
+                          _vm._v("Total Vote:")
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(_vm._s(_vm.electionOverview.total_votes_count))
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  !_vm.electionOverview.is_voted ||
+                  _vm.electionOverview.is_voted.length == 0
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary pull-right d-flex align-items-center",
+                          attrs: { type: "submit", disabled: _vm.modal_loading }
+                        },
+                        [
+                          _vm.modal_loading
+                            ? [
+                                _c("Loader", {
+                                  attrs: { position: "inline", color: "white" }
+                                })
+                              ]
+                            : [_c("p", [_vm._v("Cast Vote")])]
+                        ],
+                        2
+                      )
+                    : _vm.electionOverview.isEnded == "yes"
+                    ? [
+                        _c("p", { staticStyle: { color: "red" } }, [
+                          _vm._v("This election has ended!")
+                        ])
+                      ]
+                    : [
+                        _c("p", { staticStyle: { color: "green" } }, [
+                          _vm._v("You have already voted!")
+                        ])
+                      ],
+                  _vm._v(" "),
+                  _c("div", { staticClass: "clearfix" })
+                ],
+                2
+              )
             : _vm._e()
-        ])
-      ])
-    ])
-  ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -81570,38 +82084,39 @@ var render = function() {
                     { staticClass: "form-group" },
                     [
                       _c("label", { staticClass: "bmd-label-floating" }, [
-                        _vm._v("User")
+                        _vm._v("Election")
                       ]),
                       _vm._v(" "),
                       _c(
                         "Select",
                         {
                           attrs: { filterable: "" },
+                          on: {
+                            "on-change": function($event) {
+                              return _vm.getNominatedCandidates(
+                                _vm.candidate.election_id
+                              )
+                            }
+                          },
                           model: {
-                            value: _vm.candidate.user_id,
+                            value: _vm.candidate.election_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.candidate, "user_id", $$v)
+                              _vm.$set(_vm.candidate, "election_id", $$v)
                             },
-                            expression: "candidate.user_id"
+                            expression: "candidate.election_id"
                           }
                         },
-                        _vm._l(_vm.allNonCandidates, function(item, index) {
+                        _vm._l(_vm.allElections, function(item, index) {
                           return _c(
                             "Option",
-                            { key: "nc" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            { key: "ec" + index, attrs: { value: item.id } },
+                            [_vm._v(_vm._s(item.name))]
                           )
                         }),
                         1
                       ),
                       _vm._v(" "),
-                      _vm.error.user_id
+                      _vm.error.election_id
                         ? _c(
                             "p",
                             { staticClass: "text-danger" },
@@ -81609,7 +82124,7 @@ var render = function() {
                               _c("Icon", { attrs: { type: "md-alert" } }),
                               _vm._v(
                                 " " +
-                                  _vm._s(_vm.error.user_id) +
+                                  _vm._s(_vm.error.election_id) +
                                   "\n              "
                               )
                             ],
@@ -81741,7 +82256,7 @@ var render = function() {
                     { staticClass: "form-group" },
                     [
                       _c("label", { staticClass: "bmd-label-floating" }, [
-                        _vm._v("Election")
+                        _vm._v("User")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -81749,30 +82264,24 @@ var render = function() {
                         {
                           attrs: { filterable: "" },
                           model: {
-                            value: _vm.candidate.election_id,
+                            value: _vm.candidate.user_id,
                             callback: function($$v) {
-                              _vm.$set(_vm.candidate, "election_id", $$v)
+                              _vm.$set(_vm.candidate, "user_id", $$v)
                             },
-                            expression: "candidate.election_id"
+                            expression: "candidate.user_id"
                           }
                         },
-                        _vm._l(_vm.allElections, function(item, index) {
+                        _vm._l(_vm.allNonCandidates, function(item, index) {
                           return _c(
                             "Option",
-                            { key: "ec" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            { key: "nc" + index, attrs: { value: item.id } },
+                            [_vm._v(_vm._s(item.name))]
                           )
                         }),
                         1
                       ),
                       _vm._v(" "),
-                      _vm.error.election_id
+                      _vm.error.user_id
                         ? _c(
                             "p",
                             { staticClass: "text-danger" },
@@ -81780,7 +82289,7 @@ var render = function() {
                               _c("Icon", { attrs: { type: "md-alert" } }),
                               _vm._v(
                                 " " +
-                                  _vm._s(_vm.error.election_id) +
+                                  _vm._s(_vm.error.user_id) +
                                   "\n              "
                               )
                             ],
@@ -81817,13 +82326,7 @@ var render = function() {
                           return _c(
                             "Option",
                             { key: "ps" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            [_vm._v(_vm._s(item.name))]
                           )
                         }),
                         1
@@ -81939,13 +82442,7 @@ var render = function() {
                           return _c(
                             "Option",
                             { key: "nc" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            [_vm._v("\n                  " + _vm._s(item.name))]
                           )
                         }),
                         1
@@ -82000,13 +82497,7 @@ var render = function() {
                           return _c(
                             "Option",
                             { key: "ec" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            [_vm._v(_vm._s(item.name) + "\n                ")]
                           )
                         }),
                         1
@@ -82057,13 +82548,7 @@ var render = function() {
                           return _c(
                             "Option",
                             { key: "ps" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            [_vm._v(_vm._s(item.name))]
                           )
                         }),
                         1
@@ -82447,13 +82932,7 @@ var render = function() {
                           return _c(
                             "Option",
                             { key: "ps" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            [_vm._v(_vm._s(item.name))]
                           )
                         }),
                         1
@@ -82611,13 +83090,7 @@ var render = function() {
                           return _c(
                             "Option",
                             { key: "ps" + index, attrs: { value: item.id } },
-                            [
-                              _vm._v(
-                                "\n                  " +
-                                  _vm._s(item.name) +
-                                  "\n                "
-                              )
-                            ]
+                            [_vm._v(_vm._s(item.name))]
                           )
                         }),
                         1
@@ -83276,7 +83749,7 @@ var render = function() {
               return _c(
                 "Option",
                 { key: "ec" + index, attrs: { value: item.id } },
-                [_vm._v(_vm._s(item.name) + "\n        ")]
+                [_vm._v(_vm._s(item.name))]
               )
             }),
             1
@@ -83323,7 +83796,28 @@ var render = function() {
                               )
                           )
                         ])
-                      ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          style:
+                            _vm.electionOverview.isEnded == "yes"
+                              ? "color:red"
+                              : "color:green"
+                        },
+                        [
+                          _vm._v(
+                            "\n                  " +
+                              _vm._s(
+                                _vm.electionOverview.isEnded == "yes"
+                                  ? "Ended"
+                                  : "Running"
+                              ) +
+                              "\n                "
+                          )
+                        ]
+                      )
                     ])
                   ]),
                   _vm._v(" "),
@@ -83343,13 +83837,63 @@ var render = function() {
                                 index
                               ) {
                                 return _c("div", { key: "psts" + index }, [
-                                  _c("p", [
+                                  _c("p", { staticClass: "font-weight-bold" }, [
                                     _vm._v(
                                       "\n                        " +
                                         _vm._s(item.name) +
                                         "\n                      "
                                     )
                                   ]),
+                                  _vm._v(" "),
+                                  item.candidates
+                                    ? _c(
+                                        "div",
+                                        { staticClass: "mt-2" },
+                                        _vm._l(item.candidates, function(
+                                          img,
+                                          pindex
+                                        ) {
+                                          return _c(
+                                            "span",
+                                            {
+                                              key: "pst" + pindex,
+                                              style: " margin: 5px;"
+                                            },
+                                            [
+                                              _c("img", {
+                                                style:
+                                                  "width: 50px; height: 50px; cursor: pointer;",
+                                                attrs: {
+                                                  src: img.symbol,
+                                                  alt: ""
+                                                },
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.selectIndex(
+                                                      item,
+                                                      pindex
+                                                    )
+                                                  }
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c("p", { staticClass: "mt-2" }, [
+                                                _vm._v(
+                                                  "\n                            Total Votes:\n                            " +
+                                                    _vm._s(
+                                                      item.votes_count
+                                                        ? item.votes_count
+                                                        : 0
+                                                    ) +
+                                                    "\n                          "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        }),
+                                        0
+                                      )
+                                    : _vm._e(),
                                   _vm._v(" "),
                                   item.winner
                                     ? _c("p", [
@@ -84041,8 +84585,456 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {}
-var staticRenderFns = []
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _vm.allUsers
+              ? _c("div", { staticClass: "card-body table-responsive" }, [
+                  _c("table", { staticClass: "table table-hover" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.allUsers.data, function(item, index) {
+                        return _vm.allUsers.total > 0 && !_vm.tableLoading
+                          ? _c("tr", { key: "ad" + index }, [
+                              _c("td", [_vm._v(_vm._s(item.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.name))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(item.email))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                {
+                                  staticStyle: {
+                                    "text-transform": "capitalize"
+                                  }
+                                },
+                                [_vm._v(_vm._s(item.status))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "btn btn-default",
+                                      attrs: {
+                                        disabled:
+                                          _vm.deleteLoading &&
+                                          _vm.deleteIndex == index
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.openEditModal(index)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                      Edit\n                    "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "Poptip",
+                                    {
+                                      attrs: {
+                                        confirm: "",
+                                        title:
+                                          "Are you sure you want to delete this?",
+                                        "ok-text": "Delete"
+                                      },
+                                      on: {
+                                        "on-ok": function($event) {
+                                          return _vm.deleteUser(index)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          class:
+                                            _vm.deleteLoading &&
+                                            _vm.deleteIndex == index
+                                              ? "btn btn-primary btn-loading"
+                                              : "btn btn-primary"
+                                        },
+                                        [
+                                          _vm.deleteLoading &&
+                                          _vm.deleteIndex == index
+                                            ? _c("Loader", {
+                                                attrs: {
+                                                  position: "inline",
+                                                  color: "#999999"
+                                                }
+                                              })
+                                            : _c(
+                                                "p",
+                                                { staticClass: "text-center" },
+                                                [_vm._v("Delete")]
+                                              )
+                                        ],
+                                        1
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          : _vm._e()
+                      }),
+                      0
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm.tableLoading
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [_c("Loader")],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  !_vm.tableLoading && _vm.allUsers.total == 0
+                    ? _c(
+                        "div",
+                        { staticClass: "d-flex justify-content-center" },
+                        [_c("p", [_vm._v("No data")])]
+                      )
+                    : _vm._e()
+                ])
+              : _vm._e()
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: {
+            title: "Edit User",
+            "footer-hide": true,
+            "mask-closable": false,
+            closable: false
+          },
+          model: {
+            value: _vm.editModal,
+            callback: function($$v) {
+              _vm.editModal = $$v
+            },
+            expression: "editModal"
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", {}, [_vm._v("Name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.editData.name,
+                          expression: "editData.name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.editData.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.editData, "name", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.error.name
+                      ? _c(
+                          "p",
+                          { staticClass: "text-danger" },
+                          [
+                            _c("Icon", { attrs: { type: "md-alert" } }),
+                            _vm._v(
+                              " " + _vm._s(_vm.error.name) + "\n              "
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", {}, [_vm._v("Email")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.editData.email,
+                          expression: "editData.email"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      staticStyle: { "margin-top": "30px" },
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.editData.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.editData, "email", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.error.email
+                      ? _c(
+                          "p",
+                          { staticClass: "text-danger" },
+                          [
+                            _c("Icon", { attrs: { type: "md-alert" } }),
+                            _vm._v(
+                              " " + _vm._s(_vm.error.email) + "\n              "
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", {}, [_vm._v("Status")]),
+                      _vm._v(" "),
+                      _c(
+                        "Select",
+                        {
+                          staticClass: "form-control",
+                          attrs: { filterable: "" },
+                          model: {
+                            value: _vm.editData.status,
+                            callback: function($$v) {
+                              _vm.$set(_vm.editData, "status", $$v)
+                            },
+                            expression: "editData.status"
+                          }
+                        },
+                        [
+                          _c("Option", { attrs: { value: "approved" } }, [
+                            _vm._v("Approved")
+                          ]),
+                          _vm._v(" "),
+                          _c("Option", { attrs: { value: "pending" } }, [
+                            _vm._v("Pending")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _vm.isClickedChangePassword
+                        ? [
+                            _c("label", { staticClass: "bmd-label" }, [
+                              _vm._v("New Password")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.editData.password,
+                                  expression: "editData.password"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "password" },
+                              domProps: { value: _vm.editData.password },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.editData,
+                                    "password",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.error.password
+                              ? _c(
+                                  "p",
+                                  { staticClass: "text-danger" },
+                                  [
+                                    _c("Icon", { attrs: { type: "md-alert" } }),
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(_vm.error.password) +
+                                        "\n                "
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ]
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass: "btn btn-primary",
+                          on: {
+                            click: function($event) {
+                              _vm.isClickedChangePassword = !_vm.isClickedChangePassword
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(
+                                _vm.isClickedChangePassword
+                                  ? "Cancel"
+                                  : "Change Password"
+                              ) +
+                              "\n              "
+                          )
+                        ]
+                      )
+                    ],
+                    2
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn btn-primary pull-right d-flex align-items-center",
+                  attrs: { disabled: _vm.modal_loading },
+                  on: { click: _vm.editUser }
+                },
+                [
+                  _vm.modal_loading
+                    ? [
+                        _c("Loader", {
+                          attrs: { position: "inline", color: "white" }
+                        })
+                      ]
+                    : [_c("p", [_vm._v("Edit")])]
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default pull-right",
+                  on: { click: _vm.closeModal }
+                },
+                [_c("p", [_vm._v("Cancel")])]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "clearfix" })
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-header card-header-tabs card-header-primary" },
+      [
+        _c("div", { staticClass: "nav-tabs-navigation" }, [
+          _c("div", { staticClass: "nav-tabs-wrapper" }, [
+            _c("h4", { staticClass: "card-title" }, [_vm._v("Users")])
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "text-warning" }, [
+      _c("th", [_vm._v("ID")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Email")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Status")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Action")])
+    ])
+  }
+]
+render._withStripped = true
 
 
 
@@ -101183,13 +102175,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {},
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
-    authUser: "getAuthUser",
-    divisions: "getDivisions",
-    districts: "getDistricts",
-    upazilas: "getUpazilas",
-    cities: "getCities",
-    wards: "getWards",
-    areas: "getAreas"
+    authUser: "getAuthUser"
   })),
   filters: {
     formatDate: function formatDate(value) {

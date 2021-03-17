@@ -18,4 +18,8 @@ class Election extends Model
         return $this->hasMany(ElectionPost::class, 'election_id');
     }
 
+    public function isVoted()
+    {
+        return $this->hasMany(Vote::class, 'election_id');
+    }
 }

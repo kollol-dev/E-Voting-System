@@ -12,9 +12,8 @@
 //     }
 // );
 
-
-
 //     prefix = /app/admin 
+
 Route::get('/get/users/all', 'Admin\AdminController@getAllUsers');
 Route::get('/paginate/users/all', 'Admin\AdminController@paginateAllUsers');
 
@@ -40,6 +39,7 @@ Route::get('/election/posts/paginate/all', 'Admin\ElectionController@paginateEle
 Route::post('/election/posts/add/new', 'Admin\ElectionController@addNewElectionPost');
 Route::post('/election/posts/update/{id}', 'Admin\ElectionController@updateElectionPost');
 Route::post('/election/posts/delete/{id}', 'Admin\ElectionController@deleteElectionPost');
+Route::get('/election/posts/election/{id}', 'Admin\ElectionController@getPostsByElectionId');
 
 
 
@@ -49,3 +49,4 @@ Route::get('/election/candidate/paginate/all', 'Admin\ElectionController@paginat
 Route::post('/election/candidate/add/new', 'Admin\ElectionController@addNewElectionCandidate');
 Route::post('/election/candidate/update/{id}', 'Admin\ElectionController@updateElectionCandidate');
 Route::post('/election/candidate/delete/{id}', 'Admin\ElectionController@deleteElectionCandidate');
+Route::get('/election/cadidate/check/user/{id}', 'Admin\ElectionController@checkUsersForNomination');

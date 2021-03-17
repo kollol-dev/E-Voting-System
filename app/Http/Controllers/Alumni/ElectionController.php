@@ -55,26 +55,45 @@ class ElectionController extends Controller
 
     public function castVote(Request $request, $id)
     {
-        $validation = Validator::make($request->all(), [
-            'post_id' => ['required'],
-        ]);
-        if ($validation->fails()) {
-            return response()->json($validation->messages(), 401);
-        } else {
-            $check = Vote::where('user_id', Auth::id())
-                ->where('election_id', $id)
-                ->count();
+        // $validation = Validator::make($request->all(), [
+        //     'post_id' => ['required'],
+        // // ]);
+        // if ($validation->fails()) {
+        //     return response()->json($validation->messages(), 401);
+        // } else {
 
-            if ($check != 0) {
-                return response()->json([
-                    "message" => 'Your vote has been casted already!'
-                ]);
-            }
-            return Vote::create([
-                "user_id" => Auth::id(),
-                "election_id" => $id,
-                "post_id" => $request->post_id
+
+
+        $check = Vote::where('user_id', Auth::id())
+            ->where('election_id', $id)
+            ->count();
+
+        if ($check != 0) {
+            return response()->json([
+                "message" => 'Your vote has been casted already!'
             ]);
         }
+
+
+        $data = $request->all();
+        $selectedIndex = [];
+
+
+        foreach ($data['posts'] as $iii) {
+            if ($iii['selectedIndex'] > -1) {
+                array_push($selectedIndex, $iii['id']);
+            }
+        }
+
+        foreach ($selectedIndex as $i) {
+            Vote::create([
+                "user_id" => Auth::id(),
+                "election_id" => $id,
+                "post_id" => $i
+            ]);
+        }
+
+        return 'done';
+        // }
     }
 }

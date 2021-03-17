@@ -106,18 +106,21 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="bmd-label-floating">User</label>
-              <Select v-model="candidate.user_id" filterable>
+              <label class="bmd-label-floating">Election</label>
+              <Select
+                filterable
+                v-model="candidate.election_id"
+                @on-change="getNominatedCandidates(candidate.election_id)"
+              >
                 <Option
-                  v-for="(item, index) in allNonCandidates"
-                  :key="'nc' + index"
+                  v-for="(item, index) in allElections"
+                  :key="'ec' + index"
                   :value="item.id"
+                  >{{ item.name }}</Option
                 >
-                  {{ item.name }}
-                </Option>
               </Select>
-              <p v-if="error.user_id" class="text-danger">
-                <Icon type="md-alert" /> {{ error.user_id }}
+              <p v-if="error.election_id" class="text-danger">
+                <Icon type="md-alert" /> {{ error.election_id }}
               </p>
             </div>
           </div>
@@ -168,18 +171,17 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label class="bmd-label-floating">Election</label>
-              <Select v-model="candidate.election_id" filterable>
+              <label class="bmd-label-floating">User</label>
+              <Select v-model="candidate.user_id" filterable>
                 <Option
-                  v-for="(item, index) in allElections"
-                  :key="'ec' + index"
+                  v-for="(item, index) in allNonCandidates"
+                  :key="'nc' + index"
                   :value="item.id"
+                  >{{ item.name }}</Option
                 >
-                  {{ item.name }}
-                </Option>
               </Select>
-              <p v-if="error.election_id" class="text-danger">
-                <Icon type="md-alert" /> {{ error.election_id }}
+              <p v-if="error.user_id" class="text-danger">
+                <Icon type="md-alert" /> {{ error.user_id }}
               </p>
             </div>
           </div>
@@ -191,9 +193,8 @@
                   v-for="(item, index) in allPosts"
                   :key="'ps' + index"
                   :value="item.id"
+                  >{{ item.name }}</Option
                 >
-                  {{ item.name }}
-                </Option>
               </Select>
               <p v-if="error.election_post_id" class="text-danger">
                 <Icon type="md-alert" /> {{ error.election_post_id }}
@@ -245,8 +246,7 @@
                   :key="'nc' + index"
                   :value="item.id"
                 >
-                  {{ item.name }}
-                </Option>
+                  {{ item.name }}</Option>
               </Select>
               <p v-if="error.user_id" class="text-danger">
                 <Icon type="md-alert" /> {{ error.user_id }}
@@ -306,8 +306,7 @@
                   v-for="(item, index) in allElections"
                   :key="'ec' + index"
                   :value="item.id"
-                >
-                  {{ item.name }}
+                >{{ item.name }}
                 </Option>
               </Select>
               <p v-if="error.election_id" class="text-danger">
@@ -323,9 +322,7 @@
                   v-for="(item, index) in allPosts"
                   :key="'ps' + index"
                   :value="item.id"
-                >
-                  {{ item.name }}
-                </Option>
+                >{{ item.name }}</Option>
               </Select>
               <p v-if="error.election_post_id" class="text-danger">
                 <Icon type="md-alert" /> {{ error.election_post_id }}
@@ -389,9 +386,11 @@ export default {
       uploadFile: false,
     };
   },
+
   computed: {
     ...mapGetters({}),
   },
+
   methods: {
     clearData() {
       this.candidate = {
@@ -574,20 +573,32 @@ export default {
         desc: "File  " + file.name + " is too large, no more than 20M.",
       });
     },
+
+    async getNominatedCandidates(id) {
+      this.allNonCandidates = [];
+      this.allPosts = [];
+      const [res, post] = await Promise.all([
+        this.callApi("get", `/app/admin/election/cadidate/check/user/${id}`),
+        this.callApi("get", `/app/admin/election/posts/election/${id}`),
+      ]);
+      if (res.status == 200 && post.status == 200) {
+        this.allNonCandidates = res.data;
+        this.allPosts = post.data;
+      } else {
+        this.nswr();
+      }
+    },
   },
+
   async created() {
     this.paginate(1);
 
-    const [res, post, nonCandidate, allAlumnies] = await Promise.all([
+    const [res, allAlumnies] = await Promise.all([
       this.callApi("get", "/app/admin/election/get/all"),
-      this.callApi("get", "/app/admin/election/posts/get/all"),
-      this.callApi("get", "/app/admin/user/get/non-candidate"),
       this.callApi("get", "/app/admin/user/get/alumni"),
     ]);
-    if (res.status == 200 && post.status == 200 && nonCandidate.status == 200) {
+    if (res.status == 200 && allAlumnies.status == 200) {
       this.allElections = res.data;
-      this.allPosts = post.data;
-      this.allNonCandidates = nonCandidate.data;
       this.allAlumnies = allAlumnies.data;
     } else {
       this.nswr();

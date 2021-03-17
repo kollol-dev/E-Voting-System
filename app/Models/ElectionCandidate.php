@@ -10,7 +10,7 @@ class ElectionCandidate extends Model
 
     public function post()
     {
-        return $this->belongsTo(ElectionPost::class, 'election_id');
+        return $this->belongsTo(ElectionPost::class, 'election_post_id');
     }
 
     public function user()

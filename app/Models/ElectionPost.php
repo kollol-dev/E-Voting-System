@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class ElectionPost extends Model
 {
@@ -16,11 +17,16 @@ class ElectionPost extends Model
 
     public function candidates()
     {
-        return $this->hasOne(ElectionCandidate::class, 'election_post_id');
+        return $this->hasMany(ElectionCandidate::class, 'election_post_id');
     }
 
     public function winner()
     {
         return $this->belongsTo(User::class, 'winner_id');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class, 'post_id');
     }
 }

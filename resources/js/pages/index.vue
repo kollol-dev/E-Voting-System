@@ -13,8 +13,8 @@
             v-for="(item, index) in allElections"
             :key="'ec' + index"
             :value="item.id"
-            >{{ item.name }}
-          </Option>
+            >{{ item.name }}</Option
+          >
         </Select>
       </div>
     </div>
@@ -41,6 +41,17 @@
                       {{ electionOverview.date_and_time | formatDate }}</span
                     >
                   </div>
+                  <span
+                    :style="
+                      electionOverview.isEnded == 'yes'
+                        ? 'color:red'
+                        : 'color:green'
+                    "
+                  >
+                    {{
+                      electionOverview.isEnded == "yes" ? "Ended" : "Running"
+                    }}
+                  </span>
                 </div>
               </div>
 
@@ -48,7 +59,6 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label class="bmd-label-floating">Posts:</label>
-                    <!-- <span>{{ electionOverview.mobile }}</span> -->
                     <span
                       v-if="
                         electionOverview.posts &&
@@ -59,9 +69,27 @@
                         v-for="(item, index) in electionOverview.posts"
                         :key="'psts' + index"
                       >
-                        <p>
+                        <p class="font-weight-bold">
                           {{ item.name }}
                         </p>
+                        <div v-if="item.candidates" class="mt-2">
+                          <span
+                            v-for="(img, pindex) in item.candidates"
+                            :key="'pst' + pindex"
+                            :style="' margin: 5px;'"
+                          >
+                            <img
+                              @click="selectIndex(item, pindex)"
+                              :src="img.symbol"
+                              alt=""
+                              :style="'width: 50px; height: 50px; cursor: pointer;'"
+                            />
+                            <p class="mt-2">
+                              Total Votes:
+                              {{ item.votes_count ? item.votes_count : 0 }}
+                            </p>
+                          </span>
+                        </div>
                         <p v-if="item.winner">winner: {{ item.winner.name }}</p>
                         <div
                           v-if="index < electionOverview.posts.length - 1"
@@ -113,6 +141,14 @@ export default {
       );
       if (res.status == 200) {
         this.electionOverview = res.data;
+
+        this.electionOverview.isEnded = "no";
+        if (
+          new Date().getTime() >
+          new Date(this.electionOverview.date_and_time).getTime()
+        ) {
+          this.electionOverview.isEnded = "yes";
+        }
       }
       this.isLoading = false;
     },

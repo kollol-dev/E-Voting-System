@@ -118,9 +118,7 @@
                   v-for="(item, index) in allElections"
                   :key="'ps' + index"
                   :value="item.id"
-                >
-                  {{ item.name }}
-                </Option>
+                >{{ item.name }}</Option>
               </Select>
               <p v-if="error.election_id" class="text-danger">
                 <Icon type="md-alert" /> {{ error.election_id }}
@@ -182,9 +180,7 @@
                   v-for="(item, index) in allElections"
                   :key="'ps' + index"
                   :value="item.id"
-                >
-                  {{ item.name }}
-                </Option>
+                >{{ item.name }}</Option>
               </Select>
               <p v-if="error.election_id" class="text-danger">
                 <Icon type="md-alert" /> {{ error.election_id }}
@@ -294,14 +290,14 @@ export default {
         this.post
       );
       if (res.status == 201) {
-        let index = this.allElections.findIndex(
-          (i) => i.id == this.post.election_id
-        );
+        // let index = this.allElections.findIndex(
+        //   (i) => i.id == this.post.election_id
+        // );
 
-        res.data.election = this.allElections[index];
-
-        this.allElectionPosts.data.push(res.data);
-        this.allElectionPosts.total += 1;
+        // res.data.election = this.allElections[index];
+        // this.allElectionPosts.data.push(res.data);
+        // this.allElectionPosts.total += 1;
+        this.$router.go();
         this.clearData();
       } else if (res.status == 401 && res.data.name) {
         for (let i of res.data.name) this.e(i);
