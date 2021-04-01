@@ -31,6 +31,12 @@ Route::post('/election/add/new', 'Admin\ElectionController@addNewElection');
 Route::post('/election/update/{id}', 'Admin\ElectionController@updateElection');
 Route::post('/election/delete/{id}', 'Admin\ElectionController@deleteElection');
 
+// election commision
+Route::get('/election/commision/paginate/all', 'Admin\ElectionController@paginateElectionCommision');
+Route::post('/election/commision/add/new', 'Admin\ElectionController@addNewElectionCommision');
+Route::post('/election/commision/update/{id}', 'Admin\ElectionController@updateElectionCommision');
+Route::post('/election/commision/delete/{id}', 'Admin\ElectionController@deleteElectionCommision');
+
 
 
 // election posts

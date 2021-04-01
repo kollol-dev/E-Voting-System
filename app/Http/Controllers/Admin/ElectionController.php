@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Election;
 use App\Models\ElectionPost;
 use App\Models\ElectionCandidate;
+use App\Models\ElectionCommision;
 
 // helpers
 use App\Http\Controllers\Controller;
@@ -93,11 +94,83 @@ class ElectionController extends Controller
         return Election::where('id', $id)->delete();
     }
 
+    // paginate all election commisions
+    public function paginateElectionCommision(Request $request)
+    {
+        $page = isset($request->page) ? $request->page : 1;
+        return ElectionCommision::with('user')
+            ->paginate(20, ["*"], 'page', $page);
+    }
+
+
+    // add new election commision
+    public function addNewElectionCommision(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'user_id' => ['required'],
+            'position' => ['required'],
+        ]);
+        if ($validation->fails()) {
+            return response()->json($validation->messages(), 401);
+        } else {
+            // return date($request->date_and_time);
+            $election = ElectionCommision::create([
+                'user_id' => $request->user_id,
+                'position' => $request->position
+            ]);
+            return $election;
+        }
+    }
+
+    // edit election commision
+    public function updateElectionCommision(Request $request, $id)
+    {
+        $check = Auth::user();
+        if (!$check || $check['role'] != 'admin') {
+            return response()->json([
+                'message' => 'You are not authorized update!'
+            ], 401);
+        }
+
+        $check = ElectionCommision::where('id', $id)->first();
+        if (!isset($check)) {
+            return response()->json([
+                'message' => 'Invalid Request!'
+            ], 403);
+        }
+        return Election::where('id', $id)->update([
+            'user_id' => $request->user_id,
+            'position' => $request->position
+        ]);
+    }
+
+    // delete election commision
+    public function deleteElectionCommision($id)
+    {
+        $check = Auth::user();
+        if (!$check || $check['role'] != 'admin') {
+            return response()->json([
+                'message' => 'You are not authorized to delete!'
+            ], 401);
+        }
+
+        $check = ElectionCommision::where('id', $id)->count();
+        if ($check == 0) {
+            return response()->json([
+                'message' => 'Invalid Request!'
+            ], 403);
+        }
+
+        return ElectionCommision::where('id', $id)->delete();
+    }
+
     // get all election posts
     public function getAllElectionPosts(Request $request)
     {
         return ElectionPost::all();
     }
+
+
 
     // paginate election posts
     public function paginateElectionPosts(Request $request)

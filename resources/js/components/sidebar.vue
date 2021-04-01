@@ -16,7 +16,7 @@
             <p>Overview</p>
           </router-link>
         </li>
-        
+
         <!-- admin options  -->
         <template v-if="authUser.role == 'admin'">
           <li :class="$route.path == '/users' ? 'nav-item active' : 'nav-item'">
@@ -55,6 +55,18 @@
             <router-link class="nav-link" to="/election_candidates">
               <i class="material-icons">groups</i>
               <p>Election Candidate</p>
+            </router-link>
+          </li>
+          <li
+            :class="
+              $route.path == '/election_commision'
+                ? 'nav-item active'
+                : 'nav-item'
+            "
+          >
+            <router-link class="nav-link" to="/election_commision">
+              <i class="material-icons">list</i>
+              <p>Election Commis $table->foreign('user_id')->references('id')->on('users');ion</p>
             </router-link>
           </li>
           <li class="nav-item">
