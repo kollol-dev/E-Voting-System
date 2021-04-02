@@ -7,6 +7,17 @@
             <div class="nav-tabs-navigation">
               <div class="nav-tabs-wrapper">
                 <h4 class="card-title">Election Candidates</h4>
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                  <li v-if="!isApplied" class="nav-item">
+                    <a class="nav-link active" @click="applyForPost">
+                      <i class="material-icons">source</i> Apply For This Post
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                  <li v-else class="nav-item">
+                    <a class="nav-link"> You have already applied. </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -88,6 +99,7 @@ export default {
       isVoteCasted: false,
       btnLoading: false,
       btnIndex: -1,
+      isApplied: false,
     };
   },
 
@@ -124,12 +136,25 @@ export default {
       this.btnLoading = false;
       this.btnIndex = -1;
     },
+
+    async applyForPost() {
+      if (this.isApplied) return;
+      this.btnLoading = true;
+      const res = await this.callApi(
+        "post",
+        `/app/alumni/election/candidate/apply/${this.$route.params.id}`
+      );
+      if ((res.status = 200)) {
+        this.isApplied = true;
+      }
+      this.btnLoading = false;
+    },
   },
 
   async created() {
     if (!this.$route.params.id) return (window.location = "/alumni/elections");
     this.paginate(this.$route.params.id);
-    
+
     const res = await this.callApi(
       "get",
       `/app/alumni/election/vote-check/${this.$route.params.id}`
@@ -139,6 +164,7 @@ export default {
       if (res.data.is_vote_casted) {
         this.isVoteCasted = true;
       }
+      this.isApplied = res.data.isApplied;
     }
   },
 };

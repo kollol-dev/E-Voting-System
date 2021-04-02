@@ -66,7 +66,7 @@
           >
             <router-link class="nav-link" to="/election_commision">
               <i class="material-icons">list</i>
-              <p>Election Commis $table->foreign('user_id')->references('id')->on('users');ion</p>
+              <p>Election Commision</p>
             </router-link>
           </li>
           <li class="nav-item">

@@ -21,8 +21,9 @@ class CreateElectionCandidatesTable extends Migration
             $table->foreign('election_id')->references('id')->on('elections')->onDelete('cascade');
             $table->bigInteger('election_post_id')->unsigned();
             $table->foreign('election_post_id')->references('id')->on('election_posts')->onDelete('cascade');
-            $table->string('symbol');
+            $table->string('symbol')->nullable();
             $table->bigInteger('total_votes')->default(0);
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

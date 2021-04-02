@@ -300,6 +300,7 @@ class ElectionController extends Controller
             'election_id' => $request->election_id,
             'user_id' => $request->user_id,
             'election_post_id' => $request->election_post_id,
+            'status' => $request->status,
         ]);
     }
 

@@ -2361,6 +2361,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2369,7 +2380,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tableLoading: true,
       isVoteCasted: false,
       btnLoading: false,
-      btnIndex: -1
+      btnIndex: -1,
+      isApplied: false
     };
   },
   methods: {
@@ -2442,45 +2454,85 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
+    },
+    applyForPost: function applyForPost() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!_this3.isApplied) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 2:
+                _this3.btnLoading = true;
+                _context3.next = 5;
+                return _this3.callApi("post", "/app/alumni/election/candidate/apply/".concat(_this3.$route.params.id));
+
+              case 5:
+                res = _context3.sent;
+
+                if (res.status = 200) {
+                  _this3.isApplied = true;
+                }
+
+                _this3.btnLoading = false;
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this4 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              if (_this3.$route.params.id) {
-                _context3.next = 2;
+              if (_this4.$route.params.id) {
+                _context4.next = 2;
                 break;
               }
 
-              return _context3.abrupt("return", window.location = "/alumni/elections");
+              return _context4.abrupt("return", window.location = "/alumni/elections");
 
             case 2:
-              _this3.paginate(_this3.$route.params.id);
+              _this4.paginate(_this4.$route.params.id);
 
-              _context3.next = 5;
-              return _this3.callApi("get", "/app/alumni/election/vote-check/".concat(_this3.$route.params.id));
+              _context4.next = 5;
+              return _this4.callApi("get", "/app/alumni/election/vote-check/".concat(_this4.$route.params.id));
 
             case 5:
-              res = _context3.sent;
+              res = _context4.sent;
 
               if (res.status == 200) {
                 if (res.data.is_vote_casted) {
-                  _this3.isVoteCasted = true;
+                  _this4.isVoteCasted = true;
                 }
+
+                _this4.isApplied = res.data.isApplied;
               }
 
             case 7:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }))();
   }
 });
@@ -3069,6 +3121,21 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -81662,11 +81729,7 @@ var render = function() {
                             _vm._v("list")
                           ]),
                           _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "Election Commis $table->foreign('user_id')->references('id')->on('users');ion"
-                            )
-                          ])
+                          _c("p", [_vm._v("Election Commision")])
                         ]
                       )
                     ],
@@ -81845,12 +81908,58 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-12 col-md-12" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(0),
+          _c(
+            "div",
+            { staticClass: "card-header card-header-tabs card-header-primary" },
+            [
+              _c("div", { staticClass: "nav-tabs-navigation" }, [
+                _c("div", { staticClass: "nav-tabs-wrapper" }, [
+                  _c("h4", { staticClass: "card-title" }, [
+                    _vm._v("Election Candidates")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    {
+                      staticClass: "nav nav-tabs",
+                      attrs: { "data-tabs": "tabs" }
+                    },
+                    [
+                      !_vm.isApplied
+                        ? _c("li", { staticClass: "nav-item" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "nav-link active",
+                                on: { click: _vm.applyForPost }
+                              },
+                              [
+                                _c("i", { staticClass: "material-icons" }, [
+                                  _vm._v("source")
+                                ]),
+                                _vm._v(
+                                  " Apply For This Post\n                    "
+                                ),
+                                _c("div", { staticClass: "ripple-container" })
+                              ]
+                            )
+                          ])
+                        : _c("li", { staticClass: "nav-item" }, [
+                            _c("a", { staticClass: "nav-link" }, [
+                              _vm._v(" You have already applied. ")
+                            ])
+                          ])
+                    ]
+                  )
+                ])
+              ])
+            ]
+          ),
           _vm._v(" "),
           _vm.allElectionCandidates.length > 0
             ? _c("div", { staticClass: "card-body table-responsive" }, [
                 _c("table", { staticClass: "table table-hover" }, [
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -81920,24 +82029,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-header card-header-tabs card-header-primary" },
-      [
-        _c("div", { staticClass: "nav-tabs-navigation" }, [
-          _c("div", { staticClass: "nav-tabs-wrapper" }, [
-            _c("h4", { staticClass: "card-title" }, [
-              _vm._v("Election Candidates")
-            ])
-          ])
-        ])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -82568,6 +82659,16 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "td",
+                                {
+                                  staticStyle: {
+                                    "text-transform": "capitalize"
+                                  }
+                                },
+                                [_vm._v(_vm._s(item.status))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "td",
                                 [
                                   _c(
                                     "div",
@@ -83089,10 +83190,6 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-6" }, [
                   _c(
                     "div",
@@ -83142,8 +83239,10 @@ var render = function() {
                     ],
                     1
                   )
-                ]),
-                _vm._v(" "),
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-6 mb-5" }, [
                   _c(
                     "div",
@@ -83190,6 +83289,43 @@ var render = function() {
                             1
                           )
                         : _vm._e()
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-6 mb-5" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { staticClass: "bmd-label-floating" }, [
+                        _vm._v("Status")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "Select",
+                        {
+                          attrs: { filterable: "" },
+                          model: {
+                            value: _vm.editData.status,
+                            callback: function($$v) {
+                              _vm.$set(_vm.editData, "status", $$v)
+                            },
+                            expression: "editData.status"
+                          }
+                        },
+                        [
+                          _c("Option", { attrs: { value: "approve" } }, [
+                            _vm._v("Approve")
+                          ]),
+                          _vm._v(" "),
+                          _c("Option", { attrs: { value: "pending" } }, [
+                            _vm._v("Pending")
+                          ])
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
@@ -83247,6 +83383,8 @@ var staticRenderFns = [
       _c("th", [_vm._v("Election")]),
       _vm._v(" "),
       _c("th", [_vm._v("Post")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Status")]),
       _vm._v(" "),
       _c("th", [_vm._v("Action")])
     ])
@@ -104789,7 +104927,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_elections__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/elections */ "./resources/js/pages/elections.vue");
 /* harmony import */ var _pages_election_posts__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./pages/election_posts */ "./resources/js/pages/election_posts.vue");
 /* harmony import */ var _pages_election_candidates__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/election_candidates */ "./resources/js/pages/election_candidates.vue");
-/* harmony import */ var _pages_election_commision__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pages/election_commision */ "./resources/js/pages/election_commision.vue");
+/* harmony import */ var _pages_election_commision__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/election_commision */ "./resources/js/pages/election_commision.vue");
 /* harmony import */ var _pages_alumni_elections__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/alumni/elections */ "./resources/js/pages/alumni/elections.vue");
 /* harmony import */ var _pages_alumni_posts__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/alumni/posts */ "./resources/js/pages/alumni/posts.vue");
 /* harmony import */ var _pages_alumni_candidates__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./pages/alumni/candidates */ "./resources/js/pages/alumni/candidates.vue");
@@ -104846,7 +104984,7 @@ var routes = [{
 }, {
   path: "/election_commision",
   name: "election_commision",
-  component: _pages_election_commision__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _pages_election_commision__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, // alumni
 {
   path: "/alumni/elections",

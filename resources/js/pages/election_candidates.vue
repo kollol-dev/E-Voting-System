@@ -26,6 +26,7 @@
                 <th>Name</th>
                 <th>Election</th>
                 <th>Post</th>
+                <th>Status</th>
                 <th>Action</th>
               </thead>
               <tbody>
@@ -40,6 +41,7 @@
                   <td>
                     {{ item.post ? item.post.name : "N/A" }}
                   </td>
+                  <td style="text-transform: capitalize">{{ item.status }}</td>
                   <td>
                     <div
                       @click="openEditModal(index)"
@@ -246,7 +248,8 @@
                   :key="'nc' + index"
                   :value="item.id"
                 >
-                  {{ item.name }}</Option>
+                  {{ item.name }}</Option
+                >
               </Select>
               <p v-if="error.user_id" class="text-danger">
                 <Icon type="md-alert" /> {{ error.user_id }}
@@ -254,7 +257,24 @@
             </div>
           </div>
           <div class="col-md-6">
-            <!-- <div class="form-group">
+            <div class="form-group">
+              <label class="bmd-label-floating">Election</label>
+              <Select v-model="editData.election_id" filterable>
+                <Option
+                  v-for="(item, index) in allElections"
+                  :key="'ec' + index"
+                  :value="item.id"
+                  >{{ item.name }}
+                </Option>
+              </Select>
+              <p v-if="error.election_id" class="text-danger">
+                <Icon type="md-alert" /> {{ error.election_id }}
+              </p>
+            </div>
+          </div>
+          <!-- 
+          <div class="col-md-6">
+              <div class="form-group">
               <label class="bmd-label-floating d-block">Symbol</label>
               <div v-if="uploadFile" class="demo-upload-list">
                 <template v-if="uploadFile.status === 'finished'">
@@ -294,26 +314,11 @@
               <p v-if="error.symbol" class="text-danger">
                 <Icon type="md-alert" /> {{ error.symbol }}
               </p>
-            </div> -->
+            </div> 
           </div>
+            -->
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="bmd-label-floating">Election</label>
-              <Select v-model="editData.election_id" filterable>
-                <Option
-                  v-for="(item, index) in allElections"
-                  :key="'ec' + index"
-                  :value="item.id"
-                >{{ item.name }}
-                </Option>
-              </Select>
-              <p v-if="error.election_id" class="text-danger">
-                <Icon type="md-alert" /> {{ error.election_id }}
-              </p>
-            </div>
-          </div>
           <div class="col-md-6 mb-5">
             <div class="form-group">
               <label class="bmd-label-floating">Election Post</label>
@@ -322,11 +327,21 @@
                   v-for="(item, index) in allPosts"
                   :key="'ps' + index"
                   :value="item.id"
-                >{{ item.name }}</Option>
+                  >{{ item.name }}</Option
+                >
               </Select>
               <p v-if="error.election_post_id" class="text-danger">
                 <Icon type="md-alert" /> {{ error.election_post_id }}
               </p>
+            </div>
+          </div>
+          <div class="col-md-6 mb-5">
+            <div class="form-group">
+              <label class="bmd-label-floating">Status</label>
+              <Select v-model="editData.status" filterable>
+                <Option value="approve">Approve</Option>
+                <Option value="pending">Pending</Option>
+              </Select>
             </div>
           </div>
         </div>

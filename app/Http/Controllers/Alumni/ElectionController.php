@@ -43,13 +43,21 @@ class ElectionController extends Controller
             ->where('election_id', $id)
             ->count();
 
+        $checkApplied = ELectionCandidate::where('user_id', Auth::id())
+            ->where('election_post_id', $id)
+            ->count();
+
+        $isApplied = $checkApplied == 0 ? false :  true;
+
         if ($check != 0) {
             return response()->json([
-                "is_vote_casted" => true
+                "is_vote_casted" => true,
+                "isApplied" => $isApplied
             ]);
         }
         return response()->json([
-            "is_vote_casted" => false
+            "is_vote_casted" => false,
+            "isApplied" => $isApplied
         ]);
     }
 
@@ -95,5 +103,17 @@ class ElectionController extends Controller
 
         return 'done';
         // }
+    }
+
+
+
+    public function candidateApply(Request $request, $id)
+    {
+        $electionPost = ElectionPost::where('id', $id)->first();
+        return ElectionCandidate::create([
+            'user_id' => Auth::id(),
+            'election_id' => $electionPost->election_id,
+            'election_post_id' => $id
+        ]);
     }
 }
