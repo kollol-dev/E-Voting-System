@@ -4132,20 +4132,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4156,11 +4142,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       editModal: false,
       modal_loading: false,
       electionCommision: {
-        user_id: null,
+        name: "",
         position: ""
       },
       error: {
-        user_id: false,
+        name: false,
         position: false
       },
       editIndex: -1,
@@ -4175,7 +4161,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     clearData: function clearData() {
       this.electionCommision = {
-        user_id: null,
+        name: "",
         position: ""
       };
       this.editIndex = -1;
@@ -4183,7 +4169,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     clearErrorData: function clearErrorData() {
       this.error = {
-        user_id: false,
+        name: false,
         position: false
       };
     },
@@ -4213,12 +4199,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this.clearErrorData();
 
-                if (_this.electionCommision.user_id) {
+                if (!(_this.electionCommision.name.trim() == "")) {
                   _context.next = 4;
                   break;
                 }
 
-                _this.error.name = "Select an user!";
+                _this.error.name = "Name is required!";
                 return _context.abrupt("return", false);
 
               case 4:
@@ -4239,6 +4225,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 res = _context.sent;
 
                 if (res.status == 201) {
+                  res.data.user = {
+                    name: _this.electionCommision.name
+                  };
+
                   _this.allElectionCommittees.data.push(res.data);
 
                   _this.allElectionCommittees.total += 1;
@@ -4297,12 +4287,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (_this2.editData.user_id) {
+                if (!(!_this2.editData.name || _this2.editData.name.trim() == "")) {
                   _context2.next = 3;
                   break;
                 }
 
-                _this2.error.name = "Select an user!";
+                _this2.error.name = "Name is required!";
                 return _context2.abrupt("return", false);
 
               case 3:
@@ -4413,24 +4403,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this5 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var res;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               _this5.paginate(1);
 
-              _context5.next = 3;
-              return _this5.callApi("get", "/app/admin/get/users/all");
-
-            case 3:
-              res = _context5.sent;
-
-              if (res.status == 200) {
-                _this5.allUsers = res.data;
-              }
-
-            case 5:
+            case 1:
             case "end":
               return _context5.stop();
           }
@@ -83632,38 +83611,24 @@ var render = function() {
                         _vm._v("User")
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "Select",
-                        {
-                          attrs: { filterable: "" },
-                          model: {
-                            value: _vm.electionCommision.user_id,
-                            callback: function($$v) {
-                              _vm.$set(_vm.electionCommision, "user_id", $$v)
-                            },
-                            expression: "electionCommision.user_id"
-                          }
-                        },
-                        _vm._l(_vm.allUsers, function(item, index) {
-                          return _c(
-                            "Option",
-                            { key: "nc" + index, attrs: { value: item.id } },
-                            [_vm._v(_vm._s(item.name))]
-                          )
-                        }),
-                        1
-                      ),
+                      _c("Input", {
+                        model: {
+                          value: _vm.electionCommision.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.electionCommision, "name", $$v)
+                          },
+                          expression: "electionCommision.name"
+                        }
+                      }),
                       _vm._v(" "),
-                      _vm.error.user_id
+                      _vm.error.name
                         ? _c(
                             "p",
                             { staticClass: "text-danger" },
                             [
                               _c("Icon", { attrs: { type: "md-alert" } }),
                               _vm._v(
-                                " " +
-                                  _vm._s(_vm.error.user_id) +
-                                  "\n            "
+                                " " + _vm._s(_vm.error.name) + "\n            "
                               )
                             ],
                             1
@@ -83800,38 +83765,24 @@ var render = function() {
                         _vm._v("User")
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "Select",
-                        {
-                          attrs: { filterable: "" },
-                          model: {
-                            value: _vm.editData.user_id,
-                            callback: function($$v) {
-                              _vm.$set(_vm.editData, "user_id", $$v)
-                            },
-                            expression: "editData.user_id"
-                          }
-                        },
-                        _vm._l(_vm.allUsers, function(item, index) {
-                          return _c(
-                            "Option",
-                            { key: "nc" + index, attrs: { value: item.id } },
-                            [_vm._v(_vm._s(item.name))]
-                          )
-                        }),
-                        1
-                      ),
+                      _c("Input", {
+                        model: {
+                          value: _vm.editData.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editData, "name", $$v)
+                          },
+                          expression: "editData.name"
+                        }
+                      }),
                       _vm._v(" "),
-                      _vm.error.user_id
+                      _vm.error.name
                         ? _c(
                             "p",
                             { staticClass: "text-danger" },
                             [
                               _c("Icon", { attrs: { type: "md-alert" } }),
                               _vm._v(
-                                " " +
-                                  _vm._s(_vm.error.user_id) +
-                                  "\n            "
+                                " " + _vm._s(_vm.error.name) + "\n            "
                               )
                             ],
                             1
@@ -104285,14 +104236,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./resources/js/pages/election_commision.vue ***!
   \***************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _election_commision_vue_vue_type_template_id_764fa4d6___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./election_commision.vue?vue&type=template&id=764fa4d6& */ "./resources/js/pages/election_commision.vue?vue&type=template&id=764fa4d6&");
 /* harmony import */ var _election_commision_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./election_commision.vue?vue&type=script&lang=js& */ "./resources/js/pages/election_commision.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _election_commision_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./election_commision.vue?vue&type=style&index=0&lang=css& */ "./resources/js/pages/election_commision.vue?vue&type=style&index=0&lang=css&");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _election_commision_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _election_commision_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _election_commision_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./election_commision.vue?vue&type=style&index=0&lang=css& */ "./resources/js/pages/election_commision.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -104324,7 +104276,7 @@ component.options.__file = "resources/js/pages/election_commision.vue"
 /*!****************************************************************************!*\
   !*** ./resources/js/pages/election_commision.vue?vue&type=script&lang=js& ***!
   \****************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

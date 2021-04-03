@@ -96,16 +96,9 @@
           <div class="col-12">
             <div class="form-group">
               <label class="bmd-label-floating">User</label>
-              <Select v-model="electionCommision.user_id" filterable>
-                <Option
-                  v-for="(item, index) in allUsers"
-                  :key="'nc' + index"
-                  :value="item.id"
-                  >{{ item.name }}</Option
-                >
-              </Select>
-              <p v-if="error.user_id" class="text-danger">
-                <Icon type="md-alert" /> {{ error.user_id }}
+              <Input v-model="electionCommision.name"></Input>
+              <p v-if="error.name" class="text-danger">
+                <Icon type="md-alert" /> {{ error.name }}
               </p>
             </div>
           </div>
@@ -163,16 +156,9 @@
           <div class="col-12">
             <div class="form-group">
               <label class="bmd-label-floating">User</label>
-              <Select v-model="editData.user_id" filterable>
-                <Option
-                  v-for="(item, index) in allUsers"
-                  :key="'nc' + index"
-                  :value="item.id"
-                  >{{ item.name }}</Option
-                >
-              </Select>
-              <p v-if="error.user_id" class="text-danger">
-                <Icon type="md-alert" /> {{ error.user_id }}
+              <Input v-model="editData.name"></Input>
+              <p v-if="error.name" class="text-danger">
+                <Icon type="md-alert" /> {{ error.name }}
               </p>
             </div>
           </div>
@@ -225,11 +211,11 @@ export default {
       modal_loading: false,
 
       electionCommision: {
-        user_id: null,
+        name: "",
         position: "",
       },
       error: {
-        user_id: false,
+        name: false,
         position: false,
       },
       editIndex: -1,
@@ -240,13 +226,15 @@ export default {
       allUsers: [],
     };
   },
+
   computed: {
     ...mapGetters({}),
   },
+
   methods: {
     clearData() {
       this.electionCommision = {
-        user_id: null,
+        name: "",
         position: "",
       };
       this.editIndex = -1;
@@ -255,7 +243,7 @@ export default {
 
     clearErrorData() {
       this.error = {
-        user_id: false,
+        name: false,
         position: false,
       };
     },
@@ -278,8 +266,8 @@ export default {
 
     async addElectionCommission() {
       this.clearErrorData();
-      if (!this.electionCommision.user_id) {
-        this.error.name = "Select an user!";
+      if (this.electionCommision.name.trim() == "") {
+        this.error.name = "Name is required!";
         return false;
       }
 
@@ -294,6 +282,9 @@ export default {
         this.electionCommision
       );
       if (res.status == 201) {
+        res.data.user = {  
+          name: this.electionCommision.name,
+        }
         this.allElectionCommittees.data.push(res.data);
         this.allElectionCommittees.total += 1;
         this.clearData();
@@ -309,8 +300,8 @@ export default {
     },
 
     async editElectionCommission() {
-      if (!this.editData.user_id) {
-        this.error.name = "Select an user!";
+      if (!this.editData.name || this.editData.name.trim() == "") {
+        this.error.name = "Name is required!";
         return false;
       }
 
@@ -366,13 +357,9 @@ export default {
       this.tableLoading = false;
     },
   },
+
   async created() {
     this.paginate(1);
-
-    const res = await this.callApi("get", "/app/admin/get/users/all");
-    if (res.status == 200) {
-      this.allUsers = res.data;
-    }
   },
 };
 </script>

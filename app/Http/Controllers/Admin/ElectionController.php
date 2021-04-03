@@ -8,6 +8,7 @@ use App\Models\Election;
 use App\Models\ElectionPost;
 use App\Models\ElectionCandidate;
 use App\Models\ElectionCommision;
+use App\Models\ElectionCommisionUser;
 
 // helpers
 use App\Http\Controllers\Controller;
@@ -107,7 +108,7 @@ class ElectionController extends Controller
     public function addNewElectionCommision(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'user_id' => ['required'],
+            'name' => ['required'],
             'position' => ['required'],
         ]);
         if ($validation->fails()) {
@@ -115,8 +116,11 @@ class ElectionController extends Controller
         } else {
             // return date($request->date_and_time);
             $election = ElectionCommision::create([
-                'user_id' => $request->user_id,
                 'position' => $request->position
+            ]);
+            $electionUser = ElectionCommisionUser::create([
+                'name' => $request->name,
+                'election_commision_id' => $election->id
             ]);
             return $election;
         }
@@ -138,10 +142,13 @@ class ElectionController extends Controller
                 'message' => 'Invalid Request!'
             ], 403);
         }
-        return Election::where('id', $id)->update([
-            'user_id' => $request->user_id,
+        $election = Election::where('id', $id)->update([
             'position' => $request->position
         ]);
+        $electionUser = ElectionCommisionUser::where('election_commision_id', $id)->update([
+            'name' => $request->name,
+        ]);
+        return $election;
     }
 
     // delete election commision
