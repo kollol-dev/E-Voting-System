@@ -247,8 +247,7 @@
                   v-for="(item, index) in allAlumnies"
                   :key="'nc' + index"
                   :value="item.id"
-                >
-                  {{ item.name }}</Option
+                  >{{ item.name }}</Option
                 >
               </Select>
               <p v-if="error.user_id" class="text-danger">
@@ -272,51 +271,6 @@
               </p>
             </div>
           </div>
-          <!-- 
-          <div class="col-md-6">
-              <div class="form-group">
-              <label class="bmd-label-floating d-block">Symbol</label>
-              <div v-if="uploadFile" class="demo-upload-list">
-                <template v-if="uploadFile.status === 'finished'">
-                  <img :src="uploadFile.response.url" />
-                  <div class="demo-upload-list-cover">
-                    <Icon
-                      type="ios-trash-outline"
-                      @click.native="handleRemove(item)"
-                    ></Icon>
-                  </div>
-                </template>
-                <template v-else>
-                  <Progress
-                    v-if="uploadFile.showProgress"
-                    :percent="uploadFile.percentage"
-                    hide-info
-                  ></Progress>
-                </template>
-              </div>
-              <Upload
-                v-else
-                :show-upload-list="false"
-                :on-progress="handleProgress"
-                :format="['jpg', 'jpeg', 'png']"
-                :max-size="20480"
-                :on-format-error="handleFormatError"
-                :on-exceeded-size="handleMaxSize"
-                type="drag"
-                name="file"
-                action="/app/upload/file"
-                style="display: inline-block; width: 58px"
-              >
-                <div style="width: 58px; height: 58px; line-height: 58px">
-                  <Icon type="ios-camera" size="20"></Icon>
-                </div>
-              </Upload>
-              <p v-if="error.symbol" class="text-danger">
-                <Icon type="md-alert" /> {{ error.symbol }}
-              </p>
-            </div> 
-          </div>
-            -->
         </div>
         <div class="row">
           <div class="col-md-6 mb-5">
@@ -339,9 +293,79 @@
             <div class="form-group">
               <label class="bmd-label-floating">Status</label>
               <Select v-model="editData.status" filterable>
-                <Option value="approve">Approve</Option>
+                <Option value="approved">Approved</Option>
                 <Option value="pending">Pending</Option>
               </Select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label class="bmd-label-floating d-block">Symbol</label>
+              <div
+                class="demo-upload-list"
+                v-if="typeof editData.symbol == 'string'"
+              >
+                <img :src="editData.symbol" />
+                <div class="demo-upload-list-cover">
+                  <Icon
+                    type="ios-trash-outline"
+                    @click.native="handleEditRemove()"
+                  ></Icon>
+                </div>
+              </div>
+              <template v-else>
+                <div
+                  v-if="
+                    typeof editData.symbol == 'object' &&
+                    editData.symbol != null
+                  "
+                  class="demo-upload-list"
+                >
+                  <template
+                    v-if="
+                      editData.symbol.status &&
+                      editData.symbol.status === 'finished'
+                    "
+                  >
+                    <img :src="editData.symbol.response.url" />
+                    <div class="demo-upload-list-cover">
+                      <Icon
+                        type="ios-trash-outline"
+                        @click.native="handleEditRemove()"
+                      ></Icon>
+                    </div>
+                  </template>
+                  <template v-else>
+                    <Progress
+                      v-if="editData.symbol.showProgress"
+                      :percent="editData.symbol.percentage"
+                      hide-info
+                    ></Progress>
+                  </template>
+                </div>
+                <Upload
+                  v-else
+                  :show-upload-list="false"
+                  :on-progress="handleEditProgress"
+                  :format="['jpg', 'jpeg', 'png']"
+                  :max-size="20480"
+                  :on-format-error="handleFormatError"
+                  :on-exceeded-size="handleMaxSize"
+                  type="drag"
+                  name="file"
+                  action="/app/upload/file"
+                  style="display: inline-block; width: 58px"
+                >
+                  <div style="width: 58px; height: 58px; line-height: 58px">
+                    <Icon type="ios-camera" size="20"></Icon>
+                  </div>
+                </Upload>
+              </template>
+              <p v-if="error.symbol" class="text-danger">
+                <Icon type="md-alert" /> {{ error.symbol }}
+              </p>
             </div>
           </div>
         </div>
@@ -427,11 +451,12 @@ export default {
       };
     },
 
-    openEditModal(index) {
+    async openEditModal(index) {
       this.clearErrorData();
       this.editModal = true;
       this.editData = _.clone(this.allElectionCandidates.data[index]);
       this.editIndex = _.clone(index);
+      await this.getNominatedCandidates(this.editData.election_id);
     },
 
     closeModal() {
@@ -516,6 +541,12 @@ export default {
         return false;
       }
       this.modal_loading = true;
+
+      if ((typeof this.editData.symbol == "object") && this.editData.symbol) {
+        let obj = _.clone(this.editData.symbol);
+        this.editData.symbol = obj.response.url;
+      }
+
       const res = await this.callApi(
         "post",
         `/app/admin/election/candidate/update/${this.editData.id}`,
@@ -580,6 +611,13 @@ export default {
           file.name +
           " is incorrect, please select jpg or png.",
       });
+    },
+    handleEditRemove() {
+      this.editData.symbol = false;
+    },
+
+    handleEditProgress(res, file) {
+      this.editData.symbol = file;
     },
 
     handleMaxSize(file) {

@@ -69,6 +69,18 @@
               <p>Election Commision</p>
             </router-link>
           </li>
+          <li
+            :class="
+              $route.path == '/election_policy'
+                ? 'nav-item active'
+                : 'nav-item'
+            "
+          >
+            <router-link class="nav-link" to="/election_policy">
+              <i class="material-icons">list</i>
+              <p>Election Policy</p>
+            </router-link>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/app/user/logout">
               <i class="material-icons">logout</i>

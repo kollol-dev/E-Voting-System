@@ -9,6 +9,7 @@ use App\Models\ElectionPost;
 use App\Models\ElectionCandidate;
 use App\Models\ElectionCommision;
 use App\Models\ElectionCommisionUser;
+use App\Models\ElectionPolicy;
 
 // helpers
 use App\Http\Controllers\Controller;
@@ -29,7 +30,7 @@ class ElectionController extends Controller
     public function paginateElection(Request $request)
     {
         $page = isset($request->page) ? $request->page : 1;
-        return Election::with('posts', 'posts.candidates')
+        return Election::with('posts', 'posts.candidates', 'posts.candidates.user')
             ->with('isVoted')
             ->paginate(20, ["*"], 'page', $page);
     }
@@ -275,12 +276,12 @@ class ElectionController extends Controller
         if ($validation->fails()) {
             return response()->json($validation->messages(), 401);
         } else {
-
             $election = ElectionCandidate::create([
                 'symbol' => $request->symbol,
                 'election_id' => $request->election_id,
                 'user_id' => $request->user_id,
                 'election_post_id' => $request->election_post_id,
+                'status' => 'approved'
             ]);
             return $election;
         }
@@ -366,5 +367,21 @@ class ElectionController extends Controller
     {
         return ElectionPost::where('election_id', $id)
             ->get();
+    }
+
+
+    // get policy
+    public function getPolicy()
+    {
+        return ElectionPolicy::all();
+    }
+
+    // edit policy
+    public function editPolicy(Request $request)
+    {   
+        return ElectionPolicy::where('id', 1)
+        ->update([
+            'policy' => $request->policy
+        ]);
     }
 }

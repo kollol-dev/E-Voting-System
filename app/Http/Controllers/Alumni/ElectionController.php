@@ -22,6 +22,7 @@ class ElectionController extends Controller
     public function getCandidateByELectionId($id)
     {
         return ElectionCandidate::where('election_post_id', $id)
+            ->where('status', 'approved')
             ->with('user')
             ->with('post')
             ->with('election')

@@ -12,6 +12,7 @@ import elections from "./pages/elections";
 import election_posts from "./pages/election_posts";
 import election_candidates from "./pages/election_candidates";
 import election_commision from "./pages/election_commision";
+import election_policy from "./pages/election_policy";
 
 // alumni
 import alumni_elections from "./pages/alumni/elections";
@@ -29,6 +30,7 @@ let routes = [
     { path: "/election_posts", name: "election_posts", component: election_posts },
     { path: "/election_candidates", name: "election_candidates", component: election_candidates },
     { path: "/election_commision", name: "election_commision", component: election_commision },
+    { path: "/election_policy", name: "election_policy", component: election_policy },
 
     // alumni
     { path: "/alumni/elections", name: "alumni_elections", component: alumni_elections },

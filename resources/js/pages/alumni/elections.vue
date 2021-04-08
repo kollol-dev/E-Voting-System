@@ -117,6 +117,7 @@
                             : 'width: 50px; height: 50px; cursor: pointer;'
                         "
                       />
+                      <span v-if="img.user">{{ img.user.name }}</span>
                     </span>
                   </div>
                   <p v-if="item.winner">winner: {{ item.winner.name }}</p>

@@ -79,7 +79,7 @@
             </div>
             <div
               class="d-flex justify-content-center"
-              v-if="!tableLoading && allElectionCandidates.total == 0"
+              v-if="!tableLoading && allElectionCandidates.length == 0"
             >
               <p>No data</p>
             </div>
