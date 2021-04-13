@@ -2726,6 +2726,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2779,11 +2780,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 _this.modal_loading = true;
-                _context.next = 8;
-                return _this.callApi("post", "/app/alumni/election/cast-vote/".concat(item.id), item // { post_id: this.allElectionCandidates[index].post.id }
-                );
+                console.log("item", item);
+                return _context.abrupt("return");
 
-              case 8:
+              case 10:
                 res = _context.sent;
 
                 if (res.status == 200) {
@@ -2796,7 +2796,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.modal_loading = false;
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -2853,7 +2853,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _this2.tableLoading = true;
                 _context2.next = 3;
-                return _this2.callApi("get", "/app/admin/election/paginate/all?page=".concat(page));
+                return _this2.callApi("get", "/app/alumni/election/paginate/all?page=".concat(page));
 
               case 3:
                 res = _context2.sent;
@@ -5826,6 +5826,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -82612,7 +82613,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-6" }, [
+                    _c("div", { staticClass: "col-12" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", { staticClass: "bmd-label-floating" }, [
                           _vm._v("Posts:")
@@ -82647,7 +82648,8 @@ var render = function() {
                                             "span",
                                             {
                                               key: "pst" + pindex,
-                                              style: " margin: 5px;"
+                                              style:
+                                                " margin: 5px; margin-top: 10px;"
                                             },
                                             [
                                               _c("img", {
@@ -82701,18 +82703,6 @@ var render = function() {
                               0
                             )
                           : _vm._e()
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-6" }, [
-                      _c("div", { staticClass: "form-group" }, [
-                        _c("label", { staticClass: "bmd-label-floating" }, [
-                          _vm._v("Total Vote:")
-                        ]),
-                        _vm._v(" "),
-                        _c("span", [
-                          _vm._v(_vm._s(_vm.electionOverview.total_votes_count))
-                        ])
                       ])
                     ])
                   ]),
@@ -85928,6 +85918,14 @@ var render = function() {
                                                   }
                                                 }
                                               }),
+                                              _vm._v(" "),
+                                              img.user
+                                                ? _c("span", [
+                                                    _vm._v(
+                                                      _vm._s(img.user.name)
+                                                    )
+                                                  ])
+                                                : _vm._e(),
                                               _vm._v(" "),
                                               _c("p", { staticClass: "mt-2" }, [
                                                 _vm._v(

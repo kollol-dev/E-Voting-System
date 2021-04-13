@@ -13,3 +13,6 @@ Route::post('/election/cast-vote/{id}', 'Alumni\ElectionController@castVote');
 // Route::post('/election/candidate/update/{id}', 'Alumni\ElectionController@updateElectionCandidate');
 // Route::post('/election/candidate/delete/{id}', 'Alumni\ElectionController@deleteElectionCandidate');
 Route::post('/election/candidate/apply/{id}', 'Alumni\ElectionController@candidateApply');
+
+
+Route::get('/election/paginate/all', 'Alumni\ElectionController@paginateElection');

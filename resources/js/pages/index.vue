@@ -84,6 +84,7 @@
                               alt=""
                               :style="'width: 50px; height: 50px; cursor: pointer;'"
                             />
+                            <span v-if="img.user">{{ img.user.name }}</span>
                             <p class="mt-2">
                               Total Votes:
                               {{ item.votes_count ? item.votes_count : 0 }}

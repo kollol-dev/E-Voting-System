@@ -73,7 +73,9 @@ class UserController extends Controller
         return Election::where('id', $id)
             ->with(['posts' => function ($builder) {
                 $builder->withCount('votes');
-                }, 'posts.winner', 'posts.candidates'])
+            }, 'posts.winner', 'posts.candidates' => function ($fn) {
+                $fn->orderBy('total_votes', 'desc');
+            }, 'posts.candidates.user'])
             ->with('isVoted')
             ->withCount('totalVotes')
             ->first();

@@ -35,6 +35,22 @@ class ElectionController extends Controller
             ->get();
     }
 
+    // paginate all elections 
+    public function paginateElection(Request $request)
+    {
+        $user = Auth::id();
+        $page = isset($request->page) ? $request->page : 1;
+        return Election::with('posts', 'posts.candidates', 'posts.candidates.user')
+            ->with(['isVoted' => function($builder) use ($user){
+                $builder->where('user_id', $user);
+            }])
+            ->paginate(20, ["*"], 'page', $page);
+    }
+
+
+    // , function($builder) use ($user){
+    //     $builder->where('user_id', $user->id);
+    // }
 
 
 

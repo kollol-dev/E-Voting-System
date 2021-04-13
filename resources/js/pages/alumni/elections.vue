@@ -56,6 +56,7 @@
         </div>
       </div>
     </div>
+
     <Modal title="Election Details" v-model="castModal" :footer-hide="true">
       <form
         v-on:submit.prevent="castVote(electionOverview)"
@@ -86,7 +87,7 @@
         </div>
 
         <div class="row">
-          <div class="col-6">
+          <div class="col-12">
             <div class="form-group">
               <label class="bmd-label-floating">Posts:</label>
               <span
@@ -105,7 +106,7 @@
                     <span
                       v-for="(img, pindex) in item.candidates"
                       :key="'pst' + pindex"
-                      :style="' margin: 5px;'"
+                      :style="' margin: 5px; margin-top: 10px;'"
                     >
                       <img
                         @click="selectIndex(item, pindex)"
@@ -129,12 +130,12 @@
               </span>
             </div>
           </div>
-          <div class="col-6">
+          <!-- <div class="col-6">
             <div class="form-group">
               <label class="bmd-label-floating">Total Vote:</label>
               <span>{{ electionOverview.total_votes_count }}</span>
             </div>
-          </div>
+          </div> -->
         </div>
         <button
           v-if="
@@ -183,17 +184,22 @@ export default {
 
     async castVote(item) {
       let count = 0;
+
       for (let i of item.posts) {
         console.log("i", i);
         if (i.selectedIndex > -1) {
           count += 1;
         }
       }
+
       if (count < item.posts.length) {
         return this.e("Please select one candidate symbol of all posts");
       }
 
       this.modal_loading = true;
+      
+      console.log("item", item);
+      return;
       const res = await this.callApi(
         "post",
         `/app/alumni/election/cast-vote/${item.id}`,
@@ -228,7 +234,7 @@ export default {
       this.tableLoading = true;
       const res = await this.callApi(
         "get",
-        `/app/admin/election/paginate/all?page=${page}`
+        `/app/alumni/election/paginate/all?page=${page}`
       );
       if (res.status == 200) {
         this.allElections = res.data;
