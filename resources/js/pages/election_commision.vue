@@ -7,7 +7,11 @@
             <div class="nav-tabs-navigation">
               <div class="nav-tabs-wrapper">
                 <h4 class="card-title">Election Commission</h4>
-                <ul class="nav nav-tabs" data-tabs="tabs">
+                <ul
+                  v-if="authUser.role == 'admin'"
+                  class="nav nav-tabs"
+                  data-tabs="tabs"
+                >
                   <li class="nav-item">
                     <a class="nav-link active" @click="createModal = true">
                       <i class="material-icons">source</i> Add Election
@@ -25,7 +29,7 @@
                 <th>ID</th>
                 <th>User Name</th>
                 <th>Position</th>
-                <th>Action</th>
+                <th v-if="authUser.role == 'admin'">Action</th>
               </thead>
               <tbody>
                 <tr
@@ -34,9 +38,9 @@
                   :key="'ad' + index"
                 >
                   <td>{{ item.id }}</td>
-                  <td>{{ item.user ? item.user.name : "N/A" }}</td>
+                  <td>{{ item.name ? item.name : "N/A" }}</td>
                   <td>{{ item.position }}</td>
-                  <td>
+                  <td v-if="authUser.role == 'admin'">
                     <div
                       @click="openEditModal(index)"
                       :disabled="deleteLoading && deleteIndex == index"
@@ -282,9 +286,9 @@ export default {
         this.electionCommision
       );
       if (res.status == 201) {
-        res.data.user = {  
+        res.data.user = {
           name: this.electionCommision.name,
-        }
+        };
         this.allElectionCommittees.data.push(res.data);
         this.allElectionCommittees.total += 1;
         this.clearData();

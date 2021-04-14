@@ -41,7 +41,7 @@ class ElectionController extends Controller
         $user = Auth::id();
         $page = isset($request->page) ? $request->page : 1;
         return Election::with('posts', 'posts.candidates', 'posts.candidates.user')
-            ->with(['isVoted' => function($builder) use ($user){
+            ->with(['isVoted' => function ($builder) use ($user) {
                 $builder->where('user_id', $user);
             }])
             ->paginate(20, ["*"], 'page', $page);
@@ -116,6 +116,12 @@ class ElectionController extends Controller
                 "election_id" => $id,
                 "post_id" => $i
             ]);
+        }
+
+
+        foreach ($request->candidateIds as $ids) {
+            ElectionCandidate::where('id', $ids)
+                ->increment('total_votes');
         }
 
         return 'done';

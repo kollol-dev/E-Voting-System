@@ -24,6 +24,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Date</th>
+                <th>Candiate Last Application Date</th>
                 <th>Action</th>
               </thead>
               <tbody>
@@ -35,6 +36,12 @@
                   <td>{{ item.id }}</td>
                   <td>{{ item.name }}</td>
                   <td>{{ item.date_and_time | formatDateTime }}</td>
+                  <td>
+                    {{
+                      item.candidate_application_expiration_date_time
+                        | formatDateTime
+                    }}
+                  </td>
                   <td>
                     <div
                       @click="openEditModal(index)"
@@ -128,6 +135,31 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="bmd-label-floating"
+                >Candiate Last Application Date</label
+              >
+              <datetime
+                v-model="election.candidate_application_expiration_date_time"
+                input-class="form-control"
+                type="datetime"
+                class="theme-color"
+                zone="Asia/Dhaka"
+                value-zone="Asia/Dhaka"
+                use12-hour
+              ></datetime>
+              <p
+                v-if="error.candidate_application_expiration_date_time"
+                class="text-danger"
+              >
+                <Icon type="md-alert" />
+                {{ error.candidate_application_expiration_date_time }}
+              </p>
+            </div>
+          </div>
+        </div>
         <button
           type="submit"
           class="btn btn-primary pull-right d-flex align-items-center"
@@ -192,6 +224,29 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group" style="">
+              <label class="">Candiate Last Application Date</label>
+              <datetime
+                v-model="editData.candidate_application_expiration_date_time"
+                input-class="form-control"
+                type="datetime"
+                class="theme-color"
+                zone="Asia/Dhaka"
+                value-zone="Asia/Dhaka"
+                use12-hour
+              ></datetime>
+              <p
+                v-if="error.candidate_application_expiration_date_time"
+                class="text-danger"
+              >
+                <Icon type="md-alert" />
+                {{ error.candidate_application_expiration_date_time }}
+              </p>
+            </div>
+          </div>
+        </div>
         <button
           @click="editElection"
           class="btn btn-primary pull-right d-flex align-items-center"
@@ -227,10 +282,12 @@ export default {
       election: {
         name: "",
         date_and_time: "",
+        candidate_application_expiration_date_time: "",
       },
       error: {
         name: false,
         date_and_time: false,
+        candidate_application_expiration_date_time: false,
       },
       editIndex: -1,
       deleteIndex: -1,
@@ -248,6 +305,7 @@ export default {
       this.election = {
         name: "",
         date_and_time: "",
+        candidate_application_expiration_date_time: "",
       };
       this.editIndex = -1;
       this.editData = {};
@@ -258,6 +316,7 @@ export default {
       this.error = {
         name: false,
         date_and_time: false,
+        candidate_application_expiration_date_time: false,
       };
     },
 
@@ -291,6 +350,11 @@ export default {
         this.error.date_and_time = "Select date and time!";
         return false;
       }
+      if (this.election.candidate_application_expiration_date_time == "") {
+        this.error.candidate_application_expiration_date_time =
+          "Select date and time for candidate expiration date!";
+        return false;
+      }
       this.modal_loading = true;
       const res = await this.callApi(
         "post",
@@ -320,6 +384,15 @@ export default {
 
       if (!this.editData.date_and_time || this.editData.date_and_time == "") {
         this.error.date_and_time = "Select date and time!";
+        return false;
+      }
+
+      if (
+        !this.editData.candidate_application_expiration_date_time ||
+        this.editData.candidate_application_expiration_date_time == ""
+      ) {
+        this.error.candidate_application_expiration_date_time =
+          "Select date and time for candidate expiration date!";
         return false;
       }
       this.modal_loading = true;

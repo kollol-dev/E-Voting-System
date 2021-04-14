@@ -15,8 +15,7 @@ class CreateElectionCommisions extends Migration
     {
         Schema::create('election_commisions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('name');
             $table->string('position');
             $table->timestamps();
         });

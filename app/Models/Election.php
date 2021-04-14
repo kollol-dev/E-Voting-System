@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Election extends Model
 {
-    protected $fillable = ['name', 'date_and_time'];
+    protected $fillable = ['name', 'date_and_time', 'candidate_application_expiration_date_time'];
 
     public function totalVotes()
     {

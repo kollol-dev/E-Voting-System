@@ -17,6 +17,7 @@ class CreateElectionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->timestamp('date_and_time');
+            $table->timestamp('candidate_application_expiration_date_time')->nullable();
             $table->timestamps();
         });
     }

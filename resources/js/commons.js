@@ -1,6 +1,7 @@
 import { mapGetters } from "vuex";
 import Loader from "./components/circleLoader";
 import errorText from "./components/errorText";
+import moment from 'moment';
 export default {
     data() {
         return {
@@ -24,7 +25,8 @@ export default {
         },
 
         formatDateTime(value) {
-            return new Date(value).toLocaleString("en-US", { hour12: true });
+            return moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a");
+            // return new Date(value).toLocaleString("en-US", { hour12: true });
         }
     },
     methods: {

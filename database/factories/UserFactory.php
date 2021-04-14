@@ -21,6 +21,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password' => bcrypt('123123123'), // password
+        'password' => bcrypt('123123123'), // password,
+        'status' => 'Approved'
     ];
 });

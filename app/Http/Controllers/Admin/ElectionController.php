@@ -48,7 +48,9 @@ class ElectionController extends Controller
             // return date($request->date_and_time);
             $election = Election::create([
                 'name' => $request->name,
-                'date_and_time' => (new DateTime($request->date_and_time))->format("Y-m-d H:i:s")
+                'date_and_time' => (new DateTime($request->date_and_time))->format("Y-m-d H:i:s"),
+                'candidate_application_expiration_date_time' => (new DateTime($request->candidate_application_expiration_date_time))->format("Y-m-d H:i:s"),
+
             ]);
             return $election;
         }
@@ -73,6 +75,7 @@ class ElectionController extends Controller
         return Election::where('id', $id)->update([
             'name' => $request->name,
             'date_and_time' => (new DateTime($request->date_and_time))->format("Y-m-d H:i:s"),
+            'candidate_application_expiration_date_time' => (new DateTime($request->candidate_application_expiration_date_time))->format("Y-m-d H:i:s"),
         ]);
     }
 
@@ -117,12 +120,14 @@ class ElectionController extends Controller
         } else {
             // return date($request->date_and_time);
             $election = ElectionCommision::create([
+                'name' => $request->name,
                 'position' => $request->position
             ]);
-            $electionUser = ElectionCommisionUser::create([
-                'name' => $request->name,
-                'election_commision_id' => $election->id
-            ]);
+            
+            // $electionUser = ElectionCommisionUser::create([
+            //     'name' => $request->name,
+            //     'election_commision_id' => $election->id
+            // ]);
             return $election;
         }
     }
@@ -143,12 +148,15 @@ class ElectionController extends Controller
                 'message' => 'Invalid Request!'
             ], 403);
         }
-        $election = Election::where('id', $id)->update([
+
+        $election = ElectionCommision::where('id', $id)->update([
+            'name' => $request->name,
             'position' => $request->position
         ]);
-        $electionUser = ElectionCommisionUser::where('election_commision_id', $id)->update([
-            'name' => $request->name,
-        ]);
+
+        // $electionUser = ElectionCommisionUser::where('election_commision_id', $id)->update([
+        //     'name' => $request->name,
+        // ]);
         return $election;
     }
 
@@ -378,10 +386,10 @@ class ElectionController extends Controller
 
     // edit policy
     public function editPolicy(Request $request)
-    {   
+    {
         return ElectionPolicy::where('id', 1)
-        ->update([
-            'policy' => $request->policy
-        ]);
+            ->update([
+                'policy' => $request->policy
+            ]);
     }
 }

@@ -197,9 +197,12 @@ export default {
       }
 
       this.modal_loading = true;
-      
-      console.log("item", item);
-      return;
+
+      let array = [];
+      for (let i of item.posts) {
+        array.push(i.candidates[i.selectedIndex].id);
+      }
+      item.candidateIds = array;
       const res = await this.callApi(
         "post",
         `/app/alumni/election/cast-vote/${item.id}`,

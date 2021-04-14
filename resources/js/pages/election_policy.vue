@@ -6,7 +6,21 @@
           <div class="card-header card-header-tabs card-header-primary">
             <div class="nav-tabs-navigation">
               <div class="nav-tabs-wrapper">
-                <h4 class="card-title">Election Policty</h4>
+                <h4 class="card-title">Election Policy</h4>
+                <ul
+                  v-if="
+                    electionCommision.policy != '' && authUser.role == 'admin'
+                  "
+                  class="nav nav-tabs"
+                  data-tabs="tabs"
+                >
+                  <li class="nav-item">
+                    <a class="nav-link active" @click="openEditModal">
+                      <i class="material-icons">source</i> Add Election Policy
+                      <div class="ripple-container"></div>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -14,7 +28,7 @@
             <table class="table table-hover">
               <thead class="text-warning">
                 <th>Policy</th>
-                <th>Action</th>
+                <th v-if="authUser.role == 'Admin'">Action</th>
               </thead>
               <tbody>
                 <tr
@@ -22,14 +36,12 @@
                   v-for="(item, index) in allElectionPolicies"
                   :key="'ad' + index"
                 >
-                  <td>{{ item.policy ? item.policy : "N/A" }}</td>
-
                   <td>
-                    <div
-                      @click="openEditModal(index)"
-                      :disabled="deleteLoading && deleteIndex == index"
-                      class="btn btn-default"
-                    >
+                    <img v-if="item.policy" :src="item.policy" alt="" />
+                  </td>
+
+                  <td v-if="authUser.role == 'admin'">
+                    <div @click="openEditModal" class="btn btn-default">
                       Edit
                     </div>
                   </td>
@@ -50,10 +62,10 @@
       </div>
     </div>
 
-    <!-- edit modal -->
+    <!-- create modal -->
     <Modal
-      title="Edit Election Policy"
-      v-model="editModal"
+      title="Update Election Policy"
+      v-model="createModal"
       :footer-hide="true"
       :mask-closable="false"
       :closable="false"
@@ -62,8 +74,27 @@
         <div class="row">
           <div class="col-12">
             <div class="form-group">
-              <label class="bmd-label-floating">User</label>
-              <Input type="textarea" v-model="editData.policy"></Input>
+              <label class="bmd-label-floating">Policy</label>
+              <Upload
+                ref="upload"
+                multiple
+                type="drag"
+                action="/app/upload/file"
+                :on-success="handleSuccess"
+                :format="['jpg', 'jpeg', 'png']"
+                :max-size="20480"
+                :on-format-error="handleFormatError"
+                :on-exceeded-size="handleMaxSize"
+              >
+                <div style="padding: 20px 0">
+                  <Icon
+                    type="ios-cloud-upload"
+                    size="52"
+                    style="color: #3399ff"
+                  ></Icon>
+                  <p>Click or drag files here to upload</p>
+                </div>
+              </Upload>
               <p v-if="error.policy" class="text-danger">
                 <Icon type="md-alert" /> {{ error.policy }}
               </p>
@@ -79,7 +110,7 @@
             <Loader position="inline" color="white" />
           </template>
           <template v-else>
-            <p>Edit</p>
+            <p>Update</p>
           </template>
         </button>
         <button @click="closeModal" class="btn btn-default pull-right">
@@ -88,7 +119,7 @@
         <div class="clearfix"></div>
       </form>
     </Modal>
-    <!-- edit modal end  -->
+    <!-- create modal end  -->
   </div>
 </template>
 <script>
@@ -97,6 +128,7 @@ export default {
     return {
       allElectionPolicies: [],
       tableLoading: true,
+      createModal: false,
       editModal: false,
       modal_loading: false,
 
@@ -110,6 +142,8 @@ export default {
       editData: {},
       page: 1,
       allUsers: [],
+
+      uploadFile: false,
     };
   },
   methods: {
@@ -127,9 +161,9 @@ export default {
       };
     },
 
-    openEditModal(index) {
+    openEditModal() {
       this.clearErrorData();
-      this.editModal = true;
+      this.createModal = true;
       this.editData = _.clone(this.allElectionPolicies[index]);
       this.editIndex = _.clone(index);
     },
@@ -162,6 +196,7 @@ export default {
       }
       this.clearData();
       this.closeModal();
+      this.$refs.upload.clearFiles();
     },
 
     async paginate() {
@@ -173,6 +208,32 @@ export default {
         this.nswr();
       }
       this.tableLoading = false;
+    },
+
+    handleRemove() {
+      this.electionCommision.policy = "";
+      this.$refs.upload.clearFiles();
+    },
+
+    handleSuccess(res, file) {
+      this.editData.policy = res.url;
+    },
+
+    handleFormatError(file) {
+      this.$Notice.warning({
+        title: "The file format is incorrect",
+        desc:
+          "File format of " +
+          file.name +
+          " is incorrect, please select jpg or png.",
+      });
+    },
+
+    handleMaxSize(file) {
+      this.$Notice.warning({
+        title: "Exceeding file size limit",
+        desc: "File  " + file.name + " is too large, no more than 2M.",
+      });
     },
   },
 

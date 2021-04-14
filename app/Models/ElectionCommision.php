@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ElectionCommision extends Model
 {
-    protected $fillable = ['user_id', 'position'];
+    protected $fillable = ['name', 'position'];
 
     public function user()
     {

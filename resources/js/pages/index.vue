@@ -38,7 +38,7 @@
                   <div class="form-group">
                     <label class="bmd-label-floating">Date:</label>
                     <span>
-                      {{ electionOverview.date_and_time | formatDate }}</span
+                      {{ electionOverview.date_and_time | formatDateTime }}</span
                     >
                   </div>
                   <span
@@ -78,6 +78,14 @@
                             :key="'pst' + pindex"
                             :style="' margin: 5px;'"
                           >
+                            <p>
+                              {{
+                                electionOverview.isEnded == "yes" &&
+                                (pindex == 0 || item.candidates.length == 1)
+                                  ? "Winner"
+                                  : ""
+                              }}
+                            </p>
                             <img
                               @click="selectIndex(item, pindex)"
                               :src="img.symbol"
@@ -87,7 +95,7 @@
                             <span v-if="img.user">{{ img.user.name }}</span>
                             <p class="mt-2">
                               Total Votes:
-                              {{ item.votes_count ? item.votes_count : 0 }}
+                              {{ img.total_votes ? img.total_votes : 0 }}
                             </p>
                           </span>
                         </div>
